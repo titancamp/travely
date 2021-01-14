@@ -11,9 +11,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		SolutionItems\Architecture Review.pptx = SolutionItems\Architecture Review.pptx
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely․TourManager.API", "TourManager\Travely․TourManager.API\Travely․TourManager.API.csproj", "{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}
