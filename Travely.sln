@@ -11,43 +11,45 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		SolutionItems\Architecture Review.pptx = SolutionItems\Architecture Review.pptx
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely․TourManager.API", "TourManager\Travely․TourManager.API\Travely․TourManager.API.csproj", "{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely․TourManager.API", "src\TourManager\Travely․TourManager.API\Travely․TourManager.API.csproj", "{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely․TourManager.API.Model", "TourManager\Travely․TourManager.API.Model\Travely․TourManager.API.Model.csproj", "{1364D557-6F6B-433B-B1DE-C08B3A09FA91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely․TourManager.API.Model", "src\TourManager\Travely․TourManager.API.Model\Travely․TourManager.API.Model.csproj", "{1364D557-6F6B-433B-B1DE-C08B3A09FA91}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely․TourManager.Service", "TourManager\Travely․TourManager.Service\Travely․TourManager.Service.csproj", "{88706F69-278E-4BDB-B397-04C5EFB969D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely․TourManager.Service", "src\TourManager\Travely․TourManager.Service\Travely․TourManager.Service.csproj", "{88706F69-278E-4BDB-B397-04C5EFB969D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely․TourManager.Data", "TourManager\Travely․TourManager.Data\Travely․TourManager.Data.csproj", "{5E9D68A4-5653-4A6D-B099-E2AF8703BB03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely․TourManager.Data", "src\TourManager\Travely․TourManager.Data\Travely․TourManager.Data.csproj", "{5E9D68A4-5653-4A6D-B099-E2AF8703BB03}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientManager", "ClientManager", "{DD524728-1376-4BBE-9528-4FC9688B8F8B}"
 	ProjectSection(SolutionItems) = preProject
-		ClientManager\test.txt = ClientManager\test.txt
+		src\ClientManager\test.txt = src\ClientManager\test.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EquipmentManager", "EquipmentManager", "{A7E62B25-7DC0-4B54-B652-E74837FE2DCC}"
 	ProjectSection(SolutionItems) = preProject
-		EquipmentManager\test.txt = EquipmentManager\test.txt
+		src\EquipmentManager\test.txt = src\EquipmentManager\test.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityManager", "IdentityManager", "{1742E743-3758-4121-8FF3-61FC2BAB3F24}"
 	ProjectSection(SolutionItems) = preProject
-		IdentityManager\test.txt = IdentityManager\test.txt
+		src\IdentityManager\test.txt = src\IdentityManager\test.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PropertyManager", "PropertyManager", "{DFD7AFF6-28B5-4371-AD7C-D5E84F2B8172}"
 	ProjectSection(SolutionItems) = preProject
-		PropertyManager\test.txt = PropertyManager\test.txt
+		src\PropertyManager\test.txt = src\PropertyManager\test.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SchedulerManager", "SchedulerManager", "{160F72D1-9D69-4FE2-9D68-53CB828103DF}"
 	ProjectSection(SolutionItems) = preProject
-		SchedulerManager\test.txt = SchedulerManager\test.txt
+		src\SchedulerManager\test.txt = src\SchedulerManager\test.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceManager", "ServiceManager", "{E26E508D-1A14-4C81-AC6C-3F78699C9B37}"
 	ProjectSection(SolutionItems) = preProject
-		ServiceManager\test.txt = ServiceManager\test.txt
+		src\ServiceManager\test.txt = src\ServiceManager\test.txt
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,10 +78,17 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{90D98036-508B-4ED9-A502-0D0340502EC4} = {9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}
 		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{1364D557-6F6B-433B-B1DE-C08B3A09FA91} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{88706F69-278E-4BDB-B397-04C5EFB969D4} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{DD524728-1376-4BBE-9528-4FC9688B8F8B} = {9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}
+		{A7E62B25-7DC0-4B54-B652-E74837FE2DCC} = {9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}
+		{1742E743-3758-4121-8FF3-61FC2BAB3F24} = {9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}
+		{DFD7AFF6-28B5-4371-AD7C-D5E84F2B8172} = {9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}
+		{160F72D1-9D69-4FE2-9D68-53CB828103DF} = {9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}
+		{E26E508D-1A14-4C81-AC6C-3F78699C9B37} = {9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}
