@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Travely_TourManager.Repository
+namespace Travely.TourManager.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {

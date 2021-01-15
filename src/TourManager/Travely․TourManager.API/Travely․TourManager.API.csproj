@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Travely_TourManager.API</RootNamespace>
+    <RootNamespace>Travely.TourManager.API</RootNamespace>
     <UserSecretsId>e20cced8-7f3d-40dc-a559-13ef03f83c02</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Travely․TourManager.API.Model\Travely․TourManager.API.Model.csproj" />
+    <ProjectReference Include="..\Travely․TourManager.Common\Travely․TourManager.Common.csproj" />
     <ProjectReference Include="..\Travely․TourManager.Repository\Travely․TourManager.Repository.csproj" />
     <ProjectReference Include="..\Travely․TourManager.Service\Travely․TourManager.Service.csproj" />
   </ItemGroup>

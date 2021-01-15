@@ -47,7 +47,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely․TourManager.Repos
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely․TourManager", "src\TourManager\Travely․TourManager\Travely․TourManager.csproj", "{30DC055D-3D6A-4D69-B752-1B77636FFBAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely․TourManager.Common", "src\TourManager\Travely․TourManager.Common\Travely․TourManager.Common.csproj", "{258E158C-4034-491B-85CE-5885EE47D33A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely․TourManager.Common", "src\TourManager\Travely․TourManager.Common\Travely․TourManager.Common.csproj", "{0A9B98E3-759F-452E-9B8F-83E49BC67EB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,10 +75,10 @@ Global
 		{30DC055D-3D6A-4D69-B752-1B77636FFBAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30DC055D-3D6A-4D69-B752-1B77636FFBAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30DC055D-3D6A-4D69-B752-1B77636FFBAE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{258E158C-4034-491B-85CE-5885EE47D33A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{258E158C-4034-491B-85CE-5885EE47D33A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{258E158C-4034-491B-85CE-5885EE47D33A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{258E158C-4034-491B-85CE-5885EE47D33A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A9B98E3-759F-452E-9B8F-83E49BC67EB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A9B98E3-759F-452E-9B8F-83E49BC67EB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A9B98E3-759F-452E-9B8F-83E49BC67EB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A9B98E3-759F-452E-9B8F-83E49BC67EB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,7 +89,7 @@ Global
 		{88706F69-278E-4BDB-B397-04C5EFB969D4} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{1CC42919-25B2-4F21-B8E1-598C563BC6EB} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{30DC055D-3D6A-4D69-B752-1B77636FFBAE} = {90D98036-508B-4ED9-A502-0D0340502EC4}
-		{258E158C-4034-491B-85CE-5885EE47D33A} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{0A9B98E3-759F-452E-9B8F-83E49BC67EB0} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}

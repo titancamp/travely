@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Travely_TourManager
+namespace Travely.TourManager
 {
     public interface IUnitOfWork : IDisposable
     {

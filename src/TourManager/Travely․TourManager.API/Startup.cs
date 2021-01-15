@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace Travely_TourManager.API
+namespace Travely.TourManager.API
 {
     public class Startup
     {
@@ -23,7 +23,7 @@ namespace Travely_TourManager.API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Travely_TourManager.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Travely.TourManager.API", Version = "v1" });
             });
         }
 
@@ -34,7 +34,7 @@ namespace Travely_TourManager.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Travely_TourManager.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Travely.TourManager.API v1"));
             }
 
             app.UseHttpsRedirection();

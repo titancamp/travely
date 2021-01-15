@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Travely_TourManager.API
+namespace Travely.TourManager.API
 {
     public class Program
     {
