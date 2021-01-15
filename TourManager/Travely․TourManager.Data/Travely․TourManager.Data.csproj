@@ -5,4 +5,13 @@
     <RootNamespace>Travely_TourManager.Data</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Travely․TourManager\Travely․TourManager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

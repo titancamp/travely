@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Travely․TourManager.Data\Travely․TourManager.Data.csproj" />
+    <ProjectReference Include="..\Travely․TourManager\Travely․TourManager.csproj" />
   </ItemGroup>
 
 </Project>
