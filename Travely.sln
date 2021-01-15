@@ -6,10 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TourManager", "TourManager", "{90D98036-508B-4ED9-A502-0D0340502EC4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{7EA3055C-8CB7-48A8-81F3-3AF46E88F634}"
-	ProjectSection(SolutionItems) = preProject
-		SolutionItems\Architecture Discussion.pptx = SolutionItems\Architecture Discussion.pptx
-		SolutionItems\Architecture Review.pptx = SolutionItems\Architecture Review.pptx
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely․TourManager.API", "src\TourManager\Travely․TourManager.API\Travely․TourManager.API.csproj", "{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}"
 EndProject
@@ -49,8 +45,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceManager", "ServiceMa
 		src\ServiceManager\test.txt = src\ServiceManager\test.txt
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,17 +72,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{90D98036-508B-4ED9-A502-0D0340502EC4} = {9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}
 		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{1364D557-6F6B-433B-B1DE-C08B3A09FA91} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{88706F69-278E-4BDB-B397-04C5EFB969D4} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03} = {90D98036-508B-4ED9-A502-0D0340502EC4}
-		{DD524728-1376-4BBE-9528-4FC9688B8F8B} = {9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}
-		{A7E62B25-7DC0-4B54-B652-E74837FE2DCC} = {9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}
-		{1742E743-3758-4121-8FF3-61FC2BAB3F24} = {9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}
-		{DFD7AFF6-28B5-4371-AD7C-D5E84F2B8172} = {9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}
-		{160F72D1-9D69-4FE2-9D68-53CB828103DF} = {9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}
-		{E26E508D-1A14-4C81-AC6C-3F78699C9B37} = {9CC57DEF-BED9-48C1-9DD8-9A2271EA0609}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}
