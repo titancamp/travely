@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Travely․TourManager.API.Model\Travely․TourManager.API.Model.csproj" />
+    <ProjectReference Include="..\Travely․TourManager.Repository\Travely․TourManager.Repository.csproj" />
     <ProjectReference Include="..\Travely․TourManager.Service\Travely․TourManager.Service.csproj" />
   </ItemGroup>
 

@@ -1,0 +1,1 @@
+﻿This project is used to store all models that will be used by Frontend projects.

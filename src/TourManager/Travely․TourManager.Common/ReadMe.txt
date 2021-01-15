@@ -1,0 +1,1 @@
+﻿This project is used to store helpers and common files for all projects.

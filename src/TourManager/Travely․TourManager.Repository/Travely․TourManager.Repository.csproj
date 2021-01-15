@@ -2,11 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Travely_TourManager.Service</RootNamespace>
+    <RootNamespace>Travely_TourManager.Repository</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Travely․TourManager.Repository\Travely․TourManager.Repository.csproj" />
     <ProjectReference Include="..\Travely․TourManager\Travely․TourManager.csproj" />
   </ItemGroup>
 
