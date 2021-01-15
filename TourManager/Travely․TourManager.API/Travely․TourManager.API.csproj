@@ -19,4 +19,9 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Travely․TourManager.API.Model\Travely․TourManager.API.Model.csproj" />
+    <ProjectReference Include="..\Travely․TourManager.Service\Travely․TourManager.Service.csproj" />
+  </ItemGroup>
+
 </Project>
