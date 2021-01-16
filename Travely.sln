@@ -37,11 +37,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceManager", "ServiceMa
 		src\ServiceManager\test.txt = src\ServiceManager\test.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.TourManager.Service", "src\TourManager\Travely.TourManager.Service\Travely.TourManager.Service.csproj", "{88DDC40E-038E-4A48-AA1B-B561E77B2AB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.TourManager.Service", "src\TourManager\Service\Travely.TourManager.Service.csproj", "{4D782A27-B6B9-4BD0-A2D5-5196A65B14D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.TourManager.Repository", "src\TourManager\Travely.TourManager.Repository\Travely.TourManager.Repository.csproj", "{C7BF5201-631D-4559-8BC0-91792225D9D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.TourManager.Repository", "src\TourManager\Repository\Travely.TourManager.Repository.csproj", "{D68BF69B-CCF1-411A-8558-089FBBE61E6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.TourManager.Api", "src\TourManager\Travely.TourManager.Api\Travely.TourManager.Api.csproj", "{38EE7DD5-3E75-46CB-8B82-9323D34A01AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.TourManager.Api", "src\TourManager\Api\Travely.TourManager.Api.csproj", "{B3F936E1-7454-473E-98D0-9EB11D4C2048}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,26 +49,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{88DDC40E-038E-4A48-AA1B-B561E77B2AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{88DDC40E-038E-4A48-AA1B-B561E77B2AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{88DDC40E-038E-4A48-AA1B-B561E77B2AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{88DDC40E-038E-4A48-AA1B-B561E77B2AB4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C7BF5201-631D-4559-8BC0-91792225D9D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C7BF5201-631D-4559-8BC0-91792225D9D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C7BF5201-631D-4559-8BC0-91792225D9D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C7BF5201-631D-4559-8BC0-91792225D9D1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38EE7DD5-3E75-46CB-8B82-9323D34A01AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38EE7DD5-3E75-46CB-8B82-9323D34A01AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38EE7DD5-3E75-46CB-8B82-9323D34A01AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38EE7DD5-3E75-46CB-8B82-9323D34A01AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D782A27-B6B9-4BD0-A2D5-5196A65B14D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D782A27-B6B9-4BD0-A2D5-5196A65B14D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D782A27-B6B9-4BD0-A2D5-5196A65B14D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D782A27-B6B9-4BD0-A2D5-5196A65B14D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D68BF69B-CCF1-411A-8558-089FBBE61E6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D68BF69B-CCF1-411A-8558-089FBBE61E6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D68BF69B-CCF1-411A-8558-089FBBE61E6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D68BF69B-CCF1-411A-8558-089FBBE61E6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3F936E1-7454-473E-98D0-9EB11D4C2048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3F936E1-7454-473E-98D0-9EB11D4C2048}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3F936E1-7454-473E-98D0-9EB11D4C2048}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3F936E1-7454-473E-98D0-9EB11D4C2048}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{88DDC40E-038E-4A48-AA1B-B561E77B2AB4} = {90D98036-508B-4ED9-A502-0D0340502EC4}
-		{C7BF5201-631D-4559-8BC0-91792225D9D1} = {90D98036-508B-4ED9-A502-0D0340502EC4}
-		{38EE7DD5-3E75-46CB-8B82-9323D34A01AF} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{4D782A27-B6B9-4BD0-A2D5-5196A65B14D2} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{D68BF69B-CCF1-411A-8558-089FBBE61E6C} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{B3F936E1-7454-473E-98D0-9EB11D4C2048} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}

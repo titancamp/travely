@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Travely.TourManager.Service\Travely.TourManager.Service.csproj" />
+    <ProjectReference Include="..\Service\Travely.TourManager.Service.csproj" />
   </ItemGroup>
 
 </Project>

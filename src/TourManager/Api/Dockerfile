@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-COPY ["src/TourManager/Travely.TourManager.Api/Travely.TourManager.Api.csproj", "src/TourManager/Travely.TourManager.Api/"]
-RUN dotnet restore "src/TourManager/Travely.TourManager.Api/Travely.TourManager.Api.csproj"
+COPY ["src/TourManager/Api/Travely.TourManager.Api.csproj", "src/TourManager/Api/"]
+RUN dotnet restore "src/TourManager/Api/Travely.TourManager.Api.csproj"
 COPY . .
-WORKDIR "/src/src/TourManager/Travely.TourManager.Api"
+WORKDIR "/src/src/TourManager/Api"
 RUN dotnet build "Travely.TourManager.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
