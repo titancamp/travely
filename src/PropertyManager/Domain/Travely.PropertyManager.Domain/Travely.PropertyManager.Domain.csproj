@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Travely.PropertyManager.Data.Contracts\Travely.PropertyManager.Data.Contracts.csproj" />
+    <ProjectReference Include="..\Travely.PropertyManager.Domain.Contracts\Travely.PropertyManager.Domain.Contracts.csproj" />
+    <ProjectReference Include="..\Travely.PropertyManager.Domain.Entities\Travely.PropertyManager.Domain.Entities.csproj" />
+  </ItemGroup>
+
+</Project>
