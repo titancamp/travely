@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 
 namespace Travely.TourManager.Api.Controllers
 {
-    [Route("api/Tour")]
+    [ApiController]
+    [Route("[controller]")]
     public class TourController : Controller
     {
         [HttpGet]
