@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+option csharp_namespace = "ClientManager.Protos";
+
+import "google/protobuf/timestamp.proto";
+//import "google/protobuf/empty.proto";
+
+
+service ClientProtoService {
+  
+rpc GetClient (GetClientRequest) returns (ClientModel);
+rpc GetAllClients (GetAllClientsRequest) returns (stream ClientModel);
+
+rpc AddClient (AddClientRequest) returns (ClientModel);
+rpc UpdateClient (UpdateClientRequest) returns (ClientModel);
+rpc DeleteClient (DeleteClientRequest) returns (DeleteClientResponse);
+
+rpc AddRangeClient(stream ClientModel) returns (AddRangeClientReponse);
+
+}
+
+message GetClientRequest{
+	int32 id = 1;
+}
+
+message GetAllClientsRequest{
+
+}
+
+message AddClientRequest{
+	ClientModel client = 1; 
+}
+
+message UpdateClientRequest{
+	ClientModel client = 1;
+}
+
+message DeleteClientRequest{
+	int32 id = 1;
+}
+
+message DeleteClientResponse{
+	bool success = 1;
+}
+
+message AddRangeClientReponse{
+	bool success = 1;
+	int32 insertCount = 2;
+}
+
+message ClientModel{
+	int32 Id = 1;
+	google.protobuf.Timestamp createdDate = 2;
+	string firstName = 3;
+	string lastName = 4;
+	string description = 5;
+	ClientType type = 6;
+	string passportId = 7;
+	string phoneNumber = 8;
+	GenderType gender = 9;
+	int32 age = 10;
+}
+
+enum GenderType {
+	Male = 0;
+	Female = 1;
+}
+
+enum ClientType{
+	Type1 = 0;
+}
