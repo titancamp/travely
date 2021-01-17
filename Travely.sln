@@ -45,6 +45,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceManager", "ServiceMa
 		src\ServiceManager\test.txt = src\ServiceManager\test.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.ClientManager.Repository.SqlServer", "src\ClientManager\Travely.ClientManager.Repository.SqlServer\Travely.ClientManager.Repository.SqlServer.csproj", "{42143658-1D93-438C-8888-6B21ABA7C791}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.ClientManager.Service", "src\ClientManager\Travely.ClientManager.Service\Travely.ClientManager.Service.csproj", "{01CFF23F-F7E5-4263-B563-489069A1B906}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +71,14 @@ Global
 		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42143658-1D93-438C-8888-6B21ABA7C791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42143658-1D93-438C-8888-6B21ABA7C791}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42143658-1D93-438C-8888-6B21ABA7C791}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42143658-1D93-438C-8888-6B21ABA7C791}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01CFF23F-F7E5-4263-B563-489069A1B906}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01CFF23F-F7E5-4263-B563-489069A1B906}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01CFF23F-F7E5-4263-B563-489069A1B906}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01CFF23F-F7E5-4263-B563-489069A1B906}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +88,8 @@ Global
 		{1364D557-6F6B-433B-B1DE-C08B3A09FA91} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{88706F69-278E-4BDB-B397-04C5EFB969D4} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{42143658-1D93-438C-8888-6B21ABA7C791} = {DD524728-1376-4BBE-9528-4FC9688B8F8B}
+		{01CFF23F-F7E5-4263-B563-489069A1B906} = {DD524728-1376-4BBE-9528-4FC9688B8F8B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}
