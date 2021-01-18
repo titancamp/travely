@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Travely.Repository.Common\Travely.Repository.Common.csproj" />
+    <ProjectReference Include="..\..\..\Travely.ClientManager.Domain\Travely.ClientManager.Domain.csproj" />
     <ProjectReference Include="..\Travely.ClientManager.Repository.SqlServer\Travely.ClientManager.Repository.SqlServer.csproj" />
   </ItemGroup>
 
