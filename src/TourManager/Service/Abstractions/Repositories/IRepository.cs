@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 
-namespace Travely.TourManager.Service.Repositories
+namespace Travely.TourManager.Abstractions.Repositories
 {
     public interface IRepository<TEntity> where TEntity : class
     {

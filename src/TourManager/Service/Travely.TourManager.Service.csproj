@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Abstractions\GrpcServices\" />
     <Folder Include="Models\" />
   </ItemGroup>
 
