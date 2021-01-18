@@ -1,4 +1,4 @@
-﻿namespace Travely.TourManager.Service.Enums
+﻿namespace Travely.TourManager.Enums
 {
     public enum BookStatus : int
     {

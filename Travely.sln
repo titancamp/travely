@@ -43,6 +43,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.TourManager.Reposit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.TourManager.Api", "src\TourManager\Api\Travely.TourManager.Api.csproj", "{B3F936E1-7454-473E-98D0-9EB11D4C2048}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.TourManager.Abstractions", "src\TourManager\Abstractions\Travely.TourManager.Abstractions.csproj", "{29B7A758-7F7B-420F-ADBF-DDB87631A461}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.TourManager.InternalClient.Grpc", "src\TourManager\InternalClient.Grpc\Travely.TourManager.InternalClient.Grpc.csproj", "{610E0DF1-A248-402E-8BE7-E23BA2197163}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.TourManager.Bootstrapper", "src\TourManager\Bootstrapper\Travely.TourManager.Bootstrapper.csproj", "{69157CAD-EA8B-41AD-AD8C-2681D232DF01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +67,18 @@ Global
 		{B3F936E1-7454-473E-98D0-9EB11D4C2048}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3F936E1-7454-473E-98D0-9EB11D4C2048}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3F936E1-7454-473E-98D0-9EB11D4C2048}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29B7A758-7F7B-420F-ADBF-DDB87631A461}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29B7A758-7F7B-420F-ADBF-DDB87631A461}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29B7A758-7F7B-420F-ADBF-DDB87631A461}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29B7A758-7F7B-420F-ADBF-DDB87631A461}.Release|Any CPU.Build.0 = Release|Any CPU
+		{610E0DF1-A248-402E-8BE7-E23BA2197163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{610E0DF1-A248-402E-8BE7-E23BA2197163}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{610E0DF1-A248-402E-8BE7-E23BA2197163}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{610E0DF1-A248-402E-8BE7-E23BA2197163}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69157CAD-EA8B-41AD-AD8C-2681D232DF01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69157CAD-EA8B-41AD-AD8C-2681D232DF01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69157CAD-EA8B-41AD-AD8C-2681D232DF01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69157CAD-EA8B-41AD-AD8C-2681D232DF01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +87,9 @@ Global
 		{4D782A27-B6B9-4BD0-A2D5-5196A65B14D2} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{D68BF69B-CCF1-411A-8558-089FBBE61E6C} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{B3F936E1-7454-473E-98D0-9EB11D4C2048} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{29B7A758-7F7B-420F-ADBF-DDB87631A461} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{610E0DF1-A248-402E-8BE7-E23BA2197163} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{69157CAD-EA8B-41AD-AD8C-2681D232DF01} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}

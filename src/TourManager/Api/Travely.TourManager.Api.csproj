@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Repository\Travely.TourManager.Repository.csproj" />
-    <ProjectReference Include="..\Service\Travely.TourManager.Service.csproj" />
+    <ProjectReference Include="..\Abstractions\Travely.TourManager.Abstractions.csproj" />
+    <ProjectReference Include="..\Bootstrapper\Travely.TourManager.Bootstrapper.csproj" />
   </ItemGroup>
 
 </Project>

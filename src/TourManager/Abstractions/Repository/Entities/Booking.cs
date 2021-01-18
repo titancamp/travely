@@ -1,7 +1,7 @@
 ﻿using System;
-using Travely.TourManager.Service.Enums;
+using Travely.TourManager.Enums;
 
-namespace Travely.TourManager.Service.Entities
+namespace Travely.TourManager.Repository.Entities
 {
     public class Booking
     {

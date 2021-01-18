@@ -5,9 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Configurations\" />
-    <Folder Include="Migrations\" />
-    <Folder Include="Repositories\" />
+    <Folder Include="ClientManager\" />
+    <Folder Include="EquipmentManager\" />
+    <Folder Include="SchedulerManager\" />
+    <Folder Include="PropertyManager\" />
+    <Folder Include="ServiceManager\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,8 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Abstractions\GrpcServices\" />
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\Abstractions\Travely.TourManager.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Validations\" />
   </ItemGroup>
 
 </Project>

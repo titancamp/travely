@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Travely.TourManager.Service.Repositories;
+using Travely.TourManager.Repository.Abstractions;
 
 namespace Travely.TourManager.Repository
 {

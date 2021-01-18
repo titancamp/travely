@@ -1,4 +1,4 @@
-﻿namespace Travely.TourManager.Service.Entities
+﻿namespace Travely.TourManager.Repository.Entities
 {
     public class Client
     {

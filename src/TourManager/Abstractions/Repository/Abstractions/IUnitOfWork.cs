@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Travely.TourManager.Abstractions.Repositories
+namespace Travely.TourManager.Repository.Abstractions
 {
     public interface IUnitOfWork : IDisposable
     {

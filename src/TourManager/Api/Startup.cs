@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using Travely.TourManager.Bootstrapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
 namespace Travely.TourManager.Api
 {
@@ -20,10 +20,7 @@ namespace Travely.TourManager.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Travely.TourManager.Api", Version = "v1" });
-            });
+            services.AddTravelySwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,8 +29,7 @@ namespace Travely.TourManager.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Travely.TourManager.Api v1"));
+                app.UseTravelySwagger();
             }
 
             app.UseHttpsRedirection();
