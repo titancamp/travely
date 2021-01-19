@@ -7,14 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TourManager", "TourManager"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{7EA3055C-8CB7-48A8-81F3-3AF46E88F634}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely․TourManager.API", "src\TourManager\Travely․TourManager.API\Travely․TourManager.API.csproj", "{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely․TourManager.API.Model", "src\TourManager\Travely․TourManager.API.Model\Travely․TourManager.API.Model.csproj", "{1364D557-6F6B-433B-B1DE-C08B3A09FA91}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely․TourManager.Service", "src\TourManager\Travely․TourManager.Service\Travely․TourManager.Service.csproj", "{88706F69-278E-4BDB-B397-04C5EFB969D4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely․TourManager.Data", "src\TourManager\Travely․TourManager.Data\Travely․TourManager.Data.csproj", "{5E9D68A4-5653-4A6D-B099-E2AF8703BB03}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientManager", "ClientManager", "{DD524728-1376-4BBE-9528-4FC9688B8F8B}"
 	ProjectSection(SolutionItems) = preProject
 		src\ClientManager\test.txt = src\ClientManager\test.txt
@@ -45,37 +37,38 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceManager", "ServiceMa
 		src\ServiceManager\test.txt = src\ServiceManager\test.txt
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.TourManager.Service", "src\TourManager\Service\Travely.TourManager.Service.csproj", "{4D782A27-B6B9-4BD0-A2D5-5196A65B14D2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.TourManager.Repository", "src\TourManager\Repository\Travely.TourManager.Repository.csproj", "{D68BF69B-CCF1-411A-8558-089FBBE61E6C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.TourManager.Api", "src\TourManager\Api\Travely.TourManager.Api.csproj", "{B3F936E1-7454-473E-98D0-9EB11D4C2048}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1364D557-6F6B-433B-B1DE-C08B3A09FA91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1364D557-6F6B-433B-B1DE-C08B3A09FA91}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1364D557-6F6B-433B-B1DE-C08B3A09FA91}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1364D557-6F6B-433B-B1DE-C08B3A09FA91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{88706F69-278E-4BDB-B397-04C5EFB969D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{88706F69-278E-4BDB-B397-04C5EFB969D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{88706F69-278E-4BDB-B397-04C5EFB969D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{88706F69-278E-4BDB-B397-04C5EFB969D4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D782A27-B6B9-4BD0-A2D5-5196A65B14D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D782A27-B6B9-4BD0-A2D5-5196A65B14D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D782A27-B6B9-4BD0-A2D5-5196A65B14D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D782A27-B6B9-4BD0-A2D5-5196A65B14D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D68BF69B-CCF1-411A-8558-089FBBE61E6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D68BF69B-CCF1-411A-8558-089FBBE61E6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D68BF69B-CCF1-411A-8558-089FBBE61E6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D68BF69B-CCF1-411A-8558-089FBBE61E6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3F936E1-7454-473E-98D0-9EB11D4C2048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3F936E1-7454-473E-98D0-9EB11D4C2048}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3F936E1-7454-473E-98D0-9EB11D4C2048}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3F936E1-7454-473E-98D0-9EB11D4C2048}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09} = {90D98036-508B-4ED9-A502-0D0340502EC4}
-		{1364D557-6F6B-433B-B1DE-C08B3A09FA91} = {90D98036-508B-4ED9-A502-0D0340502EC4}
-		{88706F69-278E-4BDB-B397-04C5EFB969D4} = {90D98036-508B-4ED9-A502-0D0340502EC4}
-		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{4D782A27-B6B9-4BD0-A2D5-5196A65B14D2} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{D68BF69B-CCF1-411A-8558-089FBBE61E6C} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{B3F936E1-7454-473E-98D0-9EB11D4C2048} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}
