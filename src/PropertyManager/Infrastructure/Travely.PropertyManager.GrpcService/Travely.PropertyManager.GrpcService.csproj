@@ -15,7 +15,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Travely.PropertyManager.Bootstrapper\Travely.PropertyManager.Bootstrapper.csproj" />
     <ProjectReference Include="..\Travely.PropertyManager.Data.Contracts\Travely.PropertyManager.Data.Contracts.csproj" />
-    <ProjectReference Include="..\Travely.PropertyManager.Data\Travely.PropertyManager.Data.csproj" />
     <ProjectReference Include="..\Travely.PropertyManager.GrpcService.Contracts\Travely.PropertyManager.GrpcService.Contracts.csproj" />
   </ItemGroup>
 
