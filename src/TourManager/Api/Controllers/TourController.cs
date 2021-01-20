@@ -22,7 +22,7 @@ namespace Travely.TourManager.Api.Controllers
             return Ok();
         }
 
-        // POST: api/v1/tour/id
+        // POST: api/v1/tour
         [HttpPost]
         public async Task<IActionResult> Post()
         {
