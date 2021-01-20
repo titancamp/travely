@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "Travely.SchedulerManager.Service";
+option csharp_namespace = "Travely.SchedulerManager.API";
 
 package greet;
 
