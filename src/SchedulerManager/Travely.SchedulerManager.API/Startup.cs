@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Travely.SchedulerManager.Notifier;
 
 namespace Travely.SchedulerManager.API
 {
@@ -10,6 +11,18 @@ namespace Travely.SchedulerManager.API
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CORS",
+                    builder =>
+                    {
+                        builder.AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials()
+                            .WithOrigins("http://localhost:3000");
+                    });
+            });
+            services.AddNotifier();
             services.AddGrpc();
         }
 
@@ -20,7 +33,10 @@ namespace Travely.SchedulerManager.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("CORS");
             app.UseRouting();
+
+            app.UseNotifier();
 
             app.UseEndpoints(endpoints =>
             {

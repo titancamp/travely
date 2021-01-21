@@ -16,4 +16,10 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Travely.SchedulerManager.Jobs\Travely.SchedulerManager.Jobs.csproj" />
+    <ProjectReference Include="..\Travely.SchedulerManager.Notifier\Travely.SchedulerManager.Notifier.csproj" />
+    <ProjectReference Include="..\Travely.SchedulerManager.Service\Travely.SchedulerManager.Service.csproj" />
+  </ItemGroup>
+
 </Project>
