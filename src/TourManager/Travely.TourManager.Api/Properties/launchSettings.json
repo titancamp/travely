@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Travely.TourManager.Api": {
+    "TourManager.Api": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
