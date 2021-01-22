@@ -57,7 +57,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourManager.Clients.Abstrac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourManager.Clients.Implementation", "src\TourManager\TourManager.Clients.Implementation\TourManager.Clients.Implementation.csproj", "{6FAE42F0-FCA3-47C9-95C7-A2338B6997E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.TourManager.Api", "src\TourManager\Travely.TourManager.Api\Travely.TourManager.Api.csproj", "{23F847CF-A1AC-4411-A1CD-F0F6FF7F6638}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourManager.Api", "src\TourManager\Travely.TourManager.Api\TourManager.Api.csproj", "{23F847CF-A1AC-4411-A1CD-F0F6FF7F6638}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
