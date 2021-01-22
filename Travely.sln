@@ -48,7 +48,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.Ab
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.Repository", "src\SchedulerManager\Travely.SchedulerManager.Repository\Travely.SchedulerManager.Repository.csproj", "{E1F72EDC-67A1-4F98-8044-1F648FFB3105}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.Jobs", "src\SchedulerManager\Travely.SchedulerManager.Jobs\Travely.SchedulerManager.Jobs.csproj", "{45A3D98F-7EDF-4036-A96B-6ECDE159CC4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.Job", "src\SchedulerManager\Travely.SchedulerManager.Job\Travely.SchedulerManager.Job.csproj", "{45A3D98F-7EDF-4036-A96B-6ECDE159CC4B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.Notifier", "src\SchedulerManager\Travely.SchedulerManager.Notifier\Travely.SchedulerManager.Notifier.csproj", "{3FFF39FD-E734-4740-8603-170B312BFFAB}"
 EndProject
