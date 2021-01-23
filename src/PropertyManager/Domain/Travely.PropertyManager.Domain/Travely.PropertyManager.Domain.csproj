@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Travely.PropertyManager.Data.Contracts\Travely.PropertyManager.Data.Contracts.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Travely.PropertyManager.Data\Travely.PropertyManager.Data.csproj" />
     <ProjectReference Include="..\Travely.PropertyManager.Domain.Contracts\Travely.PropertyManager.Domain.Contracts.csproj" />
     <ProjectReference Include="..\Travely.PropertyManager.Domain.Entities\Travely.PropertyManager.Domain.Entities.csproj" />
   </ItemGroup>

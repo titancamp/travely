@@ -16,12 +16,6 @@ namespace Travely.PropertyManager.Bootstrapper.Helpers
             return services;
         }
 
-        public static IServiceCollection RegisterRepositories(this IServiceCollection services)
-        {
-            Bootstrapper.RegisterRepositories(services);
-            return services;
-        }
-
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             Bootstrapper.RegisterServices(services);

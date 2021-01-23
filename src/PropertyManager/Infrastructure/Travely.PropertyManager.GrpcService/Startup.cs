@@ -50,7 +50,6 @@ namespace Travely.PropertyManager.GrpcService
         {
             services.ConfigureDbContext(Configuration.GetConnectionString("PropertyDbConnection"));
 
-            services.RegisterRepositories();
             services.RegisterServices();
         }
     }

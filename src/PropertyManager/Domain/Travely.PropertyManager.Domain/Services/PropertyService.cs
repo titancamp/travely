@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Travely.PropertyManager.Data.Contracts.Repositories;
+using Travely.PropertyManager.Data.EntityFramework;
 using Travely.PropertyManager.Domain.Contracts.Models.Commands;
 using Travely.PropertyManager.Domain.Contracts.Models.Queries;
 using Travely.PropertyManager.Domain.Contracts.Models.Responses;
@@ -13,12 +14,12 @@ namespace Travely.PropertyManager.Domain.Services
 {
     public class PropertyService : ServiceBase, IPropertyService
     {
-        private readonly IPropertyRepository _repository;
+        private readonly PropertyDbContext _dbContext;
 
-        public PropertyService(ILogger<PropertyService> logger, IMapper mapper, IPropertyRepository repository)
+        public PropertyService(ILogger<PropertyService> logger, IMapper mapper, PropertyDbContext propertyDbContext)
             : base(logger, mapper)
         {
-            _repository = repository;
+            _dbContext = propertyDbContext;
         }
 
         public Task AddAsync(AddPropertyCommand command)
@@ -33,7 +34,8 @@ namespace Travely.PropertyManager.Domain.Services
 
         public async Task<PropertyResponse> GetByIdAsync(int id)
         {
-            var result = await _repository.GetByIdAsync(id);
+            var result = await _dbContext.Properties.FirstOrDefaultAsync(item => item.Id == id)
+                .ConfigureAwait(false);
 
             return Mapper.Map<Property, PropertyResponse>(result);
         }
