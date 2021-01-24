@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <None Remove="Protos\greet.proto" />
+    <None Remove="Protos\properties.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,7 @@
 
   <ItemGroup>
     <Protobuf Include="Protos\greet.proto" />
+    <Protobuf Include="Protos\properties.proto" />
   </ItemGroup>
 
 </Project>
