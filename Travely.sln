@@ -57,7 +57,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourManager.Clients.Abstrac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourManager.Clients.Implementation", "src\TourManager\TourManager.Clients.Implementation\TourManager.Clients.Implementation.csproj", "{6FAE42F0-FCA3-47C9-95C7-A2338B6997E6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourManager.Api", "src\TourManager\Travely.TourManager.Api\TourManager.Api.csproj", "{23F847CF-A1AC-4411-A1CD-F0F6FF7F6638}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourManager.Api", "src\TourManager\TourManager.Api\TourManager.Api.csproj", "{BE676902-87BC-4BA9-8B99-A99A3ABF7F9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,10 +93,10 @@ Global
 		{6FAE42F0-FCA3-47C9-95C7-A2338B6997E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FAE42F0-FCA3-47C9-95C7-A2338B6997E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FAE42F0-FCA3-47C9-95C7-A2338B6997E6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{23F847CF-A1AC-4411-A1CD-F0F6FF7F6638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{23F847CF-A1AC-4411-A1CD-F0F6FF7F6638}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{23F847CF-A1AC-4411-A1CD-F0F6FF7F6638}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{23F847CF-A1AC-4411-A1CD-F0F6FF7F6638}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE676902-87BC-4BA9-8B99-A99A3ABF7F9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE676902-87BC-4BA9-8B99-A99A3ABF7F9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE676902-87BC-4BA9-8B99-A99A3ABF7F9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE676902-87BC-4BA9-8B99-A99A3ABF7F9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -112,7 +112,7 @@ Global
 		{62F5D8F9-D032-4EC1-8065-1E51CEF80CBF} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{BA69EE39-FEC2-4906-B871-0582A38E8C0B} = {62F5D8F9-D032-4EC1-8065-1E51CEF80CBF}
 		{6FAE42F0-FCA3-47C9-95C7-A2338B6997E6} = {62F5D8F9-D032-4EC1-8065-1E51CEF80CBF}
-		{23F847CF-A1AC-4411-A1CD-F0F6FF7F6638} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{BE676902-87BC-4BA9-8B99-A99A3ABF7F9F} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}
