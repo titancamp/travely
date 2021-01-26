@@ -53,19 +53,14 @@ message ClientModel{
 	google.protobuf.Timestamp createdDate = 2;
 	string firstName = 3;
 	string lastName = 4;
-	string description = 5;
-	ClientType type = 6;
-	string passportId = 7;
-	string phoneNumber = 8;
-	GenderType gender = 9;
-	int32 age = 10;
+	string phoneNumber = 5;
+	string email = 6;
+	google.protobuf.Timestamp dateOfBirth = 7;
+	string placeOfBirth = 8;
+	string passportNumber = 9;
+	string issuedBy = 10;
+	google.protobuf.Timestamp issuedDate = 11;
+	google.protobuf.Timestamp expireDate = 12;
+	int32 companyId = 13;
 }
 
-enum GenderType {
-	Male = 0;
-	Female = 1;
-}
-
-enum ClientType{
-	Type1 = 0;
-}
