@@ -49,9 +49,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ClientManager.Repos
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ClientManager.Service", "src\ClientManager\Travely.ClientManager.Service\Travely.ClientManager.Service.csproj", "{01CFF23F-F7E5-4263-B563-489069A1B906}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.ClientManager.Domain", "src\ClientManager\Travely.ClientManager.Domain\Travely.ClientManager.Domain.csproj", "{68A8439A-10DA-4CC4-A4C7-72F0724FE86E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ClientManager.Domain", "src\ClientManager\Travely.ClientManager.Domain\Travely.ClientManager.Domain.csproj", "{68A8439A-10DA-4CC4-A4C7-72F0724FE86E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.ClientManager.Abstraction", "src\ClientManager\Travely.ClientManager.Abstraction\Travely.ClientManager.Abstraction.csproj", "{0B12B4EC-ED56-4B55-A773-EFA402AD2C99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ClientManager.Abstraction", "src\ClientManager\Travely.ClientManager.Abstraction\Travely.ClientManager.Abstraction.csproj", "{0B12B4EC-ED56-4B55-A773-EFA402AD2C99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

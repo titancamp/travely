@@ -1,8 +1,10 @@
 syntax = "proto3";
 
-option csharp_namespace = "ClientManager.Protos";
+//option csharp_namespace = "ClientManager.Protos";
+option csharp_namespace = "Travely.ClientManager.Service.Protos";
 
 import "google/protobuf/timestamp.proto";
+import "Protos/preference.proto";
 //import "google/protobuf/empty.proto";
 
 
@@ -79,13 +81,8 @@ message ClientWithPreferencesModel{
 	google.protobuf.Timestamp issuedDate = 11;
 	google.protobuf.Timestamp expireDate = 12;
 	int32 companyId = 13;
-	repeated PreferenceModel Preferences = 14;
+	repeated Preference.PreferenceModel Preferences = 14;
 
 }
 
-message PreferenceModel{
-	int32 Id = 1;
-	string note = 2;
-	google.protobuf.Timestamp createdDate = 3;
-}
 

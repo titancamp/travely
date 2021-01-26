@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option csharp_namespace = "Travely.ClientManager.Service.Protos";
+package Preference;
+
+import "google/protobuf/timestamp.proto";
+
+service PreferenceProtoService {
+  
+rpc GetPreference (GetPreferenceRequest) returns (PreferenceModel);
+rpc GetAllPreferences (GetAllPreferencesRequest) returns (stream PreferenceModel);
+
+rpc AddPreference (AddPreferenceRequest) returns (PreferenceModel);
+rpc UpdatePreference (UpdatePreferenceRequest) returns (PreferenceModel);
+rpc DeletePreference (DeletePreferenceRequest) returns (DeletePreferenceResponse);
+
+}
+
+message GetPreferenceRequest{
+	int32 id = 1;
+}
+
+message GetAllPreferencesRequest{
+
+}
+
+message AddPreferenceRequest{
+	PreferenceModel preference = 1; 
+}
+
+message UpdatePreferenceRequest{
+	PreferenceModel preference = 1;
+}
+
+message DeletePreferenceRequest{
+	int32 id = 1;
+}
+
+message DeletePreferenceResponse{
+	bool success = 1;
+}
+
+message PreferenceModel{
+	int32 Id = 1;
+	string note = 2;
+	google.protobuf.Timestamp createdDate = 3;
+}

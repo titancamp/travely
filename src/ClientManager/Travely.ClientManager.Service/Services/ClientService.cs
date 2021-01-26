@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ClientManager.Protos;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Travely.ClientManager.Abstraction.Repositories;
 using Travely.ClientManager.Domain.Entity.Client;
+using Travely.ClientManager.Service.Protos;
 
 namespace Travely.ClientManager.Service.Services
 {
