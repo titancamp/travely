@@ -9,6 +9,7 @@ import "google/protobuf/timestamp.proto";
 service ClientProtoService {
   
 rpc GetClient (GetClientRequest) returns (ClientModel);
+rpc GetClientWithPreferences (GetClientRequest) returns (ClientWithPreferencesModel);
 rpc GetAllClients (GetAllClientsRequest) returns (stream ClientModel);
 
 rpc AddClient (AddClientRequest) returns (ClientModel);
@@ -62,5 +63,29 @@ message ClientModel{
 	google.protobuf.Timestamp issuedDate = 11;
 	google.protobuf.Timestamp expireDate = 12;
 	int32 companyId = 13;
+}
+
+message ClientWithPreferencesModel{
+	int32 Id = 1;
+	google.protobuf.Timestamp createdDate = 2;
+	string firstName = 3;
+	string lastName = 4;
+	string phoneNumber = 5;
+	string email = 6;
+	google.protobuf.Timestamp dateOfBirth = 7;
+	string placeOfBirth = 8;
+	string passportNumber = 9;
+	string issuedBy = 10;
+	google.protobuf.Timestamp issuedDate = 11;
+	google.protobuf.Timestamp expireDate = 12;
+	int32 companyId = 13;
+	repeated Preference Preferences = 14;
+
+}
+
+message Preference{
+	int32 Id = 1;
+	string note = 2;
+	google.protobuf.Timestamp createdDate = 3;
 }
 

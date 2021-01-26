@@ -28,15 +28,51 @@ namespace Travely.ClientManager.Service.Services
         public override async Task<ClientModel> GetClient(GetClientRequest request,
                                                                 ServerCallContext context)
         {
-            Client client = await _clientRepository.GetNoTracking(request.Id.ToString()).FirstOrDefaultAsync();
-            if (client == null)
+            try
+            {                
+                Client client = await _clientRepository.GetNoTracking(x => x.Id == request.Id).FirstOrDefaultAsync();
+
+                if (client == null)
+                {
+                    throw new RpcException(new Status(StatusCode.NotFound, $"Client with ID={request.Id} is not found."));
+                }
+
+                ClientModel clientModel = _mapper.Map<ClientModel>(client);
+
+                return clientModel;
+            }
+            catch (Exception ex)
             {
                 throw new RpcException(new Status(StatusCode.NotFound, $"Client with ID={request.Id} is not found."));
             }
 
-            ClientModel clientModel = _mapper.Map<ClientModel>(client);
 
-            return clientModel;
+        }
+
+        public override async Task<ClientWithPreferencesModel> GetClientWithPreferences(GetClientRequest request,
+                                                                ServerCallContext context)
+        {
+            try
+            {
+                Client client = await _clientRepository.GetNoTracking(x => x.Id == request.Id, "ClientPreferences.Preference").FirstOrDefaultAsync();
+
+                //List<Domain.Entity.Client.Preference> preferences = client.ClientPreferences.ToList();
+
+                if (client == null)
+                {
+                    throw new RpcException(new Status(StatusCode.NotFound, $"Client with ID={request.Id} is not found."));
+                }
+
+                //ClientModel clientModel = _mapper.Map<ClientModel>(client);
+
+                return new ClientWithPreferencesModel();
+            }
+            catch (Exception ex)
+            {
+                throw new RpcException(new Status(StatusCode.NotFound, $"Client with ID={request.Id} is not found."));
+            }
+
+
         }
 
         public override async Task GetAllClients(GetAllClientsRequest request,
@@ -53,7 +89,7 @@ namespace Travely.ClientManager.Service.Services
 
                     await responseStream.WriteAsync(clientModel);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
                     throw;
@@ -101,7 +137,7 @@ namespace Travely.ClientManager.Service.Services
         {
             Client client = _mapper.Map<Client>(request.Client);
 
-            bool isExist = await _clientRepository.Get(request.Client.Id.ToString()).AnyAsync();
+            bool isExist = await _clientRepository.Get(x=>x.Id == request.Client.Id).AnyAsync();
 
             if (!isExist)
             {
@@ -126,7 +162,7 @@ namespace Travely.ClientManager.Service.Services
         #region Delete
         public override async Task<DeleteClientResponse> DeleteClient(DeleteClientRequest request, ServerCallContext context)
         {
-            Client client = await _clientRepository.Get(request.Id.ToString()).FirstOrDefaultAsync();
+            Client client = await _clientRepository.Get(x=>x.Id == request.Id).FirstOrDefaultAsync();
             if (client == null)
             {
                 throw new RpcException(new Status(StatusCode.NotFound, $"Cleient with ID={request.Id} is not found."));
