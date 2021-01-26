@@ -1,4 +1,4 @@
-﻿using Travely.TourManager.Service.Abstractions;
+﻿using Travely.TourManager.Abstractions.Services;
 
 namespace Travely.TourManager.Service.Services
 {
