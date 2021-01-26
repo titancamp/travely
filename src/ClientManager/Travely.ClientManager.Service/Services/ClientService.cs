@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ClientManager.Protos;
+using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -56,16 +57,14 @@ namespace Travely.ClientManager.Service.Services
             {
                 Client client = await _clientRepository.GetNoTracking(x => x.Id == request.Id, "ClientPreferences.Preference").FirstOrDefaultAsync();
 
-                //List<Domain.Entity.Client.Preference> preferences = client.ClientPreferences.ToList();
-
                 if (client == null)
                 {
                     throw new RpcException(new Status(StatusCode.NotFound, $"Client with ID={request.Id} is not found."));
                 }
 
-                //ClientModel clientModel = _mapper.Map<ClientModel>(client);
-
-                return new ClientWithPreferencesModel();
+                ClientWithPreferencesModel clientPreferencesModel = _mapper.Map<ClientWithPreferencesModel>(client);
+                
+                return clientPreferencesModel;
             }
             catch (Exception ex)
             {

@@ -79,11 +79,11 @@ message ClientWithPreferencesModel{
 	google.protobuf.Timestamp issuedDate = 11;
 	google.protobuf.Timestamp expireDate = 12;
 	int32 companyId = 13;
-	repeated Preference Preferences = 14;
+	repeated PreferenceModel Preferences = 14;
 
 }
 
-message Preference{
+message PreferenceModel{
 	int32 Id = 1;
 	string note = 2;
 	google.protobuf.Timestamp createdDate = 3;
