@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 using Travely.ClientManager.Domain.Entity.Client;
 
-namespace Travely.ClientManager.Repository.SqlServer.Repositories
+namespace Travely.ClientManager.Abstraction.Repositories
 {
     public interface IClientRepository : IBaseRepository<Client>
     {

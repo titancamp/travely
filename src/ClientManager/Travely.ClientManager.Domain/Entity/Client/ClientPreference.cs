@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Travely.Repository.Common.Entity.Client
+namespace Travely.ClientManager.Domain.Entity.Client
 {
     [Table("ClientPreference")]
     public class ClientPreference : BaseEntity

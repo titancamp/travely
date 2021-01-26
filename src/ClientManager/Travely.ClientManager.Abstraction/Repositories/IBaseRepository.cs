@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading.Tasks;
 using Travely.ClientManager.Domain.Entity;
 
-namespace Travely.ClientManager.Repository.SqlServer.Repositories
+namespace Travely.ClientManager.Abstraction.Repositories
 {
     public interface IBaseRepository<T> where T : BaseEntity
     {
