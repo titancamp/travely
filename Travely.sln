@@ -59,6 +59,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourManager.Clients.Impleme
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourManager.Api", "src\TourManager\TourManager.Api\TourManager.Api.csproj", "{BE676902-87BC-4BA9-8B99-A99A3ABF7F9F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{CF50A7A4-CC65-4638-A4B6-40FE5A7484AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourManager.CommonTypes", "Commons\TourManager.CommonTypes\TourManager.CommonTypes.csproj", "{6759539F-2BDE-497A-A51A-3D3E4D27F79B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +101,10 @@ Global
 		{BE676902-87BC-4BA9-8B99-A99A3ABF7F9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE676902-87BC-4BA9-8B99-A99A3ABF7F9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE676902-87BC-4BA9-8B99-A99A3ABF7F9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6759539F-2BDE-497A-A51A-3D3E4D27F79B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6759539F-2BDE-497A-A51A-3D3E4D27F79B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6759539F-2BDE-497A-A51A-3D3E4D27F79B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6759539F-2BDE-497A-A51A-3D3E4D27F79B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,6 +121,7 @@ Global
 		{BA69EE39-FEC2-4906-B871-0582A38E8C0B} = {62F5D8F9-D032-4EC1-8065-1E51CEF80CBF}
 		{6FAE42F0-FCA3-47C9-95C7-A2338B6997E6} = {62F5D8F9-D032-4EC1-8065-1E51CEF80CBF}
 		{BE676902-87BC-4BA9-8B99-A99A3ABF7F9F} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{6759539F-2BDE-497A-A51A-3D3E4D27F79B} = {CF50A7A4-CC65-4638-A4B6-40FE5A7484AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}
