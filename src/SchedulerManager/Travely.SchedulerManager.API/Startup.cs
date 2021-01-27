@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Travely.SchedulerManager.Notifier;
@@ -9,6 +10,13 @@ namespace Travely.SchedulerManager.API
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options =>
@@ -22,6 +30,7 @@ namespace Travely.SchedulerManager.API
                             .WithOrigins("http://localhost:3000");
                     });
             });
+            services.ConfigureEmailing(Configuration.GetSection("Messaging:Email"));
             services.AddNotifier();
             services.AddGrpc();
         }
