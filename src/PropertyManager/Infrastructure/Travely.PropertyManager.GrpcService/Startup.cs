@@ -37,7 +37,7 @@ namespace Travely.PropertyManager.GrpcService
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<PropertyService>();
 
                 endpoints.MapGet("/", async context =>
                 {
