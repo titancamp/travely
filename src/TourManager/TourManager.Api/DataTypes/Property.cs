@@ -23,6 +23,6 @@ namespace TourManager.Api.DataTypes
 
 		public PropertyOption PropertyType { get; set; }
 
-		public ICollection<string> Files { get; set; }
+		public List<string> Files { get; set; }
 	}
 }

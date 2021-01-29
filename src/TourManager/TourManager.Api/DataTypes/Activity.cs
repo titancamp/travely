@@ -21,6 +21,6 @@ namespace TourManager.Api.DataTypes
 
 		public ActivityOption ActivityType { get; set; }
 
-		public ICollection<string> Files { get; set; }
+		public List<string> Files { get; set; }
 	}
 }
