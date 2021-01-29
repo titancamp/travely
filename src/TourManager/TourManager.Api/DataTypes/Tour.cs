@@ -29,10 +29,10 @@ namespace TourManager.Api.DataTypes
 
 		public string Notes { get; set; }
 
-		public ICollection<string> Destinations { get; set; }
+		public List<string> Destinations { get; set; }
 
-		public ICollection<Booking> Bookings { get; set; }
+		public List<Booking> Bookings { get; set; }
 
-		public ICollection<Client> Clients { get; set; }
+		public List<Client> Clients { get; set; }
 	}
 }
