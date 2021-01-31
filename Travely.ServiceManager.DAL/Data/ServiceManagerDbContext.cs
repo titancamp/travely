@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Travely.ServiceManager.Core.Models.Db;
+using Travely.ServiceManager.Abstraction.Models.Db;
 
 namespace Travely.ServiceManager.DAL.Data
 {

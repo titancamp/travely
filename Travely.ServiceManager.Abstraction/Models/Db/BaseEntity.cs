@@ -1,4 +1,4 @@
-﻿namespace Travely.ServiceManager.Core.Models.Db
+﻿namespace Travely.ServiceManager.Abstraction.Models.Db
 {
     public abstract class BaseEntity
     {

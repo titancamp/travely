@@ -1,5 +1,5 @@
-﻿using Travely.ServiceManager.Core.Interfaces;
-using Travely.ServiceManager.Core.Models.Db;
+﻿using Travely.ServiceManager.Abstraction.Interfaces;
+using Travely.ServiceManager.Abstraction.Models.Db;
 using Travely.ServiceManager.DAL.Data;
 
 namespace Travely.ServiceManager.DAL.Repositories

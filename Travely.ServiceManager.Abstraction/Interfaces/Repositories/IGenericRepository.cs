@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Travely.ServiceManager.Core.Models.Db;
+using Travely.ServiceManager.Abstraction.Models.Db;
 
-namespace Travely.ServiceManager.Core.Interfaces
+namespace Travely.ServiceManager.Abstraction.Interfaces
 {
     public interface IGenericRepository<TEntity> where TEntity : BaseEntity
     {

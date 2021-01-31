@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Travely.ServiceManager.Core.Interfaces.UnitOfWorks
+namespace Travely.ServiceManager.Abstraction.Interfaces.UnitOfWorks
 {
     public interface IUnitOfWork : IDisposable
     {
