@@ -4,7 +4,7 @@ using Travely.ServiceManager.Abstraction.Models.Db;
 
 namespace Travely.ServiceManager.Abstraction.Interfaces
 {
-    public interface IGenericRepository<TEntity> where TEntity : BaseEntity
+    public interface IRepository<TEntity> where TEntity : Activity
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> GetAsync(int entityId);

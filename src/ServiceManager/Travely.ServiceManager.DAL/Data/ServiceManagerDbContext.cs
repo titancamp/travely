@@ -8,7 +8,6 @@ namespace Travely.ServiceManager.DAL.Data
         public ServiceManagerDbContext(DbContextOptions<ServiceManagerDbContext> options)
             : base(options)
         {
-
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -16,15 +15,9 @@ namespace Travely.ServiceManager.DAL.Data
                 .HasKey(x => x.Id)
                 .HasName("Id");
 
-            modelBuilder.Entity<Activity>()
-                .HasQueryFilter(x => !x.IsDeleted)
-                .Property(x => x.IsDeleted)
-                .HasColumnName("IsDeleted")
-                .IsRequired();
-
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Activity> ServiceEntities { get; set; }
+        public DbSet<Activity> Activities { get; set; }
     }
 }

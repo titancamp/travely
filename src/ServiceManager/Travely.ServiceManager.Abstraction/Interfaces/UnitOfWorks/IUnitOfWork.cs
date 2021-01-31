@@ -5,7 +5,7 @@ namespace Travely.ServiceManager.Abstraction.Interfaces.UnitOfWorks
 {
     public interface IUnitOfWork : IDisposable
     {
-        IActivityRepository ServiceEntities { get; }
+        IActivityRepository Activities { get; }
         Task<int> SaveAsync();
     }
 }

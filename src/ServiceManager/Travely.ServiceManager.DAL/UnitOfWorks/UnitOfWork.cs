@@ -9,19 +9,19 @@ namespace Travely.ServiceManager.DAL.UnitOfWorks
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ServiceManagerDbContext _dbContext;
-        private ActivityRepository _serviceRepository;
+        private ActivityRepository _activityRepository;
         public UnitOfWork(ServiceManagerDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public IActivityRepository ServiceEntities
+        public IActivityRepository Activities
         {
             get
             {
-                if (_serviceRepository == null)
-                 _serviceRepository = new ActivityRepository(_dbContext);
-                
-                return _serviceRepository;
+                if (_activityRepository == null)
+                    _activityRepository = new ActivityRepository(_dbContext);
+
+                return _activityRepository;
             }
         }
 

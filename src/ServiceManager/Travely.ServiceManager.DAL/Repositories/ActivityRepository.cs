@@ -4,7 +4,7 @@ using Travely.ServiceManager.DAL.Data;
 
 namespace Travely.ServiceManager.DAL.Repositories
 {
-    internal class ActivityRepository : GenericRepository<Activity>, IActivityRepository
+    internal class ActivityRepository : Repository<Activity>, IActivityRepository
     {
         public ActivityRepository(ServiceManagerDbContext dbContext)
             : base(dbContext)

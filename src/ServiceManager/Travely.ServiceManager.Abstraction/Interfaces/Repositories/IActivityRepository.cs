@@ -2,7 +2,7 @@
 
 namespace Travely.ServiceManager.Abstraction.Interfaces
 {
-    public interface IActivityRepository: IGenericRepository<Activity>
+    public interface IActivityRepository : IRepository<Activity>
     {
     }
 }

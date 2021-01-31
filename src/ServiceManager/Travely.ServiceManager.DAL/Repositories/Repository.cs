@@ -7,12 +7,12 @@ using Travely.ServiceManager.DAL.Data;
 
 namespace Travely.ServiceManager.DAL.Repositories
 {
-    internal abstract class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
+    internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Activity
     {
         private readonly ServiceManagerDbContext _dbContext;
         private readonly DbSet<TEntity> _dbSet;
 
-        public GenericRepository(ServiceManagerDbContext dbContext)
+        public Repository(ServiceManagerDbContext dbContext)
         {
             _dbContext = dbContext;
             _dbSet = dbContext.Set<TEntity>();
