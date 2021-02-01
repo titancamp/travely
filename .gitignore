@@ -362,4 +362,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # nbgv files
-/src/IdentityManager/.store/nbgv/3.3.37
+*/.store/nbgv/3.3.37

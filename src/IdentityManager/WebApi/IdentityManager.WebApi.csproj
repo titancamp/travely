@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IdentityManager.Lib\IdentityManager.Lib.csproj" />
+    <ProjectReference Include="..\DataService\IdentityManager.DataService.csproj" />
   </ItemGroup>
 
 </Project>
