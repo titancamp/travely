@@ -1,25 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
   <PropertyGroup>
-    <Authors>ServiceTitanCamp Identity team</Authors>
-    <Company>ServiceTitanCamp</Company>
-    <Description>IdentityManager for travely project</Description>
-    <DefaultLanguage>en-US</DefaultLanguage>
-    <LangVersion>8.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <BaseIntermediateOutputPath>$(ArtifactsDir)\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
+    <OutputPath>$(ArtifactsDir)\bin</OutputPath>
   </PropertyGroup>
-  <PropertyGroup>
-    <SolutionDir Condition="$(SolutionDir) == ''">$(MSBuildThisFileDirectory.TrimEnd('\').TrimEnd('/'))\</SolutionDir>
-    <ArtifactsDir>$(SolutionDir)artifacts</ArtifactsDir>
-    <OutputPath>$(ArtifactsDir)</OutputPath>
-    <PackageOutputPath>$(ArtifactsDir)nupkg</PackageOutputPath>
-  </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Nerdbank.GitVersioning">
-      <Version>3.3.37</Version>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="Nerdbank.GitVersioning" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" />
   </ItemGroup>
 </Project>
+
