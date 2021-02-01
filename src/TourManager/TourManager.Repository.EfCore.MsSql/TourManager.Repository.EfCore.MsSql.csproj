@@ -4,4 +4,8 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TourManager.Repository.Abstraction\TourManager.Repository.Abstraction.csproj" />
+    </ItemGroup>
+
 </Project>
