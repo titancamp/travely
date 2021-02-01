@@ -41,11 +41,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SchedulerManager", "Schedul
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceManager", "ServiceManager", "{E26E508D-1A14-4C81-AC6C-3F78699C9B37}"
-	ProjectSection(SolutionItems) = preProject
-		src\ServiceManager\test.txt = src\ServiceManager\test.txt
-	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.ServiceManager.Service", "src\ServiceManager\Travely.ServiceManager.Service\Travely.ServiceManager.Service.csproj", "{5426BCE3-4AE4-4E53-888B-4AECCB5F2569}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ServiceManager.Service", "src\ServiceManager\Travely.ServiceManager.Service\Travely.ServiceManager.Service.csproj", "{5426BCE3-4AE4-4E53-888B-4AECCB5F2569}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ServiceManager.Abstraction", "src\ServiceManager\Travely.ServiceManager.Abstraction\Travely.ServiceManager.Abstraction.csproj", "{8B610929-1305-459C-B29A-7A5E6002B57D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ServiceManager.DAL", "src\ServiceManager\Travely.ServiceManager.DAL\Travely.ServiceManager.DAL.csproj", "{0D8ADF2F-8C1B-4963-98C0-AB9C0090280C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +74,14 @@ Global
 		{5426BCE3-4AE4-4E53-888B-4AECCB5F2569}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5426BCE3-4AE4-4E53-888B-4AECCB5F2569}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5426BCE3-4AE4-4E53-888B-4AECCB5F2569}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B610929-1305-459C-B29A-7A5E6002B57D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B610929-1305-459C-B29A-7A5E6002B57D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B610929-1305-459C-B29A-7A5E6002B57D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B610929-1305-459C-B29A-7A5E6002B57D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D8ADF2F-8C1B-4963-98C0-AB9C0090280C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D8ADF2F-8C1B-4963-98C0-AB9C0090280C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D8ADF2F-8C1B-4963-98C0-AB9C0090280C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D8ADF2F-8C1B-4963-98C0-AB9C0090280C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +92,8 @@ Global
 		{88706F69-278E-4BDB-B397-04C5EFB969D4} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{5426BCE3-4AE4-4E53-888B-4AECCB5F2569} = {E26E508D-1A14-4C81-AC6C-3F78699C9B37}
+		{8B610929-1305-459C-B29A-7A5E6002B57D} = {E26E508D-1A14-4C81-AC6C-3F78699C9B37}
+		{0D8ADF2F-8C1B-4963-98C0-AB9C0090280C} = {E26E508D-1A14-4C81-AC6C-3F78699C9B37}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}
