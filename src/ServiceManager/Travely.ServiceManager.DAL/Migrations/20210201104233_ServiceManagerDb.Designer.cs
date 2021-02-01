@@ -9,7 +9,7 @@ using Travely.ServiceManager.DAL.Data;
 namespace Travely.ServiceManager.DAL.Migrations
 {
     [DbContext(typeof(ServiceManagerDbContext))]
-    [Migration("20210131111712_ServiceManagerDb")]
+    [Migration("20210201104233_ServiceManagerDb")]
     partial class ServiceManagerDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,13 +22,12 @@ namespace Travely.ServiceManager.DAL.Migrations
 
             modelBuilder.Entity("Travely.ServiceManager.Abstraction.Models.Db.Activity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.HasKey("Id")
-                        .HasName("Id");
+                    b.HasKey("Id");
 
                     b.ToTable("Activities");
                 });

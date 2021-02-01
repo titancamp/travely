@@ -20,13 +20,12 @@ namespace Travely.ServiceManager.DAL.Migrations
 
             modelBuilder.Entity("Travely.ServiceManager.Abstraction.Models.Db.Activity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.HasKey("Id")
-                        .HasName("Id");
+                    b.HasKey("Id");
 
                     b.ToTable("Activities");
                 });

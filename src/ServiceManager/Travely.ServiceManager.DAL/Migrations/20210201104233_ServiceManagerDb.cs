@@ -10,12 +10,12 @@ namespace Travely.ServiceManager.DAL.Migrations
                 name: "Activities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("Id", x => x.Id);
+                    table.PrimaryKey("PK_Activities", x => x.Id);
                 });
         }
 

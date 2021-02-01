@@ -12,8 +12,7 @@ namespace Travely.ServiceManager.DAL.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Activity>()
-                .HasKey(x => x.Id)
-                .HasName("Id");
+                .HasKey(x => x.Id);
 
             base.OnModelCreating(modelBuilder);
         }
