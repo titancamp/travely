@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using TourManager.CommonTypes;
 
-namespace TourManager.Api.DataTypes
+namespace TourManager.Models
 {
 	public class Booking
 	{

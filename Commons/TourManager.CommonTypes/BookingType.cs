@@ -2,7 +2,8 @@
 {
 	public enum BookingType
 	{
-		Hotel = 1,
+		None,
+		Hotel,
 		Transportation
 	}
 }

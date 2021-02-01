@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TourManager.Api.DataTypes
+namespace TourManager.Models
 {
 	public class Tour
 	{

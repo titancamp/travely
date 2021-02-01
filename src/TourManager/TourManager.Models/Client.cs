@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TourManager.Api.DataTypes
+namespace TourManager.Models
 {
 	public class Client
 	{

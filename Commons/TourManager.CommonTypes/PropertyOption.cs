@@ -2,7 +2,8 @@
 {
 	public enum PropertyOption
 	{
-		Hotel = 1,
+		None,
+		Hotel,
 		Museum,
 		House
 	}

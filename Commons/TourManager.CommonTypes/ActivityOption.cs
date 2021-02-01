@@ -2,7 +2,8 @@
 {
 	public enum ActivityOption
 	{
-		Restaurant = 1,
+		None,
+		Restaurant,
 		Museum,
 		Church,
 		HistoricalSite
