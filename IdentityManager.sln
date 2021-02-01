@@ -7,9 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityManager.WebApi", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityManager.DataService", "src\IdentityManager\DataService\IdentityManager.DataService.csproj", "{C92D0726-6484-4CC3-AD10-1923C6EB7A18}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{482F4323-05A9-45AA-926F-49BB1888F73F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{687F86B5-929C-4BB6-AAEE-10DF8088FEA1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{42C2A232-CD40-49DC-8299-75B31D8DCF5D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6619CA84-D58C-44FC-BBE6-72D51A6C4CC6}"
+	ProjectSection(SolutionItems) = preProject
+		src\IdentityManager\Directory.Build.props = src\IdentityManager\Directory.Build.props
+		src\IdentityManager\Directory.Build.targets = src\IdentityManager\Directory.Build.targets
+		src\IdentityManager\Packages.props = src\IdentityManager\Packages.props
+		src\IdentityManager\version.json = src\IdentityManager\version.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,8 +36,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B5ED7BC3-3C4E-40A0-9C48-70547D0D12E3} = {482F4323-05A9-45AA-926F-49BB1888F73F}
-		{C92D0726-6484-4CC3-AD10-1923C6EB7A18} = {42C2A232-CD40-49DC-8299-75B31D8DCF5D}
+		{B5ED7BC3-3C4E-40A0-9C48-70547D0D12E3} = {687F86B5-929C-4BB6-AAEE-10DF8088FEA1}
+		{C92D0726-6484-4CC3-AD10-1923C6EB7A18} = {687F86B5-929C-4BB6-AAEE-10DF8088FEA1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB986A52-CE13-4669-8EDD-2688C238D5C2}
