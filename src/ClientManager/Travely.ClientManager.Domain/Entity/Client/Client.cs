@@ -20,6 +20,6 @@ namespace Travely.ClientManager.Domain.Entity.Client
         public DateTime ExpireDate { get; set; }
         public int CompanyId { get; set; }
 
-        public virtual ICollection<ClientPreference> ClientPreferences { get; set; }
+        public virtual ICollection<Preference> Preferences { get; set; }
     }
 }

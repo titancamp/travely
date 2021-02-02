@@ -15,7 +15,6 @@ namespace Travely.ClientManager.Repository.SqlServer
 
         public DbSet<Client> Clients { get; set; }
         public DbSet<Preference> Preferences { get; set; }
-        public DbSet<ClientPreference> ClientPreferences { get; set; }
 
         public ClientDbContext(DbContextOptions<ClientDbContext> options, IConfiguration configuration)
             : base(options)

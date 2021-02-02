@@ -30,13 +30,12 @@ namespace Travely.ClientManager.Service.Mappers
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.DateOfBirth, DateTimeKind.Utc).ToTimestamp()))
                 .ForMember(dest => dest.IssuedDate, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.IssuedDate, DateTimeKind.Utc).ToTimestamp()))
                 .ForMember(dest => dest.ExpireDate, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.ExpireDate, DateTimeKind.Utc).ToTimestamp()))
-                .AfterMap((source, dest) => dest.Preferences.AddRange(source.ClientPreferences.Select(x=> new PreferenceModel 
+                .AfterMap((source, dest) => dest.Preferences.AddRange(source.Preferences.Select(x=> new PreferenceModel 
                                                                     {
-                                                                        Id = x.Preference.Id,
-                                                                        Note = x.Preference.Note,
-                                                                        CreatedDate = DateTime.SpecifyKind(x.Preference.CreatedDate, DateTimeKind.Utc).ToTimestamp()
+                                                                        Id = x.Id,
+                                                                        Note = x.Note,
+                                                                        CreatedDate = DateTime.SpecifyKind(x.CreatedDate, DateTimeKind.Utc).ToTimestamp()
                                                                     })));
-                //.ForMember(dest => dest.Preferences, opt => opt.MapFrom(src => src.ClientPreferences.Select(x => x.Preference).ToList())));
 
         }
 
