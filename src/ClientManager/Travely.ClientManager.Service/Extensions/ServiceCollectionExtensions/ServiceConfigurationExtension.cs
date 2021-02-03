@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Travely.ClientManager.Repository.SqlServer;
+using Travely.ClientManager.Repository;
 
 namespace Travely.ClientManager.Service.Extensions.ServiceCollectionExtensions
 {

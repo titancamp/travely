@@ -7,8 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Travely.ClientManager.Abstraction.Repositories;
-using Travely.ClientManager.Domain.Entity.Client;
+using Travely.ClientManager.Repository.Abstraction;
+using Travely.ClientManager.Repository.Entity.Client;
 using Travely.ClientManager.Service.Protos;
 
 namespace Travely.ClientManager.Service.Services
@@ -55,7 +55,7 @@ namespace Travely.ClientManager.Service.Services
         {
             try
             {
-                Client client = await _clientRepository.GetNoTracking(x => x.Id == request.Id, "ClientPreferences.Preference").FirstOrDefaultAsync();
+                Client client = await _clientRepository.GetNoTracking(x => x.Id == request.Id, "Preferences").FirstOrDefaultAsync();
 
                 if (client == null)
                 {
@@ -70,8 +70,6 @@ namespace Travely.ClientManager.Service.Services
             {
                 throw new RpcException(new Status(StatusCode.NotFound, $"Client with ID={request.Id} is not found."));
             }
-
-
         }
 
         public override async Task GetAllClients(GetAllClientsRequest request,

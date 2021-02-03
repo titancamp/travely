@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Travely.ClientManager.Abstraction.Repositories;
-using Travely.ClientManager.Repository.SqlServer.Repositories;
+using Travely.ClientManager.Repository.Abstraction;
+using Travely.ClientManager.Repository.Repository;
 
 namespace Travely.ClientManager.Service.Extensions.ServiceCollectionExtensions
 {

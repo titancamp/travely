@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Travely.ClientManager.Domain.Entity
+namespace Travely.ClientManager.Repository.Entity
 {
     public class BaseEntity
     {

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Travely.ClientManager.Domain.Entity.Client;
+using Travely.ClientManager.Repository.Entity.Client;
 using Travely.ClientManager.Service.Protos;
 
 namespace Travely.ClientManager.Service.Mappers
@@ -30,12 +30,22 @@ namespace Travely.ClientManager.Service.Mappers
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.DateOfBirth, DateTimeKind.Utc).ToTimestamp()))
                 .ForMember(dest => dest.IssuedDate, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.IssuedDate, DateTimeKind.Utc).ToTimestamp()))
                 .ForMember(dest => dest.ExpireDate, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.ExpireDate, DateTimeKind.Utc).ToTimestamp()))
-                .AfterMap((source, dest) => dest.Preferences.AddRange(source.Preferences.Select(x=> new PreferenceModel 
-                                                                    {
-                                                                        Id = x.Id,
-                                                                        Note = x.Note,
-                                                                        CreatedDate = DateTime.SpecifyKind(x.CreatedDate, DateTimeKind.Utc).ToTimestamp()
-                                                                    })));
+                .ForMember(dest => dest.Preferences, opt => opt.MapFrom(src => src.Preferences.Select(x => new PreferenceModel
+                {
+                    Id = x.Id,
+                    Note = x.Note,
+                    CreatedDate = DateTime.SpecifyKind(x.CreatedDate, DateTimeKind.Utc).ToTimestamp()
+                }).ToList()));
+                
+                
+                
+                
+                //(src, dest) => dest.Preferences.AddRange(src.Preferences.Select(x => new PreferenceModel
+                //{
+                //     Id = x.Id,
+                //     Note = x.Note,
+                //     CreatedDate = DateTime.SpecifyKind(x.CreatedDate, DateTimeKind.Utc).ToTimestamp()
+                //})));
 
         }
 
