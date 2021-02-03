@@ -4,7 +4,7 @@ syntax = "proto3";
 option csharp_namespace = "Travely.ClientManager.Service.Protos";
 
 import "google/protobuf/timestamp.proto";
-import "Protos/preference.proto";
+import "preference.proto";
 //import "google/protobuf/empty.proto";
 
 
