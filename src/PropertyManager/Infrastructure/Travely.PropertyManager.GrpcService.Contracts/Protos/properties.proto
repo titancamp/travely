@@ -1,0 +1,15 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Travely.PropertyManager.GrpcService.Contracts";
+
+service Property {
+	rpc GetProperty(PropertyRequest) returns (PropertyResponse);
+}
+
+message PropertyRequest {
+
+}
+
+message PropertyResponse {
+
+}
