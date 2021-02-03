@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Travely.PropertyManager.Domain.Contracts.Models.Commands;
-using Travely.PropertyManager.Domain.Contracts.Services;
 
 namespace Travely.PropertyManager.GrpcService
 {
@@ -12,34 +10,34 @@ namespace Travely.PropertyManager.GrpcService
         {
             var host = CreateHostBuilder(args).Build();
 
-            Test(host);
+            //DebugGrpcClient(host).GetAwaiter().GetResult();
 
             host.Run();
         }
 
-        // Additional configuration is required to successfully run gRPC on macOS.
-        // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+        }
 
-        
-        public static void Test(IHost host)
+        public static async System.Threading.Tasks.Task DebugGrpcClient(IHost host)
         {
             using (var scope = host.Services.CreateScope())
             {
-                var propertyService = scope.ServiceProvider.GetRequiredService<IPropertyTypeService>();
+                var propertyTypeService = scope.ServiceProvider.GetRequiredService<Domain.Contracts.Services.IPropertyTypeService>();
+                var mapper = scope.ServiceProvider.GetRequiredService<AutoMapper.IMapper>();
 
-                var command = new AddPropertyTypeCommand
-                {
-                    Name = "Hotel"
-                };
-                propertyService.AddAsync(command).Wait();
+                var grpcService = new PropertyTypeService(mapper, propertyTypeService);
+
+                await grpcService.GetPropertyTypes(new Contracts.GetPropertyTypesRequest() { }, null, null);
+
+
             }
         }
-        
+
     }
 }

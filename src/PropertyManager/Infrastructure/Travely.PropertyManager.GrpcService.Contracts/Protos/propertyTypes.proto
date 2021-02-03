@@ -5,9 +5,9 @@ option csharp_namespace = "Travely.PropertyManager.GrpcService.Contracts";
 service PropertyType {
 	rpc AddPropertyType(AddPropertyTypeRequest) returns (AddPropertyTypeResponse);
 
-	rpc GetPropertyTypeById(GetPropertyTypeByIdRequest) returns (GetPropertyTypeByIdResponse);
+	rpc GetPropertyTypeById(GetPropertyTypeByIdRequest) returns (GetPropertyTypeResponse);
 
-	rpc GetPropertyTypes(GetPropertyTypesRequest) returns (GetPropertyTypesResponse);
+	rpc GetPropertyTypes(GetPropertyTypesRequest) returns (stream GetPropertyTypeResponse);
 }
 
 message AddPropertyTypeRequest {
@@ -23,7 +23,7 @@ message GetPropertyTypeByIdRequest {
 	int32 id = 1;
 }
 
-message GetPropertyTypeByIdResponse {
+message GetPropertyTypeResponse {
 	int32 id = 1;
 	string name = 2;
 }
@@ -32,8 +32,4 @@ message GetPropertyTypesRequest {
 
 }
 
-message GetPropertyTypesResponse{
-	int32 id = 1;
-	string name = 2;
-}
 

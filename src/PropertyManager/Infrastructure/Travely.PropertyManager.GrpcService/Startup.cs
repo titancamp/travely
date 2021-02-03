@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Travely.PropertyManager.Bootstrapper.Helpers;
+using Travely.PropertyManager.GrpcService.MappingProfiles;
 
 namespace Travely.PropertyManager.GrpcService
 {
@@ -21,6 +23,7 @@ namespace Travely.PropertyManager.GrpcService
         {
             ConfigureServicesCore(services);
 
+            ConfigureLocalAutoMapper(services);
             services.ConfigureAutoMapper();
 
             services.AddGrpc();
@@ -52,6 +55,11 @@ namespace Travely.PropertyManager.GrpcService
             services.ConfigureDbContext(Configuration.GetConnectionString("PropertyDbConnection"));
 
             services.RegisterServices();
+        }
+        private void ConfigureLocalAutoMapper(IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(PropertyMappingProfile));
+            services.AddAutoMapper(typeof(PropertyTypeMappingProfile));
         }
     }
 }
