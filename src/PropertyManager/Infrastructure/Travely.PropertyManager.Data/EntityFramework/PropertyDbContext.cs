@@ -12,6 +12,7 @@ namespace Travely.PropertyManager.Data.EntityFramework
         }
 
         public DbSet<Property> Properties { get; set; }
+        public DbSet<PropertyType> PropertyTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

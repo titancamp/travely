@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Travely.PropertyManager.Domain.Contracts.Models.Commands;
+using Travely.PropertyManager.Domain.Contracts.Services;
 
 namespace Travely.PropertyManager.GrpcService
 {
@@ -7,7 +10,11 @@ namespace Travely.PropertyManager.GrpcService
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            Test(host);
+
+            host.Run();
         }
 
         // Additional configuration is required to successfully run gRPC on macOS.
@@ -18,5 +25,21 @@ namespace Travely.PropertyManager.GrpcService
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        
+        public static void Test(IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var propertyService = scope.ServiceProvider.GetRequiredService<IPropertyTypeService>();
+
+                var command = new AddPropertyTypeCommand
+                {
+                    Name = "Hotel"
+                };
+                propertyService.AddAsync(command).Wait();
+            }
+        }
+        
     }
 }

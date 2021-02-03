@@ -1,0 +1,39 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Travely.PropertyManager.GrpcService.Contracts";
+
+service PropertyType {
+	rpc AddPropertyType(AddPropertyTypeRequest) returns (AddPropertyTypeResponse);
+
+	rpc GetPropertyTypeById(GetPropertyTypeByIdRequest) returns (GetPropertyTypeByIdResponse);
+
+	rpc GetPropertyTypes(GetPropertyTypesRequest) returns (GetPropertyTypesResponse);
+}
+
+message AddPropertyTypeRequest {
+	string name = 1;
+}
+
+message AddPropertyTypeResponse {
+	
+}
+
+
+message GetPropertyTypeByIdRequest {
+	int32 id = 1;
+}
+
+message GetPropertyTypeByIdResponse {
+	int32 id = 1;
+	string name = 2;
+}
+
+message GetPropertyTypesRequest {
+
+}
+
+message GetPropertyTypesResponse{
+	int32 id = 1;
+	string name = 2;
+}
+

@@ -9,6 +9,7 @@ namespace Travely.PropertyManager.Bootstrapper
         public static void RegisterServices(IServiceCollection services)
         {
             services.AddTransient<IPropertyService, PropertyService>();
+            services.AddTransient<IPropertyTypeService, PropertyTypeService>();
         }
     }
 }

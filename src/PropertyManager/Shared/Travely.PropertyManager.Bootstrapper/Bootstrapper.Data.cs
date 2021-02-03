@@ -8,7 +8,8 @@ namespace Travely.PropertyManager.Bootstrapper
     {
         public static void ConfigureDbContext(IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<PropertyDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<PropertyDbContext>(options =>
+                options.UseSqlServer(connectionString, x => x.MigrationsAssembly("Travely.PropertyManager.Data")));
         }
     }
 }

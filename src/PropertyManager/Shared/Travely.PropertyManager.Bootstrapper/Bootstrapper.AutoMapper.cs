@@ -9,6 +9,7 @@ namespace Travely.PropertyManager.Bootstrapper
         public static void ConfigureAutoMapper(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(PropertyMappingProfile));
+            services.AddAutoMapper(typeof(PropertyTypeMappingProfile));
         }
     }
 }
