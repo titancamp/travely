@@ -7,7 +7,7 @@
     <PackageReference Update="IdentityServer4" Version="4.1.1" />
     <PackageReference Update="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
 
-    <PackageReference Include="Docker.DotNet" Version="3.125.4" />
+    <PackageReference Update="Docker.DotNet" Version="3.125.4" />
 
     <PackageReference Update="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
 
