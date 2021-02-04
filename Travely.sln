@@ -47,7 +47,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceManager", "ServiceMa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityManager.Lib", "src\IdentityManager\IdentityManager.Lib\IdentityManager.Lib.csproj", "{0ED7F4DD-10C2-4FCA-990D-4AD433519942}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityManager.API", "src\IdentityManager\IdentityManager.API\IdentityManager.API.csproj", "{0E723C30-3FA3-4424-8182-E43DA97D8150}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityManager.API", "src\IdentityManager\IdentityManager.API\IdentityManager.API.csproj", "{0E723C30-3FA3-4424-8182-E43DA97D8150}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.IdentityManager.IRepository", "Travely.IdentityManager.IRepository\Travely.IdentityManager.IRepository.csproj", "{7552F355-F393-47B5-9E1F-F012A0D4A296}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.IdentityManager.Repository", "Travely.IdentityManager.Repository\Travely.IdentityManager.Repository.csproj", "{8788A85F-D1C3-4CAE-B0D2-771705A52940}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.IdentityManager.Repository.Model", "Travely.IdentityManager.Repository.Model\Travely.IdentityManager.Repository.Model.csproj", "{50F2246F-6EF2-4EB3-A978-B84DDDEF32D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +85,18 @@ Global
 		{0E723C30-3FA3-4424-8182-E43DA97D8150}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E723C30-3FA3-4424-8182-E43DA97D8150}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E723C30-3FA3-4424-8182-E43DA97D8150}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7552F355-F393-47B5-9E1F-F012A0D4A296}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7552F355-F393-47B5-9E1F-F012A0D4A296}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7552F355-F393-47B5-9E1F-F012A0D4A296}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7552F355-F393-47B5-9E1F-F012A0D4A296}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8788A85F-D1C3-4CAE-B0D2-771705A52940}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8788A85F-D1C3-4CAE-B0D2-771705A52940}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8788A85F-D1C3-4CAE-B0D2-771705A52940}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8788A85F-D1C3-4CAE-B0D2-771705A52940}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50F2246F-6EF2-4EB3-A978-B84DDDEF32D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50F2246F-6EF2-4EB3-A978-B84DDDEF32D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50F2246F-6EF2-4EB3-A978-B84DDDEF32D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50F2246F-6EF2-4EB3-A978-B84DDDEF32D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +108,9 @@ Global
 		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{0ED7F4DD-10C2-4FCA-990D-4AD433519942} = {1742E743-3758-4121-8FF3-61FC2BAB3F24}
 		{0E723C30-3FA3-4424-8182-E43DA97D8150} = {1742E743-3758-4121-8FF3-61FC2BAB3F24}
+		{7552F355-F393-47B5-9E1F-F012A0D4A296} = {1742E743-3758-4121-8FF3-61FC2BAB3F24}
+		{8788A85F-D1C3-4CAE-B0D2-771705A52940} = {1742E743-3758-4121-8FF3-61FC2BAB3F24}
+		{50F2246F-6EF2-4EB3-A978-B84DDDEF32D6} = {1742E743-3758-4121-8FF3-61FC2BAB3F24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}
