@@ -99,6 +99,7 @@ namespace Travely.ClientManager.Service.Services
         public override async Task<ClientModel> AddClient(AddClientRequest request, ServerCallContext context)
         {
             Client client = _mapper.Map<Client>(request.Client);
+            client.Id = default;
 
             _clientRepository.Add(client);
             await _clientRepository.SaveChangesAsync();
@@ -143,6 +144,7 @@ namespace Travely.ClientManager.Service.Services
 
             try
             {
+                _clientRepository.Update(client);
                 await _clientRepository.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
