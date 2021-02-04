@@ -5,11 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Travely.IdentityManager.IRepository\Travely.IdentityManager.IRepository.csproj" />
     <ProjectReference Include="..\Travely.IdentityManager.Repository.Model\Travely.IdentityManager.Repository.Model.csproj" />
   </ItemGroup>
 
