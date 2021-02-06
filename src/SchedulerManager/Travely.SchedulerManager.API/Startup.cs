@@ -1,14 +1,24 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Travely.SchedulerManager.Notifier;
+using Travely.SchedulerManager.Repository;
 
 namespace Travely.SchedulerManager.API
 {
     public class Startup
     {
+        private IConfiguration Configuration { get; }
+        
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options =>
@@ -24,6 +34,7 @@ namespace Travely.SchedulerManager.API
             });
             services.AddNotifier();
             services.AddGrpc();
+            services.AddDb(Configuration.GetConnectionString("DefaultConnection"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
