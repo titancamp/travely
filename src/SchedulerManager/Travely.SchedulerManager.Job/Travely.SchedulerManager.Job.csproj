@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Travely.SchedulerManager.Abstraction\Travely.SchedulerManager.Abstraction.csproj" />
+    <ProjectReference Include="..\Travely.SchedulerManager.Service\Travely.SchedulerManager.Service.csproj" />
   </ItemGroup>
 
 </Project>

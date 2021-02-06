@@ -4,16 +4,17 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using Travely.SchedulerManager.Abstraction.Job;
 
 namespace Travely.SchedulerManager.Job
 {
     public static class Extensions
     {
-
         public static IServiceCollection AddJobService(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IJobService, JobService>();
+            services.AddSingleton(typeof(IEnqueueAsyncJobService<>), typeof(EnqueueAsyncJobService<>));
+            services.AddSingleton(typeof(IScheduledAsyncJobService<>), typeof(ScheduledAsyncJobService<>));
+            services.AddSingleton(typeof(IRecurrentAsyncJobService<>), typeof(RecurrentAsyncJobService<>));
+
             services.AddHangfire(conf => conf
                    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                    .UseSimpleAssemblyNameTypeSerializer()
@@ -29,7 +30,6 @@ namespace Travely.SchedulerManager.Job
             services.AddHangfireServer();
             return services;
         }
-
         public static IApplicationBuilder UseJobClient(this IApplicationBuilder app)
         {
             app.UseHangfireDashboard();

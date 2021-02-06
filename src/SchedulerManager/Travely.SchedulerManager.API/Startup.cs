@@ -54,6 +54,11 @@ namespace Travely.SchedulerManager.API
                 endpoints.MapGrpcService<GreeterService>();
                 endpoints.MapGet("/", async context => await context.Response.WriteAsync("Service running"));
             });
+
+            //xx.StartJobAsync(new InformationJob(), new InformationJobParameter { TourName = "Enqueue Job" }).GetAwaiter().GetResult();
+            //yy.StartJobAsync(new InformationJob(), TimeSpan.FromSeconds(5), new InformationJobParameter { TourName = "Scheduled Job" }).GetAwaiter().GetResult();
+            //zz.StartJobAsync(new InformationJob(), "Recurrent Job", "* * * * *", new InformationJobParameter { TourName = "Recurrent Job" });
+
         }
     }
 }
