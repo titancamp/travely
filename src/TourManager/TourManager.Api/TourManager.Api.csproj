@@ -9,14 +9,21 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Commons\TourManager.CommonTypes\TourManager.CommonTypes.csproj" />
+    <ProjectReference Include="..\TourManager.Repository.EfCore.MsSql\TourManager.Repository.EfCore.MsSql.csproj" />
     <ProjectReference Include="..\TourManager.Repository.EfCore\TourManager.Repository.EfCore.csproj" />
+    <ProjectReference Include="..\TourManager.Service.Abstraction\TourManager.Service.Abstraction.csproj" />
+    <ProjectReference Include="..\TourManager.Service.Implementation\TourManager.Service.Implementation.csproj" />
+    <ProjectReference Include="..\TourManager.Service.Model\TourManager.Service.Model.csproj" />
   </ItemGroup>
 
 </Project>

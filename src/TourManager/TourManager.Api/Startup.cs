@@ -23,7 +23,7 @@ namespace TourManager.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TourDbContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("TourDbContext"), x => x.MigrationsAssembly("TourManager.Repository.EfCore")));
+                options.UseSqlServer(Configuration.GetConnectionString("TourDbContext"), x => x.MigrationsAssembly("TourManager.Repository.EfCore.MsSql")));
 
             services.AddControllers();
             services.AddApiVersioning(config =>

@@ -1,13 +1,10 @@
-version: "3.9"
+version: "3.7"
 services:
-    web:
-        build: .
+    sql-server-db:
+        container_name: sql-server-db
+        image: mcr.microsoft.com/mssql/server:2019-latest
         ports:
-            - "8000:80"
-        depends_on:
-            - db
-    db:
-        image: "mcr.microsoft.com/mssql/server"
-        environment:
-            SA_PASSWORD: "Your_password123"
+            - "1433:1433"
+        environment: 
+            SA_PASSWORD: "Passw0rd!"
             ACCEPT_EULA: "Y"
