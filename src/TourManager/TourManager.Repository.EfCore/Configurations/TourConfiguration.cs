@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TourManager.Repository.EfCore.Entities;
+using TourManager.Repository.Entities;
 
 namespace TourManager.Repository.EfCore.Configurations
 {

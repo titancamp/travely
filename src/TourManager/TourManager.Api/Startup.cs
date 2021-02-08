@@ -22,9 +22,8 @@ namespace TourManager.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddDbContext<TourContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<TourDbContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("TourDbContext"), x => x.MigrationsAssembly("TourManager.Repository.EfCore")));
 
             services.AddControllers();
             services.AddApiVersioning(config =>

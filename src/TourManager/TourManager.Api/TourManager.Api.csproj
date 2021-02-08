@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Commons\TourManager.CommonTypes\TourManager.CommonTypes.csproj" />
+    <ProjectReference Include="..\TourManager.Repository.EfCore\TourManager.Repository.EfCore.csproj" />
   </ItemGroup>
 
 </Project>

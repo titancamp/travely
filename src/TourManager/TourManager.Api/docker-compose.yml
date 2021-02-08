@@ -1,13 +1,13 @@
-version: '3.1'
-
+version: "3.9"
 services:
-
-  db:
-    image: mcr.microsoft.com/mssql/server:2017-latest
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: root
-      POSTGRES_USER: root
-      POSTGRES_DB: tourdb
-    ports:
-      - "5434:3306"
+    web:
+        build: .
+        ports:
+            - "8000:80"
+        depends_on:
+            - db
+    db:
+        image: "mcr.microsoft.com/mssql/server"
+        environment:
+            SA_PASSWORD: "Your_password123"
+            ACCEPT_EULA: "Y"

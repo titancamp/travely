@@ -2,14 +2,11 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>TourManager.Repository</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\TourManager.Repository.EfCore\TourManager.Repository.EfCore.csproj" />
     </ItemGroup>
 
 </Project>
