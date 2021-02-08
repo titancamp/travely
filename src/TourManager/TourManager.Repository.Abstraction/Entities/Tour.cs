@@ -5,7 +5,7 @@ namespace TourManager.Repository.Entities
 {
     public class Tour
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime StartDate { get; set; }
