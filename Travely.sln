@@ -61,11 +61,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourManager.Api", "src\Tour
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{CF50A7A4-CC65-4638-A4B6-40FE5A7484AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourManager.CommonTypes", "Commons\TourManager.CommonTypes\TourManager.CommonTypes.csproj", "{54661879-163F-45EF-ABDE-2B3A2C6C8DBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourManager.CommonTypes", "Commons\TourManager.CommonTypes\TourManager.CommonTypes.csproj", "{54661879-163F-45EF-ABDE-2B3A2C6C8DBB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{BEF10572-3F35-4C36-9B50-D15CE21ABBCC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourManager.Models", "src\TourManager\TourManager.Models\TourManager.Models.csproj", "{79F07C63-F69A-4C28-9659-39C284D1F70D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourManager.Service.Model", "src\TourManager\TourManager.Service.Model\TourManager.Service.Model.csproj", "{C4446477-115B-44EE-A514-339C7C09E06E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,10 +107,10 @@ Global
 		{54661879-163F-45EF-ABDE-2B3A2C6C8DBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54661879-163F-45EF-ABDE-2B3A2C6C8DBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54661879-163F-45EF-ABDE-2B3A2C6C8DBB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{79F07C63-F69A-4C28-9659-39C284D1F70D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79F07C63-F69A-4C28-9659-39C284D1F70D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79F07C63-F69A-4C28-9659-39C284D1F70D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79F07C63-F69A-4C28-9659-39C284D1F70D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4446477-115B-44EE-A514-339C7C09E06E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4446477-115B-44EE-A514-339C7C09E06E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4446477-115B-44EE-A514-339C7C09E06E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4446477-115B-44EE-A514-339C7C09E06E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,8 +128,7 @@ Global
 		{6FAE42F0-FCA3-47C9-95C7-A2338B6997E6} = {62F5D8F9-D032-4EC1-8065-1E51CEF80CBF}
 		{BE676902-87BC-4BA9-8B99-A99A3ABF7F9F} = {90D98036-508B-4ED9-A502-0D0340502EC4}
 		{54661879-163F-45EF-ABDE-2B3A2C6C8DBB} = {CF50A7A4-CC65-4638-A4B6-40FE5A7484AB}
-		{BEF10572-3F35-4C36-9B50-D15CE21ABBCC} = {90D98036-508B-4ED9-A502-0D0340502EC4}
-		{79F07C63-F69A-4C28-9659-39C284D1F70D} = {BEF10572-3F35-4C36-9B50-D15CE21ABBCC}
+		{C4446477-115B-44EE-A514-339C7C09E06E} = {3574B680-9A16-4461-A262-608E28BF717D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}

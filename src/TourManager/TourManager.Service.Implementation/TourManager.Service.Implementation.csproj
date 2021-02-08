@@ -4,4 +4,9 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TourManager.Service.Abstraction\TourManager.Service.Abstraction.csproj" />
+      <ProjectReference Include="..\TourManager.Service.Model\TourManager.Service.Model.csproj" />
+    </ItemGroup>
+
 </Project>
