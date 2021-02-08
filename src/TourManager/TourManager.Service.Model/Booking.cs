@@ -7,7 +7,7 @@ namespace TourManager.Service.Model
 	public class Booking
 	{
 		public int Id { get; set; }
-        public string Name { get; set; }
+		public string Name { get; set; }
 		public BookingType Type { get; set; }
 		public BookingStatus Status { get; set; }
 		public DateTime? CheckInDate { get; set; }
