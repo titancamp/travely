@@ -6,10 +6,10 @@ namespace TourManager.Service.Abstraction
 {
     public interface ITourService
     {
-        public Task<IEnumerable<Tour>> GetAllTours();
-        public Task<Tour> GetTourWithDetails(int tourId);
-
+        public Task<List<Tour>> GetTours(int tenantId);
+        public Task<Tour> GetTourById(int tourId);
         public Task CreateTour(Tour tour);
-        public Task RemoveTour(Tour tour);
+        public Task UpdateTour(Tour tour);
+        public Task RemoveTour(int tourId);
     }
 }
