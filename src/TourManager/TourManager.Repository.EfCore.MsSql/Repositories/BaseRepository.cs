@@ -19,32 +19,34 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
             DbSet = Context.Set<TEntity>();
         }
 
-        public async Task<TEntity> GetByIdAsync(int id)
+        public Task<TEntity> GetByIdAsync(int id)
         {
-            return await Context.Set<TEntity>().FindAsync(id);
+            return Context.Set<TEntity>().FindAsync(id).AsTask();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public Task<List<TEntity>> GetAllAsync()
         {
             var query = Context.Set<TEntity>().AsNoTracking();
 
-            return await query.ToListAsync();
+            return query.ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> Find(Expression<Func<TEntity, bool>> predicate)
+        public Task<List<TEntity>> Find(Expression<Func<TEntity, bool>> predicate)
         {
             var query = Context.Set<TEntity>()
                 .AsNoTracking()
                 .Where(predicate);
 
-            return await query.ToListAsync();
+            return query.ToListAsync();
         }
 
-        public async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        public Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await Context.Set<TEntity>()
+            var entity = Context.Set<TEntity>()
                 .AsNoTracking()
                 .SingleOrDefaultAsync(predicate);
+
+            return entity;
         }
 
         public async Task<TEntity> AddAsync(TEntity entity)
@@ -55,22 +57,22 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
             return entityEntry.Entity;
         }
 
-        public async Task AddRangeAsync(IEnumerable<TEntity> entities)
+        public Task AddRangeAsync(List<TEntity> entities)
         {
             Context.Set<TEntity>().AddRange(entities);
-            await Context.SaveChangesAsync();
+            return Context.SaveChangesAsync();
         }
 
-        public async Task Remove(TEntity entity)
+        public Task Remove(TEntity entity)
         {
             Context.Set<TEntity>().Remove(entity);
-            await Context.SaveChangesAsync();
+            return Context.SaveChangesAsync();
         }
 
-        public async Task RemoveRange(IEnumerable<TEntity> entities)
+        public Task RemoveRange(List<TEntity> entities)
         {
             Context.Set<TEntity>().RemoveRange(entities);
-            await Context.SaveChangesAsync();
+            return Context.SaveChangesAsync();
         }
     }
 }
