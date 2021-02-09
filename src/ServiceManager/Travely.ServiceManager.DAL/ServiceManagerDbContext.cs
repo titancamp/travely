@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Travely.ServiceManager.Abstraction.Models.Db;
 
-namespace Travely.ServiceManager.DAL.Data
+namespace Travely.ServiceManager.DAL
 {
     public class ServiceManagerDbContext : DbContext
     {
@@ -9,6 +9,10 @@ namespace Travely.ServiceManager.DAL.Data
             : base(options)
         {
         }
+
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<ActivityType> ActivityTypes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Activity>()
@@ -22,6 +26,10 @@ namespace Travely.ServiceManager.DAL.Data
             modelBuilder.Entity<Activity>()
                 .HasIndex(x => new { x.Name, x.ActivityTypeId })
                 .IsUnique();
+
+            modelBuilder.Entity<Activity>()
+                .Property(x => x.Name)
+                .IsRequired();
 
             modelBuilder.Entity<Activity>()
                 .Property(x => x.Address)
@@ -40,33 +48,32 @@ namespace Travely.ServiceManager.DAL.Data
                 .IsRequired();
 
             modelBuilder.Entity<Activity>()
-                .Property(x => x.Website)
-                .IsRequired();
+                .Property(x => x.Website);
 
             modelBuilder.Entity<Activity>()
                 .Property(x => x.Price);
 
             modelBuilder.Entity<Activity>()
-                .Property(x => x.Currency)
+                .Property(x => x.Currency);
+
+            modelBuilder.Entity<Activity>()
+                .Property(x => x.Notes);
+
+            modelBuilder.Entity<Activity>()
+                .Property(x => x.CreatedDate)
                 .IsRequired();
 
             modelBuilder.Entity<Activity>()
-                .Property(x => x.Notes)
-                .IsRequired();
+                .Property(x => x.LastUpdatedDate);
 
             modelBuilder.Entity<Activity>()
-                .Property(x => x.ChangeDate)
-                .IsRequired();
-
-            modelBuilder.Entity<Activity>()
-                .Property(x => x.ChangeUser)
-                .IsRequired();
+                .Property(x => x.ChangeUser);
 
             modelBuilder.Entity<ActivityType>()
                 .HasKey(x => new { x.Id });
 
             modelBuilder.Entity<ActivityType>()
-                .HasIndex(x => new { x.ActivityName, x.AgencyId })
+                .HasIndex(x => new { x.Name, x.AgencyId })
                 .IsUnique();
 
             modelBuilder.Entity<ActivityType>()
@@ -74,13 +81,10 @@ namespace Travely.ServiceManager.DAL.Data
                 .IsRequired();
 
             modelBuilder.Entity<ActivityType>()
-                .Property(x => x.ActivityName)
+                .Property(x => x.Name)
                 .IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }
-
-        public DbSet<Activity> Activities { get; set; }
-        public DbSet<ActivityType> ActivityTypes { get; set; }
     }
 }

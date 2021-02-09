@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Travely.ServiceManager.DAL.Data;
+using Travely.ServiceManager.DAL;
 
 namespace Travely.ServiceManager.DAL.Migrations
 {
@@ -33,29 +33,32 @@ namespace Travely.ServiceManager.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ChangeDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("ChangeUser")
+                    b.Property<long?>("ChangeUser")
                         .HasColumnType("bigint");
 
                     b.Property<string>("ContactName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Currency")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("LastUpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
@@ -66,7 +69,6 @@ namespace Travely.ServiceManager.DAL.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Website")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -74,8 +76,7 @@ namespace Travely.ServiceManager.DAL.Migrations
                     b.HasIndex("ActivityTypeId");
 
                     b.HasIndex("Name", "ActivityTypeId")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Activities");
                 });
@@ -87,16 +88,17 @@ namespace Travely.ServiceManager.DAL.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<string>("ActivityName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<long>("AgencyId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ActivityName", "AgencyId")
+                    b.HasIndex("Name", "AgencyId")
                         .IsUnique();
 
                     b.ToTable("ActivityTypes");

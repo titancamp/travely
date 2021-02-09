@@ -13,7 +13,7 @@ namespace Travely.ServiceManager.DAL.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ActivityName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     AgencyId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -27,17 +27,18 @@ namespace Travely.ServiceManager.DAL.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ContactName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Website = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Website = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Currency = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ChangeDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ChangeUser = table.Column<long>(type: "bigint", nullable: false),
+                    Currency = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastUpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ChangeUser = table.Column<long>(type: "bigint", nullable: true),
                     ActivityTypeId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
@@ -60,13 +61,12 @@ namespace Travely.ServiceManager.DAL.Migrations
                 name: "IX_Activities_Name_ActivityTypeId",
                 table: "Activities",
                 columns: new[] { "Name", "ActivityTypeId" },
-                unique: true,
-                filter: "[Name] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActivityTypes_ActivityName_AgencyId",
+                name: "IX_ActivityTypes_Name_AgencyId",
                 table: "ActivityTypes",
-                columns: new[] { "ActivityName", "AgencyId" },
+                columns: new[] { "Name", "AgencyId" },
                 unique: true);
         }
 
