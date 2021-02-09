@@ -9,9 +9,6 @@ namespace Travely.PropertyManager.GrpcService
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-
-            //DebugGrpcClient(host).GetAwaiter().GetResult();
-
             host.Run();
         }
 
@@ -23,21 +20,5 @@ namespace Travely.PropertyManager.GrpcService
                     webBuilder.UseStartup<Startup>();
                 });
         }
-
-        public static async System.Threading.Tasks.Task DebugGrpcClient(IHost host)
-        {
-            using (var scope = host.Services.CreateScope())
-            {
-                var propertyTypeService = scope.ServiceProvider.GetRequiredService<Domain.Contracts.Services.IPropertyTypeService>();
-                var mapper = scope.ServiceProvider.GetRequiredService<AutoMapper.IMapper>();
-
-                var grpcService = new PropertyTypeService(mapper, propertyTypeService);
-
-                await grpcService.GetPropertyTypes(new Contracts.GetPropertyTypesRequest() { }, null, null);
-
-
-            }
-        }
-
     }
 }
