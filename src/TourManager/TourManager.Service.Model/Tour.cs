@@ -7,7 +7,6 @@ namespace TourManager.Service.Model
 	{
 		public int Id { get; set; }
 		public int TenantId { get; set; }
-
 		public bool? IsPackage { get; set; }
 		public string TourName { get; set; }
 		public decimal Price { get; set; }
