@@ -6,9 +6,9 @@ using Travely.ClientManager.Repository.Entity.Client;
 
 namespace Travely.ClientManager.Repository.Repository
 {
-    public class ClientRepository : BaseRepository<Client>, IClientRepository
+    public class TuristRepository : BaseRepository<Turist>, ITuristRepository
     {
-        public ClientRepository(ClientDbContext dbContext) : base(dbContext)
+        public TuristRepository(TuristDbContext dbContext) : base(dbContext)
         {
         }
     }

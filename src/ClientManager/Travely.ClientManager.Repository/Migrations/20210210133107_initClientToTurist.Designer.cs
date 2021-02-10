@@ -9,9 +9,9 @@ using Travely.ClientManager.Repository;
 
 namespace Travely.ClientManager.Repository.Migrations
 {
-    [DbContext(typeof(ClientDbContext))]
-    [Migration("20210203075539_Init_Database")]
-    partial class Init_Database
+    [DbContext(typeof(TuristDbContext))]
+    [Migration("20210210133107_initClientToTurist")]
+    partial class initClientToTurist
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace Travely.ClientManager.Repository.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("ClientPreference", b =>
+            modelBuilder.Entity("PreferenceTurist", b =>
                 {
                     b.Property<int>("ClientsId")
                         .HasColumnType("int");
@@ -33,17 +33,35 @@ namespace Travely.ClientManager.Repository.Migrations
 
                     b.HasIndex("PreferencesId");
 
-                    b.ToTable("ClientPreference");
+                    b.ToTable("PreferenceTurist");
                 });
 
-            modelBuilder.Entity("Travely.ClientManager.Repository.Entity.Client.Client", b =>
+            modelBuilder.Entity("Travely.ClientManager.Repository.Entity.Client.Preference", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int>("CompanyId")
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Preference");
+                });
+
+            modelBuilder.Entity("Travely.ClientManager.Repository.Entity.Client.Turist", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("AgencyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -81,30 +99,12 @@ namespace Travely.ClientManager.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Client");
+                    b.ToTable("Turist");
                 });
 
-            modelBuilder.Entity("Travely.ClientManager.Repository.Entity.Client.Preference", b =>
+            modelBuilder.Entity("PreferenceTurist", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Preference");
-                });
-
-            modelBuilder.Entity("ClientPreference", b =>
-                {
-                    b.HasOne("Travely.ClientManager.Repository.Entity.Client.Client", null)
+                    b.HasOne("Travely.ClientManager.Repository.Entity.Client.Turist", null)
                         .WithMany()
                         .HasForeignKey("ClientsId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -13,8 +13,8 @@ namespace Travely.ClientManager.Repository.Repository
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
-        protected ClientDbContext _dbContext;
-        public BaseRepository(ClientDbContext dbContext)
+        protected TuristDbContext _dbContext;
+        public BaseRepository(TuristDbContext dbContext)
         {
             _dbContext = dbContext;
 

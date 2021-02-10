@@ -10,6 +10,6 @@ namespace Travely.ClientManager.Repository.Entity.Client
     {
         public string Note { get; set; }
 
-        public virtual ICollection<Client> Clients { get; set; }
+        public virtual ICollection<Turist> Clients { get; set; }
     }
 }

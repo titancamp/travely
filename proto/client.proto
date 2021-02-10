@@ -14,7 +14,7 @@ rpc GetClient (GetClientRequest) returns (ClientModel);
 rpc GetClientWithPreferences (GetClientRequest) returns (ClientWithPreferencesModel);
 rpc GetAllClients (GetAllClientsRequest) returns (stream ClientModel);
 
-rpc AddClient (AddClientRequest) returns (ClientModel);
+rpc CreateClient (CreateClientRequest) returns (ClientModel);
 rpc UpdateClient (UpdateClientRequest) returns (ClientModel);
 rpc DeleteClient (DeleteClientRequest) returns (DeleteClientResponse);
 
@@ -30,7 +30,7 @@ message GetAllClientsRequest{
 
 }
 
-message AddClientRequest{
+message CreateClientRequest{
 	ClientModel client = 1; 
 }
 
@@ -64,7 +64,7 @@ message ClientModel{
 	string issuedBy = 10;
 	google.protobuf.Timestamp issuedDate = 11;
 	google.protobuf.Timestamp expireDate = 12;
-	int32 companyId = 13;
+	int32 agencyId = 13;
 }
 
 message ClientWithPreferencesModel{
@@ -80,7 +80,7 @@ message ClientWithPreferencesModel{
 	string issuedBy = 10;
 	google.protobuf.Timestamp issuedDate = 11;
 	google.protobuf.Timestamp expireDate = 12;
-	int32 companyId = 13;
+	int32 agencyId = 13;
 	repeated Preference.PreferenceModel Preferences = 14;
 
 }

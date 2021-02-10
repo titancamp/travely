@@ -10,7 +10,7 @@ service PreferenceProtoService {
 rpc GetPreference (GetPreferenceRequest) returns (PreferenceModel);
 rpc GetAllPreferences (GetAllPreferencesRequest) returns (stream PreferenceModel);
 
-rpc AddPreference (AddPreferenceRequest) returns (PreferenceModel);
+rpc CreatePreference (CreatePreferenceRequest) returns (PreferenceModel);
 rpc UpdatePreference (UpdatePreferenceRequest) returns (PreferenceModel);
 rpc DeletePreference (DeletePreferenceRequest) returns (DeletePreferenceResponse);
 
@@ -24,7 +24,7 @@ message GetAllPreferencesRequest{
 
 }
 
-message AddPreferenceRequest{
+message CreatePreferenceRequest{
 	PreferenceModel preference = 1; 
 }
 

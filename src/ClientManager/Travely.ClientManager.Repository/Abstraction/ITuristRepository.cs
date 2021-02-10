@@ -5,7 +5,7 @@ using Travely.ClientManager.Repository.Entity.Client;
 
 namespace Travely.ClientManager.Repository.Abstraction
 {
-    public interface IClientRepository : IBaseRepository<Client>
+    public interface ITuristRepository : IBaseRepository<Turist>
     {
 
     }

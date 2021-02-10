@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Travely.ClientManager.Repository.Entity.Client
 {
-    [Table("Client")]
-    public class Client : BaseEntity
+    [Table("Turist")]
+    public class Turist : BaseEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -18,7 +18,7 @@ namespace Travely.ClientManager.Repository.Entity.Client
         public string IssuedBy { get; set; }
         public DateTime IssuedDate { get; set; }
         public DateTime ExpireDate { get; set; }
-        public int CompanyId { get; set; }
+        public int AgencyId { get; set; }
 
         public virtual ICollection<Preference> Preferences { get; set; }
     }
