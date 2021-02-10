@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Travely.ClientManager.Repository.Migrations
 {
-    public partial class initClientToTurist : Migration
+    public partial class InitClientToTurist : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,12 +49,12 @@ namespace Travely.ClientManager.Repository.Migrations
                 name: "PreferenceTurist",
                 columns: table => new
                 {
-                    ClientsId = table.Column<int>(type: "int", nullable: false),
-                    PreferencesId = table.Column<int>(type: "int", nullable: false)
+                    PreferencesId = table.Column<int>(type: "int", nullable: false),
+                    TuristsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PreferenceTurist", x => new { x.ClientsId, x.PreferencesId });
+                    table.PrimaryKey("PK_PreferenceTurist", x => new { x.PreferencesId, x.TuristsId });
                     table.ForeignKey(
                         name: "FK_PreferenceTurist_Preference_PreferencesId",
                         column: x => x.PreferencesId,
@@ -62,17 +62,17 @@ namespace Travely.ClientManager.Repository.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PreferenceTurist_Turist_ClientsId",
-                        column: x => x.ClientsId,
+                        name: "FK_PreferenceTurist_Turist_TuristsId",
+                        column: x => x.TuristsId,
                         principalTable: "Turist",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PreferenceTurist_PreferencesId",
+                name: "IX_PreferenceTurist_TuristsId",
                 table: "PreferenceTurist",
-                column: "PreferencesId");
+                column: "TuristsId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

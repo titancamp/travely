@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace Travely.ClientManager.Repository.Entity.Client
+namespace Travely.ClientManager.Repository.Entity
 {
     [Table("Turist")]
     public class Turist : BaseEntity

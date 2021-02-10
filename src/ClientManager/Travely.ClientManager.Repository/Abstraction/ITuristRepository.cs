@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Travely.ClientManager.Repository.Entity.Client;
+using Travely.ClientManager.Repository.Entity;
 
 namespace Travely.ClientManager.Repository.Abstraction
 {

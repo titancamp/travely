@@ -10,8 +10,8 @@ using Travely.ClientManager.Repository;
 namespace Travely.ClientManager.Repository.Migrations
 {
     [DbContext(typeof(TuristDbContext))]
-    [Migration("20210210133107_initClientToTurist")]
-    partial class initClientToTurist
+    [Migration("20210210134054_InitClientToTurist")]
+    partial class InitClientToTurist
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,20 +23,20 @@ namespace Travely.ClientManager.Repository.Migrations
 
             modelBuilder.Entity("PreferenceTurist", b =>
                 {
-                    b.Property<int>("ClientsId")
-                        .HasColumnType("int");
-
                     b.Property<int>("PreferencesId")
                         .HasColumnType("int");
 
-                    b.HasKey("ClientsId", "PreferencesId");
+                    b.Property<int>("TuristsId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("PreferencesId");
+                    b.HasKey("PreferencesId", "TuristsId");
+
+                    b.HasIndex("TuristsId");
 
                     b.ToTable("PreferenceTurist");
                 });
 
-            modelBuilder.Entity("Travely.ClientManager.Repository.Entity.Client.Preference", b =>
+            modelBuilder.Entity("Travely.ClientManager.Repository.Entity.Preference", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,7 +54,7 @@ namespace Travely.ClientManager.Repository.Migrations
                     b.ToTable("Preference");
                 });
 
-            modelBuilder.Entity("Travely.ClientManager.Repository.Entity.Client.Turist", b =>
+            modelBuilder.Entity("Travely.ClientManager.Repository.Entity.Turist", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -104,15 +104,15 @@ namespace Travely.ClientManager.Repository.Migrations
 
             modelBuilder.Entity("PreferenceTurist", b =>
                 {
-                    b.HasOne("Travely.ClientManager.Repository.Entity.Client.Turist", null)
+                    b.HasOne("Travely.ClientManager.Repository.Entity.Preference", null)
                         .WithMany()
-                        .HasForeignKey("ClientsId")
+                        .HasForeignKey("PreferencesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Travely.ClientManager.Repository.Entity.Client.Preference", null)
+                    b.HasOne("Travely.ClientManager.Repository.Entity.Turist", null)
                         .WithMany()
-                        .HasForeignKey("PreferencesId")
+                        .HasForeignKey("TuristsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
