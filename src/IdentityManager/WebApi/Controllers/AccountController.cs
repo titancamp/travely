@@ -9,12 +9,12 @@ namespace IdentityManager.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthenticationController : ControllerBase
+    public class AccountController : ControllerBase
     {
         private IAuthenticationService _authenticationService;
         private IConfiguration _configuration;
 
-        public AuthenticationController(IAuthenticationService authenticationService, IConfiguration configuration)
+        public AccountController(IAuthenticationService authenticationService, IConfiguration configuration)
         {
             _authenticationService = authenticationService;
             _configuration = configuration;
@@ -69,12 +69,12 @@ namespace IdentityManager.API.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("ConfirmEmail")]
-        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        public async Task<IActionResult> ConfirmEmail(string email, string token)
         {
-            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(token))
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(token))
                 return NotFound();
 
-            var result = await _authenticationService.ConfirmEmailAsync(userId, token);
+            var result = await _authenticationService.ConfirmEmailAsync(email, token);
 
             if (result.IsSuccess)
             {
@@ -123,30 +123,5 @@ namespace IdentityManager.API.Controllers
 
             return BadRequest("Some properties are not valid");
         }
-
-        /// <summary>
-        /// RefreshToken
-        /// </summary>
-        /// <param name="refreshRequest"></param>
-        /// <returns></returns>
-        [HttpPost("RefreshToken")]
-        public async Task<ActionResult> RefreshToken([FromBody] Models.AuthResponse refreshRequest)
-        {
-
-            if (ModelState.IsValid)
-            {
-                var result = await _authenticationService.RefreshToken(refreshRequest);
-
-                if (result.IsSuccess)
-                {
-                    return Ok(result);
-                }
-
-                return BadRequest(result);
-            }
-
-            return BadRequest("Some properties are not valid");
-        }
-
     }
 }

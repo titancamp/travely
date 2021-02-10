@@ -10,7 +10,7 @@ namespace IdentityManager.API.Identity
 
         Task<Models.AuthResponse> LoginUserAsync(LoginViewModel model);
 
-        Task<Models.AuthResponse> ConfirmEmailAsync(string userId, string token);
+        Task<Models.AuthResponse> ConfirmEmailAsync(string email, string token);
 
         Task<Models.AuthResponse> ForgetPasswordAsync(string email);
 
