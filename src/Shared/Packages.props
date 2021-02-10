@@ -11,8 +11,8 @@
 
     <PackageReference Update="Swashbuckle.AspNetCore" Version="5.6.3" />
 
-	<PackageReference Update="Microsoft.AspNetCore.Authorization" Version="5.0.2" />
-	<PackageReference Update="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+    <PackageReference Update="Microsoft.AspNetCore.Authorization" Version="5.0.2" />
+    <PackageReference Update="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
 
     <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" IncludeAssets="runtime; build; native; contentfiles; analyzers" />
     
