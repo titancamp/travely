@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using TourManager.Service.Model;
 
-namespace TourManager.Service.Implementation.Validations
+namespace TourManager.Service.Model.Validations
 {
     public class TourValidator : AbstractValidator<Tour>
     {
