@@ -50,7 +50,7 @@ namespace Travely.ServiceManager.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("LastUpdatedDate")
+                    b.Property<DateTime>("LastUpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")

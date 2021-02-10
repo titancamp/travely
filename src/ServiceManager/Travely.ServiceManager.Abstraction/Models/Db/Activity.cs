@@ -17,7 +17,7 @@ namespace Travely.ServiceManager.Abstraction.Models.Db
         public string Currency { get; set; }
         public string Notes { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime? LastUpdatedDate { get; set; }
+        public DateTime LastUpdatedDate { get; set; }
         public long? ChangeUser { get; set; }
 
         public ActivityType ActivityType { get; set; }

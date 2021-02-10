@@ -37,7 +37,7 @@ namespace Travely.ServiceManager.DAL.Migrations
                     Currency = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastUpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastUpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ChangeUser = table.Column<long>(type: "bigint", nullable: true),
                     ActivityTypeId = table.Column<long>(type: "bigint", nullable: false)
                 },

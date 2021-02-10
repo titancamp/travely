@@ -10,7 +10,7 @@ using Travely.ServiceManager.DAL;
 namespace Travely.ServiceManager.DAL.Migrations
 {
     [DbContext(typeof(ServiceManagerDbContext))]
-    [Migration("20210209171925_ServiceManagerDB")]
+    [Migration("20210210175151_ServiceManagerDB")]
     partial class ServiceManagerDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,7 +52,7 @@ namespace Travely.ServiceManager.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("LastUpdatedDate")
+                    b.Property<DateTime>("LastUpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
