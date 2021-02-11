@@ -50,8 +50,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{16993E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.PropertyManager.Domain", "src\PropertyManager\Domain\Travely.PropertyManager.Domain\Travely.PropertyManager.Domain.csproj", "{5DE728F5-6FEB-4769-9E2D-6EBC1CEC2B08}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.PropertyManager.Domain.Contracts", "src\PropertyManager\Domain\Travely.PropertyManager.Domain.Contracts\Travely.PropertyManager.Domain.Contracts.csproj", "{547583D7-4C0E-42BD-ACCD-5AA186E5CFEC}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.PropertyManager.Data", "src\PropertyManager\Infrastructure\Travely.PropertyManager.Data\Travely.PropertyManager.Data.csproj", "{0E54E807-8471-4D54-8A51-0EFD7EE5B387}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.PropertyManager.GrpcService", "src\PropertyManager\Infrastructure\Travely.PropertyManager.GrpcService\Travely.PropertyManager.GrpcService.csproj", "{662B1835-A23C-475D-BA5C-222E3EA988F2}"
@@ -88,10 +86,6 @@ Global
 		{5DE728F5-6FEB-4769-9E2D-6EBC1CEC2B08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DE728F5-6FEB-4769-9E2D-6EBC1CEC2B08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DE728F5-6FEB-4769-9E2D-6EBC1CEC2B08}.Release|Any CPU.Build.0 = Release|Any CPU
-		{547583D7-4C0E-42BD-ACCD-5AA186E5CFEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{547583D7-4C0E-42BD-ACCD-5AA186E5CFEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{547583D7-4C0E-42BD-ACCD-5AA186E5CFEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{547583D7-4C0E-42BD-ACCD-5AA186E5CFEC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E54E807-8471-4D54-8A51-0EFD7EE5B387}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E54E807-8471-4D54-8A51-0EFD7EE5B387}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E54E807-8471-4D54-8A51-0EFD7EE5B387}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -125,7 +119,6 @@ Global
 		{BAD56D4B-113B-4F24-8F0C-31F8FEB3994B} = {DFD7AFF6-28B5-4371-AD7C-D5E84F2B8172}
 		{16993E99-0B3D-451E-B4A5-EBA602934943} = {DFD7AFF6-28B5-4371-AD7C-D5E84F2B8172}
 		{5DE728F5-6FEB-4769-9E2D-6EBC1CEC2B08} = {E4644329-73E7-46D7-8E49-D3C02AE0399F}
-		{547583D7-4C0E-42BD-ACCD-5AA186E5CFEC} = {E4644329-73E7-46D7-8E49-D3C02AE0399F}
 		{0E54E807-8471-4D54-8A51-0EFD7EE5B387} = {BAD56D4B-113B-4F24-8F0C-31F8FEB3994B}
 		{662B1835-A23C-475D-BA5C-222E3EA988F2} = {BAD56D4B-113B-4F24-8F0C-31F8FEB3994B}
 		{70862BFD-6F9B-4158-A69F-3E7BE8906D34} = {16993E99-0B3D-451E-B4A5-EBA602934943}

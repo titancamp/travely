@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Travely.PropertyManager.Domain.Contracts.Services;
+using Travely.PropertyManager.Domain.Contracts;
 using Travely.PropertyManager.Domain.Services;
 
 namespace Travely.PropertyManager.Bootstrapper

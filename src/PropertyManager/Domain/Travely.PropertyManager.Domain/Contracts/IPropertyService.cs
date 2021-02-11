@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Travely.PropertyManager.Domain.Contracts.Models.Commands;
-using Travely.PropertyManager.Domain.Contracts.Models.Queries;
-using Travely.PropertyManager.Domain.Contracts.Models.Responses;
+using Travely.PropertyManager.Domain.Models.Commands;
+using Travely.PropertyManager.Domain.Models.Queries;
+using Travely.PropertyManager.Domain.Models.Responses;
 
-namespace Travely.PropertyManager.Domain.Contracts.Services
+namespace Travely.PropertyManager.Domain.Contracts
 {
     public interface IPropertyService
     {

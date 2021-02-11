@@ -5,10 +5,10 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Travely.PropertyManager.Data.EntityFramework;
-using Travely.PropertyManager.Domain.Contracts.Models.Commands;
-using Travely.PropertyManager.Domain.Contracts.Models.Queries;
-using Travely.PropertyManager.Domain.Contracts.Models.Responses;
-using Travely.PropertyManager.Domain.Contracts.Services;
+using Travely.PropertyManager.Domain.Models.Commands;
+using Travely.PropertyManager.Domain.Models.Queries;
+using Travely.PropertyManager.Domain.Models.Responses;
+using Travely.PropertyManager.Domain.Contracts;
 using Travely.PropertyManager.Domain.Entities;
 
 namespace Travely.PropertyManager.Domain.Services
@@ -33,7 +33,14 @@ namespace Travely.PropertyManager.Domain.Services
         }
 
         public Task<ICollection<PropertyResponse>> GetAsync(GetPropertiesQuery query)
-        { 
+        {
+
+            IQueryable<Property> propertiesQueryable = _dbContext.Properties.AsQueryable();
+
+            propertiesQueryable = base.BuildFilters(propertiesQueryable, query.Filters);
+            propertiesQueryable = base.BuildSortings(propertiesQueryable, query.Sortings);
+
+
             throw new System.NotImplementedException();
         } 
     }
