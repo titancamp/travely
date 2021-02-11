@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Commons\TourManager.CommonTypes\TourManager.CommonTypes.csproj" />
+    <ProjectReference Include="..\TourManager.Common\TourManager.Common.csproj" />
   </ItemGroup>
 
 </Project>

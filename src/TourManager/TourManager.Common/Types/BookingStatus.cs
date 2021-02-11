@@ -1,4 +1,4 @@
-﻿namespace TourManager.CommonTypes
+﻿namespace TourManager.Common.Types
 {
 	public enum BookingStatus
 	{
