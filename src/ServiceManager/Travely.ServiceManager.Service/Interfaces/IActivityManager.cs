@@ -5,9 +5,9 @@ namespace Travely.ServiceManager.Service
 {
     public interface IActivityManager
     {
-        Task<int> CreateActivity(Activity activity);
-        Task<IEnumerable<Activity>> GetActivities(int agencyId);
-        Task<ActivityResponce> DeleteActivity(long activityId);
-        Task<ActivityResponce> EditActivity(Activity activity);
+        Task<int> CreateActivityAsync(Activity activity);
+        Task<IEnumerable<Activity>> GetActivitiesAsync(int agencyId);
+        Task<ActivityResponce> DeleteActivityAsync(long activityId);
+        Task<ActivityResponce> EditActivityAsync(Activity activity);
     }
 }

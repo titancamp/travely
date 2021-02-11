@@ -14,7 +14,7 @@ namespace Travely.ServiceManager.Service
         
         public override async Task<ActivityResponce> CreateActivity(Activity activity, ServerCallContext context)
         {
-            var activityId = await _activityManager.CreateActivity(activity);
+            var activityId = await _activityManager.CreateActivityAsync(activity);
 
             return new ActivityResponce
             {
@@ -25,7 +25,7 @@ namespace Travely.ServiceManager.Service
 
         public override async Task<Activities> GetActivities(GetActivitiesRequest req, ServerCallContext context)
         {
-            var allActivities = await _activityManager.GetActivities(req.AgencyId);
+            var allActivities = await _activityManager.GetActivitiesAsync(req.AgencyId);
 
             var activities = new Activities();
             activities.Activities_.AddRange(allActivities);
@@ -35,19 +35,13 @@ namespace Travely.ServiceManager.Service
 
         public override async Task<ActivityResponce> DeleteActivity(DeleteActivityRequest req, ServerCallContext context)
         {
-            var delResp = await _activityManager.DeleteActivity(req.ActivityId.Value);
-
-            return await Task.FromResult(new ActivityResponce
-            {
-                Message = $"Successfully deleted activity.",
-                Status = ResponseStatus.Success
-            });
+            return await _activityManager.DeleteActivityAsync(req.ActivityId.Value);
         }
 
 
         public override async Task<ActivityResponce> EditActivity(Activity activity, ServerCallContext context)
         {
-            return await _activityManager.EditActivity(activity);
+            return await _activityManager.EditActivityAsync(activity);
         }
     }
 }
