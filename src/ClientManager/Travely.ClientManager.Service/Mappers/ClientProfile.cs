@@ -15,9 +15,13 @@ namespace Travely.ClientManager.Service.Mappers
         {
             CreateMap<Tourist, ClientModel>()
                 .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.CreatedDate, DateTimeKind.Utc).ToTimestamp()))
-                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.DateOfBirth, DateTimeKind.Utc).ToTimestamp()))
-                .ForMember(dest => dest.IssuedDate, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.IssuedDate, DateTimeKind.Utc).ToTimestamp()))
-                .ForMember(dest => dest.ExpireDate, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.ExpireDate, DateTimeKind.Utc).ToTimestamp()));
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
+                    src.DateOfBirth.HasValue ? DateTime.SpecifyKind(src.DateOfBirth.Value, DateTimeKind.Utc).ToTimestamp() : null))
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
+                    src.IssuedDate.HasValue ? DateTime.SpecifyKind(src.IssuedDate.Value, DateTimeKind.Utc).ToTimestamp() : null))
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
+                    src.ExpireDate.HasValue ? DateTime.SpecifyKind(src.ExpireDate.Value, DateTimeKind.Utc).ToTimestamp() : null));
+
 
             CreateMap<ClientModel, Tourist>()
                 .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => src.CreatedDate.ToDateTime()))
@@ -25,27 +29,22 @@ namespace Travely.ClientManager.Service.Mappers
                 .ForMember(dest => dest.IssuedDate, opt => opt.MapFrom(src => src.IssuedDate.ToDateTime()))
                 .ForMember(dest => dest.ExpireDate, opt => opt.MapFrom(src => src.ExpireDate.ToDateTime()));
 
+
+
             CreateMap<Tourist, ClientWithPreferencesModel>()
                 .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.CreatedDate, DateTimeKind.Utc).ToTimestamp()))
-                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.DateOfBirth, DateTimeKind.Utc).ToTimestamp()))
-                .ForMember(dest => dest.IssuedDate, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.IssuedDate, DateTimeKind.Utc).ToTimestamp()))
-                .ForMember(dest => dest.ExpireDate, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.ExpireDate, DateTimeKind.Utc).ToTimestamp()))
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
+                    src.DateOfBirth.HasValue ? DateTime.SpecifyKind(src.DateOfBirth.Value, DateTimeKind.Utc).ToTimestamp() : null))
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
+                    src.IssuedDate.HasValue ? DateTime.SpecifyKind(src.IssuedDate.Value, DateTimeKind.Utc).ToTimestamp() : null))
+                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
+                    src.ExpireDate.HasValue ? DateTime.SpecifyKind(src.ExpireDate.Value, DateTimeKind.Utc).ToTimestamp() : null))
                 .ForMember(dest => dest.Preferences, opt => opt.MapFrom(src => src.Preferences.Select(x => new PreferenceModel
                 {
                     Id = x.Id,
                     Note = x.Note,
                     CreatedDate = DateTime.SpecifyKind(x.CreatedDate, DateTimeKind.Utc).ToTimestamp()
                 }).ToList()));
-                
-                
-                
-                
-                //(src, dest) => dest.Preferences.AddRange(src.Preferences.Select(x => new PreferenceModel
-                //{
-                //     Id = x.Id,
-                //     Note = x.Note,
-                //     CreatedDate = DateTime.SpecifyKind(x.CreatedDate, DateTimeKind.Utc).ToTimestamp()
-                //})));
 
         }
 
