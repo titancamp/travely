@@ -5,11 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Protos\properties.proto" />
-    <None Remove="Protos\propertyTypes.proto" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.14.0" />
     <PackageReference Include="Grpc" Version="2.34.1" />
     <PackageReference Include="Grpc.Tools" Version="2.34.1" PrivateAssets="All">
