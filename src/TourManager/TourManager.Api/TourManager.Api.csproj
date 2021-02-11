@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Commons\TourManager.CommonTypes\TourManager.CommonTypes.csproj" />
     <ProjectReference Include="..\TourManager.Repository.EfCore.MsSql\TourManager.Repository.EfCore.MsSql.csproj" />
     <ProjectReference Include="..\TourManager.Repository.EfCore\TourManager.Repository.EfCore.csproj" />
     <ProjectReference Include="..\TourManager.Service.Abstraction\TourManager.Service.Abstraction.csproj" />

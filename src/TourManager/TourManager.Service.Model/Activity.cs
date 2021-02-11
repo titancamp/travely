@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TourManager.CommonTypes;
+using TourManager.Common.Types;
 
 namespace TourManager.Service.Model
 {
