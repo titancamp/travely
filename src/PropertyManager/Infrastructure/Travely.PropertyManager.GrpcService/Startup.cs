@@ -41,7 +41,6 @@ namespace Travely.PropertyManager.GrpcService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<PropertyService>();
-                endpoints.MapGrpcService<PropertyTypeService>();
 
                 endpoints.MapGet("/", async context =>
                 {
@@ -59,7 +58,6 @@ namespace Travely.PropertyManager.GrpcService
         private void ConfigureLocalAutoMapper(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(PropertyMappingProfile));
-            services.AddAutoMapper(typeof(PropertyTypeMappingProfile));
         }
     }
 }
