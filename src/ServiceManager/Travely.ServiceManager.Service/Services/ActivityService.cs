@@ -11,6 +11,7 @@ namespace Travely.ServiceManager.Service
         {
             _activityManager = activityManager;
         }
+        
         public override async Task<ActivityResponce> CreateActivity(Activity activity, ServerCallContext context)
         {
             var activityId = await _activityManager.CreateActivity(activity);
@@ -46,13 +47,7 @@ namespace Travely.ServiceManager.Service
 
         public override async Task<ActivityResponce> EditActivity(Activity activity, ServerCallContext context)
         {
-            return await _activityManager.EditActivity(activity); 
-
-            //return await Task.FromResult(new ActivityResponce
-            //{
-            //    Message = $"Successfully edited activity: {activity.Name}",
-            //    Status = ResponseStatus.Success
-            //});
+            return await _activityManager.EditActivity(activity);
         }
     }
 }
