@@ -7,8 +7,10 @@ option csharp_namespace = "Travely.ServiceManager.Service";
 package activity;
 
 service ActivityProto {
-	rpc CreateActivity (Activity) returns (ActivityReponce);
-
+	rpc CreateActivity (Activity) returns (ActivityResponce);
+	rpc GetActivities(GetActivitiesRequest) returns (Activities);
+	rpc DeleteActivity (DeleteActivityRequest) returns (ActivityResponce);
+	rpc EditActivity (Activity) returns (ActivityResponce);
 }
 
 message ActivityType {
@@ -35,12 +37,26 @@ message Activity {
 	int32 changeUser = 10;
 }
 
-enum ResponseStatus {
-	ACTIVITY_RESPONSE_FAILED = 0;
-	ACTIVITY_RESPONSE_SUCCESS = 1;
-}
-
-message ActivityReponce {
+message ActivityResponce {
 	ResponseStatus status = 1;
 	string message = 2;
 }
+
+message GetActivitiesRequest {
+	int32 agencyId = 1;
+}
+
+message DeleteActivityRequest {
+	google.protobuf.Int64Value activityId = 1;
+}
+
+message Activities {
+	repeated Activity Activities = 1;
+}
+enum ResponseStatus {
+	RESPONSESTATUS_FAILED = 0;
+	RESPONSESTATUS_SUCCESS = 1;
+}
+
+
+
