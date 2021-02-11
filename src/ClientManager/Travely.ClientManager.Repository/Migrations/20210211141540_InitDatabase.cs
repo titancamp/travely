@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Travely.ClientManager.Repository.Migrations
 {
-    public partial class InitClientToTurist : Migration
+    public partial class InitDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,7 +22,7 @@ namespace Travely.ClientManager.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Turist",
+                name: "Tourist",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -42,49 +42,49 @@ namespace Travely.ClientManager.Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Turist", x => x.Id);
+                    table.PrimaryKey("PK_Tourist", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "PreferenceTurist",
+                name: "PreferenceTourist",
                 columns: table => new
                 {
                     PreferencesId = table.Column<int>(type: "int", nullable: false),
-                    TuristsId = table.Column<int>(type: "int", nullable: false)
+                    TouristsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PreferenceTurist", x => new { x.PreferencesId, x.TuristsId });
+                    table.PrimaryKey("PK_PreferenceTourist", x => new { x.PreferencesId, x.TouristsId });
                     table.ForeignKey(
-                        name: "FK_PreferenceTurist_Preference_PreferencesId",
+                        name: "FK_PreferenceTourist_Preference_PreferencesId",
                         column: x => x.PreferencesId,
                         principalTable: "Preference",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PreferenceTurist_Turist_TuristsId",
-                        column: x => x.TuristsId,
-                        principalTable: "Turist",
+                        name: "FK_PreferenceTourist_Tourist_TouristsId",
+                        column: x => x.TouristsId,
+                        principalTable: "Tourist",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PreferenceTurist_TuristsId",
-                table: "PreferenceTurist",
-                column: "TuristsId");
+                name: "IX_PreferenceTourist_TouristsId",
+                table: "PreferenceTourist",
+                column: "TouristsId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PreferenceTurist");
+                name: "PreferenceTourist");
 
             migrationBuilder.DropTable(
                 name: "Preference");
 
             migrationBuilder.DropTable(
-                name: "Turist");
+                name: "Tourist");
         }
     }
 }

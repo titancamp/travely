@@ -7,18 +7,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Travely.ClientManager.Repository.Abstraction;
-using Travely.ClientManager.Repository.Entity;
+using Travely.ClientManager.Abstraction.Abstraction.Repository;
+using Travely.ClientManager.Abstraction.Entity;
 using Travely.ClientManager.Service.Protos;
 
 namespace Travely.ClientManager.Service.Services
 {
     public class ClientService : ClientProtoService.ClientProtoServiceBase
     {
-        private readonly ITuristRepository _turistRepository;
+        private readonly ITouristRepository _turistRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<ClientService> _logger;
-        public ClientService(ILogger<ClientService> logger, ITuristRepository turistRepository, IMapper mapper)
+        public ClientService(ILogger<ClientService> logger, ITouristRepository turistRepository, IMapper mapper)
         {
             _logger = logger;
             _turistRepository = turistRepository;
@@ -31,7 +31,7 @@ namespace Travely.ClientManager.Service.Services
         {
             try
             {
-                Turist client = await _turistRepository.GetNoTracking(x => x.Id == request.Id).FirstOrDefaultAsync();
+                Tourist client = await _turistRepository.GetNoTracking(x => x.Id == request.Id).FirstOrDefaultAsync();
 
                 if (client == null)
                 {
@@ -55,7 +55,7 @@ namespace Travely.ClientManager.Service.Services
         {
             try
             {
-                Turist client = await _turistRepository.GetNoTracking(x => x.Id == request.Id, "Preferences").FirstOrDefaultAsync();
+                Tourist client = await _turistRepository.GetNoTracking(x => x.Id == request.Id, "Preferences").FirstOrDefaultAsync();
 
                 if (client == null)
                 {
@@ -76,7 +76,7 @@ namespace Travely.ClientManager.Service.Services
                                                     IServerStreamWriter<ClientModel> responseStream,
                                                     ServerCallContext context)
         {
-            List<Turist> clientList = await _turistRepository.GetNoTracking().ToListAsync();
+            List<Tourist> clientList = await _turistRepository.GetNoTracking().ToListAsync();
 
             foreach (var client in clientList)
             {
@@ -98,7 +98,7 @@ namespace Travely.ClientManager.Service.Services
         #region CREATE
         public override async Task<ClientModel> CreateClient(CreateClientRequest request, ServerCallContext context)
         {
-            Turist client = _mapper.Map<Turist>(request.Client);
+            Tourist client = _mapper.Map<Tourist>(request.Client);
             client.Id = default;
 
             _turistRepository.Add(client);
@@ -112,7 +112,7 @@ namespace Travely.ClientManager.Service.Services
         {
             while (await requestStream.MoveNext())
             {
-                Turist client = _mapper.Map<Turist>(requestStream.Current);
+                Tourist client = _mapper.Map<Tourist>(requestStream.Current);
                 _turistRepository.Add(client);
             }
 
@@ -133,7 +133,7 @@ namespace Travely.ClientManager.Service.Services
 
         public override async Task<ClientModel> UpdateClient(UpdateClientRequest request, ServerCallContext context)
         {
-            Turist client = _mapper.Map<Turist>(request.Client);
+            Tourist client = _mapper.Map<Tourist>(request.Client);
 
             bool isExist = await _turistRepository.Get(x=>x.Id == request.Client.Id).AnyAsync();
 
@@ -161,7 +161,7 @@ namespace Travely.ClientManager.Service.Services
         #region DELETE
         public override async Task<DeleteClientResponse> DeleteClient(DeleteClientRequest request, ServerCallContext context)
         {
-            Turist client = await _turistRepository.Get(x=>x.Id == request.Id).FirstOrDefaultAsync();
+            Tourist client = await _turistRepository.Get(x=>x.Id == request.Id).FirstOrDefaultAsync();
             if (client == null)
             {
                 throw new RpcException(new Status(StatusCode.NotFound, $"Cleient with ID={request.Id} is not found."));

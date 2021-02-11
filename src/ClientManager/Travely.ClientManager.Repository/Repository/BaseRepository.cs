@@ -6,15 +6,15 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Travely.ClientManager.Repository.Abstraction;
-using Travely.ClientManager.Repository.Entity;
+using Travely.ClientManager.Abstraction.Abstraction.Repository;
+using Travely.ClientManager.Abstraction.Entity;
 
 namespace Travely.ClientManager.Repository.Repository
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
-        protected TuristDbContext _dbContext;
-        public BaseRepository(TuristDbContext dbContext)
+        protected TouristContext _dbContext;
+        public BaseRepository(TouristContext dbContext)
         {
             _dbContext = dbContext;
 
@@ -38,12 +38,7 @@ namespace Travely.ClientManager.Repository.Repository
 
         public IQueryable<T> Get(Expression<Func<T, bool>> predicate, params string[] includes)
         {
-            IQueryable<T> set = _dbContext.Set<T>();
-
-            for (int i = 0; i < includes.Length; i++)
-            {
-                set = set.Include(includes[i]);
-            }
+            IQueryable<T> set = Get(includes);
 
             if (predicate == null)
             {
@@ -67,12 +62,7 @@ namespace Travely.ClientManager.Repository.Repository
 
         public IQueryable<T> GetNoTracking(Expression<Func<T, bool>> predicate, params string[] includes)
         {
-            IQueryable<T> set = _dbContext.Set<T>();
-
-            for (int i = 0; i < includes.Length; i++)
-            {
-                set = set.Include(includes[i]);
-            }
+            IQueryable<T> set = GetNoTracking(includes);
 
             if (predicate == null)
             {
@@ -122,9 +112,9 @@ namespace Travely.ClientManager.Repository.Repository
             return _dbContext.SaveChanges();
         }
 
-        public async Task<int> SaveChangesAsync()
+        public Task<int> SaveChangesAsync()
         {
-            return await _dbContext.SaveChangesAsync();
+            return _dbContext.SaveChangesAsync();
         }
 
         #endregion

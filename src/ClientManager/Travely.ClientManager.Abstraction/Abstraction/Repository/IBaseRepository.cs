@@ -4,9 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Travely.ClientManager.Repository.Entity;
+using Travely.ClientManager.Abstraction.Entity;
 
-namespace Travely.ClientManager.Repository.Abstraction
+namespace Travely.ClientManager.Abstraction.Abstraction.Repository
 {
     public interface IBaseRepository<T> where T : BaseEntity
     {

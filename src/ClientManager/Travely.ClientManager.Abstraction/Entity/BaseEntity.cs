@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Travely.ClientManager.Repository.Entity
+namespace Travely.ClientManager.Abstraction.Entity
 {
     public class BaseEntity
     {
