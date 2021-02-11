@@ -18,9 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EquipmentManager", "Equipme
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityManager", "IdentityManager", "{1742E743-3758-4121-8FF3-61FC2BAB3F24}"
-	ProjectSection(SolutionItems) = preProject
-		src\IdentityManager\test.txt = src\IdentityManager\test.txt
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PropertyManager", "PropertyManager", "{DFD7AFF6-28B5-4371-AD7C-D5E84F2B8172}"
 	ProjectSection(SolutionItems) = preProject
