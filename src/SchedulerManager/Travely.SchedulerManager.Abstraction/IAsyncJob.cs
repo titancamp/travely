@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Travely.SchedulerManager.Service;
 
 namespace Travely.SchedulerManager
 {

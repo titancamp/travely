@@ -1,15 +1,9 @@
 ﻿using Hangfire;
 using System.Threading.Tasks;
-using Travely.SchedulerManager.Service;
 
 namespace Travely.SchedulerManager.Job
 {
-    public interface IEnqueueAsyncJobService<TParameter> : IAsyncEndJob where TParameter : IParameter
-    {
-        Task<string> StartJobAsync(IAsyncJob<TParameter> job, TParameter parameter);
-    }
-    public class EnqueueAsyncJobService<TParameter> : IEnqueueAsyncJobService<TParameter> 
-        where TParameter : IParameter
+    public class EnqueueAsyncJobService<TParameter> : IEnqueueAsyncJobService<TParameter> where TParameter : IParameter
     {
         private readonly IBackgroundJobClient _backgroundJobClient;
         public EnqueueAsyncJobService(IBackgroundJobClient backgroundJobClient)

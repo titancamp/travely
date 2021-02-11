@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace Travely.SchedulerManager.Job
+namespace Travely.SchedulerManager
 {
-    public interface IAsyncEndJob 
+    public interface IAsyncEndJob
     {
         Task EndJobAsync(string jobId);
     }

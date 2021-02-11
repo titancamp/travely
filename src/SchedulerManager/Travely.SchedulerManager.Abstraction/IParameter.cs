@@ -1,5 +1,5 @@
 ﻿
-namespace Travely.SchedulerManager.Service
+namespace Travely.SchedulerManager
 {
     public interface IParameter
     {
