@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Travely.ServiceManager.Abstraction.Interfaces;
 using Travely.ServiceManager.Abstraction.Interfaces.UnitOfWorks;
-using Travely.ServiceManager.DAL.Data;
 using Travely.ServiceManager.DAL.Repositories;
 
 namespace Travely.ServiceManager.DAL.UnitOfWorks

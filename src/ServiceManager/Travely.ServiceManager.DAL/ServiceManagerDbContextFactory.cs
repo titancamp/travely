@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace Travely.ServiceManager.DAL.Data
+namespace Travely.ServiceManager.DAL
 {
     public class ServiceManagerDbContextFactory : IDesignTimeDbContextFactory<ServiceManagerDbContext>
     {
