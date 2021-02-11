@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -22,22 +23,18 @@ namespace Travely.PropertyManager.Domain.Services
             _dbContext = propertyDbContext;
         }
 
-        public Task AddAsync(AddPropertyCommand command)
+        public async Task<int> AddAsync(AddPropertyCommand command)
         {
-            throw new System.NotImplementedException();
+            var propertyModel = Mapper.Map<AddPropertyCommand, Property>(command);
+            _dbContext.Properties.Add(propertyModel);
+
+            await _dbContext.SaveChangesAsync();
+            return propertyModel.Id;
         }
 
         public Task<ICollection<PropertyResponse>> GetAsync(GetPropertiesQuery query)
-        {
+        { 
             throw new System.NotImplementedException();
-        }
-
-        public async Task<PropertyResponse> GetByIdAsync(int id)
-        {
-            var result = await _dbContext.Properties.FirstOrDefaultAsync(item => item.Id == id)
-                .ConfigureAwait(false);
-
-            return Mapper.Map<Property, PropertyResponse>(result);
-        }
+        } 
     }
 }

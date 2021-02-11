@@ -8,9 +8,7 @@ namespace Travely.PropertyManager.Domain.Contracts.Services
 {
     public interface IPropertyService
     {
-        Task AddAsync(AddPropertyCommand command);
-
-        Task<PropertyResponse> GetByIdAsync(int id);
+        Task<int> AddAsync(AddPropertyCommand command);
 
         Task<ICollection<PropertyResponse>> GetAsync(GetPropertiesQuery query);
     }
