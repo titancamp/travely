@@ -20,8 +20,21 @@ namespace Travely.SchedulerManager.Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<MessageTemplate>(entity =>
+            {
+                entity.Property(e => e.Template).IsRequired();
+
+                entity.Property(e => e.TemplateName)
+                    .IsRequired()
+                    .HasMaxLength(250);
+            });
+
             modelBuilder.Entity<ScheduleInfo>(entity =>
             {
+                entity.HasIndex(e => e.MessageTemplateId, "IX_ScheduleInfos_MessageTemplateId");
+
+                entity.Property(e => e.JsonData).IsRequired();
+
                 entity.HasOne(d => d.MessageTemplate)
                     .WithMany(p => p.ScheduleInfos)
                     .HasForeignKey(d => d.MessageTemplateId)
@@ -31,6 +44,8 @@ namespace Travely.SchedulerManager.Repository
 
             modelBuilder.Entity<UserSchedule>(entity =>
             {
+                entity.HasIndex(e => e.ScheduleInfoId, "IX_UserSchedules_ScheduleInfoId");
+
                 entity.HasOne(d => d.ScheduleInfo)
                     .WithMany(p => p.UserSchedules)
                     .HasForeignKey(d => d.ScheduleInfoId)

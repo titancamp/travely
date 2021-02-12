@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Travely.SchedulerManager.Repository;
 
-namespace Travely.SchedulerManager.Repository.Migrations
+namespace Travely.SchedulerManager.Repository.Infrastructure.Migrations
 {
     [DbContext(typeof(SchedulerDbContext))]
-    [Migration("20210128203254_init")]
+    [Migration("20210212200028_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,10 +23,19 @@ namespace Travely.SchedulerManager.Repository.Migrations
 
             modelBuilder.Entity("Travely.SchedulerManager.Repository.Entities.MessageTemplate", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .UseIdentityColumn();
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Template")
                         .IsRequired()
@@ -44,12 +53,15 @@ namespace Travely.SchedulerManager.Repository.Migrations
 
             modelBuilder.Entity("Travely.SchedulerManager.Repository.Entities.ScheduleInfo", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("ExpirationDate")
@@ -59,8 +71,11 @@ namespace Travely.SchedulerManager.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MessageTemplateId")
-                        .HasColumnType("int");
+                    b.Property<long>("MessageTemplateId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Module")
                         .HasColumnType("int");
@@ -68,35 +83,41 @@ namespace Travely.SchedulerManager.Repository.Migrations
                     b.Property<int>("RecurseId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("MessageTemplateId");
+                    b.HasIndex(new[] { "MessageTemplateId" }, "IX_ScheduleInfos_MessageTemplateId");
 
                     b.ToTable("ScheduleInfos");
                 });
 
             modelBuilder.Entity("Travely.SchedulerManager.Repository.Entities.UserSchedule", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<int>("ScheduleInfoId")
-                        .HasColumnType("int");
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("ScheduleInfoId")
+                        .HasColumnType("bigint");
 
                     b.Property<byte>("Status")
                         .HasColumnType("tinyint");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ScheduleInfoId");
+                    b.HasIndex(new[] { "ScheduleInfoId" }, "IX_UserSchedules_ScheduleInfoId");
 
                     b.ToTable("UserSchedules");
                 });

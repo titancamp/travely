@@ -34,7 +34,7 @@ namespace Travely.SchedulerManager.API
             });
             services.AddNotifier();
             services.AddGrpc();
-            services.AddDb(Configuration.GetConnectionString("DefaultConnection"));
+            services.AddRepositoryLayer(Configuration.GetConnectionString("DefaultConnection"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

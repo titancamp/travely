@@ -1,17 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Travely.SchedulerManager.Repository.Infrastructure.EntityConfigurations;
 
 namespace Travely.SchedulerManager.Repository.Entities
 {
-    public class UserSchedule
+    public class UserSchedule: BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-        public int ScheduleInfoId { get; set; }
-        public int UserId { get; set; }
+        public long ScheduleInfoId { get; set; }
+        public long UserId { get; set; }
         public byte Status { get; set; }
 
-        [ForeignKey(nameof(ScheduleInfoId))]
         public virtual ScheduleInfo ScheduleInfo { get; set; }
     }
 }
