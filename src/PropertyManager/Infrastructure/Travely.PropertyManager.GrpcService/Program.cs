@@ -1,9 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
-using Travely.PropertyManager.Domain.Entities.Base;
-using Travely.PropertyManager.Domain.Extensions;
 
 namespace Travely.PropertyManager.GrpcService
 {

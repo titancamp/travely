@@ -32,16 +32,15 @@ namespace Travely.PropertyManager.Domain.Services
             return propertyModel.Id;
         }
 
-        public Task<ICollection<PropertyResponse>> GetAsync(GetPropertiesQuery query)
+        public async Task<IEnumerable<PropertyResponse>> GetAsync(GetPropertiesQuery query)
         {
-
             IQueryable<Property> propertiesQueryable = _dbContext.Properties.AsQueryable();
 
             propertiesQueryable = base.BuildFilters(propertiesQueryable, query.Filters);
-            propertiesQueryable = base.BuildSortings(propertiesQueryable, query.Sortings);
+            propertiesQueryable = base.BuildOrderings(propertiesQueryable, query.Orderings);
 
-
-            throw new System.NotImplementedException();
-        } 
+            var dbProperties = await propertiesQueryable.ToListAsync();
+            return dbProperties.Select(Mapper.Map<Property, PropertyResponse>);
+        }
     }
 }

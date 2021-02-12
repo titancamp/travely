@@ -10,6 +10,6 @@ namespace Travely.PropertyManager.Domain.Contracts
     {
         Task<int> AddAsync(AddPropertyCommand command);
 
-        Task<ICollection<PropertyResponse>> GetAsync(GetPropertiesQuery query);
+        Task<IEnumerable<PropertyResponse>> GetAsync(GetPropertiesQuery query);
     }
 }

@@ -22,14 +22,20 @@ namespace Travely.PropertyManager.Domain.Services
 
         protected IQueryable<T> BuildFilters<T>(IQueryable<T> query, ICollection<FilteringBaseModel> filters)
         {
-            var filterExpression = ExpressionHelper.BuildFilter<T>(filters);
+            if (filters.Count == 0)
+                return query;
 
+            var filterExpression = ExpressionHelper.BuildFilter<T>(filters);
             return query.Where(filterExpression);
         }
 
-        protected IQueryable<Property> BuildSortings(IQueryable<Property> query, ICollection<SortingBaseModel> sortings)
+        protected IQueryable<T> BuildOrderings<T>(IQueryable<T> query, ICollection<OrderingBaseModel> orderings)
         {
-            throw new NotImplementedException();
+            if (orderings.Count == 0)
+                return query;
+
+            var builder = ExpressionHelper.BuildOrderingFunc<T>(orderings);
+            return builder.Invoke(query);
         }
     }
 }
