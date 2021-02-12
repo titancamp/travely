@@ -8,11 +8,11 @@ using TourManager.Repository.EfCore.Context;
 
 namespace TourManager.Repository.EfCore.MsSql.Repositories
 {
-    public class TourRepository : BaseRepository<Tour>
+    public class TourRepository : BaseRepository<TourEntity>
     {
         public TourRepository(TourDbContext context) : base(context) { }
 
-        public async Task<IEnumerable<Tour>> GetAllFromTodayAsync()
+        public async Task<IEnumerable<TourEntity>> GetAllFromTodayAsync()
         {
             var query = DbSet.AsNoTracking()
                 .Where(a => a.StartDate > DateTime.Now);
