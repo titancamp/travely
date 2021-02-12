@@ -1,11 +1,11 @@
 ﻿namespace TourManager.Repository.Entities
 {
-    public class TourClient
+    public class TourClientEntity
     {
         public int Id { get; set; }
         public int TourId { get; set; }
-        public Tour Tour { get; set; }
+        public TourEntity Tour { get; set; }
         public int ClientId { get; set; }
-        public Client Client { get; set; }
+        public ClientEntity Client { get; set; }
     }
 }

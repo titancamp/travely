@@ -1,6 +1,6 @@
 ﻿namespace TourManager.Common.Types
 {
-	public enum ActivityOption
+	public enum ActivityType
 	{
 		None,
 		Restaurant,
