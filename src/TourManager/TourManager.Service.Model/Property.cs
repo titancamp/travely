@@ -13,7 +13,7 @@ namespace TourManager.Service.Model
 		public string Email { get; set; }
 		public string Website { get; set; }
 		public int? Stars { get; set; }
-		public PropertyType PropertyType { get; set; }
+		public PropertyType Type { get; set; }
 		public List<string> Files { get; set; }
 	}
 }
