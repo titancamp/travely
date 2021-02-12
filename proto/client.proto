@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+//option csharp_namespace = "ClientManager.Protos";
+option csharp_namespace = "Travely.ClientManager.Service.Protos";
+
+import "google/protobuf/timestamp.proto";
+import "preference.proto";
+//import "google/protobuf/empty.proto";
+
+
+service ClientProtoService {
+  
+rpc GetClient (GetClientRequest) returns (ClientModel);
+rpc GetClientWithPreferences (GetClientRequest) returns (ClientWithPreferencesModel);
+rpc GetAllClients (GetAllClientsRequest) returns (stream ClientModel);
+
+rpc CreateClient (CreateClientRequest) returns (ClientModel);
+rpc UpdateClient (UpdateClientRequest) returns (ClientModel);
+rpc DeleteClient (DeleteClientRequest) returns (DeleteClientResponse);
+
+rpc AddRangeClient(stream ClientModel) returns (AddRangeClientReponse);
+
+}
+
+message GetClientRequest{
+	int32 id = 1;
+}
+
+message GetAllClientsRequest{
+
+}
+
+message CreateClientRequest{
+	ClientModel client = 1; 
+}
+
+message UpdateClientRequest{
+	ClientModel client = 1;
+}
+
+message DeleteClientRequest{
+	int32 id = 1;
+}
+
+message DeleteClientResponse{
+	bool success = 1;
+}
+
+message AddRangeClientReponse{
+	bool success = 1;
+	int32 insertCount = 2;
+}
+
+message ClientModel{
+	int32 Id = 1;
+	google.protobuf.Timestamp createdDate = 2;
+	string firstName = 3;
+	string lastName = 4;
+	string phoneNumber = 5;
+	string email = 6;
+	google.protobuf.Timestamp dateOfBirth = 7;
+	string placeOfBirth = 8;
+	string passportNumber = 9;
+	string issuedBy = 10;
+	google.protobuf.Timestamp issuedDate = 11;
+	google.protobuf.Timestamp expireDate = 12;
+	int32 agencyId = 13;
+}
+
+message ClientWithPreferencesModel{
+	int32 Id = 1;
+	google.protobuf.Timestamp createdDate = 2;
+	string firstName = 3;
+	string lastName = 4;
+	string phoneNumber = 5;
+	string email = 6;
+	google.protobuf.Timestamp dateOfBirth = 7;
+	string placeOfBirth = 8;
+	string passportNumber = 9;
+	string issuedBy = 10;
+	google.protobuf.Timestamp issuedDate = 11;
+	google.protobuf.Timestamp expireDate = 12;
+	int32 agencyId = 13;
+	repeated Preference.PreferenceModel Preferences = 14;
+
+}
+
+
