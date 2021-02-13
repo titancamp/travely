@@ -8,7 +8,7 @@ namespace Travely.ServiceManager.UnitTests
 {
     public class ActivityServiceTests
     {
-        private Mock<IActivityManager> _activityManagerMock = new Mock<IActivityManager>();
+        private Mock<IActivityManager> _activityManagerMock = new Mock<IActivityManager>(MockBehavior.Strict);
 
         [Fact]
         public void ShouldThrowOnInvalidConstructorParameters()
