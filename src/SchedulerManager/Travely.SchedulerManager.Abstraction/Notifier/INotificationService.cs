@@ -4,7 +4,6 @@ namespace Travely.SchedulerManager
 {
     public interface INotificationService
     {
-        Task Notify(string userId);
-        Task SendEmail(string receiverEmail, string title, string subject, string content);
+        Task NotifyAsync(string userId);
     }
 }

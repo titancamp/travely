@@ -8,7 +8,7 @@ using Travely.SchedulerManager.Notifier.Hubs;
 
 namespace Travely.SchedulerManager.Notifier.Services
 {
-    class NotificationService : INotificationService
+    class NotificationService : INotificationService, IEmailService
     {
         readonly IHubContext<NotificationHub, INotificationHub> _hubContext;
         readonly EmailOptions _emailOptions;
@@ -17,12 +17,12 @@ namespace Travely.SchedulerManager.Notifier.Services
             _hubContext = hub;
             _emailOptions = options.CurrentValue;
         }
-        public Task Notify(string userId)
+        public Task NotifyAsync(string userId)
         {
             return _hubContext.Clients.Client(userId).ReceiveNotification(new { message = "Hola" });
         }
 
-        public async Task SendEmail(string receiverEmail, string title, string subject, string content)
+        public async Task SendEmailAsync(string receiverEmail, string title, string subject, string content)
         {
             var mimeMessage = new MimeMessage
             {
