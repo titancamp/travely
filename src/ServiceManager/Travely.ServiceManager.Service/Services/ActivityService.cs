@@ -35,7 +35,7 @@ namespace Travely.ServiceManager.Service
 
         public override async Task<ActivityResponse> DeleteActivity(DeleteActivityRequest req, ServerCallContext context)
         {
-            return await _activityManager.DeleteActivityAsync(req.ActivityId.Value);
+            return await _activityManager.DeleteActivityAsync(req.ActivityId);
         }
 
         public override async Task<ActivityResponse> EditActivity(Activity activity, ServerCallContext context)

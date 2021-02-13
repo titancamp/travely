@@ -47,7 +47,7 @@ message GetActivitiesRequest {
 }
 
 message DeleteActivityRequest {
-	google.protobuf.Int64Value activityId = 1;
+	int64 activityId = 1;
 }
 
 message Activities {
