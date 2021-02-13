@@ -4,9 +4,9 @@ using TourManager.Repository.Entities;
 
 namespace TourManager.Repository.EfCore.Configurations
 {
-    public class TourConfiguration : IEntityTypeConfiguration<TourEntity>
+    public class TenantConfiguration : IEntityTypeConfiguration<TenantEntity>
     {
-        public void Configure(EntityTypeBuilder<TourEntity> builder)
+        public void Configure(EntityTypeBuilder<TenantEntity> builder)
         {
             builder.HasKey(m => m.Id);
 
@@ -16,9 +16,8 @@ namespace TourManager.Repository.EfCore.Configurations
                 .HasMaxLength(50);
 
             builder
-                .HasOne(m => m.Tenant)
-                .WithMany(a => a.TourEntities)
-                .HasForeignKey(m => m.TenantId);
+                .HasIndex(x => x.Key)
+                .IsUnique();
         }
     }
 }
