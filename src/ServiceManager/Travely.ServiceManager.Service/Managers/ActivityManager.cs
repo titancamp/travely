@@ -7,7 +7,7 @@ namespace Travely.ServiceManager.Service.Managers
 {
     public class ActivityManager : IActivityManager
     {
-        public Task<int> CreateActivityAsync(Activity activity)
+        public Task<Activity> CreateActivityAsync(Activity activity)
         {
             throw new NotImplementedException();
         }
@@ -22,7 +22,7 @@ namespace Travely.ServiceManager.Service.Managers
             throw new NotImplementedException();
         }
 
-        public Task<ActivityResponce> EditActivityAsync(Activity activity)
+        public Task<Activity> EditActivityAsync(Activity activity)
         {
             throw new NotImplementedException();
         }
