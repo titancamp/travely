@@ -1,3 +1,6 @@
+using IdentityServer4Demo;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,11 +9,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Travely.Shared.IdentityClient.Authorization;
 
 namespace IdentityManager.API
 {
@@ -26,6 +31,8 @@ namespace IdentityManager.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.ConfigureAuthentication();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -44,12 +51,8 @@ namespace IdentityManager.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityManager.API v1"));
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
-
-            app.UseAuthorization();
-
+            app.ConfigureAuthentication();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

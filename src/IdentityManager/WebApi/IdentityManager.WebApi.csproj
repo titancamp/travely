@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\IdentityClient\Travely.Shared.IdentityClient.Authorization.csproj" />
     <ProjectReference Include="..\DataService\IdentityManager.DataService.csproj" />
   </ItemGroup>
 
