@@ -7,10 +7,10 @@ option csharp_namespace = "Travely.ServiceManager.Service";
 package activity;
 
 service ActivityProto {
-	rpc CreateActivity (Activity) returns (ActivityResponce);
+	rpc CreateActivity (Activity) returns (ActivityResponse);
 	rpc GetActivities(GetActivitiesRequest) returns (Activities);
-	rpc DeleteActivity (DeleteActivityRequest) returns (ActivityResponce);
-	rpc EditActivity (Activity) returns (ActivityResponce);
+	rpc DeleteActivity (DeleteActivityRequest) returns (ActivityResponse);
+	rpc EditActivity (Activity) returns (ActivityResponse);
 }
 
 message ActivityType {
@@ -37,7 +37,7 @@ message Activity {
 	int32 changeUser = 10;
 }
 
-message ActivityResponce {
+message ActivityResponse {
 	ResponseStatus status = 1;
 	string message = 2;
 }

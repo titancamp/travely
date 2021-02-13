@@ -12,11 +12,11 @@ namespace Travely.ServiceManager.Service
             _activityManager = activityManager;
         }
         
-        public override async Task<ActivityResponce> CreateActivity(Activity activity, ServerCallContext context)
+        public override async Task<ActivityResponse> CreateActivity(Activity activity, ServerCallContext context)
         {
             var createdActivity = await _activityManager.CreateActivityAsync(activity);
 
-            return new ActivityResponce
+            return new ActivityResponse
             {
                 Message = $"Successfully cerated new activity: {createdActivity.Name}",
                 Status = ResponseStatus.Success
@@ -33,16 +33,16 @@ namespace Travely.ServiceManager.Service
             return activities;
         }
 
-        public override async Task<ActivityResponce> DeleteActivity(DeleteActivityRequest req, ServerCallContext context)
+        public override async Task<ActivityResponse> DeleteActivity(DeleteActivityRequest req, ServerCallContext context)
         {
             return await _activityManager.DeleteActivityAsync(req.ActivityId.Value);
         }
 
-        public override async Task<ActivityResponce> EditActivity(Activity activity, ServerCallContext context)
+        public override async Task<ActivityResponse> EditActivity(Activity activity, ServerCallContext context)
         {
             var editedActivity = await _activityManager.EditActivityAsync(activity);
 
-            return new ActivityResponce
+            return new ActivityResponse
             {
                 Message = $"Successfully updated activity: {editedActivity.Name}",
                 Status = ResponseStatus.Success

@@ -17,7 +17,7 @@ namespace Travely.ServiceManager.Service.Managers
             throw new NotImplementedException();
         }
 
-        public Task<ActivityResponce> DeleteActivityAsync(long activityId)
+        public Task<ActivityResponse> DeleteActivityAsync(long activityId)
         {
             throw new NotImplementedException();
         }
