@@ -8,6 +8,7 @@ import "google/protobuf/timestamp.proto";
 service PreferenceProtoService {
   
 rpc GetPreference (GetPreferenceRequest) returns (PreferenceModel);
+rpc GetPreferencesLikePattern (GetPreferencesLikePatternRequest) returns (stream PreferenceModel);
 rpc GetAllPreferences (GetAllPreferencesRequest) returns (stream PreferenceModel);
 
 rpc CreatePreference (CreatePreferenceRequest) returns (PreferenceModel);
@@ -22,6 +23,10 @@ message GetPreferenceRequest{
 
 message GetAllPreferencesRequest{
 
+}
+
+message GetPreferencesLikePatternRequest{
+	string pattern = 1;
 }
 
 message CreatePreferenceRequest{
