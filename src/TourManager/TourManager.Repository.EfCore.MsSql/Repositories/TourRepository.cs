@@ -1,18 +1,42 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using TourManager.Repository.Entities;
+using TourManager.Repository.Abstraction;
 using TourManager.Repository.EfCore.Context;
+using TourManager.Repository.Entities;
 
 namespace TourManager.Repository.EfCore.MsSql.Repositories
 {
-    public class TourRepository : BaseRepository<TourEntity>
+    /// <summary>
+    /// The tour entity's repository
+    /// </summary>
+    public class TourRepository : BaseRepository<TourEntity>, ITourRepository
     {
-        public TourRepository(TourDbContext context) : base(context) { }
+        /// <summary>
+        /// Create new instance of tour repository
+        /// </summary>
+        /// <param name="context">The tour db context</param>
+        public TourRepository(TourDbContext context) : base(context)
+        {
+        }
 
-        public async Task<IEnumerable<TourEntity>> GetAllFromTodayAsync()
+        /// <summary>
+        /// Get all tours by tenant
+        /// </summary>
+        /// <param name="tenantId">The tenant id</param>
+        /// <returns></returns>
+        public async Task<List<TourEntity>> GetAll(int tenantId)
+        {
+            return await this.Find(tour => tour.TenantId == tenantId);
+        }
+
+        /// <summary>
+        /// Get all tours starting from now
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<TourEntity>> GetAllFromToday()
         {
             var query = DbSet.AsNoTracking()
                 .Where(a => a.StartDate > DateTime.Now);
