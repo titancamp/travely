@@ -27,6 +27,8 @@ namespace Travely.SchedulerManager.Repository
                 entity.Property(e => e.TemplateName)
                     .IsRequired()
                     .HasMaxLength(250);
+                
+                entity.HasQueryFilter(s => !s.IsDeleted);
             });
 
             modelBuilder.Entity<ScheduleInfo>(entity =>
@@ -40,6 +42,8 @@ namespace Travely.SchedulerManager.Repository
                     .HasForeignKey(d => d.MessageTemplateId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Schedule_MessageTemplate");
+                
+                entity.HasQueryFilter(s => !s.IsDeleted);
             });
 
             modelBuilder.Entity<UserSchedule>(entity =>
@@ -51,6 +55,8 @@ namespace Travely.SchedulerManager.Repository
                     .HasForeignKey(d => d.ScheduleInfoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UserSchedule_Schedule");
+                
+                entity.HasQueryFilter(s => !s.IsDeleted);
             });
         }
     }

@@ -23,23 +23,20 @@ namespace Travely.SchedulerManager.Repository.Implementation
 
         public Task<TEntity> FindAsync(long id, bool enableTracking = false)
         {
-            var query = _dbSet.AsQueryable();
-            if (!enableTracking)
-            {
-                query = _dbSet.AsNoTracking();
-            }
-            return query.SingleAsync(s => s.Id == id && s.Active);
+            return enableTracking ?   _dbSet.FirstOrDefaultAsync(s => s.Id == id) 
+                                    : _dbSet.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);
         }
 
         public async Task<IEnumerable<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate,
                                                              bool enableTracking = false)
         {
-            var query = _dbSet.AsQueryable();
-            if (!enableTracking)
-            {
-                query = _dbSet.AsNoTracking();
-            }
-            return await query.Where(s => s.Active).Where(predicate).ToListAsync();
+            if (predicate == null)
+                throw new ArgumentNullException(nameof(predicate));
+
+            if (enableTracking)
+                return await _dbSet.Where(predicate).ToListAsync();
+
+            return await  _dbSet.AsNoTracking().Where(predicate).ToListAsync();
         }
 
         public ValueTask<EntityEntry<TEntity>> AddAsync(TEntity entity)
@@ -47,9 +44,9 @@ namespace Travely.SchedulerManager.Repository.Implementation
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
             entity.CreatedOn = new DateTime();
-            entity.ModifiedOn = new DateTime();
             return _dbSet.AddAsync(entity);
         }
+
         public Task AddRangeAsync(IEnumerable<TEntity> entities)
         {
             if (entities == null)
@@ -57,7 +54,6 @@ namespace Travely.SchedulerManager.Repository.Implementation
             foreach (var entity in entities)
             {
                 entity.CreatedOn = new DateTime();
-                entity.ModifiedOn = new DateTime();
             }
             return _dbSet.AddRangeAsync(entities);
         }
@@ -72,20 +68,22 @@ namespace Travely.SchedulerManager.Repository.Implementation
 
         public Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return _dbSet.Where(s => s.Active).AnyAsync(predicate);
+            if (predicate == null)
+                throw new ArgumentNullException(nameof(predicate));
+            return _dbSet.AnyAsync(predicate);
         }
 
         public void Remove(long id)
         {
            var entity = _dbSet.Find(id);
-           entity.Active = false;
+           entity.IsDeleted = true;
         }
 
         public void Remove(TEntity entity)
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
-            entity.Active = false;
+            entity.IsDeleted = true;
         }
 
         public void Remove(IEnumerable<TEntity> entities)
@@ -94,7 +92,7 @@ namespace Travely.SchedulerManager.Repository.Implementation
                 throw new ArgumentNullException(nameof(entities));
             foreach (var entity in entities)
             {
-                entity.Active = false;
+                entity.IsDeleted = true;
             }
         }
 

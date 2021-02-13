@@ -8,8 +8,8 @@ namespace Travely.SchedulerManager.Repository.Infrastructure.Interfaces
 {
     public interface IEntity
     {
-        bool Active { get; set; }
+        bool IsDeleted { get; set; }
         DateTime CreatedOn { get; set; }
-        DateTime ModifiedOn { get; set; }
+        DateTime? ModifiedOn { get; set; }
     }
 }

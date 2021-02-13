@@ -7,7 +7,7 @@ namespace Travely.SchedulerManager.Repository.Infrastructure.EntityConfiguration
     {
         public long Id { get; set; }
         public DateTime CreatedOn { get; set; }
-        public DateTime ModifiedOn { get; set; }
-        public bool Active { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
