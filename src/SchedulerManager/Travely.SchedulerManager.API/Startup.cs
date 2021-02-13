@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Travely.SchedulerManager.API.Services;
 using Travely.SchedulerManager.Notifier;
 
 namespace Travely.SchedulerManager.API
@@ -40,7 +41,7 @@ namespace Travely.SchedulerManager.API
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<ReminderService>();
                 endpoints.MapGet("/", async context => await context.Response.WriteAsync("Service running"));
             });
         }

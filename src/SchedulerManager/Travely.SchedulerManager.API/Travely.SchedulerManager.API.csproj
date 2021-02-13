@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
+    <None Remove="Protos\reminder.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +21,10 @@
     <ProjectReference Include="..\Travely.SchedulerManager.Notifier\Travely.SchedulerManager.Notifier.csproj" />
     <ProjectReference Include="..\Travely.SchedulerManager.Repository\Travely.SchedulerManager.Repository.csproj" />
     <ProjectReference Include="..\Travely.SchedulerManager.Service\Travely.SchedulerManager.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\reminder.proto" GrpcServices="Server" />
   </ItemGroup>
 
 </Project>
