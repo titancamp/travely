@@ -9,12 +9,12 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["src/PropertyManager/Travely.PropertyManager.API/Travely.PropertyManager.API.csproj", "src/PropertyManager/Travely.PropertyManager.API/"]
 RUN dotnet restore "src/PropertyManager/Travely.PropertyManager.API/Travely.PropertyManager.API.csproj"
-COPY . .
+COPY ./src/PropertyManager/ ./src/PropertyManager/
 WORKDIR "/src/src/PropertyManager/Travely.PropertyManager.API"
 RUN dotnet build "Travely.PropertyManager.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Travely.PropertyManager.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "/src/src/PropertyManager/Travely.PropertyManager.API/Travely.PropertyManager.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

@@ -1,8 +1,0 @@
-﻿namespace Travely.PropertyManager.Domain.Entities.Base
-{
-    public class OrderingBaseModel
-    {
-        public string FieldName { get; set; }
-        public bool IsDescending { get; set; }
-    }
-}

@@ -42,13 +42,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceManager", "ServiceMa
 		src\ServiceManager\test.txt = src\ServiceManager\test.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.PropertyManager.Service", "Travely.PropertyManager.Service\Travely.PropertyManager.Service.csproj", "{2C13C926-9540-4EAB-A755-3D334F631153}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.PropertyManager.Service", "src\PropertyManager\Travely.PropertyManager.Service\Travely.PropertyManager.Service.csproj", "{2C13C926-9540-4EAB-A755-3D334F631153}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.PropertyManager.Data", "Travely.PropertyManager.Data\Travely.PropertyManager.Data.csproj", "{0A4C2E8A-06D0-4AAD-9878-4C24970EDC2C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.PropertyManager.Data", "src\PropertyManager\Travely.PropertyManager.Data\Travely.PropertyManager.Data.csproj", "{0A4C2E8A-06D0-4AAD-9878-4C24970EDC2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.PropertyManager.API", "Travely.PropertyManager.API\Travely.PropertyManager.API.csproj", "{1CAD479D-B462-4878-9D69-BF86460899E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.PropertyManager.API", "src\PropertyManager\Travely.PropertyManager.API\Travely.PropertyManager.API.csproj", "{1CAD479D-B462-4878-9D69-BF86460899E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.PropertyManager.API.Models", "Travely.PropertyManager.API.Models\Travely.PropertyManager.API.Models.csproj", "{FCF90172-D4A5-41C4-B6F3-F6C9256B86A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.PropertyManager.API.Models", "src\PropertyManager\Travely.PropertyManager.API.Models\Travely.PropertyManager.API.Models.csproj", "{FCF90172-D4A5-41C4-B6F3-F6C9256B86A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
