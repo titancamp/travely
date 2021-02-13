@@ -20,7 +20,7 @@ namespace Travely.PropertyManager.Data.Migrations
                     ContactName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(320)", maxLength: 320, nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    WebSite = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Website = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

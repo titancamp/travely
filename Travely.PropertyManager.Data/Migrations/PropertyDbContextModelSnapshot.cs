@@ -55,7 +55,7 @@ namespace Travely.PropertyManager.Data.Migrations
                     b.Property<float>("Stars")
                         .HasColumnType("real");
 
-                    b.Property<string>("WebSite")
+                    b.Property<string>("Website")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

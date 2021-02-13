@@ -10,7 +10,7 @@ using Travely.PropertyManager.Data.EntityFramework;
 namespace Travely.PropertyManager.Data.Migrations
 {
     [DbContext(typeof(PropertyDbContext))]
-    [Migration("20210213111257_InitialMigration")]
+    [Migration("20210213112045_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,7 +57,7 @@ namespace Travely.PropertyManager.Data.Migrations
                     b.Property<float>("Stars")
                         .HasColumnType("real");
 
-                    b.Property<string>("WebSite")
+                    b.Property<string>("Website")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
