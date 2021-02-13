@@ -12,9 +12,4 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Domain\Travely.PropertyManager.Domain\Travely.PropertyManager.Domain.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Travely.PropertyManager.Data\Travely.PropertyManager.Data.csproj" />
-  </ItemGroup>
-
 </Project>

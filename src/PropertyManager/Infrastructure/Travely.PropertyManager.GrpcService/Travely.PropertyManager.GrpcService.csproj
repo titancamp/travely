@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Travely.PropertyManager.GrpcService.Contracts\Travely.PropertyManager.GrpcService.Contracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Travely.PropertyManager.Data.EntityFramework;
+using Travely.PropertyManager.Service.Contracts;
+using Travely.PropertyManager.Service.Services;
 
 namespace Travely.PropertyManager.Bootstrapper.Helpers
 {
@@ -7,7 +11,14 @@ namespace Travely.PropertyManager.Bootstrapper.Helpers
     {
         public static IServiceCollection ConfigureAutoMapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(PropertyMappingProfile));
+            var mappingProfiles = new[]
+            {
+                typeof(Travely.PropertyManager.API.MappingProfiles.PropertyMappingProfile),
+                typeof(Travely.PropertyManager.Service.MappingProfiles.PropertyMappingProfile)
+            };
+
+            services.AddAutoMapper(mappingProfiles); 
+
             return services;
         }
 

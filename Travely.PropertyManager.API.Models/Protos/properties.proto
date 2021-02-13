@@ -1,0 +1,56 @@
+﻿syntax = "proto3";
+import "google/protobuf/wrappers.proto";
+option csharp_namespace = "Travely.PropertyManager.API.Models";
+
+service Property {
+	rpc AddProperty(AddPropertyRequest) returns (AddPropertyResponse);
+	rpc GetProperties(GetPropertiesRequest) returns (stream GetPropertiesResponse);
+}
+
+message AddPropertyRequest {
+	string Name = 1;
+	float Stars = 2;
+	string Address = 3;
+	string Latitude = 4;
+	string Longitude = 5;
+	string ContactName = 6;
+	string Email = 7;
+	string Phone = 8;
+	string WebSite = 9; 
+}
+message AddPropertyResponse {
+	int32 Id = 1;
+}
+
+message GetPropertiesRequest{
+	repeated FilteringBaseModel Filters = 1;
+	repeated OrderingBaseModel Orderings = 2;
+} 
+message GetPropertiesResponse{
+	int32 Id = 1;
+	string Name = 2;
+	float Stars = 3;
+	string Address = 4;
+	string Latitude = 5;
+	string Longitude = 6;
+	string ContactName = 7;
+	string Email = 8;
+	string Phone = 9;
+	string WebSite = 10; 
+} 
+
+
+message OrderingBaseModel{
+	string FieldName = 1;
+	bool IsDescending = 2;
+}
+message FilteringBaseModel{
+	string FieldName = 1;
+	string Value = 2;
+	FilteringOperationType Type = 3;
+}
+enum FilteringOperationType{
+	NOT_USE = 0;
+	EQUALS = 1;
+	CONTAINS = 2;
+}
