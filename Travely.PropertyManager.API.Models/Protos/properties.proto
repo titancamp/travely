@@ -16,7 +16,7 @@ message AddPropertyRequest {
 	string ContactName = 6;
 	string Email = 7;
 	string Phone = 8;
-	string WebSite = 9; 
+	string Website = 9; 
 }
 message AddPropertyResponse {
 	int32 Id = 1;
@@ -36,7 +36,7 @@ message GetPropertiesResponse{
 	string ContactName = 7;
 	string Email = 8;
 	string Phone = 9;
-	string WebSite = 10; 
+	string Website = 10; 
 } 
 
 
