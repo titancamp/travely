@@ -29,18 +29,12 @@ namespace Travely.ServiceManager.UnitTests
         public async Task CreateActivityShouldNotThrowForNormalFlow()
         {
             // Arrange
-            _activityManagerMock.Setup(am => am.CreateActivityAsync(It.Is<Activity>(a => a != null))).ReturnsAsync(new Activity
-            {
-                Name = "ActivityName"
-            });
+            _activityManagerMock.Setup(am => am.CreateActivityAsync(It.Is<Activity>(a => a != null))).ReturnsAsync(Mocks.Activity);
 
             var activityService = new ActivityService(_activityManagerMock.Object);
 
-            // Act
-            var result = await activityService.CreateActivity(new Activity(), null);
-
-            // Assert
-            _activityManagerMock.Verify(am => am.CreateActivityAsync(It.IsAny<Activity>()));
+            // Act, Assert
+            var _ = await activityService.CreateActivity(Mocks.Activity, null);
         }
 
         [Fact]
