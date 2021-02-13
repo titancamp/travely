@@ -1,4 +1,5 @@
 ﻿using Grpc.Core;
+using System;
 using System.Threading.Tasks;
 
 namespace Travely.ServiceManager.Service
@@ -9,7 +10,7 @@ namespace Travely.ServiceManager.Service
 
         public ActivityService(IActivityManager activityManager)
         {
-            _activityManager = activityManager;
+            _activityManager = activityManager ?? throw new ArgumentNullException(nameof(activityManager)); ;
         }
         
         public override async Task<ActivityResponse> CreateActivity(Activity activity, ServerCallContext context)
