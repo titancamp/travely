@@ -17,9 +17,7 @@ namespace Travely.PropertyManager.API.MappingProfiles
             CreateMap(typeof(RepeatedField<>), typeof(ICollection<>)).ConvertUsing(typeof(RepeatedFieldToCollectionConverter<,>));
 
 
-            CreateMap<AddPropertyRequest, AddPropertyCommand>()
-                .ForMember(dest => dest.Latitude, src => src.MapFrom(i => string.IsNullOrEmpty(i.Latitude) ? (decimal?)null : decimal.Parse(i.Latitude, CultureInfo.InvariantCulture)))
-                .ForMember(dest => dest.Longitude, src => src.MapFrom(i => string.IsNullOrEmpty(i.Longitude) ? (decimal?)null : decimal.Parse(i.Longitude, CultureInfo.InvariantCulture)));
+            CreateMap<AddPropertyRequest, AddPropertyCommand>();
 
             CreateMap<GetPropertiesRequest, GetPropertiesQuery>();
 

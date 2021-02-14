@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 namespace Travely.PropertyManager.API.MappingProfiles.Converters
 {
-    internal class RepeatedFieldToCollectionConverter<TITemSource, TITemDest> : ITypeConverter<RepeatedField<TITemSource>, ICollection<TITemDest>>
+    internal class RepeatedFieldToCollectionConverter<TSource, TDest> : ITypeConverter<RepeatedField<TSource>, ICollection<TDest>>
     {
-        public ICollection<TITemDest> Convert(RepeatedField<TITemSource> source, ICollection<TITemDest> destination, ResolutionContext context)
+        public ICollection<TDest> Convert(RepeatedField<TSource> source, ICollection<TDest> destination, ResolutionContext context)
         {
-            destination = destination ?? new List<TITemDest>();
+            destination = destination ?? new List<TDest>();
             foreach (var item in source)
             {
-                destination.Add(context.Mapper.Map<TITemDest>(item));
+                destination.Add(context.Mapper.Map<TDest>(item));
             }
             return destination;
         }

@@ -1,5 +1,5 @@
 ﻿syntax = "proto3";
-import "google/protobuf/wrappers.proto";
+import "google/protobuf/wrappers.proto"; 
 option csharp_namespace = "Travely.PropertyManager.API.Models";
 
 service Property {
@@ -11,8 +11,8 @@ message AddPropertyRequest {
 	string Name = 1;
 	float Stars = 2;
 	string Address = 3;
-	string Latitude = 4;
-	string Longitude = 5;
+	google.protobuf.DoubleValue Latitude = 4;
+	google.protobuf.DoubleValue Longitude = 5;
 	string ContactName = 6;
 	string Email = 7;
 	string Phone = 8;
@@ -31,8 +31,8 @@ message GetPropertiesResponse{
 	string Name = 2;
 	float Stars = 3;
 	string Address = 4;
-	string Latitude = 5;
-	string Longitude = 6;
+	google.protobuf.DoubleValue Latitude = 5;
+	google.protobuf.DoubleValue Longitude = 6;
 	string ContactName = 7;
 	string Email = 8;
 	string Phone = 9;
