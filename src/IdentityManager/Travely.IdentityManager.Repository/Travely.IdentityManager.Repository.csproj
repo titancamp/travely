@@ -1,16 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Travely.IdentityManager.IRepository\Travely.IdentityManager.IRepository.csproj" />
-    <ProjectReference Include="..\Travely.IdentityManager.Repository.Model\Travely.IdentityManager.Repository.Model.csproj" />
+    <ProjectReference Include="..\Repository.Abstractions\Travely.IdentityManager.Repository.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

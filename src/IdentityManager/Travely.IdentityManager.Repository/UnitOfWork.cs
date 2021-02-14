@@ -1,70 +1,24 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
-using Travely.IdentityManager.IRepository;
+using Travely.IdentityManager.Repository.Abstractions;
 using Travely.IdentityManager.Repository.Model.Context;
 
 namespace Travely.IdentityManager.Repository
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable 
     {
-        private IEmployeeRepository _employeeRepository;
-        private IAgencyRepository _agencyRepository;
-        private IUserRepository _userRepository;
+        private IdentityServerDbContext _dbContext;
 
-        private DbContext _dbContext;
-
-        public UnitOfWork(DbContext dbContext)
+        public UnitOfWork(IdentityServerDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-
-
-        public IEmployeeRepository EmployeeDataRepository
+       
+        public async Task<int> SaveChangesAsync(CancellationToken cancaletionToken = default)
         {
-            get
-            {
-                if (_dbContext != null)
-                {
-                    _employeeRepository = new EmployeeRepository(_dbContext as IdentityServerDbContext);
-                }
-                return _employeeRepository;
-            }
-        }
-
-        public IAgencyRepository AgencyRepository
-        {
-            get
-            {
-                if (_dbContext != null)
-                {
-                    _agencyRepository = new AgencyRepository(_dbContext as IdentityServerDbContext);
-                }
-                return _agencyRepository;
-            }
-        }
-
-        public IUserRepository UserRepository
-        {
-            get
-            {
-                if (_dbContext != null)
-                {
-                    _userRepository = new UserRepository(_dbContext as IdentityServerDbContext);
-                }
-                return _userRepository;
-            }
-        }
-        public async Task<int> SaveChangesAsync()
-        {
-            try
-            {
-                return await _dbContext.SaveChangesAsync(); 
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return await _dbContext.SaveChangesAsync(cancaletionToken);
         }
 
 

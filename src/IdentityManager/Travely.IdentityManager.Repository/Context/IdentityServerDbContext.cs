@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Travely.IdentityManager.Repository.Model.AppEntities;
-using Travely.IdentityManager.Repository.Model.IdentityEntities;
+using Travely.IdentityManager.Repository.Abstractions.Entities;
 
 namespace Travely.IdentityManager.Repository.Model.Context
 {
@@ -36,7 +32,6 @@ namespace Travely.IdentityManager.Repository.Model.Context
         public virtual DbSet<ClientRedirectUri> ClientRedirectUris { get; set; }
         public virtual DbSet<ClientScope> ClientScopes { get; set; }
         public virtual DbSet<ClientSecret> ClientSecrets { get; set; }
-        public virtual DbSet<DeviceCode> DeviceCodes { get; set; }
         public virtual DbSet<IdentityResource> IdentityResources { get; set; }
         public virtual DbSet<IdentityResourceClaim> IdentityResourceClaims { get; set; }
         public virtual DbSet<IdentityResourceProperty> IdentityResourceProperties { get; set; }
@@ -346,26 +341,6 @@ namespace Travely.IdentityManager.Repository.Model.Context
                 entity.HasOne(d => d.Client)
                     .WithMany(p => p.ClientSecrets)
                     .HasForeignKey(d => d.ClientId);
-            });
-
-            modelBuilder.Entity<DeviceCode>(entity =>
-            {
-                entity.HasKey(e => e.UserCode);
-
-                entity.Property(e => e.UserCode).HasMaxLength(200);
-
-                entity.Property(e => e.ClientId)
-                    .IsRequired()
-                    .HasMaxLength(200);
-
-                entity.Property(e => e.Data).IsRequired();
-
-                entity.Property(e => e.DeviceCode1)
-                    .IsRequired()
-                    .HasMaxLength(200)
-                    .HasColumnName("DeviceCode");
-
-                entity.Property(e => e.SubjectId).HasMaxLength(200);
             });
 
             modelBuilder.Entity<Employee>(entity =>
