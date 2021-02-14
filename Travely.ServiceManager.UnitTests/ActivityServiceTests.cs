@@ -15,7 +15,7 @@ namespace Travely.ServiceManager.UnitTests
         public void ShouldThrowOnInvalidConstructorParameters()
         {
             // Act, Assert
-            Assert.Throws<ArgumentException>(() => new ActivityService(null));
+            Assert.Throws<ArgumentNullException>(() => new ActivityService(null));
         }
 
         [Fact]
