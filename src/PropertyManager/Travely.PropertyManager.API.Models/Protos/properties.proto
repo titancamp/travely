@@ -1,5 +1,6 @@
 ﻿syntax = "proto3";
 import "google/protobuf/wrappers.proto"; 
+import "Protos/base.proto";
 option csharp_namespace = "Travely.PropertyManager.API.Models";
 
 service Property {
@@ -40,17 +41,3 @@ message GetPropertiesResponse{
 } 
 
 
-message OrderingBaseModel{
-	string FieldName = 1;
-	bool IsDescending = 2;
-}
-message FilteringBaseModel{
-	string FieldName = 1;
-	string Value = 2;
-	FilteringOperationType Type = 3;
-}
-enum FilteringOperationType{
-	NOT_USE = 0;
-	EQUALS = 1;
-	CONTAINS = 2;
-}
