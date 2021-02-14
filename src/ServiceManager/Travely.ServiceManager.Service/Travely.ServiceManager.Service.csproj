@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>Travely.ServiceManager</AssemblyName>
-    <RootNamespace>Travely.ServiceManager</RootNamespace>
+    <RootNamespace>Travely.ServiceManager.Service</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
