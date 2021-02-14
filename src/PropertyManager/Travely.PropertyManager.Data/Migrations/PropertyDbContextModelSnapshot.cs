@@ -48,11 +48,11 @@ namespace Travely.PropertyManager.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
-                    b.Property<float>("Stars")
-                        .HasColumnType("real");
+                    b.Property<byte>("Stars")
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("Website")
                         .HasColumnType("nvarchar(max)");

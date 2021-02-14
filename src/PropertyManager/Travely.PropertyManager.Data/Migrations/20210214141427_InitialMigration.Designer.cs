@@ -9,7 +9,7 @@ using Travely.PropertyManager.Data.EntityFramework;
 namespace Travely.PropertyManager.Data.Migrations
 {
     [DbContext(typeof(PropertyDbContext))]
-    [Migration("20210214084419_InitialMigration")]
+    [Migration("20210214141427_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,11 +50,11 @@ namespace Travely.PropertyManager.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
-                    b.Property<float>("Stars")
-                        .HasColumnType("real");
+                    b.Property<byte>("Stars")
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("Website")
                         .HasColumnType("nvarchar(max)");

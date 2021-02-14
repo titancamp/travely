@@ -13,13 +13,13 @@ namespace Travely.PropertyManager.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Stars = table.Column<float>(type: "real", nullable: false),
+                    Stars = table.Column<byte>(type: "tinyint", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(8,6)", precision: 8, scale: 6, nullable: true),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: true),
                     ContactName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(320)", maxLength: 320, nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     Website = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
