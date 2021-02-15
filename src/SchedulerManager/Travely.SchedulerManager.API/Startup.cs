@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Travely.SchedulerManager.Job;
 using Travely.SchedulerManager.Notifier;
+using Travely.SchedulerManager.Repository;
 
 namespace Travely.SchedulerManager.API
 {
@@ -34,6 +35,7 @@ namespace Travely.SchedulerManager.API
             services.AddGrpc();
 
             services.AddJobService(Configuration);
+            services.AddRepositoryLayer(Configuration.GetConnectionString("DefaultConnection"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
