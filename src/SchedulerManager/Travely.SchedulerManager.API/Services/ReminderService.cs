@@ -5,47 +5,58 @@ using System.Linq;
 using System.Threading.Tasks;
 using Travely.SchedulerManager;
 
-
 namespace Travely.SchedulerManager.API.Services
 {
     public class ReminderService : Reminder.ReminderBase
     {
-        private readonly IReminderService _reminderService;
+        private readonly INotificationService _notificationService;
 
-        public ReminderService(IReminderService reminderService)
+        public ReminderService(INotificationService notificationService)
         {
-            _reminderService = reminderService;
+            _notificationService = notificationService;
         }
 
-        public override Task<GetResponse> Get(GetRequest request, ServerCallContext context)
+        public override async Task<GetResponse> Get(GetRequest request, ServerCallContext context)
         {
-            _reminderService.Get(request.BookingId);
-            return Task.FromResult<GetResponse>(new GetResponse());
-            
+            var result = await _notificationService.GetNotification(request.BookingId);
+            return new GetResponse()
+            {
+                Notification = new Notification()
+                {
+                    BookingId = result.BookingId,
+                    Message = result.Message
+                }
+            };
         }
 
-        public override Task<GetAllResponse> GetAll(GetAllRequest request, ServerCallContext context)
+        public override async Task<GetAllResponse> GetAll(GetAllRequest request, ServerCallContext context)
         {
-            _reminderService.GetAll();
-            return Task.FromResult<GetAllResponse>(new GetAllResponse());
+            var result = await _notificationService.GetAllNotifications();
+            var response = new GetAllResponse();
+            response.Notifications.AddRange(result.Select(n => new Notification()
+            {
+                BookingId = n.BookingId,
+                Message = n.Message
+            }));
+            return response;
         }
 
-        public override Task<CreateResponse> Create(CreateRequest request, ServerCallContext context)
+        public override async Task<CreateResponse> Create(CreateRequest request, ServerCallContext context)
         {
-            var succeed = _reminderService.Create();
-            return Task.FromResult<CreateResponse>(new CreateResponse() { Succeed = succeed });
+            var result = await _notificationService.CreateNotification(request.BookingId, request.BookingName, request.BookingNotes, request.ExpireDate, request.AssignedUserIds);
+            return new CreateResponse() { Succeed = result };
         }
 
-        public override Task<UpdateResponse> Update(UpdateRequest request, ServerCallContext context)
+        public override async Task<UpdateResponse> Update(UpdateRequest request, ServerCallContext context)
         {
-            var succeed = _reminderService.Update();
-            return Task.FromResult<UpdateResponse>(new UpdateResponse() { Succeed = succeed });
+            var result = await _notificationService.UpdateNotification(request.BookingId, request.BookingName, request.BookingNotes, request.ExpireDate, request.AssignedUserIds);
+            return new UpdateResponse() { Succeed = result };
         }
 
-        public override Task<DeleteResponse> Delete(DeleteRequest request, ServerCallContext context)
+        public override async Task<DeleteResponse> Delete(DeleteRequest request, ServerCallContext context)
         {
-            var succeed = _reminderService.Delete(request.BookingId);
-            return Task.FromResult<DeleteResponse>(new DeleteResponse() { Succeed = succeed });
+            var result = await _notificationService.DeleteNotification(request.BookingId);
+            return new DeleteResponse() { Succeed = result };
         }
     }
 }
