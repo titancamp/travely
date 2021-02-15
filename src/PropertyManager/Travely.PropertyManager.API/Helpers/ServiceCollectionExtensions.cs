@@ -17,7 +17,7 @@ namespace Travely.PropertyManager.Bootstrapper.Helpers
                 typeof(Travely.PropertyManager.Service.MappingProfiles.PropertyMappingProfile)
             };
 
-            services.AddAutoMapper(mappingProfiles); 
+            services.AddAutoMapper(mappingProfiles);
 
             return services;
         }
@@ -25,7 +25,7 @@ namespace Travely.PropertyManager.Bootstrapper.Helpers
         public static IServiceCollection ConfigureDbContext(this IServiceCollection services, string connectionString)
         {
             services.AddDbContext<PropertyDbContext>(options =>
-                 options.UseSqlServer(connectionString, x => x.MigrationsAssembly("Travely.PropertyManager.Data")));
+                 options.UseSqlServer(connectionString, x => x.MigrationsAssembly(typeof(PropertyDbContext).Assembly.GetName().Name)));
 
             return services;
         }
