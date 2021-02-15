@@ -7,6 +7,6 @@
         public string Value { get; set; }
         public int ClientId { get; set; }
 
-        public virtual Client Client { get; set; }
+        public Client Client { get; set; }
     }
 }

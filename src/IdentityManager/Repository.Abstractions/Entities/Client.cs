@@ -5,10 +5,15 @@ namespace Travely.IdentityManager.Repository.Abstractions.Entities
 {
     public class Client
     {
-        public Client()
-        {
-
-        }
+        private HashSet<ClientClaim> _clientClaims;
+        private HashSet<ClientCorsOrigin> _clientCorsOrigins;
+        private HashSet<ClientGrantType> _clientGrantType;
+        private HashSet<ClientIdPrestriction> _clientIdPrestrictions;
+        private HashSet<ClientPostLogoutRedirectUri> _clientPostLogoutRedirectUris;
+        private HashSet<ClientProperty> _clientProperties;
+        private HashSet<ClientRedirectUri> _clientRedirectUris;
+        private HashSet<ClientScope> _clientScopes;
+        private HashSet<ClientSecret> _clientSecrets;
 
         public int Id { get; set; }
         public bool Enabled { get; set; }
@@ -55,15 +60,15 @@ namespace Travely.IdentityManager.Repository.Abstractions.Entities
         public int DeviceCodeLifetime { get; set; }
         public bool NonEditable { get; set; }
 
-        public virtual ICollection<ClientClaim> ClientClaims { get; set; }
-        public virtual ICollection<ClientCorsOrigin> ClientCorsOrigins { get; set; }
-        public virtual ICollection<ClientGrantType> ClientGrantTypes { get; set; }
-        public virtual ICollection<ClientIdPrestriction> ClientIdPrestrictions { get; set; }
-        public virtual ICollection<ClientPostLogoutRedirectUri> ClientPostLogoutRedirectUris { get; set; }
-        public virtual ICollection<ClientProperty> ClientProperties { get; set; }
-        public virtual ICollection<ClientRedirectUri> ClientRedirectUris { get; set; }
-        public virtual ICollection<ClientScope> ClientScopes { get; set; }
-        public virtual ICollection<ClientSecret> ClientSecrets { get; set; }
+        public virtual ICollection<ClientClaim> ClientClaims => _clientClaims ??= new HashSet<ClientClaim>();
+        public virtual ICollection<ClientCorsOrigin> ClientCorsOrigins => _clientCorsOrigins ??= new HashSet<ClientCorsOrigin>();
+        public virtual ICollection<ClientGrantType> ClientGrantTypes => _clientGrantType ??= new HashSet<ClientGrantType>();
+        public virtual ICollection<ClientIdPrestriction> ClientIdPrestrictions => _clientIdPrestrictions ??= new HashSet<ClientIdPrestriction>();
+        public virtual ICollection<ClientPostLogoutRedirectUri> ClientPostLogoutRedirectUris => _clientPostLogoutRedirectUris ??= new HashSet<ClientPostLogoutRedirectUri>();
+        public virtual ICollection<ClientProperty> ClientProperties => _clientProperties ??= new HashSet<ClientProperty>();
+        public virtual ICollection<ClientRedirectUri> ClientRedirectUris => _clientRedirectUris ??= new HashSet<ClientRedirectUri>();
+        public virtual ICollection<ClientScope> ClientScopes => _clientScopes ??= new HashSet<ClientScope>();
+        public virtual ICollection<ClientSecret> ClientSecrets => _clientSecrets ??= new HashSet<ClientSecret>();
 
     }
 }

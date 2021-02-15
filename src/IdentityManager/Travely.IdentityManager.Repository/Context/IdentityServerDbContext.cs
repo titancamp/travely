@@ -353,7 +353,7 @@ namespace Travely.IdentityManager.Repository.Model.Context
                     .IsRequired()
                     .HasMaxLength(256);
 
-                entity.Property(e => e.JobTitleId)
+                entity.Property(e => e.JobTitle)
                     .IsRequired()
                     .HasMaxLength(256);
 
@@ -367,9 +367,9 @@ namespace Travely.IdentityManager.Repository.Model.Context
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_User_OrganizationId");
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Employees)
-                    .HasForeignKey(d => d.UserId)
+                entity.HasOne(d => d.User)                
+                    .WithOne(p => p.Employee)
+                    .HasForeignKey<Employee>(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_User_UserId");
             });
@@ -422,25 +422,9 @@ namespace Travely.IdentityManager.Repository.Model.Context
             {
                 entity.ToTable("Organization");
 
-                entity.Property(e => e.Address1)
+                entity.Property(e => e.Address)
                     .IsRequired()
                     .HasMaxLength(256);
-
-                entity.Property(e => e.Address2)
-                    .IsRequired()
-                    .HasMaxLength(256);
-
-                entity.Property(e => e.City)
-                    .IsRequired()
-                    .HasMaxLength(256);
-
-                entity.Property(e => e.Country)
-                    .IsRequired()
-                    .HasMaxLength(256);
-
-                entity.Property(e => e.Email).HasMaxLength(256);
-
-                entity.Property(e => e.Fax).HasMaxLength(256);
 
                 entity.Property(e => e.LogoFile)
                     .IsRequired()
@@ -450,17 +434,9 @@ namespace Travely.IdentityManager.Repository.Model.Context
                     .IsRequired()
                     .HasMaxLength(256);
 
-                entity.Property(e => e.PostalCode)
-                    .IsRequired()
-                    .HasMaxLength(256);
-
-                entity.Property(e => e.WebSite)
-                    .IsRequired()
-                    .HasMaxLength(256);
-
                 entity.HasOne(d => d.Owner)
-                    .WithMany(p => p.Organizations)
-                    .HasForeignKey(d => d.OwnerId)
+                    .WithOne(p => p.Agency)
+                    .HasForeignKey<Agency>(d => d.OwnerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Organization_OwnerId");
             });
@@ -486,7 +462,7 @@ namespace Travely.IdentityManager.Repository.Model.Context
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.ToTable("User");
+               
             });
 
         }

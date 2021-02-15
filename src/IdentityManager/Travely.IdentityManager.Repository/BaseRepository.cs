@@ -23,7 +23,7 @@ namespace Travely.IdentityManager.Repository
         {
             if (entity == null)
             {
-                throw new ArgumentException("entity");
+                throw new ArgumentException(nameof(entity));
             }
             Set.Add(entity);
             return entity;
@@ -34,7 +34,7 @@ namespace Travely.IdentityManager.Repository
             return Set;
         }
 
-        public virtual async Task<TEntity> GetByIdAsync(int id, CancellationToken cancaletionToken = default)
+        public virtual async Task<TEntity> FindByIdAsync(int id, CancellationToken cancaletionToken = default)
         {
             return await Set.FindAsync(id, cancaletionToken);
         }
@@ -43,7 +43,7 @@ namespace Travely.IdentityManager.Repository
         {
             if (entity == null)
             {
-                throw new ArgumentException("entity");
+                throw new ArgumentException(nameof(entity));
             }
             var modified = DbContext.ChangeTracker.Entries<TEntity>().Where(x => x.State == EntityState.Modified).Count();
             if (modified > 0)
@@ -60,9 +60,13 @@ namespace Travely.IdentityManager.Repository
             return await Set.SingleAsync(expression, cancaletionToken);
         }
 
-        public void Delete(TEntity entity)
+        public void Remove(TEntity entity)
         {
-            Update(entity);
+            if (entity == null)
+            {
+                throw new ArgumentException(nameof(entity));
+            }
+            Set.Remove(entity);
         }
     }
 }

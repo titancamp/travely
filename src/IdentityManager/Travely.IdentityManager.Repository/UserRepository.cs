@@ -13,17 +13,7 @@ namespace Travely.IdentityManager.Repository
 
         }
 
-        public async Task<bool?> CheckPasswordAsync(string username, string password, CancellationToken cancaletionToken = default)
-        {
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
-            {
-                return null;
-            }
-            var user = await GetByConditionAsync(item => (item.UserName == username && item.Password == password), cancaletionToken);
-            return user != null;
-        }
-
-        public async Task<User?> GetUserByUsernameAsync(string username, CancellationToken cancaletionToken = default)
+        public async Task<User?> FindByEmailAsync(string username, CancellationToken cancaletionToken = default)
         {
             if (string.IsNullOrWhiteSpace(username))
             {

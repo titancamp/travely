@@ -5,11 +5,10 @@ namespace Travely.IdentityManager.Repository.Abstractions.Entities
 {
     public class ApiResource
     {
-        public ApiResource()
-        {
-
-        }
-
+        private HashSet<ApiResourceClaim> _apiResourceClaims;
+        private HashSet<ApiResourceProperty> _apiResourceProperties;
+        private HashSet<ApiResourceScope> _apiResourceScopes;
+        private HashSet<ApiResourceSecret> _apiResourceSecrets;
         public int Id { get; set; }
         public bool Enabled { get; set; }
         public string Name { get; set; }
@@ -22,9 +21,9 @@ namespace Travely.IdentityManager.Repository.Abstractions.Entities
         public DateTime? LastAccessed { get; set; }
         public bool NonEditable { get; set; }
 
-        public virtual ICollection<ApiResourceClaim> ApiResourceClaims { get; set; }
-        public virtual ICollection<ApiResourceProperty> ApiResourceProperties { get; set; }
-        public virtual ICollection<ApiResourceScope> ApiResourceScopes { get; set; }
-        public virtual ICollection<ApiResourceSecret> ApiResourceSecrets { get; set; }
+        public ICollection<ApiResourceClaim> ApiResourceClaims => _apiResourceClaims ??= new HashSet<ApiResourceClaim>();
+        public ICollection<ApiResourceProperty> ApiResourceProperties => _apiResourceProperties ??= new HashSet<ApiResourceProperty>();
+        public ICollection<ApiResourceScope> ApiResourceScopes => _apiResourceScopes ??= new HashSet<ApiResourceScope>();
+        public ICollection<ApiResourceSecret> ApiResourceSecrets => _apiResourceSecrets ??= new HashSet<ApiResourceSecret>();
     }
 }

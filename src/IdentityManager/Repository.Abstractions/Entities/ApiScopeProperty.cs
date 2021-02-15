@@ -7,6 +7,6 @@
         public string Key { get; set; }
         public string Value { get; set; }
 
-        public virtual ApiScope Scope { get; set; }
+        public ApiScope Scope { get; set; }
     }
 }

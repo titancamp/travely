@@ -7,6 +7,6 @@
         public string Key { get; set; }
         public string Value { get; set; }
 
-        public virtual ApiResource ApiResource { get; set; }
+        public ApiResource ApiResource { get; set; }
     }
 }

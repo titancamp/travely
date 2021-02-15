@@ -6,6 +6,6 @@
         public int ApiResourceId { get; set; }
         public string Type { get; set; }
 
-        public virtual ApiResource ApiResource { get; set; }
+        public ApiResource ApiResource { get; set; }
     }
 }

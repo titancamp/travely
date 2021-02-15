@@ -6,6 +6,6 @@
         public int IdentityResourceId { get; set; }
         public string Type { get; set; }
 
-        public virtual IdentityResource IdentityResource { get; set; }
+        public IdentityResource IdentityResource { get; set; }
     }
 }

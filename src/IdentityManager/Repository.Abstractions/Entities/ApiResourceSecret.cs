@@ -12,6 +12,6 @@ namespace Travely.IdentityManager.Repository.Abstractions.Entities
         public string Type { get; set; }
         public DateTime Created { get; set; }
 
-        public virtual ApiResource ApiResource { get; set; }
+        public ApiResource ApiResource { get; set; }
     }
 }

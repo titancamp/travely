@@ -5,11 +5,8 @@ namespace Travely.IdentityManager.Repository.Abstractions.Entities
 {
     public class IdentityResource
     {
-        public IdentityResource()
-        {
-
-        }
-
+        private HashSet<IdentityResourceClaim> _identityResourceClaim;
+        private HashSet<IdentityResourceProperty> _identityResourceProperties;
         public int Id { get; set; }
         public bool Enabled { get; set; }
         public string Name { get; set; }
@@ -22,7 +19,7 @@ namespace Travely.IdentityManager.Repository.Abstractions.Entities
         public DateTime? Updated { get; set; }
         public bool NonEditable { get; set; }
 
-        public virtual ICollection<IdentityResourceClaim> IdentityResourceClaims { get; set; }
-        public virtual ICollection<IdentityResourceProperty> IdentityResourceProperties { get; set; }
+        public ICollection<IdentityResourceClaim> IdentityResourceClaims => _identityResourceClaim ??= new HashSet<IdentityResourceClaim>();
+        public ICollection<IdentityResourceProperty> IdentityResourceProperties => _identityResourceProperties ??= new HashSet<IdentityResourceProperty>();
     }
 }

@@ -6,6 +6,6 @@
         public int ScopeId { get; set; }
         public string Type { get; set; }
 
-        public virtual ApiScope Scope { get; set; }
+        public ApiScope Scope { get; set; }
     }
 }

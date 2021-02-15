@@ -6,6 +6,6 @@
         public string Scope { get; set; }
         public int ApiResourceId { get; set; }
 
-        public virtual ApiResource ApiResource { get; set; }
+        public ApiResource ApiResource { get; set; }
     }
 }

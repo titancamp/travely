@@ -11,14 +11,14 @@ namespace Travely.IdentityManager.Repository.Abstractions.Entities
         public string PhoneNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string JobTitleId { get; set; }
+        public string JobTitle { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int? UpdatedBy { get; set; }
 
-        public virtual Agency Agency { get; set; }
-        public virtual User User { get; set; }
+        public Agency Agency { get; set; }
+        public User User { get; set; }
     }
 }
