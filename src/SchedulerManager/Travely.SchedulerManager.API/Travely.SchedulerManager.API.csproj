@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -13,6 +13,10 @@
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
   </ItemGroup>
 
@@ -20,7 +24,6 @@
     <ProjectReference Include="..\Travely.SchedulerManager.Job\Travely.SchedulerManager.Job.csproj" />
     <ProjectReference Include="..\Travely.SchedulerManager.Notifier\Travely.SchedulerManager.Notifier.csproj" />
     <ProjectReference Include="..\Travely.SchedulerManager.Repository\Travely.SchedulerManager.Repository.csproj" />
-    <ProjectReference Include="..\Travely.SchedulerManager.Service\Travely.SchedulerManager.Service.csproj" />
   </ItemGroup>
 
 </Project>
