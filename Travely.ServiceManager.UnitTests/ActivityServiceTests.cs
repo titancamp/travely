@@ -12,21 +12,21 @@ namespace Travely.ServiceManager.UnitTests
         private readonly Mock<IActivityManager> _activityManagerMock = new Mock<IActivityManager>(MockBehavior.Strict);
 
         [Fact]
-        public void ShouldThrowOnInvalidConstructorParameters()
+        public void Ctor_NullArgumentPassed_ShouldThrowArgumentNullException()
         {
             // Act, Assert
             Assert.Throws<ArgumentNullException>(() => new ActivityService(null));
         }
 
         [Fact]
-        public void ShouldNotThrowOnValidConstructorParameters()
+        public void Ctor_OnValidArgsPassed_ShouldNotThrow()
         {
             // Act, Assert
             var _ = new ActivityService(_activityManagerMock.Object);
         }
 
         [Fact]
-        public async Task CreateActivityShouldNotThrowForNormalFlow()
+        public async Task CreateActivity_OnValidArgsPassed_ShouldNotThrow()
         {
             // Arrange
             _activityManagerMock.Setup(am => am.CreateActivityAsync(It.Is<Activity>(a => a != null))).ReturnsAsync(Mocks.Activity);
@@ -38,7 +38,7 @@ namespace Travely.ServiceManager.UnitTests
         }
 
         [Fact]
-        public async Task CreateActivityShouldPassValidObjectToManager()
+        public async Task CreateActivity_OnValidArgsPassed_ShouldPassValidObjectToManager()
         {
             // Arrange
             var activityService = new ActivityService(_activityManagerMock.Object);
@@ -54,7 +54,7 @@ namespace Travely.ServiceManager.UnitTests
         }
 
         [Fact]
-        public async Task CreateActivityShouldReturnValidObject()
+        public async Task CreateActivity_OnValidArgsPassed_ShouldReturnValidObject()
         {
             // Arrange
             var activityService = new ActivityService(_activityManagerMock.Object);
@@ -69,7 +69,7 @@ namespace Travely.ServiceManager.UnitTests
         }
 
         [Fact]
-        public async Task GetActivitiesShouldNotThrowOnNormalFlow()
+        public async Task GetActivities_OnValidArgsPassed_ShouldNotThrow()
         {
             // Arrange
             var activityService = new ActivityService(_activityManagerMock.Object);
@@ -84,7 +84,7 @@ namespace Travely.ServiceManager.UnitTests
         }
 
         [Fact]
-        public async Task GetActivitiesShouldPassValidArgumentsToManager()
+        public async Task GetActivities_OnValidArgsPassed_ShouldPassValidArgumentsToManager()
         {
             // Arrange
             var activityService = new ActivityService(_activityManagerMock.Object);
@@ -104,7 +104,7 @@ namespace Travely.ServiceManager.UnitTests
         }
 
         [Fact]
-        public async Task GetActivitiesShouldReturnValidActivities()
+        public async Task GetActivities_OnValidArgsPassed_ShouldReturnValidActivities()
         {
             // Arrange
             var activityService = new ActivityService(_activityManagerMock.Object);
@@ -126,7 +126,7 @@ namespace Travely.ServiceManager.UnitTests
         }
 
         [Fact]
-        public async Task DeleteActivityShouldReturnValidResultForNormalFlow()
+        public async Task DeleteActivity_OnValidArgsPassed_ShouldReturnValidResult()
         {
             // Arrange
             var activityService = new ActivityService(_activityManagerMock.Object);
@@ -145,7 +145,7 @@ namespace Travely.ServiceManager.UnitTests
         }
 
         [Fact]
-        public async Task DeleteActivityShouldDeleteValidActivity()
+        public async Task DeleteActivity_OnValidArgsPassed_ShouldDeleteValidActivity()
         {
             // Arrange
             var activityId = 1L;
@@ -166,7 +166,7 @@ namespace Travely.ServiceManager.UnitTests
         }
 
         [Fact]
-        public async Task EditActivityShouldReturnValidResultForNormalFlow()
+        public async Task EditActivity_OnValidArgsPassed_ShouldReturnValidResult()
         {
             // Arrange
             var activityService = new ActivityService(_activityManagerMock.Object);
@@ -181,7 +181,7 @@ namespace Travely.ServiceManager.UnitTests
         }
 
         [Fact]
-        public async Task EditActivityShouldEditValidActivity()
+        public async Task EditActivity_OnValidArgsPassed_ShouldEditValidActivity()
         {
             // Arrange
             var activityService = new ActivityService(_activityManagerMock.Object);
