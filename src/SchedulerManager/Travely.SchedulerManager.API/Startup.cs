@@ -19,6 +19,7 @@ namespace Travely.SchedulerManager.API
         {
             _configuration = configuration;
         }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options =>
@@ -35,8 +36,11 @@ namespace Travely.SchedulerManager.API
 
 
             services.Configure<ConnectionStrings>(_configuration.GetSection(ConnectionStrings.Section));
-            services.AddNotifier();
+            var settings = new ConnectionStrings();
+            _configuration.GetSection(ConnectionStrings.Section).Bind(settings);
+            //use settings properties to send as a parapeter when adding service
 
+            services.AddNotifier();
             services.AddGrpc();
         }
 
@@ -54,7 +58,7 @@ namespace Travely.SchedulerManager.API
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapGrpcService<ReminderService>();
+                endpoints.MapGrpcService<ReminderService>();
                 endpoints.MapGet("/", async context => await context.Response.WriteAsync("Service running"));
             });
         }
