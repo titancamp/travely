@@ -7,6 +7,9 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.10.1" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Travely.SchedulerManager.Abstraction\Travely.SchedulerManager.Abstraction.csproj" />
   </ItemGroup>
 

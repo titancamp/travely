@@ -12,11 +12,12 @@ namespace Travely.SchedulerManager.API
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
+
+        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -31,6 +32,7 @@ namespace Travely.SchedulerManager.API
                             .WithOrigins("http://localhost:3000");
                     });
             });
+            services.ConfigureEmailing(Configuration.GetSection("Messaging:Email"));
             services.AddNotifier();
             services.AddGrpc();
 
