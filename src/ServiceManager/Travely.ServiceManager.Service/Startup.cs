@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Travely.ServiceManager.Service.Managers;
 
 namespace Travely.ServiceManager.Service
 {
@@ -17,6 +16,8 @@ namespace Travely.ServiceManager.Service
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IActivityManager, ActivityManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,7 +32,7 @@ namespace Travely.ServiceManager.Service
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<ActivityService>();
 
                 endpoints.MapGet("/", async context =>
                 {

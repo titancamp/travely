@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "Travely.ServiceManager.Service";
+
+package activity;
+
+service ActivityProto {
+	rpc CreateActivity (Activity) returns (ActivityResponse);
+	rpc GetActivities(GetActivitiesRequest) returns (Activities);
+	rpc DeleteActivity (DeleteActivityRequest) returns (ActivityResponse);
+	rpc EditActivity (Activity) returns (ActivityResponse);
+}
+
+message ActivityType {
+	google.protobuf.Int64Value id = 1;
+	int32 agencyId = 2;
+	string activityName = 3;
+}
+
+message Price {
+	double price = 1;
+	string currency = 2;
+}
+
+message Activity {
+	google.protobuf.Int64Value id = 1;
+	ActivityType type = 2;
+	string name = 3;
+	string address = 4;
+	string contactName = 5;
+	string email = 6;
+	string phone = 7;			
+	string website = 8;			
+	Price price = 9;
+	int32 changeUser = 10;
+}
+
+message ActivityResponse {
+	ResponseStatus status = 1;
+	string message = 2;
+}
+
+message GetActivitiesRequest {
+	int32 agencyId = 1;
+}
+
+message DeleteActivityRequest {
+	int64 activityId = 1;
+}
+
+message Activities {
+	repeated Activity Activities = 1;
+}
+enum ResponseStatus {
+	RESPONSESTATUS_FAILED = 0;
+	RESPONSESTATUS_SUCCESS = 1;
+}
+
+
+
