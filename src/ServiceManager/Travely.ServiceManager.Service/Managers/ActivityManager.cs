@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Travely.ServiceManager.Abstraction.Interfaces.UnitOfWorks;
 
 namespace Travely.ServiceManager.Service.Managers
 {
     public class ActivityManager : IActivityManager
     {
+        protected readonly IUnitOfWork _repos;
+        public ActivityManager(IUnitOfWork unitOfWork)
+        {
+            _repos = unitOfWork;
+        }
         public Task<Activity> CreateActivityAsync(Activity activity)
         {
             throw new NotImplementedException();
