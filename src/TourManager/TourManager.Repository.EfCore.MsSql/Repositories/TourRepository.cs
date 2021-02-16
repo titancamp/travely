@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TourManager.Repository.Abstraction;
 using TourManager.Repository.EfCore.Context;
@@ -27,21 +25,18 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
         /// </summary>
         /// <param name="tenantId">The tenant id</param>
         /// <returns></returns>
-        public async Task<List<TourEntity>> GetAll(int tenantId)
+        public Task<List<TourEntity>> GetAll(int tenantId)
         {
-            return await this.Find(tour => tour.TenantId == tenantId);
+            return this.Find(tour => tour.TenantId == tenantId);
         }
 
         /// <summary>
         /// Get all tours starting from now
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<TourEntity>> GetAllFromToday()
+        public Task<List<TourEntity>> GetAllFromToday()
         {
-            var query = DbSet.AsNoTracking()
-                .Where(a => a.StartDate > DateTime.Now);
-
-            return await query.ToListAsync();
+            return this.Find(tour => tour.StartDate > DateTime.Now);
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TourManager.Repository.Abstraction;
+using TourManager.Repository.Entities;
 using TourManager.Service.Abstraction;
-using TourManager.Service.Implementation.Mappers;
 using TourManager.Service.Model;
 
 namespace TourManager.Service.Implementation
@@ -13,6 +14,11 @@ namespace TourManager.Service.Implementation
     public class ClientService : IClientService
     {
         /// <summary>
+        /// The model mapper
+        /// </summary>
+        private readonly IMapper mapper;
+
+        /// <summary>
         /// The client repository
         /// </summary>
         private readonly IClientRepository clientRepository;
@@ -20,9 +26,11 @@ namespace TourManager.Service.Implementation
         /// <summary>
         ///  Create new instance of client service
         /// </summary>
+        /// <param name="mapper"></param>
         /// <param name="clientRepository">The client repository</param>
-        public ClientService(IClientRepository clientRepository)
+        public ClientService(IMapper mapper, IClientRepository clientRepository)
         {
+            this.mapper = mapper;
             this.clientRepository = clientRepository;
         }
 
@@ -35,7 +43,7 @@ namespace TourManager.Service.Implementation
         {
             var result = await this.clientRepository.GetAll(tourId);
 
-            return ClientMapper.MapFrom(result);
+            return this.mapper.Map<List<Client>>(result);
         }
 
         /// <summary>
@@ -47,7 +55,7 @@ namespace TourManager.Service.Implementation
         {
             var result = await this.clientRepository.GetById(clientId);
 
-            return ClientMapper.MapFromSingle(result);
+            return this.mapper.Map<Client>(result);
         }
 
         /// <summary>
@@ -55,9 +63,9 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="client">The client to create</param>
         /// <returns></returns>
-        public async Task CreateClient(Client client)
+        public Task CreateClient(Client client)
         {
-            await this.clientRepository.Add(ClientMapper.MapToSingle(client));
+            return this.clientRepository.Add(this.mapper.Map<TourClientEntity>(client));
         }
 
         /// <summary>
@@ -65,9 +73,9 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="client">The client to update</param>
         /// <returns></returns>
-        public async Task UpdateClient(Client client)
+        public Task UpdateClient(Client client)
         {
-            await this.clientRepository.Update(ClientMapper.MapToSingle(client));
+            return this.clientRepository.Update(this.mapper.Map<TourClientEntity>(client));
         }
 
         /// <summary>

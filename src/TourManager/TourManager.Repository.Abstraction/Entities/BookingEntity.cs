@@ -36,12 +36,12 @@ namespace TourManager.Repository.Entities
         /// <summary>
         /// The booking type
         /// </summary>
-        public string Type { get; set; }
+        public int Type { get; set; }
 
         /// <summary>
         /// The booking status
         /// </summary>
-        public string Status { get; set; }
+        public int Status { get; set; }
 
         /// <summary>
         /// The booking checkin date

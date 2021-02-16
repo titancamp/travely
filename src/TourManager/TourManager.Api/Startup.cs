@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,15 @@ namespace TourManager.Api
                 options => options.UseSqlServer(
                         Configuration.GetConnectionString("TourDbContext"),
                         x => x.MigrationsAssembly("TourManager.Repository.EfCore.MsSql")));
+
+            // auto mapper Configurations
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingConfig());
+            });
+
+            // add mapper configs to services
+            services.AddSingleton(mapperConfig.CreateMapper());
 
             services.AddControllers();
             services.AddApiVersioning(config =>

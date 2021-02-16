@@ -20,6 +20,6 @@ namespace TourManager.Repository.Abstraction
         /// Get all tours starting from now
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<TourEntity>> GetAllFromToday();
+        Task<List<TourEntity>> GetAllFromToday();
     }
 }

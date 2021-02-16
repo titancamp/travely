@@ -1,7 +1,27 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 
 namespace TourManager.Service.Model
 {
+    /// <summary>
+    /// The client validator
+    /// </summary>
+    public class ClientValidator : AbstractValidator<Client>
+    {
+        /// <summary>
+        /// Create new instance of client validator
+        /// </summary>
+        public ClientValidator()
+        {
+            RuleFor(client => client.FirstName).NotEmpty().WithMessage("The client first name field is requiered!");
+            RuleFor(client => client.LastName).NotEmpty().WithMessage("The client last name field is requiered!");
+            RuleFor(client => client.Phone).NotEmpty().WithMessage("The client phone field is requiered!");
+            RuleFor(client => client.Email).NotEmpty().WithMessage("The client email field is requiered!")
+                .EmailAddress().WithMessage("The client email address is not valid!");
+            RuleFor(client => client.Notes).NotEmpty().WithMessage("The client notes field is requiered!");
+        }
+    }
+
     /// <summary>
     /// The tour client model
     /// </summary>

@@ -24,9 +24,9 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
         /// </summary>
         /// <param name="tourId">The tour id</param>
         /// <returns></returns>
-        public async Task<List<BookingEntity>> GetAll(int tourId)
+        public Task<List<BookingEntity>> GetAll(int tourId)
         {
-            return await this.Find(booking => booking.TourId == tourId);
+            return this.Find(booking => booking.TourId == tourId);
         }
     }
 }

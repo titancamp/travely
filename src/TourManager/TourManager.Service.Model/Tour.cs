@@ -1,8 +1,29 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 
 namespace TourManager.Service.Model
 {
+    /// <summary>
+    /// The tour validator
+    /// </summary>
+    public class TourValidator : AbstractValidator<Tour>
+    {
+        /// <summary>
+        /// Create new instance of tour validator
+        /// </summary>
+        public TourValidator()
+        {
+            RuleFor(tour => tour.Name).NotEmpty().WithMessage("The tour name field is requiered!");
+            RuleFor(tour => tour.Notes).NotEmpty().WithMessage("The tour notes field is requiered!");
+            RuleFor(tour => tour.Destinations).NotEmpty().WithMessage("The tour should contain at least one destination!");
+            RuleFor(tour => tour.Bookings).NotEmpty().WithMessage("The tour should contain at least one destination!");
+            RuleForEach(tour => tour.Bookings).NotEmpty().WithMessage("The tour can not contain empty booking!");
+            RuleFor(tour => tour.Clients).NotEmpty().WithMessage("The tour should contain at least one client!");
+            RuleForEach(tour => tour.Clients).NotEmpty().WithMessage("The tour can not contain empty client!");
+        }
+    }
+
     /// <summary>
     /// The tour model
     /// </summary>
