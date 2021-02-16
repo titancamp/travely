@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Travely.Services.Common\Travely.Services.Common.csproj" />
     <ProjectReference Include="..\Travely.ClientManager.Abstraction\Travely.ClientManager.Abstraction.csproj" />
     <ProjectReference Include="..\Travely.ClientManager.Repository\Travely.ClientManager.Repository.csproj" />
   </ItemGroup>
