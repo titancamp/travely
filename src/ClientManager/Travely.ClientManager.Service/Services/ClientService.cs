@@ -150,6 +150,5 @@ namespace Travely.ClientManager.Service.Services
 			return response;
 		}
 		#endregion
-
 	}
 }

@@ -15,7 +15,7 @@ namespace Travely.ClientManager.Service.Extensions.ServiceCollectionExtensions
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<TouristContext>(options =>
-             options.UseSqlServer(configuration.GetConnectionString("TuristDB")));
+             options.UseSqlServer(configuration.GetConnectionString("TouristDB")));
         }
 
         public static void ConfigureAutoMapper(this IServiceCollection services)
