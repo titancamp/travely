@@ -9,9 +9,9 @@ namespace Travely.SchedulerManager.API.Services
 {
     public class ReminderService : Reminder.ReminderBase
     {
-        private readonly INotificationService _notificationService;
+        private readonly IBookingNotificationService _notificationService;
 
-        public ReminderService(INotificationService notificationService)
+        public ReminderService(IBookingNotificationService notificationService)
         {
             _notificationService = notificationService;
         }

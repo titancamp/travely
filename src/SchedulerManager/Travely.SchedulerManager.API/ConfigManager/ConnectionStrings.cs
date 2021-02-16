@@ -6,7 +6,7 @@ using Travely.SchedulerManager;
 
 namespace Travely.SchedulerManager.API.ConfigManager
 {
-    public class ConnectionStrings: IConnectionStrings
+    public class ConnectionStrings
     {
         public const string Section = "ConnectionStrings";
         public string Jobs { get; set; }

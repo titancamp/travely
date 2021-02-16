@@ -28,10 +28,6 @@ message	GetAllResponse{
 	repeated Notification notifications = 1;
 }
 
-message CreateTourNotificationResponse{
-	bool succeed = 1;
-}
-
 message CreateRequest{
 	int64 bookingId = 1;
 	string bookingName = 2;
