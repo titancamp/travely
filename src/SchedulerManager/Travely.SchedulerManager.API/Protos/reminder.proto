@@ -29,11 +29,13 @@ message	GetAllResponse{
 }
 
 message CreateRequest{
-	int64 bookingId = 1;
-	string bookingName = 2;
-	google.protobuf.StringValue bookingNotes = 3;
-	google.protobuf.Timestamp expireDate = 4;
-	repeated int64 assignedUserIds = 5;
+	int64 tourId = 1;
+	int64 bookingId = 2;
+	string tourName = 3;
+	string bookingName = 4;
+	google.protobuf.StringValue bookingNotes = 5;
+	google.protobuf.Timestamp expireDate = 6;
+	repeated int64 assignedUserIds = 7;
 }
 
 message CreateResponse{
@@ -41,11 +43,13 @@ message CreateResponse{
 }
 
 message UpdateRequest{
-	int64 bookingId = 1;
-	string bookingName = 2;
-	google.protobuf.StringValue bookingNotes = 3;
-	google.protobuf.Timestamp expireDate = 4;
-	repeated int64 assignedUserIds = 5;
+	int64 tourId = 1;
+	int64 bookingId = 2;
+	string tourName = 3;
+	string bookingName = 4;
+	google.protobuf.StringValue bookingNotes = 5;
+	google.protobuf.Timestamp expireDate = 6;
+	repeated int64 assignedUserIds = 7;
 }
 
 message UpdateResponse{

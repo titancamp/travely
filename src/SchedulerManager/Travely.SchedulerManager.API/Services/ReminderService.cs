@@ -43,13 +43,13 @@ namespace Travely.SchedulerManager.API.Services
 
         public override async Task<CreateResponse> Create(CreateRequest request, ServerCallContext context)
         {
-            var result = await _notificationService.CreateNotification(request.BookingId, request.BookingName, request.BookingNotes, request.ExpireDate, request.AssignedUserIds);
+            var result = await _notificationService.CreateNotification(request.TourId, request.BookingId, request.TourName, request.BookingName, request.BookingNotes, request.ExpireDate, request.AssignedUserIds);
             return new CreateResponse() { Succeed = result };
         }
 
         public override async Task<UpdateResponse> Update(UpdateRequest request, ServerCallContext context)
         {
-            var result = await _notificationService.UpdateNotification(request.BookingId, request.BookingName, request.BookingNotes, request.ExpireDate, request.AssignedUserIds);
+            var result = await _notificationService.UpdateNotification(request.TourId, request.BookingId, request.TourName, request.BookingName, request.BookingNotes, request.ExpireDate, request.AssignedUserIds);
             return new UpdateResponse() { Succeed = result };
         }
 
