@@ -17,9 +17,9 @@ namespace Travely.ClientManager.Service.Mappers
                 .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.CreatedDate, DateTimeKind.Utc).ToTimestamp()))
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
                     src.DateOfBirth.HasValue ? DateTime.SpecifyKind(src.DateOfBirth.Value, DateTimeKind.Utc).ToTimestamp() : null))
-                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
+                .ForMember(dest => dest.IssuedDate, opt => opt.MapFrom(src =>
                     src.IssuedDate.HasValue ? DateTime.SpecifyKind(src.IssuedDate.Value, DateTimeKind.Utc).ToTimestamp() : null))
-                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
+                .ForMember(dest => dest.ExpireDate, opt => opt.MapFrom(src =>
                     src.ExpireDate.HasValue ? DateTime.SpecifyKind(src.ExpireDate.Value, DateTimeKind.Utc).ToTimestamp() : null));
 
 
@@ -35,9 +35,9 @@ namespace Travely.ClientManager.Service.Mappers
                 .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.CreatedDate, DateTimeKind.Utc).ToTimestamp()))
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
                     src.DateOfBirth.HasValue ? DateTime.SpecifyKind(src.DateOfBirth.Value, DateTimeKind.Utc).ToTimestamp() : null))
-                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
+                .ForMember(dest => dest.IssuedDate, opt => opt.MapFrom(src =>
                     src.IssuedDate.HasValue ? DateTime.SpecifyKind(src.IssuedDate.Value, DateTimeKind.Utc).ToTimestamp() : null))
-                .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src =>
+                .ForMember(dest => dest.ExpireDate, opt => opt.MapFrom(src =>
                     src.ExpireDate.HasValue ? DateTime.SpecifyKind(src.ExpireDate.Value, DateTimeKind.Utc).ToTimestamp() : null))
                 .ForMember(dest => dest.Preferences, opt => opt.MapFrom(src => src.Preferences.Select(x => new PreferenceModel
                 {

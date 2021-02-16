@@ -13,10 +13,7 @@ namespace Travely.ClientManager.Service.Extensions.ServiceCollectionExtensions
         public static void InstallRepositoryServices(this IServiceCollection services)
         {
             services.AddScoped<ITouristRepository, TouristRepository>();
-
+            services.AddScoped<IPreferenceRepository, PreferenceRepository>();
         }
-
-        
-
     }
 }
