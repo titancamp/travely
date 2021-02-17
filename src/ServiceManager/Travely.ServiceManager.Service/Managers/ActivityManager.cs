@@ -7,10 +7,11 @@ namespace Travely.ServiceManager.Service.Managers
 {
     public class ActivityManager : IActivityManager
     {
-        protected readonly IUnitOfWork _repos;
+        protected readonly IUnitOfWork _unitOfWork;
+
         public ActivityManager(IUnitOfWork unitOfWork)
         {
-            _repos = unitOfWork;
+            _unitOfWork = unitOfWork;
         }
         public Task<Activity> CreateActivityAsync(Activity activity)
         {

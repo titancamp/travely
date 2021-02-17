@@ -11,7 +11,7 @@ namespace Travely.ServiceManager.Abstraction.Models.Db
         public string Name { get; set; } = null!;
         public long AgencyId { get; set; }
 
-        public ICollection<Activity> Activities { get; set; }
+        public virtual ICollection<Activity> Activities { get; set; }
     }
 }
 

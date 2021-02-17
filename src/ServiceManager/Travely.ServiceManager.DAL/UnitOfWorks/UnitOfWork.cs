@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Travely.ServiceManager.Abstraction.Interfaces;
 using Travely.ServiceManager.Abstraction.Interfaces.Repositories;
 using Travely.ServiceManager.Abstraction.Interfaces.UnitOfWorks;
@@ -13,9 +14,9 @@ namespace Travely.ServiceManager.DAL.UnitOfWorks
         private ActivityTypeRepository _activityTypeRepository;
         public UnitOfWork(ServiceManagerDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
-        public IActivityRepository Activities
+        public IActivityRepository ActivityRepository 
         {
             get
             {
@@ -26,7 +27,7 @@ namespace Travely.ServiceManager.DAL.UnitOfWorks
             }
         }
 
-        public IActivityTypeRepository ActivityTypes
+        public IActivityTypeRepository ActivityTypeRepository 
         {
             get
             {

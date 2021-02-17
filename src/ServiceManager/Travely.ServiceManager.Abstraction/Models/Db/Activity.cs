@@ -20,7 +20,7 @@ namespace Travely.ServiceManager.Abstraction.Models.Db
         public DateTime LastUpdatedDate { get; set; }
         public long? ChangeUser { get; set; }
 
-        public ActivityType ActivityType { get; set; }
+        public virtual ActivityType ActivityType { get; set; }
         public long ActivityTypeId { get; set; }
     }
 }
