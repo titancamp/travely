@@ -5,11 +5,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using AutoMapper;
+using IdentityManager.WebApi.Models.Response;
 
 namespace IdentityManager.API.Identity
 {
     public class AuthenticationService : IAuthenticationService
     {
+        private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IAgencyRepository _agencyRepository;
+
+        public AuthenticationService(IUserRepository userRepository, IUnitOfWork unitOfWork,
+            IEmployeeRepository employeeRepository, IAgencyRepository agencyRepository)
+        {
+            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
+            _employeeRepository = employeeRepository;
+            _agencyRepository = agencyRepository;
+        }
         /// <summary>
         /// GenerateAccessToken
         /// </summary>
@@ -106,5 +122,56 @@ namespace IdentityManager.API.Identity
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Get User by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<UserResponseModel> GetUserById(int id)
+        {
+            return Mapper.Map<UserResponseModel>(await _userRepository.FindeByIdAsync(id));
+        }
+
+        /// <summary>
+        /// Get User by name
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public async Task<UserResponseModel> GetUserByUserName(string username)
+        {
+            return Mapper.Map<UserResponseModel>(await _userRepository.GetUserByUsernameAsync(username));
+        }
+
+        /// <summary>
+        /// Get all users
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<UserResponseModel>> GetUsers()
+        {
+            return Mapper.Map<IEnumerable<UserResponseModel>>(await _userRepository.GetAll());
+        }
+
+        /// <summary>
+        /// Get agency by name
+        /// </summary>
+        /// <param name="agencyname"></param>
+        /// <returns></returns>
+        public async Task<AgencyResponseModel> GetAgencyByName(string agencyname)
+        {
+            return Mapper.Map<AgencyResponseModel>(await _agencyRepository.GetAgencyByName(agencyname));
+
+        }
+        /// <summary>
+        /// Get agency by name
+        /// </summary>
+        /// <param name="agencyname"></param>
+        /// <returns></returns>
+        public async Task<AgencyResponseModel> GetAgencyById(int id)
+        {
+            return Mapper.Map<AgencyResponseModel>(await _agencyRepository.GetAgencyById(id));
+        }
+
+
     }
 }

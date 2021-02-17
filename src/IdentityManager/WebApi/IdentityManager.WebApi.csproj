@@ -8,15 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="Docker.DotNet"/>
+	<PackageReference Include="AutoMapper" Version="10.1.1" />
+	<PackageReference Include="Docker.DotNet" />
     <PackageReference Include="IdentityServer4" />
-    <PackageReference Include="IdentityServer4.AccessTokenValidation"/>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets"/>
-    <PackageReference Include="Swashbuckle.AspNetCore"/>
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
+    <PackageReference Include="Swashbuckle.AspNetCore" />
   </ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Models\" />
+		<Folder Include="Models\Request\" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,8 +1,12 @@
 ﻿using Docker.DotNet.Models;
 using IdentityManager.API.Identity;
 using IdentityManager.API.Models;
+using IdentityManager.WebApi.Models.Response;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IdentityManager.API.Controllers
@@ -11,8 +15,8 @@ namespace IdentityManager.API.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private IAuthenticationService _authenticationService;
-        private IConfiguration _configuration;
+        private readonly IAuthenticationService _authenticationService;
+        private readonly IConfiguration _configuration;
 
         public AccountController(IAuthenticationService authenticationService, IConfiguration configuration)
         {
@@ -37,7 +41,7 @@ namespace IdentityManager.API.Controllers
                 return BadRequest(result);
             }
 
-            return BadRequest("Some properties are not valid"); 
+            return BadRequest("Some properties are not valid");
         }
         /// <summary>
         /// LoginAsync
@@ -100,7 +104,7 @@ namespace IdentityManager.API.Controllers
             if (result.IsSuccess)
                 return Ok(result);
 
-            return BadRequest(result); 
+            return BadRequest(result);
         }
 
         /// <summary>
@@ -123,5 +127,61 @@ namespace IdentityManager.API.Controllers
 
             return BadRequest("Some properties are not valid");
         }
+
+        /// <summary>
+        /// Get user by username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<ActionResult<UserResponseModel>> GetUserByUserNameAsync(string username)
+        {
+            return Ok(await _authenticationService.GetUserByUserName(username));
+        }
+
+        /// <summary>
+        /// Get user by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<ActionResult<UserResponseModel>> GetUserByIdAsync(int id)
+        {
+            return Ok(await _authenticationService.GetUserById(id));
+        }
+
+        /// <summary>
+        /// Get all users
+        /// </summary>
+        /// <returns></returns>
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<UserResponseModel>>> GetUsersAsync()
+        {
+            return Ok(await _authenticationService.GetUsers());
+        }
+
+        /// <summary>
+        /// Get agency by agency name
+        /// </summary>
+        /// <param name="agencyname"></param>
+        /// <returns></returns>
+        public async Task<ActionResult<AgencyResponseModel>> GetAgencyByNameAsync(string agencyname)
+        {
+            return Ok(await _authenticationService.GetAgencyByName(agencyname));
+        }
+
+        /// <summary>
+        /// Get agency by agency id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<ActionResult<AgencyResponseModel>> GetAgencyByIdAsync(int id)
+        {
+            return Ok(await _authenticationService.GetAgencyById(id));
+        }
+
     }
 }
