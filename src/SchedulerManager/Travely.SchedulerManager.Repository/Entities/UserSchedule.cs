@@ -8,8 +8,8 @@ namespace Travely.SchedulerManager.Repository.Entities
     {
         public long ScheduleInfoId { get; set; }
         public long UserId { get; set; }
-        public string JobId { get; set; }
         public byte Status { get; set; }
+
         public virtual ScheduleInfo ScheduleInfo { get; set; }
     }
 }

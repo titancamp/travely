@@ -6,11 +6,6 @@ namespace Travely.SchedulerManager.Repository.Entities
 {
     public class MessageTemplate: BaseEntity
     {
-        public MessageTemplate()
-        {
-            ScheduleInfos = new HashSet<ScheduleInfo>();
-        }
-
         public string TemplateName { get; set; }
         public string Template { get; set; }
 

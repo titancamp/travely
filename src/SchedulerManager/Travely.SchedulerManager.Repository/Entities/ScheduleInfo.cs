@@ -8,10 +8,6 @@ namespace Travely.SchedulerManager.Repository.Entities
 {
     public class ScheduleInfo: BaseEntity
     {
-        public ScheduleInfo()
-        {
-            UserSchedules = new HashSet<UserSchedule>();
-        }
         public long MessageTemplateId { get; set; }
         public DateTime ExpirationDate { get; set; }
         public int RecurseId { get; set; }
@@ -20,5 +16,6 @@ namespace Travely.SchedulerManager.Repository.Entities
 
         public virtual MessageTemplate MessageTemplate { get; set; }
         public virtual ICollection<UserSchedule> UserSchedules { get; set; }
+        public virtual ICollection<ScheduleJob> ScheduleJobs { get; set; }
     }
 }

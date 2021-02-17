@@ -4,6 +4,6 @@ namespace Travely.SchedulerManager.Service
 {
     public class BookingNotificationParameter : IParameter
     {
-        public IEnumerable<long> UserScheduleIds { get; set; }
+        public long ScheduleId { get; set; }
     }
 }
