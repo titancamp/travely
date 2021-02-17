@@ -1,3 +1,8 @@
+using IdentityManager.DataService.Configs;
+using IdentityManager.DataService.Extensions;
+using IdentityManager.DataService.IdentityServices;
+using IdentityServer4.Services;
+using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +31,11 @@ namespace IdentityManager.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.InstallIdentityServices();
+
+            services.InstallRepositoryServices();
+
+            services.InitialConfigIdentityServices();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

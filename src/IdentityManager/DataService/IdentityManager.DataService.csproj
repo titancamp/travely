@@ -3,5 +3,14 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+	
+  <ItemGroup>
+    <PackageReference Include="IdentityServer4" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\Repository.Abstractions\Travely.IdentityManager.Repository.Abstractions.csproj" />
+    <ProjectReference Include="..\Travely.IdentityManager.Repository\Travely.IdentityManager.Repository.csproj" />
+  </ItemGroup>
 
 </Project>
