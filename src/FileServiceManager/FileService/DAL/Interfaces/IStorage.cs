@@ -9,13 +9,13 @@ namespace FileService.DAL
 {
     public interface IStorage
     {
-        Task<Guid> UploadFileAsync(IFormFile file, string fileCreator);
+        Task<Guid> UploadFileAsync(IFormFile file, int companyId);
 
-        Task<IEnumerable<FileMetadata>> GetAllFilesAsync(string fileCreator);
+        Task<IEnumerable<FileMetadata>> GetAllFilesAsync(int companyId);
 
-        Task<FileMetadata> DownLoadFileAsync(Guid fileId);
+        Task<FileMetadata> DownLoadFileAsync(Guid fileId, int companyId);
 
-        Task<bool> RemoveFileAsync(Guid fileId);
+        Task<bool> RemoveFileAsync(Guid fileId, int companyId);
 
     }
 }

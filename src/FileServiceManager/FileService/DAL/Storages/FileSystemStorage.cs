@@ -15,22 +15,22 @@ namespace FileService.DAL
             _configuration = configuration;
         }
 
-        public async Task<FileMetadata> DownLoadFileAsync(Guid fileId)
+        public async Task<FileMetadata> DownLoadFileAsync(Guid fileId, int companyId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<FileMetadata>> GetAllFilesAsync(string companyName)
+        public async Task<IEnumerable<FileMetadata>> GetAllFilesAsync(int companyId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> RemoveFileAsync(Guid fileId)
+        public Task<bool> RemoveFileAsync(Guid fileId, int companyId)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Guid> UploadFileAsync(IFormFile file, string companyName)
+        public async Task<Guid> UploadFileAsync(IFormFile file, int companyId)
         {
             throw new NotImplementedException();
             //var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\Files\\");
