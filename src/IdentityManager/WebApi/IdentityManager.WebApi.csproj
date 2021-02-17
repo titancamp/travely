@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="AutoMapper" Version="10.1.1" />
+	<PackageReference Include="AutoMapper" />
 	<PackageReference Include="Docker.DotNet" />
     <PackageReference Include="IdentityServer4" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" />
@@ -22,6 +22,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\DataService\IdentityManager.DataService.csproj" />
+		<ProjectReference Include="..\Repository.Abstractions\Travely.IdentityManager.Repository.Abstractions.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -2,16 +2,18 @@
 using IdentityManager.API.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
-using AutoMapper;
 using IdentityManager.WebApi.Models.Response;
+using Travely.IdentityManager.Repository.Abstractions;
+using System.Collections.Generic;
+using AutoMapper;
+using IdentityManager.WebApi.Identity;
 
 namespace IdentityManager.API.Identity
 {
-    public class AuthenticationService : IAuthenticationService
+    public class AuthenticationService : BaseService, IAuthenticationService
     {
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -19,7 +21,7 @@ namespace IdentityManager.API.Identity
         private readonly IAgencyRepository _agencyRepository;
 
         public AuthenticationService(IUserRepository userRepository, IUnitOfWork unitOfWork,
-            IEmployeeRepository employeeRepository, IAgencyRepository agencyRepository)
+            IEmployeeRepository employeeRepository, IAgencyRepository agencyRepository, IMapper mapper) : base(mapper)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
@@ -155,9 +157,9 @@ namespace IdentityManager.API.Identity
         /// <summary>
         /// Get agency by name
         /// </summary>
-        /// <param name="agencyname"></param>
+        /// <param name="agencyName"></param>
         /// <returns></returns>
-        public async Task<AgencyResponseModel> GetAgencyByName(string agencyname)
+        public async Task<AgencyResponseModel> GetAgencyByName(string agencyName)
         {
             return Mapper.Map<AgencyResponseModel>(await _agencyRepository.GetAgencyByName(agencyname));
 
@@ -165,7 +167,7 @@ namespace IdentityManager.API.Identity
         /// <summary>
         /// Get agency by name
         /// </summary>
-        /// <param name="agencyname"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         public async Task<AgencyResponseModel> GetAgencyById(int id)
         {

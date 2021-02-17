@@ -166,11 +166,11 @@ namespace IdentityManager.API.Controllers
         /// <summary>
         /// Get agency by agency name
         /// </summary>
-        /// <param name="agencyname"></param>
+        /// <param name="agencyName"></param>
         /// <returns></returns>
-        public async Task<ActionResult<AgencyResponseModel>> GetAgencyByNameAsync(string agencyname)
+        public async Task<ActionResult<AgencyResponseModel>> GetAgencyByNameAsync(string agencyName)
         {
-            return Ok(await _authenticationService.GetAgencyByName(agencyname));
+            return Ok(await _authenticationService.GetAgencyByName(agencyName));
         }
 
         /// <summary>

@@ -14,9 +14,9 @@ namespace IdentityManager.API.Identity
         Task<Models.AuthResponse> ForgetPasswordAsync(string email);
         Task<Models.AuthResponse> ResetPasswordAsync(ResetPasswordViewModel model);
         Task<UserResponseModel> GetUserById(int id);
-        Task<UserResponseModel> GetUserByUserName(string username);
+        Task<UserResponseModel> GetUserByUserName(string userName);
         Task<IEnumerable<UserResponseModel>> GetUsers();
-        Task<AgencyResponseModel> GetAgencyByName(string agencyname);
+        Task<AgencyResponseModel> GetAgencyByName(string agencyName);
         Task<AgencyResponseModel> GetAgencyById(int id);
     }
 }
