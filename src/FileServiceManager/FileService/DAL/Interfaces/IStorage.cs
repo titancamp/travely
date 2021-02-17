@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FileService.DAL
 {
@@ -13,7 +14,7 @@ namespace FileService.DAL
 
         Task<IEnumerable<FileMetadata>> GetAllFilesAsync(int companyId);
 
-        Task<FileMetadata> DownLoadFileAsync(Guid fileId, int companyId);
+        Task<FileResult> DownLoadFileAsync(Guid fileId, int companyId);
 
         Task<bool> RemoveFileAsync(Guid fileId, int companyId);
 

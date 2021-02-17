@@ -4,18 +4,13 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FileService.DAL
 {
     public class FileSystemStorage : IStorage
     {
-        private readonly IConfiguration _configuration;
-        public FileSystemStorage(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
-        public async Task<FileMetadata> DownLoadFileAsync(Guid fileId, int companyId)
+        public async Task<FileResult> DownLoadFileAsync(Guid fileId, int companyId)
         {
             throw new NotImplementedException();
         }
@@ -33,33 +28,6 @@ namespace FileService.DAL
         public async Task<Guid> UploadFileAsync(IFormFile file, int companyId)
         {
             throw new NotImplementedException();
-            //var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\Files\\");
-            //bool basePathExists = System.IO.Directory.Exists(basePath);
-            //if (!basePathExists) Directory.CreateDirectory(basePath);
-            //var fileName = Path.GetFileNameWithoutExtension(file.FileName);
-            //var filePath = Path.Combine(basePath, file.FileName);
-            //var extension = Path.GetExtension(file.FileName);
-            //if (!File.Exists(filePath))
-            //{
-            //    using (var stream = new FileStream(filePath, FileMode.Create))
-            //    {
-            //        await file.CopyToAsync(stream);
-            //    }
-            //    var fileModel = new FileMetadata
-            //    {
-            //        Id = Guid.NewGuid(),
-            //        CreatedOn = DateTime.UtcNow,
-            //        Extension = extension,
-            //        Name = fileName,
-            //        FilePath = filePath
-            //    };
-
-            //    //
-            //}
-            //else
-            //{
-            //    throw new RESTException();
-            //}
         }
     }
 }

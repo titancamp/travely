@@ -8,7 +8,6 @@ using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using FileService.Helpers;
 using FileService.DAL;
 
 namespace FileServiceManager.FileService
@@ -37,14 +36,6 @@ namespace FileServiceManager.FileService
                     TermsOfService = new System.Uri("https://github.com/titancamp/travely"),
                     Contact = new OpenApiContact { Name = "https://www.servicetitan.com" }
                 });
-                //options.AddSecurityDefinition("JWT", new OpenApiSecurityScheme
-                //{
-                //    Type = SecuritySchemeType.ApiKey,
-                //    Name = "Authorization",
-                //    In = ParameterLocation.Header,
-                //    Description = "Type into the textbox: Bearer {your JWT token}."
-                //}
-                //);
             });
 
             switch (Configuration["storage:type"])
@@ -82,8 +73,6 @@ namespace FileServiceManager.FileService
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-
-            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

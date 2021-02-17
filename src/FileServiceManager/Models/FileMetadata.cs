@@ -8,10 +8,8 @@ namespace FileService.Models
         public string Name { get; set; }
         public string Extension { get; set; }
         public string UploadedBy { get; set; }
-        public DateTime? CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
         public string FilePath { get; set; }
-        public byte[] Content { get; set; }
-
     }
 }
 
