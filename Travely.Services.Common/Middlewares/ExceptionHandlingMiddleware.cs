@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Travely.Services.Common.Middlewares
 {
-	public class ExceptionHandlingMiddleware<T>
+	public abstract class ExceptionHandlingMiddleware<T>
 	{
 		protected readonly RequestDelegate _next;
 		protected readonly ILogger<T> _logger;
@@ -28,9 +28,6 @@ namespace Travely.Services.Common.Middlewares
 			}
 		}
 
-		public virtual Task HandleExceptionAsync(HttpContext context, Exception exception)
-		{
-			throw new NotImplementedException();
-		}
+		public abstract Task HandleExceptionAsync(HttpContext context, Exception exception);
 	}
 }
