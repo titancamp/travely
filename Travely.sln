@@ -54,6 +54,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.No
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.SchedulerManager.API", "src\SchedulerManager\Travely.SchedulerManager.API\Travely.SchedulerManager.API.csproj", "{3C0A22D4-CCD6-4E56-A44D-B0BA7E60560C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.SchedulerManager.Common", "src\SchedulerManager\Travely.SchedulerManager.Common\Travely.SchedulerManager.Common.csproj", "{29CC9EA9-09B9-4C33-A3CA-07134909DD75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,6 +102,10 @@ Global
 		{3C0A22D4-CCD6-4E56-A44D-B0BA7E60560C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C0A22D4-CCD6-4E56-A44D-B0BA7E60560C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C0A22D4-CCD6-4E56-A44D-B0BA7E60560C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29CC9EA9-09B9-4C33-A3CA-07134909DD75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29CC9EA9-09B9-4C33-A3CA-07134909DD75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29CC9EA9-09B9-4C33-A3CA-07134909DD75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29CC9EA9-09B9-4C33-A3CA-07134909DD75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,6 +121,7 @@ Global
 		{45A3D98F-7EDF-4036-A96B-6ECDE159CC4B} = {160F72D1-9D69-4FE2-9D68-53CB828103DF}
 		{3FFF39FD-E734-4740-8603-170B312BFFAB} = {160F72D1-9D69-4FE2-9D68-53CB828103DF}
 		{3C0A22D4-CCD6-4E56-A44D-B0BA7E60560C} = {160F72D1-9D69-4FE2-9D68-53CB828103DF}
+		{29CC9EA9-09B9-4C33-A3CA-07134909DD75} = {160F72D1-9D69-4FE2-9D68-53CB828103DF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}
