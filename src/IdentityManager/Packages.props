@@ -4,6 +4,7 @@
 
   </PropertyGroup>
   <ItemGroup Label="Nupkg Versions">
+    <PackageReference Update="AutoMapper" Version="10.1.1"/>
     <PackageReference Update="IdentityServer4" Version="4.1.1" />
     <PackageReference Update="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
     <PackageReference Update="IdentityServer4.EntityFramework" Version="4.1.1" />
