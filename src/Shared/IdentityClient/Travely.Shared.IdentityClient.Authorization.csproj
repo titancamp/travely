@@ -5,11 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	<FrameworkReference Include="Microsoft.AspNetCore.App"  Version="5.0.0"/>
 
-	<PackageReference Include="IdentityServer4" />
-
-	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer"/>
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.3"/>
   </ItemGroup>
 
   <ItemGroup>

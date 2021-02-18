@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Authors>Titan Camp</Authors>
     <Company>Titan Camp</Company>
-    <Description>Identity Cline for config and Validation</Description>
+    <Description>Shared project for extension methods and config</Description>
     <DefaultLanguage>en-US</DefaultLanguage>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
@@ -11,7 +11,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <SolutionDir Condition="$(SolutionDir) == ''">$(MSBuildThisFileDirectory.TrimEnd('\').TrimEnd('/'))\</SolutionDir>
-    <ServiceName>identitymanager</ServiceName>
+    <ServiceName>Shared</ServiceName>
     <ArtifactsDir>$(SolutionDir)artifacts/$(ServiceName)</ArtifactsDir>
     <OutputPath>$(ArtifactsDir)</OutputPath>
     <PackageOutputPath>$(ArtifactsDir)nupkg</PackageOutputPath>

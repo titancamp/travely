@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Travely.Shared.IdentityClient.Authorization
+namespace Travely.IdentityClient.Authorization
 {
     //
     // Summary:
