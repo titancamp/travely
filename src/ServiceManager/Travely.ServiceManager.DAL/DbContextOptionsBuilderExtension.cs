@@ -10,10 +10,9 @@ namespace Travely.ServiceManager.DAL
 {
     public static class DbContextOptionsBuilderExtension
     {
-        public static void UseCustomDatabaseServer(this DbContextOptionsBuilder options, IConfiguration configuration)
+        public static void UseServiceManagerDatabaseServer(this DbContextOptionsBuilder options, IConfiguration configuration)
         {
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-            options.UseLazyLoadingProxies();
         }
     }
 }

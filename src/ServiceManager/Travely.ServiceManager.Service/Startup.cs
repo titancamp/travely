@@ -27,7 +27,7 @@ namespace Travely.ServiceManager.Service
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContextPool<ServiceManagerDbContext>(options =>
-                options.UseCustomDatabaseServer(Configuration));
+                options.UseServiceManagerDatabaseServer(Configuration));
 
             services.AddGrpc();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
