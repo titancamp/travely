@@ -8,21 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<PackageReference Include="AutoMapper" />
-	<PackageReference Include="Docker.DotNet" />
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="Docker.DotNet" />
     <PackageReference Include="IdentityServer4" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
     <PackageReference Include="Swashbuckle.AspNetCore" />
   </ItemGroup>
 
-	<ItemGroup>
-		<Folder Include="Models\Request\" />
-	</ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Request\" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\DataService\IdentityManager.DataService.csproj" />
-		<ProjectReference Include="..\Repository.Abstractions\Travely.IdentityManager.Repository.Abstractions.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataService\IdentityManager.DataService.csproj" />
+    <ProjectReference Include="..\Repository.Abstractions\IdentityManager.Repository.Abstractions.csproj" />
+    <ProjectReference Include="..\Repository.EntityFramework\IdentityManager.Repository.EntityFramework.csproj" />
+  </ItemGroup>
 
 </Project>
