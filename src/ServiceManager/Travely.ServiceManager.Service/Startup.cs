@@ -9,7 +9,6 @@ using Travely.ServiceManager.Abstraction.Interfaces.UnitOfWorks;
 using Travely.ServiceManager.Service.Managers;
 using Travely.ServiceManager.DAL;
 using Travely.ServiceManager.DAL.UnitOfWorks;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Travely.ServiceManager.Service
@@ -27,8 +26,8 @@ namespace Travely.ServiceManager.Service
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ServiceManagerDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContextPool<ServiceManagerDbContext>(options =>
+                options.UseCustomDatabaseServer(Configuration));
 
             services.AddGrpc();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

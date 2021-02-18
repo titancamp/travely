@@ -38,11 +38,6 @@ namespace Travely.ServiceManager.DAL.UnitOfWorks
             }
         }
 
-        public void Dispose()
-        {
-            _dbContext.Dispose();
-        }
-
         public Task<int> SaveAsync()
         {
             return _dbContext.SaveChangesAsync();
