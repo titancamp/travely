@@ -1,14 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Travely.SchedulerManager.Repository.Infrastructure.EntityConfigurations;
+﻿using Travely.SchedulerManager.Common.Enums;
 
 namespace Travely.SchedulerManager.Repository.Entities
 {
     public class UserSchedule: BaseEntity
     {
-        public long ScheduleInfoId { get; set; }
         public long UserId { get; set; }
-        public byte Status { get; set; }
+        public long ScheduleInfoId { get; set; }
+        public NotificationStatus Status { get; set; }
 
         public virtual ScheduleInfo ScheduleInfo { get; set; }
     }

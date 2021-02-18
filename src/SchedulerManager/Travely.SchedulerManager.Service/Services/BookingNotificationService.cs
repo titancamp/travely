@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Travely.SchedulerManager.Common.Enums;
 using Travely.SchedulerManager.Repository.Entities;
 using Travely.SchedulerManager.Repository.Infrastructure.Interfaces;
 
@@ -49,9 +51,65 @@ namespace Travely.SchedulerManager.Service
             return dtos;
         }
 
-        public async Task<bool> CreateNotification(CreateNotificationDTO createDTO)
+        public async Task<bool> CreateNotification(CreateNotificationDTO createDto)
         {
-            throw new NotImplementedException();
+            #region Create Schedule
+
+            //TODO: It will be better to use automapper.
+            var entity = new ScheduleInfo
+            {
+                RecurseId = createDto.TourId,
+                Module = TravelyModule.Tour,
+                ExpirationDate = createDto.ExpireDate,
+                MessageTemplateId = (int)MessageTemplate.TourExpire,
+                JsonData = JsonConvert.SerializeObject(new
+                {
+                    BookingName = createDto.BookingName,
+                    TourName = createDto.TourName,
+                    ExpireDate = createDto.ExpireDate
+                }),
+                UserSchedules = createDto.UserIds.Select(id => new UserSchedule()
+                {
+                    UserId = id,
+                    Status = NotificationStatus.None
+                }).ToList()
+            };
+
+            await _scheduleRepository.AddAsync(entity);
+            await _scheduleRepository.SaveAsync();
+
+            #endregion
+
+            #region Create Jobs for schedule
+
+            //TODO: Store job fire interval in DB or in some configuration file
+            var jobDates = new List<int> { 2, 10, 15 };
+            var createdJobs = new List<ScheduleJob>();
+            foreach (var date in jobDates)
+            {
+                var fireDate = entity.ExpirationDate.AddDays(-date);
+                var jobId = await _scheduledJobService.StartJobAsync(new BookingNotificationJobManager(_notificationService),
+                                                                    //TODO: Change this logic when Hangfire will change parameter type to DateTime.
+                                                                     fireDate - DateTime.Now, 
+                                                                     new BookingNotificationParameter
+                                                                     {
+                                                                         ScheduleId = entity.Id
+                                                                     });
+                createdJobs.Add(new ScheduleJob()
+                {
+                    JobId = jobId,
+                    FireDate = fireDate,
+                });
+            }
+
+            #endregion
+
+            #region Save created jobs data
+
+            entity.ScheduleJobs = createdJobs;
+            return await this._scheduleRepository.SaveAsync();
+
+            #endregion
         }
 
         public async Task<bool> UpdateNotification(CreateNotificationDTO createDTO)

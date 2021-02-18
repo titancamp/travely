@@ -9,7 +9,7 @@ namespace Travely.SchedulerManager
 
         Task<IEnumerable<NotificationDTO>> GetAllNotifications();
 
-        Task<bool> CreateNotification(CreateNotificationDTO createDTO);
+        Task<bool> CreateNotification(CreateNotificationDTO createDto);
 
         Task<bool> UpdateNotification(CreateNotificationDTO createDTO);
 
