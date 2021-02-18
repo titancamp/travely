@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Travely.IdentityManager.Repository.Abstractions;
 
-namespace Travely.IdentityManager.Repository
+namespace Travely.IdentityManager.Repository.EntityFramework
 {
     public class BaseRepository<TEntity, TDBContext> : IBaseRepository<TEntity> where TEntity : class, new()
                                                              where TDBContext : DbContext, new()

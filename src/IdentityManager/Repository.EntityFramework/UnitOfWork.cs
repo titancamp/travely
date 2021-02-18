@@ -3,9 +3,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Travely.IdentityManager.Repository.Abstractions;
-using Travely.IdentityManager.Repository.Model.Context;
 
-namespace Travely.IdentityManager.Repository
+namespace Travely.IdentityManager.Repository.EntityFramework
 {
     public class UnitOfWork : IUnitOfWork, IDisposable 
     {

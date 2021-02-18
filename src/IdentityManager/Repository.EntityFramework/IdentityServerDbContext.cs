@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
 
-namespace Travely.IdentityManager.Repository.Model.Context
+namespace Travely.IdentityManager.Repository.EntityFramework
 {
     public class IdentityServerDbContext : DbContext
     {
