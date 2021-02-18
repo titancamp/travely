@@ -1,5 +1,4 @@
-﻿using Docker.DotNet.Models;
-using IdentityManager.API.Models;
+﻿using IdentityManager.API.Models;
 using IdentityManager.WebApi.Models.Response;
 using System.Collections.Generic;
 using System.Threading.Tasks;

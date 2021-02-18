@@ -1,5 +1,4 @@
-﻿using Docker.DotNet.Models;
-using IdentityManager.API.Identity;
+﻿using IdentityManager.API.Identity;
 using IdentityManager.API.Models;
 using IdentityManager.WebApi.Models.Response;
 using Microsoft.AspNetCore.Authorization;

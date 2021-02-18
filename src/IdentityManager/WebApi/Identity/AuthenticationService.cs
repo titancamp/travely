@@ -1,5 +1,4 @@
-﻿using Docker.DotNet.Models;
-using IdentityManager.API.Models;
+﻿using IdentityManager.API.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
@@ -132,7 +131,7 @@ namespace IdentityManager.API.Identity
         /// <returns></returns>
         public async Task<UserResponseModel> GetUserById(int id)
         {
-            return Mapper.Map<UserResponseModel>(await _userRepository.FindeByIdAsync(id));
+            return Mapper.Map<UserResponseModel>(await _userRepository.FindByIdAsync(id));
         }
 
         /// <summary>
