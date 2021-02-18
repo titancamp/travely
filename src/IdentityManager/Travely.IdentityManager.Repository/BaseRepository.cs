@@ -34,9 +34,9 @@ namespace Travely.IdentityManager.Repository
             return Set;
         }
 
-        public virtual async Task<TEntity> FindByIdAsync(int id, CancellationToken cancaletionToken = default)
+        public virtual async Task<TEntity> FindByIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            return await Set.FindAsync(id, cancaletionToken);
+            return await Set.FindAsync(id, cancellationToken);
         }
 
         public TEntity Update(TEntity entity)
@@ -55,9 +55,9 @@ namespace Travely.IdentityManager.Repository
             return entity;
         }
 
-        public async Task<TEntity> GetByConditionAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancaletionToken = default)
+        public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default)
         {
-            return await Set.SingleAsync(expression, cancaletionToken);
+            return await Set.SingleAsync(expression, cancellationToken);
         }
 
         public void Remove(TEntity entity)

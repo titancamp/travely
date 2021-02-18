@@ -16,9 +16,9 @@ namespace Travely.IdentityManager.Repository
             _dbContext = dbContext;
         }
        
-        public async Task<int> SaveChangesAsync(CancellationToken cancaletionToken = default)
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            return await _dbContext.SaveChangesAsync(cancaletionToken);
+            return await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
 
