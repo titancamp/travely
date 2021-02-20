@@ -1,25 +1,12 @@
-﻿
-using System;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Travely.IdentityClient.Authorization
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ConfigServicesIdentityService
     {
-        //
-        // Summary:
-        //     Registers services required by authentication services with JWTBearer. 
-        //
-        // Parameters:
-        //   services:
-        //     The Microsoft.Extensions.DependencyInjection.IServiceCollection.
-        //
-        // Returns:
-        //     A Microsoft.Extensions.DependencyInjection.IServiceCollection that can be used
-        //     to further configure Service.
-        public static IServiceCollection ConfigureAuthentication(this IServiceCollection services, )
+        public static IServiceCollection IdentityApplicationBuilderExtensions(this IServiceCollection services, IHostEnvironment environment)
         {
             services
                 .AddAuthorization(options =>
@@ -41,9 +28,12 @@ namespace Travely.IdentityClient.Authorization
                         RoleClaimType = "role",
                         NameClaimType = "sub",
                     };
-#if RELEASE
-                    options.RequireHttpsMetadata = true;
-#endif
+
+                    if (!environment.IsDevelopment())
+                    {
+                        options.RequireHttpsMetadata = true;
+                    }
+
                     options.SaveToken = true;
                 });
 

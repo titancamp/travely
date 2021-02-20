@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-
-namespace Travely.IdentityClient.Authorization
+﻿namespace Travely.IdentityClient.Authorization
 {
     //
     // Summary:
