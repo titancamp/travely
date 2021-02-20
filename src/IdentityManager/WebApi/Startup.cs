@@ -11,14 +11,8 @@ namespace IdentityManager.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
-        {
-            var builder = new ConfigurationBuilder()
-             .SetBasePath(env.ContentRootPath)
-             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
-
-            Configuration = builder.Build();
+        public Startup(IConfiguration configuration)
+        {            
             Configuration = configuration;
         }
 

@@ -31,6 +31,8 @@ namespace IdentityManager.DataService.IdentityServices
 				var claims = new List<Claim>
 				{
 					new Claim(JwtClaimTypes.Subject, user.Id.ToString()),
+					new Claim(JwtClaimTypes.Role, user.Role.ToString()),
+					new Claim(JwtClaimTypes.ZoneInfo, user.Agency.ToString())
 				};
 
 				context.IssuedClaims = claims;
@@ -45,7 +47,7 @@ namespace IdentityManager.DataService.IdentityServices
 		public async Task IsActiveAsync(IsActiveContext context)
 		{
 			var user = await _userRepo.FindByIdAsync(Convert.ToInt32(context.Subject.GetSubjectId()));
-			context.IsActive = (user != null); // && user.Active;
+			context.IsActive = (user != null && user.Status == Travely.IdentityManager.Repository.Abstractions.Entities.Status.Active); // && user.Active;
 			return;
 		}
 	}
