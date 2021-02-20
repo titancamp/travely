@@ -1,28 +1,24 @@
-using IdentityServer4Demo;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using IdentityManager.DataService.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Travely.Shared.IdentityClient.Authorization;
+using Travely.IdentityManager.Repository.Extensions;
 
 namespace IdentityManager.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
+            var builder = new ConfigurationBuilder()
+             .SetBasePath(env.ContentRootPath)
+             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+
+            Configuration = builder.Build();
             Configuration = configuration;
         }
 
@@ -31,8 +27,13 @@ namespace IdentityManager.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.ConfigureSqlContext(Configuration);
 
-            services.ConfigureAuthentication();
+            services.AddTravelyIdentityService();
+
+            services.AddRepositoryServices();
+
+            services.InitialConfigIdentityServices();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -51,8 +52,12 @@ namespace IdentityManager.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityManager.API v1"));
             }
 
+            app.UseHttpsRedirection();
+
             app.UseRouting();
-            app.ConfigureAuthentication();
+
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
