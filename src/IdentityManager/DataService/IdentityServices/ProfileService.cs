@@ -21,12 +21,12 @@ namespace IdentityManager.DataService.IdentityServices
 			_userRepo = rep;
 		}
 
-		public Task GetProfileDataAsync(ProfileDataRequestContext context)
+		public async Task GetProfileDataAsync(ProfileDataRequestContext context)
 		{
 			try
 			{
 				var subjectId = context.Subject.GetSubjectId();
-				var user = _userRepo.GetByConditionAsync(x=>x.Id == Convert.ToInt32(subjectId));
+				var user = await _userRepo.FindByIdAsync(Convert.ToInt32(subjectId));
 
 				var claims = new List<Claim>
 				{
@@ -34,19 +34,19 @@ namespace IdentityManager.DataService.IdentityServices
 				};
 
 				context.IssuedClaims = claims;
-				return Task.FromResult(0);
+				return;// Task.FromResult(0);
 			}
 			catch (Exception x)
 			{
-				return Task.FromResult(0);
+				return;
 			}
 		}
 
-		public Task IsActiveAsync(IsActiveContext context)
+		public async Task IsActiveAsync(IsActiveContext context)
 		{
-			var user = _userRepo.GetByConditionAsync(x => x.Id == Convert.ToInt32(context.Subject.GetSubjectId()));
+			var user = await _userRepo.FindByIdAsync(Convert.ToInt32(context.Subject.GetSubjectId()));
 			context.IsActive = (user != null); // && user.Active;
-			return Task.FromResult(0);
+			return;
 		}
 	}
 }

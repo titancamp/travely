@@ -28,13 +28,12 @@ namespace IdentityManager.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureSqlContext(Configuration);
+
             services.AddTravelyIdentityService();
 
             services.AddRepositoryServices();
 
             services.InitialConfigIdentityServices();
-
-            services.AddPasswordHasher();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

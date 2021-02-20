@@ -10,8 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Travely.IdentityManager.Repository;
-using Travely.IdentityManager.Repository.Abstractions;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
 
 namespace IdentityManager.DataService.Extensions
@@ -22,6 +20,7 @@ namespace IdentityManager.DataService.Extensions
         {
             services.AddScoped<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>()
                    .AddScoped<IProfileService, ProfileService>();
+            services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
         }
 
         
@@ -35,10 +34,6 @@ namespace IdentityManager.DataService.Extensions
                 .AddInMemoryApiScopes(AuthConfigs.GetScopes());
         }
 
-        public static void AddPasswordHasher(this IServiceCollection services)
-        {
-            services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
-        }
 
     }
 }

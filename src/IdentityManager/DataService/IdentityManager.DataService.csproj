@@ -9,7 +9,7 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <ProjectReference Include="..\Repository.Abstractions\Travely.IdentityManager.Repository.Abstractions.csproj" />
+    <ProjectReference Include="..\Repository.Abstractions\IdentityManager.Repository.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

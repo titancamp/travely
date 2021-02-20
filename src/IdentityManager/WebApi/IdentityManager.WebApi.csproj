@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataService\IdentityManager.DataService.csproj" />
-    <ProjectReference Include="..\Travely.IdentityManager.Repository\Travely.IdentityManager.Repository.csproj" />
+    <ProjectReference Include="..\Repository.EntityFramework\IdentityManager.Repository.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>
