@@ -10,7 +10,6 @@
 	
   <ItemGroup>
     <ProjectReference Include="..\Repository.Abstractions\Travely.IdentityManager.Repository.Abstractions.csproj" />
-    <ProjectReference Include="..\Travely.IdentityManager.Repository\Travely.IdentityManager.Repository.csproj" />
   </ItemGroup>
 
 </Project>

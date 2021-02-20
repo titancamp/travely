@@ -16,6 +16,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Travely.IdentityManager.Repository;
+using Travely.IdentityManager.Repository.Abstractions;
+using Travely.IdentityManager.Repository.Extensions;
 
 namespace IdentityManager.API
 {
@@ -32,9 +35,9 @@ namespace IdentityManager.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureSqlContext(Configuration);
-            services.InstallIdentityServices();
+            services.AddTravelyIdentityService();
 
-            services.InstallRepositoryServices();
+            services.AddRepositoryServices();
 
             services.InitialConfigIdentityServices();
 

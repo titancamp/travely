@@ -14,11 +14,11 @@ namespace IdentityManager.DataService.IdentityServices
 {
 	public class ProfileService : IProfileService
 	{
-		private IUserRepository _userReop;
+		private IUserRepository _userRepo;
 
 		public ProfileService(IUserRepository rep)
 		{
-			_userReop = rep;
+			_userRepo = rep;
 		}
 
 		public Task GetProfileDataAsync(ProfileDataRequestContext context)
@@ -26,7 +26,7 @@ namespace IdentityManager.DataService.IdentityServices
 			try
 			{
 				var subjectId = context.Subject.GetSubjectId();
-				var user = _userReop.GetByConditionAsync(x=>x.Id == Convert.ToInt32(subjectId));
+				var user = _userRepo.GetByConditionAsync(x=>x.Id == Convert.ToInt32(subjectId));
 
 				var claims = new List<Claim>
 				{
@@ -44,7 +44,7 @@ namespace IdentityManager.DataService.IdentityServices
 
 		public Task IsActiveAsync(IsActiveContext context)
 		{
-			var user = _userReop.GetByConditionAsync(x => x.Id == Convert.ToInt32(context.Subject.GetSubjectId()));
+			var user = _userRepo.GetByConditionAsync(x => x.Id == Convert.ToInt32(context.Subject.GetSubjectId()));
 			context.IsActive = (user != null); // && user.Active;
 			return Task.FromResult(0);
 		}

@@ -15,11 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DataService\IdentityManager.DataService.csproj" />
+    <ProjectReference Include="..\Travely.IdentityManager.Repository\Travely.IdentityManager.Repository.csproj" />
   </ItemGroup>
 
 </Project>

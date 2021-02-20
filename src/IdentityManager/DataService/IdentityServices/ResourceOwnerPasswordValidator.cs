@@ -12,16 +12,16 @@ namespace IdentityManager.DataService.IdentityServices
 {
     public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
     {
-        IUserRepository _userReop;
+        IUserRepository _userRepo;
 
         public ResourceOwnerPasswordValidator(IUserRepository rep)
         {
-            _userReop = rep;
+            _userRepo = rep;
         }
 
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
-            User? user = await _userReop.FindByEmailAsync(context.UserName);
+            User? user = await _userRepo.FindByEmailAsync(context.UserName);
             if (user != null)
             {
                 if (context.Password.Equals(user.Password)) // compare with Hashed password 

@@ -1,5 +1,7 @@
 ﻿using IdentityManager.DataService.Configs;
-using Microsoft.EntityFrameworkCore;
+using IdentityManager.DataService.IdentityServices;
+using IdentityServer4.Services;
+using IdentityServer4.Validation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -7,17 +9,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Travely.IdentityManager.Repository.Model.Context;
+using Travely.IdentityManager.Repository;
+using Travely.IdentityManager.Repository.Abstractions;
 
 namespace IdentityManager.DataService.Extensions
 {
-    public static class ConfigurationExtension
+    public static class IdentityServiceCollectionExtension
     {
-        public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration)
+        public static void AddTravelyIdentityService(this IServiceCollection services)
         {
-            services.AddDbContext<IdentityServerDbContext>(options =>
-             options.UseSqlServer(configuration.GetConnectionString("IdentityServerDB")));
+            services.AddScoped<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>()
+                   .AddScoped<IProfileService, ProfileService>();
         }
+
+        
 
         public static void InitialConfigIdentityServices(this IServiceCollection services)
         {
@@ -27,7 +32,6 @@ namespace IdentityManager.DataService.Extensions
                 .AddInMemoryClients(AuthConfigs.GetClients())
                 .AddInMemoryApiScopes(AuthConfigs.GetScopes());
         }
-
 
     }
 }
