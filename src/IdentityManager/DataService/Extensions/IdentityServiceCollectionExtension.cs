@@ -2,6 +2,7 @@
 using IdentityManager.DataService.IdentityServices;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -11,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Travely.IdentityManager.Repository;
 using Travely.IdentityManager.Repository.Abstractions;
+using Travely.IdentityManager.Repository.Abstractions.Entities;
 
 namespace IdentityManager.DataService.Extensions
 {
@@ -31,6 +33,11 @@ namespace IdentityManager.DataService.Extensions
                 .AddInMemoryApiResources(AuthConfigs.GetApiResources())
                 .AddInMemoryClients(AuthConfigs.GetClients())
                 .AddInMemoryApiScopes(AuthConfigs.GetScopes());
+        }
+
+        public static void AddPasswordHasher(this IServiceCollection services)
+        {
+            services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
         }
 
     }

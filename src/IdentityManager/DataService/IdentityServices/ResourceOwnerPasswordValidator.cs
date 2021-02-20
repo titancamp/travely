@@ -1,5 +1,6 @@
 ﻿using IdentityServer4.Models;
 using IdentityServer4.Validation;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,12 @@ namespace IdentityManager.DataService.IdentityServices
     public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
     {
         IUserRepository _userRepo;
+        IPasswordHasher<User> _passHasher;
 
-        public ResourceOwnerPasswordValidator(IUserRepository rep)
+        public ResourceOwnerPasswordValidator(IUserRepository rep, IPasswordHasher<User> passHasher)
         {
             _userRepo = rep;
+            _passHasher = passHasher;
         }
 
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
@@ -24,7 +27,9 @@ namespace IdentityManager.DataService.IdentityServices
             User? user = await _userRepo.FindByEmailAsync(context.UserName);
             if (user != null)
             {
-                if (context.Password.Equals(user.Password)) // compare with Hashed password 
+                PasswordVerificationResult verificationResult = _passHasher.VerifyHashedPassword(user, user.Password, context.Password);
+
+                if (verificationResult == PasswordVerificationResult.Success) 
                 {
                     context.Result = new GrantValidationResult(user.Id.ToString(), "password", null, "local", null);
                     return;//https://sinanbir.com/wp-content/uploads/2017/03/postmancore2-3.png
