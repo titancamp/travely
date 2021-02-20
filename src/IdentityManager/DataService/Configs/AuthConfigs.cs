@@ -48,6 +48,21 @@ namespace IdentityManager.DataService.Configs
                         "offline_access",
                         "api1"
                     }
+                },
+                new Client
+                {
+                    ClientId = "api1.client",
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("secret".Sha256())
+                    },
+                
+                    AllowedGrantTypes = { "delegation" },
+                
+                    AllowedScopes = new List<string>
+                    {
+                        "api2"
+                    }
                 }
             };
         }
