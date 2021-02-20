@@ -7,10 +7,11 @@ using Microsoft.Extensions.Hosting;
 using Travely.SchedulerManager.Job;
 using Microsoft.Extensions.Options;
 using System.Configuration;
-using Travely.SchedulerManager.API.ConfigManager;
+using Travely.SchedulerManager.API;
 using Travely.SchedulerManager.API.Services;
 using Travely.SchedulerManager.Notifier;
 using Travely.SchedulerManager.Repository;
+using Travely.SchedulerManager.Common;
 
 namespace Travely.SchedulerManager.API
 {
@@ -36,17 +37,14 @@ namespace Travely.SchedulerManager.API
                     });
             });
 
+            services.Configure<NotifierOptions>(_configuration.GetSection(NotifierOptions.Section));
+            services.Configure<JobOptions>(_configuration.GetSection(JobOptions.Section));
+            services.Configure<RepositoryOptions>(_configuration.GetSection(RepositoryOptions.Section));
 
-            services.Configure<ConnectionStrings>(_configuration.GetSection(ConnectionStrings.Section));
-            var settings = new ConnectionStrings();
-            _configuration.GetSection(ConnectionStrings.Section).Bind(settings);
-            //use settings properties to send as a parapeter when adding service
-
-            services.AddNotifier();
             services.AddGrpc();
-
-            services.AddJobService(Configuration);
-            services.AddRepositoryLayer(Configuration.GetConnectionString("DefaultConnection"));
+            services.AddNotifier();
+            services.AddJobService();
+            services.AddRepositoryLayer();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

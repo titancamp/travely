@@ -1,6 +1,6 @@
-﻿namespace Travely.SchedulerManager.Notifier
+﻿namespace Travely.SchedulerManager.Common
 {
-    class EmailOptions
+    public class EmailOptions
     {
         public string Server { get; set; }
         public int Port { get; set; }
