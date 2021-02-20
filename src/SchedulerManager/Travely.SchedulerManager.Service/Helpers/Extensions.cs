@@ -5,7 +5,7 @@ namespace Travely.SchedulerManager.Service
 {
     public static class Extensions
     {
-        public static IServiceCollection AddServices(this IServiceCollection services)
+        public static IServiceCollection AddBusinessServices(this IServiceCollection services)
         {
             services.AddSingleton<IBookingNotificationService, BookingNotificationService>();
 
