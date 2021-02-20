@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Travely.ServiceManager.Abstraction.Interfaces;
-using Travely.ServiceManager.Abstraction.Models.Db;
 
 namespace Travely.ServiceManager.DAL.Repositories
 {
-    internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Activity
+    internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private readonly ServiceManagerDbContext _dbContext;
         private readonly DbSet<TEntity> _dbSet;
