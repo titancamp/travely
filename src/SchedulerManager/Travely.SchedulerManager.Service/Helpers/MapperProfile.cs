@@ -1,17 +1,16 @@
 ﻿using AutoMapper;
-using System.Linq;
 using Travely.SchedulerManager.Repository.Entities;
 
-namespace Travely.SchedulerManager.Service
+namespace Travely.SchedulerManager.Service.Helpers
 {
-    public class Mapper : Profile
+    public class MapperProfile : Profile
     {
-        public Mapper()
+        public MapperProfile()
         {
             //TODO
             CreateMap<ScheduleInfo, NotificationDTO>()
                 .ForMember(dto => dto.BookingId, entity => entity.MapFrom(src => src.RecurseId));
-                //.ForMember(dto => dto.Message, entity => entity.MapFrom(src => $"{} booking for {} tour will expire in {}"));
+            //.ForMember(dto => dto.Message, entity => entity.MapFrom(src => $"{} booking for {} tour will expire in {}"));
         }
     }
 }
