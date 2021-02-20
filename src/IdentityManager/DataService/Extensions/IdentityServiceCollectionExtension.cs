@@ -19,7 +19,8 @@ namespace IdentityManager.DataService.Extensions
         public static void AddTravelyIdentityService(this IServiceCollection services)
         {
             services.AddScoped<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>()
-                   .AddScoped<IProfileService, ProfileService>();
+                   .AddScoped<IProfileService, ProfileService>()
+                   .AddScoped<IExtensionGrantValidator, DelegationGrantValidator>();
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
         }
 
