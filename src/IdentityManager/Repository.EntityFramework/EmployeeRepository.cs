@@ -1,8 +1,7 @@
 ﻿using Travely.IdentityManager.Repository.Abstractions;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
-using Travely.IdentityManager.Repository.Model.Context;
 
-namespace Travely.IdentityManager.Repository
+namespace Travely.IdentityManager.Repository.EntityFramework
 {
     public class EmployeeRepository : BaseRepository<Employee, IdentityServerDbContext>, IEmployeeRepository
     {

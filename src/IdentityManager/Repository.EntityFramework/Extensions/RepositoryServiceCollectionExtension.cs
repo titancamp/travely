@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Travely.IdentityManager.Repository.Abstractions;
-using Travely.IdentityManager.Repository.Model.Context;
+using Travely.IdentityManager.Repository.EntityFramework;
 
 namespace Travely.IdentityManager.Repository.Extensions
 {

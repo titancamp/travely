@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Travely.IdentityManager.Repository.EntityFramework</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Repository.Abstractions\Travely.IdentityManager.Repository.Abstractions.csproj" />
+    <ProjectReference Include="..\Repository.Abstractions\IdentityManager.Repository.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,9 +2,8 @@
 using System.Threading.Tasks;
 using Travely.IdentityManager.Repository.Abstractions;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
-using Travely.IdentityManager.Repository.Model.Context;
 
-namespace Travely.IdentityManager.Repository
+namespace Travely.IdentityManager.Repository.EntityFramework
 {
     public class UserRepository : BaseRepository<User, IdentityServerDbContext>, IUserRepository
     {
@@ -13,13 +12,13 @@ namespace Travely.IdentityManager.Repository
 
         }
 
-        public async Task<User?> FindByEmailAsync(string username, CancellationToken cancaletionToken = default)
+        public async Task<User?> FindByEmailAsync(string username, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
                 return null;
             }
-            return await GetByConditionAsync(item => item.UserName == username, cancaletionToken);
+            return await FindAsync(item => item.UserName == username, cancellationToken);
         }
     }
 }

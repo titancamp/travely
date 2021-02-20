@@ -3,9 +3,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Travely.IdentityManager.Repository.Abstractions;
-using Travely.IdentityManager.Repository.Model.Context;
 
-namespace Travely.IdentityManager.Repository
+namespace Travely.IdentityManager.Repository.EntityFramework
 {
     public class UnitOfWork : IUnitOfWork, IDisposable 
     {
@@ -16,9 +15,9 @@ namespace Travely.IdentityManager.Repository
             _dbContext = dbContext;
         }
        
-        public async Task<int> SaveChangesAsync(CancellationToken cancaletionToken = default)
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            return await _dbContext.SaveChangesAsync(cancaletionToken);
+            return await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
 
