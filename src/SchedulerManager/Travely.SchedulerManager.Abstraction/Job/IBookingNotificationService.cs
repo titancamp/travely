@@ -11,7 +11,7 @@ namespace Travely.SchedulerManager
 
         Task<bool> CreateNotification(CreateNotificationDTO createDto);
 
-        Task<bool> UpdateNotification(CreateNotificationDTO createDTO);
+        Task<bool> UpdateNotification(UpdateNotificationDTO createDTO);
 
         Task<bool> DeleteNotification(long bookingId);
     }

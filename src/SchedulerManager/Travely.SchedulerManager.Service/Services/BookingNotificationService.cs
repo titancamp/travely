@@ -112,7 +112,7 @@ namespace Travely.SchedulerManager.Service
             #endregion
         }
 
-        public async Task<bool> UpdateNotification(CreateNotificationDTO createDTO)
+        public async Task<bool> UpdateNotification(UpdateNotificationDTO createDTO)
         {
             throw new NotImplementedException();
         }

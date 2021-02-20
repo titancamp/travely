@@ -11,6 +11,7 @@ using Travely.SchedulerManager.API.ConfigManager;
 using Travely.SchedulerManager.API.Services;
 using Travely.SchedulerManager.Notifier;
 using Travely.SchedulerManager.Repository;
+using Travely.SchedulerManager.Service;
 
 namespace Travely.SchedulerManager.API
 {
@@ -44,9 +45,9 @@ namespace Travely.SchedulerManager.API
 
             services.AddNotifier();
             services.AddGrpc();
-
-            services.AddJobService(Configuration);
-            services.AddRepositoryLayer(Configuration.GetConnectionString("DefaultConnection"));
+            services.AddJobService(_configuration);
+            services.AddBusinessServices();
+            services.AddRepositoryLayer(_configuration.GetConnectionString("DefaultConnection"));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
