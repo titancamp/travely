@@ -22,7 +22,7 @@ namespace IdentityManager.API
                 .ConfigureWebHostDefaults(webBuilder => {
                     webBuilder.ConfigureAppConfiguration((ctx, conf) => {
                         conf.AddJsonFile($"appsettings.local.json", optional: true, reloadOnChange: true);
-                    })
+                        })
                         .UseStartup<Startup>();
                 });
     }
