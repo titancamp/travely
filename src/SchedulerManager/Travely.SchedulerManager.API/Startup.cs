@@ -5,6 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Travely.SchedulerManager.Job;
+using Microsoft.Extensions.Options;
+using System.Configuration;
+using Travely.SchedulerManager.API.ConfigManager;
+using Travely.SchedulerManager.API.Services;
 using Travely.SchedulerManager.Notifier;
 using Travely.SchedulerManager.Repository;
 
@@ -12,12 +16,11 @@ namespace Travely.SchedulerManager.API
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -32,7 +35,13 @@ namespace Travely.SchedulerManager.API
                             .WithOrigins("http://localhost:3000");
                     });
             });
-            services.ConfigureEmailing(Configuration.GetSection("Messaging:Email"));
+
+
+            services.Configure<ConnectionStrings>(_configuration.GetSection(ConnectionStrings.Section));
+            var settings = new ConnectionStrings();
+            _configuration.GetSection(ConnectionStrings.Section).Bind(settings);
+            //use settings properties to send as a parapeter when adding service
+
             services.AddNotifier();
             services.AddGrpc();
 
@@ -55,7 +64,7 @@ namespace Travely.SchedulerManager.API
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<ReminderService>();
                 endpoints.MapGet("/", async context => await context.Response.WriteAsync("Service running"));
             });
 
