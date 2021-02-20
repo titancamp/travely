@@ -1,18 +1,24 @@
+using IdentityManager.DataService.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Travely.IdentityManager.Repository.EntityFramework;
+using Travely.IdentityManager.Repository.Extensions;
 
 namespace IdentityManager.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, Microsoft.AspNetCore.Hosting.IHostingEnvironment env)
         {
+            var builder = new ConfigurationBuilder()
+             .SetBasePath(env.ContentRootPath)
+             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+
+            Configuration = builder.Build();
             Configuration = configuration;
         }
 
@@ -21,7 +27,14 @@ namespace IdentityManager.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<IdentityServerDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("IdentityServerConnection")));
+            services.ConfigureSqlContext(Configuration);
+
+            services.AddTravelyIdentityService();
+
+            services.AddRepositoryServices();
+
+            services.InitialConfigIdentityServices();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
