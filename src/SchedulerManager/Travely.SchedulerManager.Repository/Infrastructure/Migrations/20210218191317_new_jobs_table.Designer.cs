@@ -3,21 +3,52 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Travely.SchedulerManager.Repository;
 
 namespace Travely.SchedulerManager.Repository.Infrastructure.Migrations
 {
     [DbContext(typeof(SchedulerDbContext))]
-    partial class SchedulerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210218191317_new_jobs_table")]
+    partial class new_jobs_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
+
+            modelBuilder.Entity("Travely.SchedulerManager.Repository.Entities.MessageTemplate", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Template")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TemplateType")
+                        .HasMaxLength(250)
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MessageTemplates");
+                });
 
             modelBuilder.Entity("Travely.SchedulerManager.Repository.Entities.ScheduleInfo", b =>
                 {
@@ -48,8 +79,8 @@ namespace Travely.SchedulerManager.Repository.Infrastructure.Migrations
                     b.Property<int>("Module")
                         .HasColumnType("int");
 
-                    b.Property<long>("RecurseId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("RecurseId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -68,14 +99,13 @@ namespace Travely.SchedulerManager.Repository.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FireDate")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeSpan>("FireDate")
+                        .HasColumnType("time");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("JobId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedOn")
@@ -89,35 +119,6 @@ namespace Travely.SchedulerManager.Repository.Infrastructure.Migrations
                     b.HasIndex(new[] { "ScheduleInfoId" }, "IX_ScheduleJobs_ScheduleInfoId");
 
                     b.ToTable("ScheduleJobs");
-                });
-
-            modelBuilder.Entity("Travely.SchedulerManager.Repository.Entities.ScheduleMessageTemplate", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Template")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TemplateName")
-                        .HasMaxLength(250)
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MessageTemplates");
                 });
 
             modelBuilder.Entity("Travely.SchedulerManager.Repository.Entities.UserSchedule", b =>
@@ -139,8 +140,8 @@ namespace Travely.SchedulerManager.Repository.Infrastructure.Migrations
                     b.Property<long>("ScheduleInfoId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<byte>("Status")
+                        .HasColumnType("tinyint");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -154,13 +155,13 @@ namespace Travely.SchedulerManager.Repository.Infrastructure.Migrations
 
             modelBuilder.Entity("Travely.SchedulerManager.Repository.Entities.ScheduleInfo", b =>
                 {
-                    b.HasOne("Travely.SchedulerManager.Repository.Entities.ScheduleMessageTemplate", "ScheduleMessageTemplate")
+                    b.HasOne("Travely.SchedulerManager.Repository.Entities.MessageTemplate", "MessageTemplate")
                         .WithMany("ScheduleInfos")
                         .HasForeignKey("MessageTemplateId")
                         .HasConstraintName("FK_Schedule_MessageTemplate")
                         .IsRequired();
 
-                    b.Navigation("ScheduleMessageTemplate");
+                    b.Navigation("MessageTemplate");
                 });
 
             modelBuilder.Entity("Travely.SchedulerManager.Repository.Entities.ScheduleJob", b =>
@@ -185,16 +186,16 @@ namespace Travely.SchedulerManager.Repository.Infrastructure.Migrations
                     b.Navigation("ScheduleInfo");
                 });
 
+            modelBuilder.Entity("Travely.SchedulerManager.Repository.Entities.MessageTemplate", b =>
+                {
+                    b.Navigation("ScheduleInfos");
+                });
+
             modelBuilder.Entity("Travely.SchedulerManager.Repository.Entities.ScheduleInfo", b =>
                 {
                     b.Navigation("ScheduleJobs");
 
                     b.Navigation("UserSchedules");
-                });
-
-            modelBuilder.Entity("Travely.SchedulerManager.Repository.Entities.ScheduleMessageTemplate", b =>
-                {
-                    b.Navigation("ScheduleInfos");
                 });
 #pragma warning restore 612, 618
         }

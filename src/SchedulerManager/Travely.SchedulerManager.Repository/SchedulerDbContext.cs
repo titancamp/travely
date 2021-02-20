@@ -14,13 +14,14 @@ namespace Travely.SchedulerManager.Repository
         {
         }
 
-        public virtual DbSet<MessageTemplate> MessageTemplates { get; set; }
+        public virtual DbSet<ScheduleMessageTemplate> MessageTemplates { get; set; }
         public virtual DbSet<ScheduleInfo> ScheduleInfos { get; set; }
         public virtual DbSet<UserSchedule> UserSchedules { get; set; }
+        public virtual DbSet<ScheduleJob> ScheduleJobs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<MessageTemplate>(entity =>
+            modelBuilder.Entity<ScheduleMessageTemplate>(entity =>
             {
                 entity.Property(e => e.Template).IsRequired();
 
@@ -37,7 +38,7 @@ namespace Travely.SchedulerManager.Repository
 
                 entity.Property(e => e.JsonData).IsRequired();
 
-                entity.HasOne(d => d.MessageTemplate)
+                entity.HasOne(d => d.ScheduleMessageTemplate)
                     .WithMany(p => p.ScheduleInfos)
                     .HasForeignKey(d => d.MessageTemplateId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -56,6 +57,21 @@ namespace Travely.SchedulerManager.Repository
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UserSchedule_Schedule");
                 
+                entity.HasQueryFilter(s => !s.IsDeleted);
+            });
+
+            modelBuilder.Entity<ScheduleJob>(entity =>
+            {
+                entity.HasIndex(e => e.ScheduleInfoId, "IX_ScheduleJobs_ScheduleInfoId");
+                
+                entity.Property(e => e.JobId).IsRequired();
+
+                entity.HasOne(d => d.ScheduleInfo)
+                    .WithMany(p => p.ScheduleJobs)
+                    .HasForeignKey(d => d.ScheduleInfoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ScheduleJobs_Schedule");
+
                 entity.HasQueryFilter(s => !s.IsDeleted);
             });
         }

@@ -56,6 +56,8 @@ namespace Travely.SchedulerManager.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.ConfigureRepositoryLayer(env.IsDevelopment());
+
             app.UseCors("CORS");
             app.UseRouting();
 

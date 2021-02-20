@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
+using Travely.SchedulerManager.Common;
 
 namespace Travely.SchedulerManager
 {
     public interface INotificationService
     {
-        Task NotifyAsync(string userId);
+        Task NotifyAsync(NotificationInfoDTO dto);
     }
 }

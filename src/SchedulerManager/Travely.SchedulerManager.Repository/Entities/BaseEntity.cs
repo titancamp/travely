@@ -1,7 +1,7 @@
 ﻿using System;
 using Travely.SchedulerManager.Repository.Infrastructure.Interfaces;
 
-namespace Travely.SchedulerManager.Repository.Infrastructure.EntityConfigurations
+namespace Travely.SchedulerManager.Repository.Entities
 {
     public class BaseEntity: IIdentity, IEntity
     {

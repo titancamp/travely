@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using MimeKit;
 using System.Security.Authentication;
 using System.Threading.Tasks;
+using Travely.SchedulerManager.Common;
 using Travely.SchedulerManager.Notifier.Hubs;
 
 namespace Travely.SchedulerManager.Notifier.Services
@@ -17,9 +18,10 @@ namespace Travely.SchedulerManager.Notifier.Services
             _hubContext = hub;
             _emailOptions = options.CurrentValue;
         }
-        public Task NotifyAsync(string userId)
+        public Task NotifyAsync(NotificationInfoDTO dto)
         {
-            return _hubContext.Clients.Client(userId).ReceiveNotification(new { message = "Hola" });
+            //TODO
+            return _hubContext.Clients.Client("connectionId").ReceiveNotification(new { message = "Hola" });
         }
 
         public async Task SendEmailAsync(string receiverEmail, string title, string subject, string content)

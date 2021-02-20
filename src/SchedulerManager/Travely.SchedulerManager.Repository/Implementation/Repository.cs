@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Travely.SchedulerManager.Repository.Infrastructure.EntityConfigurations;
+using Travely.SchedulerManager.Repository.Entities;
 using Travely.SchedulerManager.Repository.Infrastructure.Interfaces;
 
 namespace Travely.SchedulerManager.Repository.Implementation
@@ -43,7 +43,7 @@ namespace Travely.SchedulerManager.Repository.Implementation
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
-            entity.CreatedOn = new DateTime();
+            entity.CreatedOn = DateTime.Now;
             return _dbSet.AddAsync(entity);
         }
 
@@ -53,7 +53,7 @@ namespace Travely.SchedulerManager.Repository.Implementation
                 throw new ArgumentNullException(nameof(entities));
             foreach (var entity in entities)
             {
-                entity.CreatedOn = new DateTime();
+                entity.CreatedOn = DateTime.Now;
             }
             return _dbSet.AddRangeAsync(entities);
         }
@@ -62,7 +62,7 @@ namespace Travely.SchedulerManager.Repository.Implementation
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
-            entity.ModifiedOn = new DateTime();
+            entity.ModifiedOn = DateTime.Now;
             _dbSet.Update(entity);
         }
 
