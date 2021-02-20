@@ -12,13 +12,13 @@ namespace Travely.IdentityManager.Repository.EntityFramework
 
         }
 
-        public async Task<User?> FindByEmailAsync(string username, CancellationToken cancaletionToken = default)
+        public async Task<User?> FindByEmailAsync(string username, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
                 return null;
             }
-            return await GetByConditionAsync(item => item.UserName == username, cancaletionToken);
+            return await FindAsync(item => item.UserName == username, cancellationToken);
         }
     }
 }

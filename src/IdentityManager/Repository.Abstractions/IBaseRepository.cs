@@ -15,6 +15,6 @@ namespace Travely.IdentityManager.Repository.Abstractions
         IQueryable<TEntity> GetAll();
         void Remove(TEntity entity);
         Task<TEntity> FindByIdAsync(int id, CancellationToken cancaletionToken = default);
-        Task<TEntity> GetByConditionAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancaletionToken = default);
+        Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancaletionToken = default);
     }
 }
