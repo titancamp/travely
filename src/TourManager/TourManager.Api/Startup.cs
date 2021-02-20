@@ -1,13 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Travely.IdentityManager.Repository.EntityFramework;
+using TourManager.Repository.EfCore.Context;
 
-namespace IdentityManager.API
+namespace TourManager.Api
 {
     public class Startup
     {
@@ -21,11 +22,20 @@ namespace IdentityManager.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<IdentityServerDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("IdentityServerConnection")));
+            services.AddDbContext<TourDbContext>(
+                options => options.UseSqlServer(
+                        Configuration.GetConnectionString("TourDbContext"),
+                        x => x.MigrationsAssembly("TourManager.Repository.EfCore.MsSql")));
+
             services.AddControllers();
+            services.AddApiVersioning(config =>
+            {
+                config.DefaultApiVersion = new ApiVersion(1, 0);
+                config.AssumeDefaultVersionWhenUnspecified = true;
+            });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IdentityManager.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TourManager.Api", Version = "v1" });
             });
         }
 
@@ -36,7 +46,7 @@ namespace IdentityManager.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityManager.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TourManager.Api v1"));
             }
 
             app.UseHttpsRedirection();
