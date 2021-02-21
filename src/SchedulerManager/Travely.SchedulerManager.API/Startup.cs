@@ -42,9 +42,9 @@ namespace Travely.SchedulerManager.API
             services.Configure<RepositoryOptions>(_configuration.GetSection(RepositoryOptions.Section));
 
             services.AddGrpc();
+            services.AddJobService(_configuration);
+            services.AddRepositoryLayer(_configuration);
             services.AddNotifier();
-            services.AddJobService();
-            services.AddRepositoryLayer();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

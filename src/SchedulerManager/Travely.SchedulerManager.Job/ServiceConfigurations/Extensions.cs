@@ -11,9 +11,9 @@ namespace Travely.SchedulerManager.Job
 {
     public static class Extensions
     {
-        public static IServiceCollection AddJobService(this IServiceCollection services)
+        public static IServiceCollection AddJobService(this IServiceCollection services, IConfiguration configuration)
         {
-            var options = services.BuildServiceProvider().GetService<IOptionsMonitor<JobOptions>>().CurrentValue;
+            var options = configuration.GetSection(JobOptions.Section).Get<JobOptions>();
             services.AddSingleton(typeof(IEnqueueAsyncJobService<>), typeof(EnqueueAsyncJobService<>));
             services.AddSingleton(typeof(IScheduledAsyncJobService<>), typeof(ScheduledAsyncJobService<>));
             services.AddSingleton(typeof(IRecurrentAsyncJobService<>), typeof(RecurrentAsyncJobService<>));
