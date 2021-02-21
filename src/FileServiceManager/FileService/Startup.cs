@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using FileService.DAL;
-using FileService.Helpers;
 
 namespace FileServiceManager.FileService
 {
@@ -42,13 +41,13 @@ namespace FileServiceManager.FileService
             switch (Configuration["storage:type"])
             {
                 case "FileSystem":
-                    RegisterFileSystemService(services);
+                    services.AddScoped<IStorage, FileSystemStorage>();
                     break;
                 case "AzureBlob":
                     //services.AddScoped<IStorage, AzureBlobStorage>();
                     break;
                 default:
-                    RegisterFileSystemService(services);
+                    services.AddScoped<IStorage, FileSystemStorage>();
                     break;
             }
         }
@@ -71,8 +70,6 @@ namespace FileServiceManager.FileService
                 });
             }
 
-            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
@@ -81,12 +78,6 @@ namespace FileServiceManager.FileService
             {
                 endpoints.MapControllers();
             });
-        }
-
-        private void RegisterFileSystemService(IServiceCollection services)
-        {
-            services.AddScoped<IFileSystemConfigurator, FileSystemJsonConfigurator>();
-            services.AddScoped<IStorage, FileSystemStorage>();
         }
     }
 }

@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FileService.DAL
 {
@@ -10,9 +12,9 @@ namespace FileService.DAL
     {
         Task<Guid> UploadFileAsync(IFormFile file, int companyId);
 
-        IAsyncEnumerable<FileMetadata> GetAllFilesAsync(int companyId);
+        Task<IEnumerable<FileMetadata>> GetAllFilesAsync(int companyId);
 
-        Task<FileMetadata> GetFileAsync(Guid fileId, int companyId);
+        Task<FileResult> DownLoadFileAsync(Guid fileId, int companyId);
 
         Task<bool> RemoveFileAsync(Guid fileId, int companyId);
 
