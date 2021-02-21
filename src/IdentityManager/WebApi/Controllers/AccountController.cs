@@ -1,4 +1,5 @@
-﻿using IdentityManager.API.Identity;
+﻿using System;
+using IdentityManager.API.Identity;
 using IdentityManager.API.Models;
 using IdentityManager.WebApi.Models.Response;
 using Microsoft.AspNetCore.Authorization;
@@ -6,7 +7,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Text.Encodings.Web;
+using System.Threading;
 using System.Threading.Tasks;
+using IdentityManager.WebApi.Models;
+using IdentityModel;
+using Travely.IdentityManager.Repository.Abstractions.Entities;
 
 namespace IdentityManager.API.Controllers
 {
@@ -14,11 +22,20 @@ namespace IdentityManager.API.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+
         private readonly IAuthenticationService _authenticationService;
         private readonly IConfiguration _configuration;
 
-        public AccountController(IAuthenticationService authenticationService, IConfiguration configuration)
+        public AccountController(
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager,
+            IAuthenticationService authenticationService,
+            IConfiguration configuration)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
             _authenticationService = authenticationService;
             _configuration = configuration;
         }
@@ -29,41 +46,20 @@ namespace IdentityManager.API.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("Register")]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterViewModel model)
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult<ResultViewModel>> RegisterAsync([FromBody] RegisterViewModel model, CancellationToken ct)
         {
             if (ModelState.IsValid)
             {
-                var result = await _authenticationService.RegisterUserAsync(model);
-                if (result.IsSuccess)
-                    return Ok(result);
+                var result = await _authenticationService.RegisterUserAsync(model, ct);
 
-                return BadRequest(result);
+                return result;
             }
-
             return BadRequest("Some properties are not valid");
+
         }
-        /// <summary>
-        /// LoginAsync
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpPost("Login")]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await _authenticationService.LoginUserAsync(model);
 
-                if (result.IsSuccess)
-                {
-                    return Ok(result);
-                }
-
-                return BadRequest(result);
-            }
-
-            return BadRequest("Some properties are not valid");
-        }
 
         /// <summary>
         /// ConfirmEmail
@@ -72,19 +68,13 @@ namespace IdentityManager.API.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("ConfirmEmail")]
-        public async Task<IActionResult> ConfirmEmail(string email, string token)
+        public async Task<ActionResult> ConfirmEmail(string email, string token)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(token))
                 return NotFound();
-
             var result = await _authenticationService.ConfirmEmailAsync(email, token);
 
-            if (result.IsSuccess)
-            {
-                return Redirect($"{_configuration["AppUrl"]}/ConfirmEmail.html");
-            }
-
-            return BadRequest(result);
+            return Redirect($"{_configuration["AppUrl"]}/ConfirmEmail.html");
         }
 
         /// <summary>
@@ -93,17 +83,15 @@ namespace IdentityManager.API.Controllers
         /// <param name="email"></param>
         /// <returns></returns>
         [HttpPost("ForgetPassword")]
-        public async Task<IActionResult> ForgetPassword(string email)
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult<ResultViewModel>> ForgetPassword(ForgotPasswordViewModel forgotPasswordViewModel, CancellationToken ct)
         {
-            if (string.IsNullOrEmpty(email))
+            if (!ModelState.IsValid)
                 return NotFound();
 
-            var result = await _authenticationService.ForgetPasswordAsync(email);
-
-            if (result.IsSuccess)
-                return Ok(result);
-
-            return BadRequest(result);
+            var result = await _authenticationService.ForgetPasswordAsync(forgotPasswordViewModel.Email, ct);
+            return result;
         }
 
         /// <summary>
@@ -112,64 +100,15 @@ namespace IdentityManager.API.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("ResetPassword")]
-        public async Task<IActionResult> ResetPassword([FromForm] ResetPasswordViewModel model)
+        public async Task<ActionResult<ResultViewModel>> ResetPassword([FromBody] ResetPasswordViewModel model, CancellationToken ct)
         {
             if (ModelState.IsValid)
             {
-                var result = await _authenticationService.ResetPasswordAsync(model);
-
-                if (result.IsSuccess)
-                    return Ok(result);
-
-                return BadRequest(result);
+                var result = await _authenticationService.ResetPasswordAsync(model, ct);
+                return result;
             }
 
             return BadRequest("Some properties are not valid");
-        }
-
-        /// <summary>
-        /// Get user by username
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        [Authorize(Roles = "Admin")]
-        [HttpGet]
-        public async Task<ActionResult<UserResponseModel>> GetUserByUserNameAsync(string username)
-        {
-            return Ok(await _authenticationService.GetUserByUserName(username));
-        }
-
-        /// <summary>
-        /// Get user by id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [Authorize(Roles = "Admin")]
-        [HttpGet]
-        public async Task<ActionResult<UserResponseModel>> GetUserByIdAsync(int id)
-        {
-            return Ok(await _authenticationService.GetUserById(id));
-        }
-
-        /// <summary>
-        /// Get all users
-        /// </summary>
-        /// <returns></returns>
-        [Authorize(Roles = "Admin")]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserResponseModel>>> GetUsersAsync()
-        {
-            return Ok(await _authenticationService.GetUsers());
-        }
-
-        /// <summary>
-        /// Get agency by agency name
-        /// </summary>
-        /// <param name="agencyName"></param>
-        /// <returns></returns>
-        public async Task<ActionResult<AgencyResponseModel>> GetAgencyByNameAsync(string agencyName)
-        {
-            return Ok(await _authenticationService.GetAgencyByName(agencyName));
         }
 
         /// <summary>
@@ -177,9 +116,9 @@ namespace IdentityManager.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ActionResult<AgencyResponseModel>> GetAgencyByIdAsync(int id)
+        public async Task<ActionResult<AgencyResponseModel>> GetAgencyByIdAsync(int id, CancellationToken ct)
         {
-            return Ok(await _authenticationService.GetAgencyById(id));
+            return await _authenticationService.GetAgencyById(id, ct);
         }
 
     }

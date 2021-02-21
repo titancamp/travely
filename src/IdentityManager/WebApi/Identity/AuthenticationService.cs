@@ -7,54 +7,33 @@ using System.Security.Claims;
 using IdentityManager.WebApi.Models.Response;
 using Travely.IdentityManager.Repository.Abstractions;
 using System.Collections.Generic;
+using System.Text;
+using System.Threading;
 using AutoMapper;
 using IdentityManager.WebApi.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using IdentityManager.WebApi.Models;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace IdentityManager.API.Identity
 {
     public class AuthenticationService : BaseService, IAuthenticationService
     {
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IAgencyRepository _agencyRepository;
 
-        public AuthenticationService(IUserRepository userRepository, IUnitOfWork unitOfWork,
+        public AuthenticationService(UserManager<IdentityUser> userManager, IUserRepository userRepository, IUnitOfWork unitOfWork,
             IEmployeeRepository employeeRepository, IAgencyRepository agencyRepository, IMapper mapper) : base(mapper)
         {
+            _userManager = userManager;
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
             _employeeRepository = employeeRepository;
             _agencyRepository = agencyRepository;
-        }
-        /// <summary>
-        /// GenerateAccessToken
-        /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
-        public async Task<string> GenerateAccessToken(IdentityUser user)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// GenerateAccessToken
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public async Task<Models.AuthResponse> GenerateAccessToken(RegisterViewModel model)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// LoginUserAsync
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public async Task<Models.AuthResponse> LoginUserAsync(LoginViewModel model)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -63,9 +42,34 @@ namespace IdentityManager.API.Identity
         /// <param name="userId"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<Models.AuthResponse> ConfirmEmailAsync(string userId, string token)
+        public async Task<ActionResult<ResultViewModel>> ConfirmEmailAsync(string userId, string token)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return new ResultViewModel
+                {
+                    IsSuccess = false,
+                    Message = "User not found"
+                };
+
+            var decodedToken = WebEncoders.Base64UrlDecode(token);
+            string normalToken = Encoding.UTF8.GetString(decodedToken);
+
+            var result = await _userManager.ConfirmEmailAsync(user, normalToken);
+
+            if (result.Succeeded)
+                return new ResultViewModel()
+                {
+                    Message = "Email confirmed successfully!",
+                    IsSuccess = true,
+                };
+
+            return new ResultViewModel
+            {
+                IsSuccess = false,
+                Message = "Email did not confirm",
+                Errors = result.Errors.Select(e => e.Description)
+            };
         }
 
         /// <summary>
@@ -73,9 +77,20 @@ namespace IdentityManager.API.Identity
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public async Task<Models.AuthResponse> ForgetPasswordAsync(string email)
+        public async Task<ActionResult<ResultViewModel>> ForgetPasswordAsync(string email, CancellationToken ct)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.FindByEmailAsync(email, ct);
+            if (user == null)
+                return new ResultViewModel
+                {
+                    IsSuccess = false,
+                    Message = "No user associated with email",
+                };
+            return new ResultViewModel
+            {
+                IsSuccess = true,
+                Message = "Reset password URL has been sent to the email successfully!"
+            };
         }
 
         /// <summary>
@@ -83,45 +98,79 @@ namespace IdentityManager.API.Identity
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<Models.AuthResponse> ResetPasswordAsync(ResetPasswordViewModel model)
+        public async Task<ActionResult<ResultViewModel>> ResetPasswordAsync(ResetPasswordViewModel model, CancellationToken ct)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+                return new ResultViewModel
+                {
+                    IsSuccess = false,
+                    Message = "No user associated with email",
+                };
+
+            if (model.NewPassword != model.ConfirmPassword)
+                return new ResultViewModel
+                {
+                    IsSuccess = false,
+                    Message = "Password doesn't match its confirmation",
+                };
+
+            var decodedToken = WebEncoders.Base64UrlDecode(model.Token);
+            string normalToken = Encoding.UTF8.GetString(decodedToken);
+
+            var result = await _userManager.ResetPasswordAsync(user, normalToken, model.NewPassword);
+
+            if (result.Succeeded)
+                return new ResultViewModel()
+                {
+                    Message = "Password has been reset successfully!",
+                    IsSuccess = true,
+                };
+
+            return new ResultViewModel
+            {
+                Message = "Something went wrong",
+                IsSuccess = false,
+                Errors = result.Errors.Select(e => e.Description),
+            };
         }
 
-        /// <summary>
-        /// RefreshToken
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public async Task<Models.AuthResponse> RefreshToken(Models.AuthResponse model)
+        public async Task<ActionResult<ResultViewModel>> RegisterUserAsync(RegisterViewModel model, CancellationToken ct)
         {
-            throw new NotImplementedException();
-        }
+            if (model == null)
+                throw new NullReferenceException("Reigster Model is null");
 
-        /// <summary>
-        /// GetUserFromAccessToken
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <returns></returns>
-        private async Task<IdentityUser> GetUserFromAccessToken(string accessToken)
-        {
-            throw new NotImplementedException();
-        }
+            if (model.Password != model.ConfirmPassword)
+                return new ResultViewModel
+                {
+                    Message = "Confirm password doesn't match the password",
+                    IsSuccess = false,
+                };
+            var user = new ApplicationUser
+            {
+                Email = model.Email,
+                UserName = model.Email,
+                CreatedDate = DateTime.UtcNow
+            };
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                var refreshToken = await _userManager.GenerateConcurrencyStampAsync(user);
+                _unitOfWork.SaveChangesAsync(ct);
 
-        /// <summary>
-        /// ValidateRefreshToken
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="refreshToken"></param>
-        /// <returns></returns>
-        private async Task<bool> ValidateRefreshToken(IdentityUser user, string refreshToken)
-        {
-            return false;
-        }
+                return new ResultViewModel
+                {
+                    Message = "User created successfully!",
+                    IsSuccess = true,
+                };
+            }
+            return new ResultViewModel
+            {
+                Message = "User did not create",
+                IsSuccess = false,
+                Errors = result.Errors.Select(e => e.Description)
+            };
 
-        public Task<Models.AuthResponse> RegisterUserAsync(RegisterViewModel model)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -129,50 +178,29 @@ namespace IdentityManager.API.Identity
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<UserResponseModel> GetUserById(int id)
+        public async Task<UserResponseModel> GetUserById(int id, CancellationToken ct)
         {
-            return Mapper.Map<UserResponseModel>(await _userRepository.FindByIdAsync(id));
-        }
-
-        /// <summary>
-        /// Get User by name
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        public async Task<UserResponseModel> GetUserByUserName(string username)
-        {
-            return Mapper.Map<UserResponseModel>(await _userRepository.GetUserByUsernameAsync(username));
+            return Mapper.Map<UserResponseModel>(await _userRepository.FindByIdAsync(id, ct));
         }
 
         /// <summary>
         /// Get all users
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<UserResponseModel>> GetUsers()
+        public async Task<IEnumerable<UserResponseModel>> GetUsers(CancellationToken ct)
         {
-            return Mapper.Map<IEnumerable<UserResponseModel>>(await _userRepository.GetAll());
+            return Mapper.Map<IEnumerable<UserResponseModel>>(await _userRepository.GetAll().ToListAsync());
         }
 
-        /// <summary>
-        /// Get agency by name
-        /// </summary>
-        /// <param name="agencyName"></param>
-        /// <returns></returns>
-        public async Task<AgencyResponseModel> GetAgencyByName(string agencyName)
-        {
-            return Mapper.Map<AgencyResponseModel>(await _agencyRepository.GetAgencyByName(agencyname));
-
-        }
         /// <summary>
         /// Get agency by name
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<AgencyResponseModel> GetAgencyById(int id)
+        public async Task<AgencyResponseModel> GetAgencyById(int id, CancellationToken ct)
         {
-            return Mapper.Map<AgencyResponseModel>(await _agencyRepository.GetAgencyById(id));
+            return Mapper.Map<AgencyResponseModel>(await _agencyRepository.FindByIdAsync(id, ct));
         }
-
 
     }
 }
