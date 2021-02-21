@@ -19,7 +19,7 @@ namespace Travely.SchedulerManager.Job
                    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                    .UseSimpleAssemblyNameTypeSerializer()
                    .UseRecommendedSerializerSettings()
-                   .UseSqlServerStorage(configuration["Hangfire:ConnectionString"], new SqlServerStorageOptions
+                   .UseSqlServerStorage(configuration["ConnectionStrings:Jobs"], new SqlServerStorageOptions
                    {
                        CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
                        SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),

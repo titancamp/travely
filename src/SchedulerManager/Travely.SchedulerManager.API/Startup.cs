@@ -4,14 +4,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Travely.SchedulerManager.Job;
-using Microsoft.Extensions.Options;
-using System.Configuration;
 using Travely.SchedulerManager.API.ConfigManager;
 using Travely.SchedulerManager.API.Services;
-using Travely.SchedulerManager.Notifier;
+using Travely.SchedulerManager.Job;
+using Travely.SchedulerManager.Notifier.Helpers;
 using Travely.SchedulerManager.Repository;
-using Travely.SchedulerManager.Service;
+using Travely.SchedulerManager.Service.Helpers;
 
 namespace Travely.SchedulerManager.API
 {
@@ -43,7 +41,7 @@ namespace Travely.SchedulerManager.API
             _configuration.GetSection(ConnectionStrings.Section).Bind(settings);
             //use settings properties to send as a parapeter when adding service
 
-            services.AddNotifier();
+            services.AddNotifier(settings.Notifier);
             services.AddGrpc();
             services.AddJobService(_configuration);
             services.AddBusinessServices();

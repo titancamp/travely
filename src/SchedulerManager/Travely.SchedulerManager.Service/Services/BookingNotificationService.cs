@@ -64,9 +64,9 @@ namespace Travely.SchedulerManager.Service
                 MessageTemplateId = (int)MessageTemplate.TourExpire,
                 JsonData = JsonConvert.SerializeObject(new
                 {
-                    BookingName = createDto.BookingName,
-                    TourName = createDto.TourName,
-                    ExpireDate = createDto.ExpireDate
+                    createDto.BookingName,
+                    createDto.TourName,
+                    createDto.ExpireDate
                 }),
                 UserSchedules = createDto.UserIds.Select(id => new UserSchedule()
                 {

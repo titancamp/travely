@@ -1,20 +1,13 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Travely.SchedulerManager.Service
+namespace Travely.SchedulerManager.Service.Helpers
 {
     public static class Extensions
     {
         public static IServiceCollection AddBusinessServices(this IServiceCollection services)
         {
-            services.AddSingleton<IBookingNotificationService, BookingNotificationService>();
-
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new Mapper());
-            });
-            IMapper mapper = mapperConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            services.AddScoped<IBookingNotificationService, BookingNotificationService>();
+            services.AddAutoMapper(typeof(MapperProfile));
 
             return services;
         }
