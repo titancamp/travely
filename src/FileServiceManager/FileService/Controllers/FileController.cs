@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace FileService.Controllers
@@ -12,7 +13,7 @@ namespace FileService.Controllers
     [Produces("application/json")]
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize]
     public class FileController : ControllerBase
     {
         private readonly IStorage _storage;
@@ -22,10 +23,18 @@ namespace FileService.Controllers
             _storage = storage;
         }
 
-        [HttpGet("Download/{fileId}")]
+        [HttpGet("Download")]
         public async Task<FileResult> DownLoadFileAsync(Guid fileId, int companyId)
         {
-            return await _storage.DownLoadFileAsync(fileId, companyId);
+            var fileInfo = await _storage.GetFileAsync(fileId, companyId);
+
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(fileInfo.FilePath, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, fileInfo.FileType, fileInfo.Name + fileInfo.Extension);
         }
 
         [HttpPost("Upload")]
@@ -41,9 +50,12 @@ namespace FileService.Controllers
         }
 
         [HttpGet("GetAllFiles")]
-        public async Task<IEnumerable<FileMetadata>> GetAllFilesAsync(int companyId)
+        public async IAsyncEnumerable<FileMetadata> GetAllFilesAsync(int companyId)
         {
-            return await _storage.GetAllFilesAsync(companyId);
+            await foreach(var fileInfo in _storage.GetAllFilesAsync(companyId))
+            {
+                yield return fileInfo;
+            }
         }
     }
 }
