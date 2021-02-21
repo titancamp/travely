@@ -39,13 +39,13 @@ namespace Travely.SchedulerManager.Repository
 
         private static void AddRepositories(this IServiceCollection services)
         {
-            services.AddTransient<IScheduleInfoRepository, ScheduleInfoRepository>();
-            services.AddTransient<IScheduleMessageTemplateRepository, ScheduleMessageTemplateRepository>();
+            services.AddScoped<IScheduleInfoRepository, ScheduleInfoRepository>();
+            services.AddScoped<IScheduleMessageTemplateRepository, ScheduleMessageTemplateRepository>();
         }
 
         private static void AddDbSeeding(this IServiceCollection service)
         {
-            service.AddTransient<IDbInitializer, DbInitializer>();
+            service.AddScoped<IDbInitializer, DbInitializer>();
         }
     }
 }

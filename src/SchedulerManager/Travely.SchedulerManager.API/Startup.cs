@@ -9,8 +9,10 @@ using Microsoft.Extensions.Options;
 using System.Configuration;
 using Travely.SchedulerManager.API;
 using Travely.SchedulerManager.API.Services;
-using Travely.SchedulerManager.Notifier;
+using Travely.SchedulerManager.Job;
+using Travely.SchedulerManager.Notifier.Helpers;
 using Travely.SchedulerManager.Repository;
+using Travely.SchedulerManager.Service.Helpers;
 using Travely.SchedulerManager.Common;
 
 namespace Travely.SchedulerManager.API
@@ -44,7 +46,8 @@ namespace Travely.SchedulerManager.API
             services.AddGrpc();
             services.AddJobService(_configuration);
             services.AddRepositoryLayer(_configuration);
-            services.AddNotifier();
+            services.AddNotifier(_configuration);
+            services.AddBusinessServices();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

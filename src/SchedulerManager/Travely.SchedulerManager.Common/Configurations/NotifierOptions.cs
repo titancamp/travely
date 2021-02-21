@@ -3,7 +3,7 @@
     public class NotifierOptions
     {
         public const string Section = nameof(NotifierOptions);
-        public string ConnectionString { get; set; }
+        public string RedisConnectionString { get; set; }
         public EmailOptions EmailOptions { get; set; }
     }
 }
