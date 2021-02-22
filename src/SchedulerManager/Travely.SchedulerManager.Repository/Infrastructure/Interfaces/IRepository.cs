@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Travely.SchedulerManager.Repository.Entities;
 
-namespace Travely.SchedulerManager.Repository.Infrastructure.Interfaces
+namespace Travely.SchedulerManager.Repository
 {
-    public interface IRepository<TEntity> where TEntity : class, IEntity, IIdentity
+    public interface IRepository<TEntity> where TEntity : BaseEntity
     {
         Task<TEntity> FindAsync(long id, bool enableTracking = false);
         Task<IEnumerable<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate,

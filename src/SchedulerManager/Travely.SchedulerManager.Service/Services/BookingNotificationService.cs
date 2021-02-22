@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Travely.SchedulerManager.Common.Enums;
+using Travely.SchedulerManager.Repository;
 using Travely.SchedulerManager.Repository.Entities;
-using Travely.SchedulerManager.Repository.Infrastructure.Interfaces;
 
 namespace Travely.SchedulerManager.Service
 {
