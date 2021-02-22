@@ -10,9 +10,8 @@ namespace Travely.SchedulerManager.Notifier.Helpers
     public static class Extensions
     {
 
-        public static IServiceCollection AddNotifier(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddNotifier(this IServiceCollection services, NotifierOptions options)
         {
-            var options = configuration.GetSection(NotifierOptions.Section).Get<NotifierOptions>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddSignalR().AddStackExchangeRedis(options.RedisConnectionString, options =>
             {

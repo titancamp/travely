@@ -5,15 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Travely.SchedulerManager.Job;
-using Microsoft.Extensions.Options;
-using System.Configuration;
-using Travely.SchedulerManager.API;
 using Travely.SchedulerManager.API.Services;
-using Travely.SchedulerManager.Job;
 using Travely.SchedulerManager.Notifier.Helpers;
 using Travely.SchedulerManager.Repository;
 using Travely.SchedulerManager.Service.Helpers;
 using Travely.SchedulerManager.Common;
+using Travely.SchedulerManager.API.Helpers;
 
 namespace Travely.SchedulerManager.API
 {

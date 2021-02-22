@@ -11,9 +11,8 @@ namespace Travely.SchedulerManager.Repository
 {
     public static class Extensions
     {
-        public static IServiceCollection AddRepositoryLayer(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddRepositoryLayer(this IServiceCollection services, RepositoryOptions options)
         {
-            var options = configuration.GetSection(RepositoryOptions.Section).Get<RepositoryOptions>();
             services.AddDContext(options.ConnectionString);
             services.AddRepositories();
             services.AddDbSeeding();
