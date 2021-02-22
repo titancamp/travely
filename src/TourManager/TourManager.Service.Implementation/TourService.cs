@@ -9,13 +9,38 @@ using TourManager.Service.Model;
 
 namespace TourManager.Service.Implementation
 {
+    /// <summary>  
+    /// The tour service	
+    /// </summary>
     public class TourService : ITourService
     {
+        /// <summary>	
+        /// The model mapper	
+        /// </summary>   շ
         private readonly IMapper mapper;
+
+        /// <summary>	
+        /// The tour repository	
+        /// </summary>
         private readonly ITourRepository tourRepository;
+        
+        /// <summary>	
+        /// The booking service	
+        /// </summary>
         private readonly IBookingService bookingService;
+
+        /// <summary>	
+        /// The client service	
+        /// </summary>
         private readonly IClientService clientService;
 
+        /// <summary>	
+        ///  Create new instance of tour service	
+        /// </summary>	
+        /// <param name="mapper">The model mapper</param>	
+        /// <param name="tourRepository">The tour repository</param>	
+        /// <param name="bookingService">The booking service</param>	
+        /// <param name="clientService">The client service</param>
         public TourService(IMapper mapper, ITourRepository tourRepository, IBookingService bookingService, IClientService clientService)
         {
             this.mapper = mapper;
@@ -24,6 +49,11 @@ namespace TourManager.Service.Implementation
             this.clientService = clientService;
         }
 
+        /// <summary>	
+        /// Get tour by tenant id	
+        /// </summary>	
+        /// <param name="tenantId">The tenant id</param>	
+        /// <returns></returns>
         public async Task<List<Tour>> GetTours(int tenantId)
         {
             var result = await this.tourRepository.GetAll();
@@ -31,6 +61,11 @@ namespace TourManager.Service.Implementation
             return this.mapper.Map<List<Tour>>(result);
         }
 
+        /// <summary>
+        /// Get specific tour by id
+        /// </summary>	
+        /// <param name="tourId">The tour id</param>	
+        /// <returns></returns>
         public async Task<Tour> GetTourById(int tenantId, int tourId)
         {
             var result = await this.tourRepository.GetById(tourId);
@@ -38,6 +73,12 @@ namespace TourManager.Service.Implementation
             return this.mapper.Map<Tour>(result);
         }
 
+        /// <summary>
+        /// Create new tour	
+        /// </summary>	
+        /// <param name="tour">The tour to create</param>	
+        /// <returns></returns>
+        /// 
         public Task<Tour> CreateTour(int tenantId, Tour tour)
         {
             // create clients
@@ -58,6 +99,11 @@ namespace TourManager.Service.Implementation
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Update the specific tour	
+        /// </summary>	
+        /// <param name="tour">The tour to update</param>	
+        /// <returns></returns>
         public Task<Tour> UpdateTour(int tenantId, int id, Tour tour)
         {
             // update clients
@@ -78,6 +124,11 @@ namespace TourManager.Service.Implementation
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Remove specific tour by id
+        /// </summary>	
+        /// <param name="tourId">The tour id to remove</param>
+        /// <returns></returns>
         public async Task RemoveTour(int tenantId, int tourId)
         {
             // find tour to remove by id

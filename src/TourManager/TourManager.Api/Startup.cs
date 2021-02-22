@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
 using TourManager.Api.Bootstrapper;
+using TourManager.Service.Model;
 
 namespace TourManager.Api
 {
@@ -25,8 +26,7 @@ namespace TourManager.Api
             services
                 .AddCors()
                 .AddControllers()
-                .AddFluentValidation(opt => opt.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()))
-                .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                .AddFluentValidation(opt => opt.RegisterValidatorsFromAssembly(typeof(TourValidator).Assembly));
 
             services.AddApiVersioning(config =>
             {
@@ -36,7 +36,7 @@ namespace TourManager.Api
 
             services
                 .AddSqlServer(Configuration)
-                .AddAutoMapper()
+                .AddAutoMapper(typeof(Startup))
                 .AddSwagger()
                 .AddTourManagerServices();
         }
