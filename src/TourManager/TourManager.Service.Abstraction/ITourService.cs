@@ -21,27 +21,27 @@ namespace TourManager.Service.Abstraction
         /// </summary>
         /// <param name="tourId">The tour id</param>
         /// <returns></returns>
-        public Task<Tour> GetTourById(int tourId);
+        public Task<Tour> GetTourById(int tenantId, int tourId);
 
         /// <summary>
         /// Create new tour
         /// </summary>
         /// <param name="tour">The tour to create</param>
         /// <returns></returns>
-        public Task CreateTour(Tour tour);
+        public Task<Tour> CreateTour(int tenantId, Tour tour);
 
         /// <summary>
         /// Update the specific tour
         /// </summary>
         /// <param name="tour">The tour to update</param>
         /// <returns></returns>
-        public Task UpdateTour(Tour tour);
+        public Task<Tour> UpdateTour(int tenantId, int id, Tour tour);
 
         /// <summary>
         /// Remove specific tour by id
         /// </summary>
         /// <param name="tourId">The tour id to remove</param>
         /// <returns></returns>
-        public Task RemoveTour(int tourId);
+        public Task RemoveTour(int tenantId, int tourId);
     }
 }

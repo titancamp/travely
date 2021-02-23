@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TourManager.Repository.Abstraction;
@@ -61,11 +62,11 @@ namespace TourManager.Service.Implementation
         }
 
         /// <summary>
-        /// Get specific tour by id 
+        /// Get specific tour by id
         /// </summary>
         /// <param name="tourId">The tour id</param>
         /// <returns></returns>
-        public async Task<Tour> GetTourById(int tourId)
+        public async Task<Tour> GetTourById(int tenantId, int tourId)
         {
             var result = await this.tourRepository.GetById(tourId);
 
@@ -77,7 +78,7 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="tour">The tour to create</param>
         /// <returns></returns>
-        public Task CreateTour(Tour tour)
+        public Task<Tour> CreateTour(int tenantId, Tour tour)
         {
             // create clients
             foreach (var client in tour.Clients)
@@ -92,7 +93,9 @@ namespace TourManager.Service.Implementation
             }
 
             // create tour
-            return this.tourRepository.Add(this.mapper.Map<TourEntity>(tour));
+            this.tourRepository.Add(this.mapper.Map<TourEntity>(tour));
+
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -100,7 +103,7 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="tour">The tour to update</param>
         /// <returns></returns>
-        public Task UpdateTour(Tour tour)
+        public Task<Tour> UpdateTour(int tenantId, int id, Tour tour)
         {
             // update clients
             foreach (var client in tour.Clients)
@@ -115,7 +118,9 @@ namespace TourManager.Service.Implementation
             }
 
             // update tour
-            return this.tourRepository.Update(this.mapper.Map<TourEntity>(tour));
+            this.tourRepository.Update(this.mapper.Map<TourEntity>(tour));
+
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -123,7 +128,7 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="tourId">The tour id to remove</param>
         /// <returns></returns>
-        public async Task RemoveTour(int tourId)
+        public async Task RemoveTour(int tenantId, int tourId)
         {
             // find tour to remove by id
             var tour = await this.tourRepository.GetById(tourId);
