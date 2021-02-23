@@ -18,7 +18,7 @@ namespace Travely.SchedulerManager.Notifier.Services
             _hubContext = hub;
             _emailOptions = options.CurrentValue;
         }
-        public Task NotifyAsync(NotificationInfoDTO dto)
+        public Task NotifyAsync(NotificationInfo dto)
         {
             //TODO
             return _hubContext.Clients.Client("connectionId").ReceiveNotification(new { message = "Hola" });

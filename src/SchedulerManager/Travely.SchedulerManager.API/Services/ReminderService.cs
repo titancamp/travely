@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using System;
+using Grpc.Core;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -40,23 +41,25 @@ namespace Travely.SchedulerManager.API.Services
 
         public override async Task<CreateResponse> Create(CreateRequest request, ServerCallContext context)
         {
-            var dto = new CreateNotificationDTO
-            {
-                TourId = request.TourId,
-                TourName = request.TourName,
-                BookingId = request.BookingId,
-                BookingName = request.BookingName,
-                BookingNotes = request.BookingNotes,
-                ExpireDate = request.ExpireDate.ToDateTime(),
-                UserIds = request.AssignedUserIds
-            };
-            var result = await _notificationService.CreateNotification(dto);
-            return new CreateResponse() { Succeed = result };
+            //TODO: change to BookingExpireNotification model
+            //var dto = new CreateNotification
+            //{
+            //    TourId = request.TourId,
+            //    TourName = request.TourName,
+            //    BookingId = request.BookingId,
+            //    BookingName = request.BookingName,
+            //    BookingNotes = request.BookingNotes,
+            //    ExpireDate = request.ExpireDate.ToDateTime(),
+            //    UserIds = request.AssignedUserIds
+            //};
+            //var result = await _notificationService.CreateNotification(dto);
+            //return new CreateResponse() { Succeed = result };
+            throw new NotImplementedException();
         }
 
         public override async Task<UpdateResponse> Update(UpdateRequest request, ServerCallContext context)
         {
-            var dto = new UpdateNotificationDTO
+            var dto = new UpdateNotification
             {
                 TourId = request.TourId,
                 TourName = request.TourName,

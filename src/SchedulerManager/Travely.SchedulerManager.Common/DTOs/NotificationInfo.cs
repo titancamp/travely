@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Travely.SchedulerManager.Common
 {
-    public class NotificationInfoDTO
+    public class NotificationInfo
     {
         public string Message { get; set; }
 
@@ -11,6 +11,6 @@ namespace Travely.SchedulerManager.Common
 
         public int RefId { get; set; }
 
-        public IEnumerable<UserNotificationInfoDTO> NotificationInfos { get; set; }
+        public IEnumerable<UserNotificationInfo> NotificationInfos { get; set; }
     }
 }

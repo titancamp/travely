@@ -5,13 +5,13 @@ namespace Travely.SchedulerManager
 {
     public interface IBookingNotificationService
     {
-        Task<NotificationDTO> GetNotification(long bookingId);
+        Task<Notification> GetNotification(long bookingId);
 
-        Task<IEnumerable<NotificationDTO>> GetAllNotifications();
+        Task<IEnumerable<Notification>> GetAllNotifications();
 
-        Task<bool> CreateNotification(CreateNotificationDTO createDto);
+        Task<bool> CreateNotification(CreateNotification create);
 
-        Task<bool> UpdateNotification(UpdateNotificationDTO createDTO);
+        Task<bool> UpdateNotification(UpdateNotification update);
 
         Task<bool> DeleteNotification(long bookingId);
     }

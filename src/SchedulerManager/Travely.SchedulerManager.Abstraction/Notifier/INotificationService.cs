@@ -5,6 +5,6 @@ namespace Travely.SchedulerManager
 {
     public interface INotificationService
     {
-        Task NotifyAsync(NotificationInfoDTO dto);
+        Task NotifyAsync(NotificationInfo dto);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Travely.SchedulerManager
 {
-    public class CreateNotificationDTO
+    public class UpdateNotification
     {
         public long TourId { get; set; }
 

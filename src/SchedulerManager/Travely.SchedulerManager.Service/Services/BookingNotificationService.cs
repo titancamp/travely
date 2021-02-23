@@ -35,40 +35,35 @@ namespace Travely.SchedulerManager.Service
         }
 
 
-        public async Task<NotificationDTO> GetNotification(long bookingId)
+        public async Task<Notification> GetNotification(long bookingId)
         {
             var entity = (await _scheduleRepository.GetListAsync(n => n.RecurseId == bookingId))?.SingleOrDefault();
-            var dto = _mapper.Map<NotificationDTO>(entity);
+            var dto = _mapper.Map<Notification>(entity);
 
             return dto;
         }
 
-        public async Task<IEnumerable<NotificationDTO>> GetAllNotifications()
+        public async Task<IEnumerable<Notification>> GetAllNotifications()
         {
             var entities = await _scheduleRepository.GetListAsync(n => true);
-            var dtos = _mapper.Map<List<NotificationDTO>>(entities);
+            var dtos = _mapper.Map<List<Notification>>(entities);
 
             return dtos;
         }
 
-        public async Task<bool> CreateNotification(CreateNotificationDTO createDto)
+        public async Task<bool> CreateNotification(CreateNotification create)
         {
             #region Create Schedule
 
             //TODO: It will be better to use automapper.
             var entity = new ScheduleInfo
             {
-                RecurseId = createDto.TourId,
-                Module = TravelyModule.Tour,
-                ExpirationDate = createDto.ExpireDate,
-                MessageTemplateId = (int)MessageTemplate.TourExpire,
-                JsonData = JsonConvert.SerializeObject(new
-                {
-                    createDto.BookingName,
-                    createDto.TourName,
-                    createDto.ExpireDate
-                }),
-                UserSchedules = createDto.UserIds.Select(id => new UserSchedule()
+                RecurseId = create.RecurseId,
+                Module = create.Module,
+                ExpirationDate = create.ExpirationDate,
+                MessageTemplateId = (long)create.MessageTemplate,
+                JsonData = create.JsonData,
+                UserSchedules = create.UserIds.Select(id => new UserSchedule()
                 {
                     UserId = id,
                     Status = NotificationStatus.None
@@ -112,7 +107,7 @@ namespace Travely.SchedulerManager.Service
             #endregion
         }
 
-        public async Task<bool> UpdateNotification(UpdateNotificationDTO createDTO)
+        public async Task<bool> UpdateNotification(UpdateNotification create)
         {
             throw new NotImplementedException();
         }
