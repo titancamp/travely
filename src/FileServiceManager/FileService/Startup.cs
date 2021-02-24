@@ -1,15 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using FileService.DAL;
 using FileService.Helpers;
+using FileService.DAL.Storages.Options;
 
 namespace FileServiceManager.FileService
 {
@@ -39,16 +36,20 @@ namespace FileServiceManager.FileService
                 });
             });
 
+            services.Configure<StorageOption>(Configuration.GetSection(StorageOption.Storage));
+
+
             switch (Configuration["storage:type"])
             {
                 case "FileSystem":
-                    RegisterFileSystemService(services);
+                    services.AddFileSystemServices();
                     break;
                 case "AzureBlob":
-                    //services.AddScoped<IStorage, AzureBlobStorage>();
+                    //TODO
+                    //services.AddAzureBlogServices();
                     break;
                 default:
-                    RegisterFileSystemService(services);
+                    services.AddFileSystemServices();
                     break;
             }
         }
@@ -82,8 +83,15 @@ namespace FileServiceManager.FileService
                 endpoints.MapControllers();
             });
         }
+    }
 
-        private void RegisterFileSystemService(IServiceCollection services)
+    public static class FileSystemServiceRegistrator
+    {
+        /// <summary>
+        /// Adds IFileSystemConfigurator and IStorage implementations as scoped services
+        /// </summary>
+        /// <param name="services"></param>
+        public static void AddFileSystemServices(this IServiceCollection services)
         {
             services.AddScoped<IFileSystemConfigurator, FileSystemJsonConfigurator>();
             services.AddScoped<IStorage, FileSystemStorage>();

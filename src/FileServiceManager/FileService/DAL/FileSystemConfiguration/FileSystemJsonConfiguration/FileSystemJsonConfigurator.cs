@@ -1,14 +1,13 @@
-﻿using FileService.Models;
-using Microsoft.Extensions.Configuration;
+﻿using FileService.DAL.Storages.Options;
+using FileService.Models;
+using Microsoft.Extensions.Options;
 using Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NLog.Fluent;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-
 
 /// <summary>
 /// FileSystemJsonConfigurator implementing IFileSystemConfigurator. Used to read/write/remove json configuration about company's file system structure
@@ -18,27 +17,19 @@ namespace FileService.DAL
 {
     public class FileSystemJsonConfigurator : IFileSystemConfigurator
     {
-        private readonly string _configPath = "";
+        private readonly string _configPath;
 
-        public FileSystemJsonConfigurator(IConfiguration configuration)
+        public FileSystemJsonConfigurator(IOptions<StorageOption> options)
         {
-            _configPath = Path.Combine(configuration["storage:path"] ?? Directory.GetCurrentDirectory(), "FileSystemConfig.json");
+            _configPath = Path.Combine(string.IsNullOrEmpty(options.Value.Path) ? Directory.GetCurrentDirectory(): options.Value.Path, "FileSystemConfig.json");
         }
 
         public async Task AddConfigurationAsync(int companyId, FileMetadata fileMetadata)
         {
-            JToken rootToken = null;
-            StreamReader fileReader = null;
             StreamWriter fileWriter = null;
             try
             {
-                using (fileReader = File.OpenText(_configPath))
-                {
-                    using (JsonTextReader reader = new JsonTextReader(fileReader))
-                    {
-                        rootToken = await JToken.ReadFromAsync(reader);
-                    }
-                }
+                JToken rootToken = await GetRootTokenAsync();
 
                 if (rootToken != null)
                 {
@@ -55,7 +46,7 @@ namespace FileService.DAL
                         //if company node does not exist, add company first, then files array to that company
                         var compArray = (JArray)rootToken.SelectToken($"$.companies");
 
-                        CompanyMetadata company = new CompanyMetadata() { companyId = companyId, files = new List<FileMetadata>() { fileMetadata } };
+                        CompanyMetadata company = new CompanyMetadata() { CompanyId = companyId, files = new List<FileMetadata>() { fileMetadata } };
                         compArray.Add(JToken.FromObject(company));
                     }
 
@@ -69,35 +60,26 @@ namespace FileService.DAL
                 }
                 else
                 {
-                    Log.Error("FileSystemConfig.json is not found");
+                    throw new FileNotFoundException("Configuration file is not found");
                 }
             }
 
-            catch (Exception ex)
+            catch (Exception)
             {
-                Log.Error(ex.Message);
+                throw;
             }
             finally
             {
-                fileReader?.Close();
                 fileWriter?.Close();
             }
         }
 
         public async IAsyncEnumerable<FileMetadata> GetAllConfigurationsAsync(int companyId)
         {
-            JToken rootToken = null;
-            StreamReader file = null;
-            JToken filesToken = null;
+            JToken filesToken;
             try
             {
-                using (file = File.OpenText(_configPath))
-                {
-                    using (JsonTextReader reader = new JsonTextReader(file))
-                    {
-                        rootToken = await JToken.ReadFromAsync(reader);
-                    }
-                }
+                JToken rootToken = await GetRootTokenAsync();
 
                 if (rootToken != null)
                 {
@@ -105,23 +87,18 @@ namespace FileService.DAL
                 }
                 else
                 {
-                    Log.Error("FileSystemConfig.json is not found");
+                     throw new FileNotFoundException("Configuration file is not found");
                 }
             }
 
-            catch (Exception ex)
+            catch (Exception)
             {
-                Log.Error(ex.Message);
-            }
-
-            finally
-            {
-                file?.Close();
+                throw;
             }
 
             if (filesToken == null)
             {
-                Log.Error($"No file for company ID = {companyId}");
+                throw new InvalidOperationException($"Company ID = {companyId} is not found");
             }
             else
             {
@@ -134,17 +111,9 @@ namespace FileService.DAL
 
         public async Task<FileMetadata> GetConfigurationAsync(int companyId, Guid fileId)
         {
-            JToken rootToken = null;
-            StreamReader file = null;
             try
             {
-                using (file = File.OpenText(_configPath))
-                {
-                    using (JsonTextReader reader = new JsonTextReader(file))
-                    {
-                        rootToken = await JToken.ReadFromAsync(reader);
-                    }
-                }
+                JToken rootToken = await GetRootTokenAsync();
 
                 if (rootToken != null)
                 {
@@ -156,42 +125,27 @@ namespace FileService.DAL
                     }
                     else
                     {
-                        Log.Error($"No file with id = {fileId} for company ID = {companyId}");
+                        throw new InvalidOperationException($"File for Company ID = { companyId } is not found");
                     }
                 }
                 else
                 {
-                    Log.Error("FileSystemConfig.json is not found");
+                    throw new FileNotFoundException("Configuration file is not found");
                 }
             }
 
-            catch (Exception ex)
+            catch (Exception)
             {
-                Log.Error(ex.Message);
+                throw;
             }
-
-            finally
-            {
-                file?.Close();
-            }
-            return null;
         }
 
         public async Task RemoveConfigurationAsync(int companyId, Guid fileId)
         {
-            JToken rootToken = null;
-            StreamReader fileReader = null;
             StreamWriter fileWriter = null;
             try
             {
-                using (fileReader = File.OpenText(_configPath))
-                {
-                    using (JsonTextReader reader = new JsonTextReader(fileReader))
-                    {
-                        rootToken = await JToken.ReadFromAsync(reader);
-                    }
-                }
-
+                JToken rootToken = await GetRootTokenAsync();
                 if (rootToken != null)
                 {
                     JToken fileToken = rootToken.SelectToken($"$.companies[?(@.companyId == {companyId})]")?.SelectToken($"$..files[?(@.Id == '{fileId}')]");
@@ -211,18 +165,41 @@ namespace FileService.DAL
                 }
                 else
                 {
-                    Log.Error("FileSystemConfig.json is not found");
+                    throw new FileNotFoundException("Configuration file is not found");
                 }
             }
 
-            catch (Exception ex)
+            catch (Exception)
             {
-                Log.Error(ex.Message);
+                throw;
+            }
+            finally
+            {
+                fileWriter?.Close();
+            }
+        }
+
+        private async Task<JToken> GetRootTokenAsync()
+        {
+            StreamReader fileReader = null;
+
+            try
+            {
+                using (fileReader = File.OpenText(_configPath))
+                {
+                    using (JsonTextReader reader = new JsonTextReader(fileReader))
+                    {
+                         return await JToken.ReadFromAsync(reader);
+                    }
+                }
+            }
+            catch(Exception)
+            {
+                throw;
             }
             finally
             {
                 fileReader?.Close();
-                fileWriter?.Close();
             }
         }
     }

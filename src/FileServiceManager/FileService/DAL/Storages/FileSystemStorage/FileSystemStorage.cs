@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using System.IO;
-using Microsoft.Extensions.Configuration;
 using FileService.Helpers;
+using FileService.DAL.Storages.Options;
+using Microsoft.Extensions.Options;
 
 namespace FileService.DAL
 {
@@ -14,23 +14,19 @@ namespace FileService.DAL
     {
         private readonly string _basePath;
         private readonly int _fileSizeLimit;
-        private readonly IEnumerable<string> _allowedExtensions;
+        private readonly FileExtension[] _allowedExtensions;
         private readonly IFileSystemConfigurator _fileSystemConfigurator;
 
-        public FileSystemStorage(IConfiguration configuration, IFileSystemConfigurator fileSystemConfigurator)
+        public FileSystemStorage(IOptions<StorageOption> options, IFileSystemConfigurator fileSystemConfigurator)
         {
-            _basePath = Path.Combine((configuration["storage:path"] ?? Directory.GetCurrentDirectory()) + "\\Files\\");
+            _basePath = Path.Combine((string.IsNullOrEmpty(options.Value.Path) ? Directory.GetCurrentDirectory() : options.Value.Path) + "\\Files\\");
 
-            if (!int.TryParse(configuration["file:sizeLimit"], out int fileSizeLimit))
-            {
-                fileSizeLimit = int.MaxValue;
-            }
-
-            _fileSizeLimit = fileSizeLimit;
+            _fileSizeLimit = options.Value.FileSizeLimit??int.MaxValue;
 
             _fileSystemConfigurator = fileSystemConfigurator;
 
-            _allowedExtensions = configuration.GetSection("file:allowedextensions").Get<IEnumerable<string>>()?? new List<string>();
+            _allowedExtensions = options.Value.AllowedExtensions;
+
         }
         public async Task<FileMetadata> GetFileAsync(Guid fileId, int companyId)
         {
@@ -42,7 +38,7 @@ namespace FileService.DAL
             }
             else
             {
-                throw new RESTException($"File ID = {fileId} is not found for company = {companyId}");
+                throw new InvalidOperationException($"File ID = {fileId} is not found for company = {companyId}");
             }
         }
 
@@ -62,9 +58,9 @@ namespace FileService.DAL
             {
                 if (File.Exists(fileInfo.FilePath))
                 {
-                    File.Delete(fileInfo.FilePath);
-
                     await _fileSystemConfigurator.RemoveConfigurationAsync(companyId, fileId);
+
+                    File.Delete(fileInfo.FilePath);
 
                     return true;
                 }
@@ -75,6 +71,7 @@ namespace FileService.DAL
 
         public async Task<Guid> UploadFileAsync(IFormFile file, int companyId)
         {
+            byte[] fileByteArray;
 
             var companyBasePath = Path.Combine(_basePath + companyId.ToString());
 
@@ -87,45 +84,48 @@ namespace FileService.DAL
             var filePath = Path.Combine(companyBasePath, file.FileName);
             var extension = Path.GetExtension(file.FileName);
 
-            if (ImageHelper.CheckExtension(extension, _allowedExtensions))
+
+            using (var ms = new MemoryStream())
             {
-                if (ImageHelper.CheckFileSize(file, _fileSizeLimit))
-                {
-                    if (!File.Exists(filePath))
-                    {
-                        using (var stream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await file.CopyToAsync(stream);
-                        }
-
-                        var fileMetadata = new FileMetadata()
-                        {
-                            Id = Guid.NewGuid(),
-                            Extension = extension,
-                            FilePath = filePath,
-                            Name = fileName,
-                            CreatedOn = DateTime.UtcNow,
-                            FileType = file.ContentType
-                        };
-
-                        await _fileSystemConfigurator.AddConfigurationAsync(companyId, fileMetadata);
-
-                        return fileMetadata.Id;
-                    }
-                    else
-                    {
-                        throw new RESTException($"File with name {fileName} already exists");
-                    }
-                }
-                else
-                {
-                    throw new RESTException($"File size limit = {_fileSizeLimit / (1024 * 1024)} is exceeded");
-                }
+                file.CopyTo(ms);
+                fileByteArray = ms.ToArray();
             }
-            else
+
+            // check whether file signature is in allowed list
+            if (!FileHelper.IsAllowedFileSignature(fileByteArray, _allowedExtensions))
             {
-                throw new RESTException($"File with extension = {extension} is not allowed");
+                throw new InvalidOperationException($"File with extension = {extension} is not allowed");
             }
+
+            //checking for file size limit
+            if(file.Length > _fileSizeLimit || fileByteArray.Length > _fileSizeLimit)
+            {
+                throw new InvalidOperationException($"File size limit = {(double)_fileSizeLimit / (1024 * 1024):0.##} MB is exceeded");
+            }
+
+            if (File.Exists(filePath))
+            {
+                throw new InvalidOperationException($"File with name {fileName} already exists");
+            }
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            var fileMetadata = new FileMetadata()
+            {
+                Id = Guid.NewGuid(),
+                Extension = extension,
+                FilePath = filePath,
+                Name = fileName,
+                CreatedOn = DateTime.UtcNow,
+                FileContentType = file.ContentType
+            };
+
+            await _fileSystemConfigurator.AddConfigurationAsync(companyId, fileMetadata);
+
+            return fileMetadata.Id;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace FileService.Controllers
                 await stream.CopyToAsync(memory);
             }
             memory.Position = 0;
-            return File(memory, fileInfo.FileType, fileInfo.Name + fileInfo.Extension);
+            return File(memory, fileInfo.FileContentType, fileInfo.Name + fileInfo.Extension);
         }
 
         [HttpPost("Upload")]
