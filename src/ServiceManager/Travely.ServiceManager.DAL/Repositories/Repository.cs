@@ -21,7 +21,7 @@ namespace Travely.ServiceManager.DAL.Repositories
             return dbEntity.Entity;
         }
 
-        public virtual async Task DeleteAsync(int entityId)
+        public virtual async Task DeleteAsync(long entityId)
         {
             var entity = await _dbSet.FindAsync(entityId);
             Delete(entity);
@@ -37,7 +37,7 @@ namespace Travely.ServiceManager.DAL.Repositories
             return await _dbSet.ToListAsync();
         }
 
-        public virtual async Task<TEntity> GetAsync(int entityId)
+        public virtual async Task<TEntity> GetAsync(long entityId)
         {
             return await _dbSet.FindAsync(entityId);
         }
@@ -45,6 +45,7 @@ namespace Travely.ServiceManager.DAL.Repositories
         public virtual void Update(TEntity entity)
         {
             _dbSet.Update(entity);
+            _dbContext.SaveChanges();
         }
     }
 }

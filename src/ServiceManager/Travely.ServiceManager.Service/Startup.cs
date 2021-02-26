@@ -10,6 +10,7 @@ using Travely.ServiceManager.Service.Managers;
 using Travely.ServiceManager.DAL;
 using Travely.ServiceManager.DAL.UnitOfWorks;
 using Microsoft.Extensions.Configuration;
+using Travely.ServiceManager.Service.Mappers;
 
 namespace Travely.ServiceManager.Service
 {
@@ -33,6 +34,12 @@ namespace Travely.ServiceManager.Service
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IActivityManager, ActivityManager>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new ActivityProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

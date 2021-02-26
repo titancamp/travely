@@ -10,8 +10,8 @@ using Travely.ServiceManager.DAL;
 namespace Travely.ServiceManager.DAL.Migrations
 {
     [DbContext(typeof(ServiceManagerDbContext))]
-    [Migration("20210210175151_ServiceManagerDB")]
-    partial class ServiceManagerDB
+    [Migration("20210226133619_ServiceManagerDb")]
+    partial class ServiceManagerDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
