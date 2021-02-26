@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Travely.ServiceManager.DAL.Migrations
 {
-    public partial class ServiceManagerDb : Migration
+    public partial class ServiceManagerDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
