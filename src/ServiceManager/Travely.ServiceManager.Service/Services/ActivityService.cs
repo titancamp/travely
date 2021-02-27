@@ -26,11 +26,36 @@ namespace Travely.ServiceManager.Service
 
         public override async Task<Activities> GetActivities(GetActivitiesRequest req, ServerCallContext context)
         {
-            var allActivities = await _activityManager.GetActivitiesAsync(req.AgencyId);
+           // var allActivities = await _activityManager.GetActivitiesAsync(req.AgencyId);
 
             var activities = new Activities();
-            activities.Activities_.AddRange(allActivities);
-            
+            var act = new Activity()
+            {
+                Address = "",
+                ChangeUser = 11,
+                ContactName = "contact name",
+                Email = "brbr@brb.am",
+                Id = 112,
+                Name = "testName",
+                Phone = "099541462",
+                Price = new Price()
+                {
+                    Currency = "AMD",
+                    Price_ = 14000
+                },
+                Type = new ActivityType()
+                {
+                    Id = 112345,
+                    ActivityName = "Resturant",
+                    AgencyId = 4343
+                },
+                Website = "google.com"
+            };
+
+            activities.Activities_.Add(act);
+
+           // activities.Activities_.AddRange(allActivities);
+
             return activities;
         }
 

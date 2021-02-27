@@ -7,6 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using TourManager.Repository.EfCore.Context;
+using TourManager.Clients.Abstraction.ServiceManager;
+using TourManager.Clients.Implementation.ServiceManager;
+using TourManager.Common.Settings;
+using TourManager.Clients.Abstraction.Settings;
+using TourManager.Clients.Implementation.Settings;
 
 namespace TourManager.Api
 {
@@ -37,6 +42,11 @@ namespace TourManager.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TourManager.Api", Version = "v1" });
             });
+
+            services.AddScoped<IServiceManagerClient, ServiceManagerClient>();
+            services.AddScoped<IServiceSettingsProvider, ServiceSettingsProvider>();
+            services.Configure<GrpcServiceSettings>(Configuration.GetSection("GrpcServiceSettings"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
