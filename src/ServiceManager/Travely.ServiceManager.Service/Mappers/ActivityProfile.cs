@@ -22,7 +22,10 @@ namespace Travely.ServiceManager.Service.Mappers
                 .ForPath(dest => dest.Price.Price_, opt => opt.MapFrom(src => src.Price))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.EmailAddress));
 
-            CreateMap<ActivityType, DbModels.ActivityType>().ReverseMap()
+            CreateMap<ActivityType, DbModels.ActivityType>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ActivityName));
+
+            CreateMap<DbModels.ActivityType, ActivityType>()
                 .ForMember(dest => dest.ActivityName, opt => opt.MapFrom(src => src.Name));
         }
 

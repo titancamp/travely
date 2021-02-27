@@ -14,9 +14,12 @@ namespace Travely.ServiceManager.DAL.Repositories
         {
             _serviceManagerDbContext = serviceManagerDbContext;
         }
-        public async Task<ActivityType> GetActivityTypeByUniqueKeysAsync(long agencyId, string activityTypeName)
+
+        public async Task<ActivityType> GetActivityTypeByAgencyIdAndTypeName(long agencyId, string activityTypeName)
         {
-            return await _serviceManagerDbContext.ActivityTypes.Where(x => x.AgencyId == agencyId && x.Name == activityTypeName).FirstOrDefaultAsync();
+            return await _serviceManagerDbContext.ActivityTypes
+                .Where(x => x.AgencyId == agencyId && x.Name == activityTypeName)
+                .SingleOrDefaultAsync();
         }
     }
 }

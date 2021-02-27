@@ -16,14 +16,21 @@ namespace Travely.ServiceManager.DAL.Repositories
         {
             _serviceManagerDbContext = serviceManagerDbContext;
         }
+
         public async Task<List<Activity>> GetAllActivitiesByAgencyIdAsync(long agencyId)
         {
-            return await _serviceManagerDbContext.Activities.Include(x => x.ActivityType).Where(x => x.ActivityType.AgencyId == agencyId).ToListAsync();
+            return await _serviceManagerDbContext.Activities
+                .Include(x => x.ActivityType)
+                .Where(x => x.ActivityType.AgencyId == agencyId)
+                .ToListAsync();
         }
 
-        public async Task<Activity> GetActivityByUniqueKeysAsync(long agencyId, string activityName, long activityTypeId)
+        public async Task<Activity> GetActivityByNameAndTypeId(long agencyId, string activityName, long activityTypeId)
         {
-            return await _serviceManagerDbContext.Activities.Include(x => x.ActivityType).Where(x => x.ActivityType.AgencyId == agencyId && x.Name == activityName && x.ActivityTypeId == activityTypeId).FirstOrDefaultAsync();
+            return await _serviceManagerDbContext.Activities
+                .Include(x => x.ActivityType)
+                .Where(x => x.ActivityType.AgencyId == agencyId && x.Name == activityName && x.ActivityTypeId == activityTypeId)
+                .SingleOrDefaultAsync();
         }
     }
 }

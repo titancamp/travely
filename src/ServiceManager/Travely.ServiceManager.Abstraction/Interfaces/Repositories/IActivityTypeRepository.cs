@@ -5,6 +5,6 @@ namespace Travely.ServiceManager.Abstraction.Interfaces.Repositories
 {
     public interface IActivityTypeRepository : IRepository<ActivityType>
     {
-        Task<ActivityType> GetActivityTypeByUniqueKeysAsync(long agencyId, string activityTypeName);
+        Task<ActivityType> GetActivityTypeByAgencyIdAndTypeName(long agencyId, string activityTypeName);
     }
 }
