@@ -33,7 +33,7 @@ namespace FileService.DAL
 
                 if (rootToken != null)
                 {
-                    JToken companiesToken = rootToken.SelectToken($"$.companies[?(@.companyId == {companyId})]");
+                    JToken companiesToken = rootToken.SelectToken($"$.companies[?(@.company_id == {companyId})]");
 
                     //if company node exists, add new file to files array
                     if (companiesToken != null)
@@ -83,7 +83,7 @@ namespace FileService.DAL
 
                 if (rootToken != null)
                 {
-                    filesToken = rootToken.SelectToken($"$.companies[?(@.companyId == {companyId})]")?.SelectToken($"$..files");
+                    filesToken = rootToken.SelectToken($"$.companies[?(@.company_id == {companyId})]")?.SelectToken($"$..files");
                 }
                 else
                 {
@@ -116,9 +116,8 @@ namespace FileService.DAL
                 JToken rootToken = await GetRootTokenAsync();
 
                 if (rootToken != null)
-                {
-                    JToken filesToken = rootToken.SelectToken($"$.companies[?(@.companyId == {companyId})]")?.SelectToken($"$..files[?(@.Id == '{fileId}')]");
-
+                {          
+                    JToken filesToken = rootToken.SelectToken($"$.companies[?(@.company_id == {companyId})]")?.SelectToken($"$..files[?(@.id == '{fileId}')]");
                     if (filesToken != null)
                     {
                         return filesToken.ToObject<FileMetadata>();
@@ -142,13 +141,15 @@ namespace FileService.DAL
 
         public async Task RemoveConfigurationAsync(int companyId, Guid fileId)
         {
+            Console.WriteLine("inside remove configuration");
             StreamWriter fileWriter = null;
             try
             {
                 JToken rootToken = await GetRootTokenAsync();
                 if (rootToken != null)
                 {
-                    JToken fileToken = rootToken.SelectToken($"$.companies[?(@.companyId == {companyId})]")?.SelectToken($"$..files[?(@.Id == '{fileId}')]");
+                    Console.WriteLine("condition passed");
+                    JToken fileToken = rootToken.SelectToken($"$.companies[?(@.company_id == {companyId})]")?.SelectToken($"$..files[?(@.id == '{fileId}')]");
 
                     if (fileToken != null)
                     {
