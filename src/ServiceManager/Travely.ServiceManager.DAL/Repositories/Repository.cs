@@ -45,7 +45,6 @@ namespace Travely.ServiceManager.DAL.Repositories
         public virtual void Update(TEntity entity)
         {
             _dbSet.Update(entity);
-            _dbContext.SaveChanges();
         }
     }
 }
