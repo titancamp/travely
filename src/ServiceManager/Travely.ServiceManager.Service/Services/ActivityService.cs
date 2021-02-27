@@ -19,17 +19,9 @@ namespace Travely.ServiceManager.Service
             try
             {
                 var createdActivity = await _activityManager.CreateActivityAsync(activity);
-                if (createdActivity == null)
-                {
-                    return new ActivityResponse
-                    {
-                        Message = $"Given Activity already exist: {JsonConvert.SerializeObject(activity)}",
-                        Status = ResponseStatus.Failed
-                    };
-                }
                 return new ActivityResponse
                 {
-                    Message = $"Successfully created new activity: {createdActivity.Name}",
+                    Message = $"Successfully created new activity: {createdActivity?.Name}",
                     Status = ResponseStatus.Success
                 };
             }

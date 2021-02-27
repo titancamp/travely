@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Travely.ServiceManager.Abstraction.Interfaces.UnitOfWorks;
@@ -19,7 +20,7 @@ namespace Travely.ServiceManager.Service.Managers
 
         public async Task<Activity> CreateActivityAsync(Activity activity)
         {
-            var activityType = await _unitOfWork.ActivityTypeRepository.GetActivityTypeByAgencyIdAndTypeName(activity.Type.AgencyId, activity.Type.ActivityName);
+            var activityType = await _unitOfWork.ActivityTypeRepository.GetActivityTypeAsync(activity.Type.AgencyId, activity.Type.ActivityName);
             if (activityType == null)
             {
                 activityType = await _unitOfWork.ActivityTypeRepository.CreateAsync(_mapper.Map<ServiceManagerDb.ActivityType>(activity.Type));
@@ -28,8 +29,8 @@ namespace Travely.ServiceManager.Service.Managers
             ServiceManagerDb.Activity activityEntity;
             if (activityType.Id != 0)
             {
-                activityEntity = await _unitOfWork.ActivityRepository.GetActivityByNameAndTypeId(activityType.AgencyId, activity.Name, activityType.Id);
-                if (activityEntity != null) { return null; }
+                activityEntity = await _unitOfWork.ActivityRepository.GetActivityAsync(activityType.AgencyId, activity.Name, activityType.Id);
+                if (activityEntity != null) { throw new InvalidOperationException(); }
             }
 
             activityEntity = _mapper.Map<ServiceManagerDb.Activity>(activity);
@@ -42,7 +43,7 @@ namespace Travely.ServiceManager.Service.Managers
 
         public async Task<IEnumerable<Activity>> GetActivitiesAsync(long agencyId)
         {
-            var activities = await _unitOfWork.ActivityRepository.GetAllActivitiesByAgencyIdAsync(agencyId);
+            var activities = await _unitOfWork.ActivityRepository.GetAllActivitiesAsync(agencyId);
             return _mapper.Map<List<Activity>>(activities);
         }
 
@@ -56,6 +57,7 @@ namespace Travely.ServiceManager.Service.Managers
         {
             var activityEntity = _mapper.Map<ServiceManagerDb.Activity>(activity);
             _unitOfWork.ActivityRepository.Update(activityEntity);
+            _unitOfWork.Save();
             return activity;
         }
     }

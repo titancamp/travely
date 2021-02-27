@@ -17,7 +17,7 @@ namespace Travely.ServiceManager.DAL.Repositories
             _serviceManagerDbContext = serviceManagerDbContext;
         }
 
-        public async Task<List<Activity>> GetAllActivitiesByAgencyIdAsync(long agencyId)
+        public async Task<List<Activity>> GetAllActivitiesAsync(long agencyId)
         {
             return await _serviceManagerDbContext.Activities
                 .Include(x => x.ActivityType)
@@ -25,7 +25,7 @@ namespace Travely.ServiceManager.DAL.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Activity> GetActivityByNameAndTypeId(long agencyId, string activityName, long activityTypeId)
+        public async Task<Activity> GetActivityAsync(long agencyId, string activityName, long activityTypeId)
         {
             return await _serviceManagerDbContext.Activities
                 .Include(x => x.ActivityType)
