@@ -96,5 +96,21 @@ namespace Travely.ServiceManager.Service
                 };
             }
         }
+
+        public override async Task<ActivityTypes> SearchActivityTypes(SearchActivityTypesRequest req, ServerCallContext context)
+        {
+            try
+            {
+                var searchedActivityTypes = await _activityManager.SearchActivityTypesAsync(req.AgencyId, req.ActivityTypeName);
+                var activityTypes = new ActivityTypes();
+                activityTypes.ActivityTypes_.AddRange(searchedActivityTypes);
+                return activityTypes;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
     }
 }

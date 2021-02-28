@@ -11,6 +11,7 @@ service ActivityProto {
 	rpc GetActivities(GetActivitiesRequest) returns (Activities);
 	rpc DeleteActivity (DeleteActivityRequest) returns (ActivityResponse);
 	rpc EditActivity (Activity) returns (ActivityResponse);
+	rpc SearchActivityTypes (SearchActivityTypesRequest) returns (ActivityTypes);
 }
 
 message ActivityType {
@@ -53,6 +54,16 @@ message DeleteActivityRequest {
 message Activities {
 	repeated Activity Activities = 1;
 }
+
+message SearchActivityTypesRequest {
+	int64 agencyId = 1;
+	string activityTypeName = 2;
+}
+
+message ActivityTypes {
+	repeated ActivityType ActivityTypes = 1;
+}
+
 enum ResponseStatus {
 	RESPONSESTATUS_FAILED = 0;
 	RESPONSESTATUS_SUCCESS = 1;

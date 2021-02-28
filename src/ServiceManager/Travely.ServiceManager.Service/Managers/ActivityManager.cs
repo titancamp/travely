@@ -60,5 +60,11 @@ namespace Travely.ServiceManager.Service.Managers
             _unitOfWork.Save();
             return activity;
         }
+
+        public async Task<List<ActivityType>> SearchActivityTypesAsync(long agenctId, string activityTypeName)
+        {
+            var activityTypes = await _unitOfWork.ActivityTypeRepository.SearchActivityTypesAsync(agenctId, activityTypeName);
+            return _mapper.Map<List<ActivityType>>(activityTypes);
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace Travely.ServiceManager.Service
         Task<IEnumerable<Activity>> GetActivitiesAsync(long agencyId);
         Task DeleteActivityAsync(long activityId);
         Activity EditActivity(Activity activity);
+        Task<List<ActivityType>> SearchActivityTypesAsync(long agenctId, string activityTypeName);
     }
 }
