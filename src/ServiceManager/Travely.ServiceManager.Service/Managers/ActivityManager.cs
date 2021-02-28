@@ -23,7 +23,8 @@ namespace Travely.ServiceManager.Service.Managers
             var activityType = await _unitOfWork.ActivityTypeRepository.GetActivityTypeAsync(activity.Type.AgencyId, activity.Type.ActivityName);
             if (activityType == null)
             {
-                activityType = await _unitOfWork.ActivityTypeRepository.CreateAsync(_mapper.Map<ServiceManagerDb.ActivityType>(activity.Type));
+                var mappedActivity = _mapper.Map<ServiceManagerDb.ActivityType>(activity.Type);
+                activityType = await _unitOfWork.ActivityTypeRepository.CreateAsync(mappedActivity);
             }
 
             ServiceManagerDb.Activity activityEntity;

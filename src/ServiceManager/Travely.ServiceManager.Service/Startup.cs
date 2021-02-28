@@ -31,15 +31,9 @@ namespace Travely.ServiceManager.Service
                 options.UseServiceManagerDatabaseServer(Configuration));
 
             services.AddGrpc();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(typeof(ActivityProfile));
             services.AddScoped<IActivityManager, ActivityManager>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new ActivityProfile());
-            });
-
-            IMapper mapper = mappingConfig.CreateMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
