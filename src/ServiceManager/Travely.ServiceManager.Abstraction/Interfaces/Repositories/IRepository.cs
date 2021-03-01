@@ -7,7 +7,7 @@ namespace Travely.ServiceManager.Abstraction.Interfaces
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> GetAsync(long entityId);
-        Task<TEntity> CreateAsync(TEntity entity);
+        TEntity Create(TEntity entity);
         Task DeleteAsync(long entityId);
         void Delete(TEntity entity);
         void Update(TEntity entity);

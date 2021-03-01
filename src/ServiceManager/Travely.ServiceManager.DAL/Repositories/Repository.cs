@@ -15,9 +15,9 @@ namespace Travely.ServiceManager.DAL.Repositories
             _dbContext = dbContext;
             _dbSet = dbContext.Set<TEntity>();
         }
-        public virtual async Task<TEntity> CreateAsync(TEntity entity)
+        public virtual TEntity Create(TEntity entity)
         {
-            var dbEntity = await _dbSet.AddAsync(entity);
+            var dbEntity = _dbSet.Add(entity);
             return dbEntity.Entity;
         }
 

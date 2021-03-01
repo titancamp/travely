@@ -18,26 +18,25 @@ namespace Travely.ServiceManager.Service.Managers
             _mapper = mapper;
         }
 
-        public async Task<Activity> CreateActivityAsync(Activity activity)
+        public async Task<Activity> CreateActivity(Activity activity)
         {
-            var activityType = await _unitOfWork.ActivityTypeRepository.GetActivityTypeAsync(activity.Type.AgencyId, activity.Type.ActivityName);
-            if (activityType == null)
-            {
-                var mappedActivity = _mapper.Map<ServiceManagerDb.ActivityType>(activity.Type);
-                activityType = await _unitOfWork.ActivityTypeRepository.CreateAsync(mappedActivity);
-            }
+            var activityEntity = new ServiceManagerDb.Activity();
 
-            ServiceManagerDb.Activity activityEntity;
-            if (activityType.Id != 0)
+            var activityType = await _unitOfWork.ActivityTypeRepository.GetActivityTypeAsync(activity.Type.AgencyId, activity.Type.ActivityName);
+
+            if (activityType is not null && activityType.Id != 0)
             {
                 activityEntity = await _unitOfWork.ActivityRepository.GetActivityAsync(activityType.AgencyId, activity.Name, activityType.Id);
                 if (activityEntity != null) { throw new InvalidOperationException(); }
             }
 
             activityEntity = _mapper.Map<ServiceManagerDb.Activity>(activity);
-            activityEntity.ActivityType = activityType;
+            if (activityType is not null)
+            {
+                activityEntity.ActivityType = activityType;
+            }
 
-            var createdActivity = await _unitOfWork.ActivityRepository.CreateAsync(activityEntity);
+            var createdActivity = _unitOfWork.ActivityRepository.Create(activityEntity);
             await _unitOfWork.SaveAsync();
             return _mapper.Map<Activity>(createdActivity);
         }

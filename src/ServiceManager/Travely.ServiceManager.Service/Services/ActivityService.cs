@@ -18,7 +18,7 @@ namespace Travely.ServiceManager.Service
         {
             try
             {
-                var createdActivity = await _activityManager.CreateActivityAsync(activity);
+                var createdActivity = await _activityManager.CreateActivity(activity);
                 return new ActivityResponse
                 {
                     Message = $"Successfully created new activity: {createdActivity?.Name}",
