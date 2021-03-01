@@ -13,10 +13,10 @@ namespace Travely.SchedulerManager.Notifier.Services
     {
         readonly IHubContext<NotificationHub, INotificationHub> _hubContext;
         readonly EmailOptions _emailOptions;
-        public NotificationService(IHubContext<NotificationHub, INotificationHub> hub, IOptionsMonitor<EmailOptions> options)
+        public NotificationService(IHubContext<NotificationHub, INotificationHub> hub, IOptionsMonitor<NotifierOptions> options)
         {
             _hubContext = hub;
-            _emailOptions = options.CurrentValue;
+            _emailOptions = options.CurrentValue.EmailOptions;
         }
         public Task NotifyAsync(NotificationInfo dto)
         {

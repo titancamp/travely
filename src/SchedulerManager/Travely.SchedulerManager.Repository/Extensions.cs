@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Travely.SchedulerManager.Common;
 using Travely.SchedulerManager.Repository.Implementation;
 using Travely.SchedulerManager.Repository.Infrastructure.Interfaces;
 
@@ -8,9 +11,9 @@ namespace Travely.SchedulerManager.Repository
 {
     public static class Extensions
     {
-        public static IServiceCollection AddRepositoryLayer(this IServiceCollection services, string connectionString)
+        public static IServiceCollection AddRepositoryLayer(this IServiceCollection services, RepositoryOptions options)
         {
-            services.AddDContext(connectionString);
+            services.AddDContext(options.ConnectionString);
             services.AddRepositories();
             services.AddDbSeeding();
             return services;

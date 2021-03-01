@@ -3,13 +3,15 @@ using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
+using Travely.SchedulerManager.Common;
 
 namespace Travely.SchedulerManager.Job
 {
     public static class Extensions
     {
-        public static IServiceCollection AddJobService(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddJobService(this IServiceCollection services, JobOptions options)
         {
             services.AddSingleton(typeof(IEnqueueAsyncJobService<>), typeof(EnqueueAsyncJobService<>));
             services.AddSingleton(typeof(IScheduledAsyncJobService<>), typeof(ScheduledAsyncJobService<>));
@@ -19,7 +21,7 @@ namespace Travely.SchedulerManager.Job
                    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                    .UseSimpleAssemblyNameTypeSerializer()
                    .UseRecommendedSerializerSettings()
-                   .UseSqlServerStorage(configuration["ConnectionStrings:Jobs"], new SqlServerStorageOptions
+                   .UseSqlServerStorage(options.ConnectionString, new SqlServerStorageOptions
                    {
                        CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
                        SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
