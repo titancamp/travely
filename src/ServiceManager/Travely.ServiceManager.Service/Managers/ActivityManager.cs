@@ -18,7 +18,7 @@ namespace Travely.ServiceManager.Service.Managers
             _mapper = mapper;
         }
 
-        public async Task<Activity> CreateActivity(Activity activity)
+        public async Task<Activity> CreateActivityAsync(Activity activity)
         {
             var activityEntity = new ServiceManagerDb.Activity();
 
@@ -53,11 +53,11 @@ namespace Travely.ServiceManager.Service.Managers
             await _unitOfWork.SaveAsync();
         }
 
-        public Activity EditActivity(Activity activity)
+        public async Task<Activity> EditActivityAsync(Activity activity)
         {
             var activityEntity = _mapper.Map<ServiceManagerDb.Activity>(activity);
             _unitOfWork.ActivityRepository.Update(activityEntity);
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
             return activity;
         }
 
