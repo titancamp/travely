@@ -11,10 +11,4 @@ namespace TourManager.Common.Clients
         public ResponseStatus Status { get; set; }
         public string Message { get; set; }
     }
-
-	public enum ResponseStatus
-	{
-		Success,
-		Failed
-	}
 }

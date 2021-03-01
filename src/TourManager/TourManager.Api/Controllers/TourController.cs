@@ -1,9 +1,5 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TourManager.Clients.Abstraction.ServiceManager;
-using TourManager.Clients.Implementation.ServiceManager;
-
 
 namespace TourManager.Api.Controllers
 {
@@ -12,11 +8,6 @@ namespace TourManager.Api.Controllers
 	[Route("api/v{version:apiVersion}/[controller]")]
 	public class TourController : Controller
 	{
-		private readonly IServiceManagerClient _serviceManagerClient;
-		public TourController(IServiceManagerClient serviceManagerClient)
-        {
-			_serviceManagerClient = serviceManagerClient;
-        }
 
 		// GET: api/v1/tour
 		[HttpGet]
@@ -29,10 +20,7 @@ namespace TourManager.Api.Controllers
 		[HttpGet("{id}")]
 		public async Task<IActionResult> Get(int id)
 		{
-
-			var aa = await _serviceManagerClient.GetActivitiesAsync(1);
-
-			return Ok(aa.ToList());
+			return Ok();
 		}
 
 		// POST: api/v1/tour
