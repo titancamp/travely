@@ -29,7 +29,7 @@ namespace Travely.ServiceManager.UnitTests
         public async Task CreateActivity_OnValidArgsPassed_ShouldNotThrow()
         {
             // Arrange
-            _activityManagerMock.Setup(am => am.CreateActivityAsync(It.Is<Activity>(a => a != null))).ReturnsAsync(Mocks.Activity);
+            _activityManagerMock.Setup(am => am.CreateActivity(It.Is<Activity>(a => a != null))).ReturnsAsync(Mocks.Activity);
 
             var activityService = new ActivityService(_activityManagerMock.Object);
 
@@ -43,14 +43,14 @@ namespace Travely.ServiceManager.UnitTests
             // Arrange
             var activityService = new ActivityService(_activityManagerMock.Object);
 
-            _activityManagerMock.Setup(am => am.CreateActivityAsync(It.IsAny<Activity>())).ReturnsAsync(Mocks.Activity);
+            _activityManagerMock.Setup(am => am.CreateActivity(It.IsAny<Activity>())).ReturnsAsync(Mocks.Activity);
 
             // Act
             var result = await activityService.CreateActivity(Mocks.Activity, null);
 
             // Assert
-            _activityManagerMock.Verify(am => am.CreateActivityAsync(It.IsAny<Activity>()), Times.Once);
-            _activityManagerMock.Verify(am => am.CreateActivityAsync(Mocks.Activity), Times.Once);
+            _activityManagerMock.Verify(am => am.CreateActivity(It.IsAny<Activity>()), Times.Once);
+            _activityManagerMock.Verify(am => am.CreateActivity(Mocks.Activity), Times.Once);
         }
 
         [Fact]
@@ -59,7 +59,7 @@ namespace Travely.ServiceManager.UnitTests
             // Arrange
             var activityService = new ActivityService(_activityManagerMock.Object);
 
-            _activityManagerMock.Setup(am => am.CreateActivityAsync(It.IsAny<Activity>())).ReturnsAsync(Mocks.Activity);
+            _activityManagerMock.Setup(am => am.CreateActivity(It.IsAny<Activity>())).ReturnsAsync(Mocks.Activity);
 
             // Act
             var result = await activityService.CreateActivity(Mocks.Activity, null);
@@ -135,7 +135,7 @@ namespace Travely.ServiceManager.UnitTests
                 Status = ResponseStatus.Success,
             };
 
-            _activityManagerMock.Setup(am => am.DeleteActivityAsync(It.IsAny<long>())).ReturnsAsync(response);
+            _activityManagerMock.Setup(am => am.DeleteActivityAsync(It.IsAny<long>()));
 
             // Act
             var result = await activityService.DeleteActivity(new DeleteActivityRequest { ActivityId = 1 }, null);
@@ -155,7 +155,7 @@ namespace Travely.ServiceManager.UnitTests
                 Status = ResponseStatus.Success,
             };
 
-            _activityManagerMock.Setup(am => am.DeleteActivityAsync(It.IsAny<long>())).ReturnsAsync(response);
+            _activityManagerMock.Setup(am => am.DeleteActivityAsync(It.IsAny<long>()));
 
             // Act
             var result = await activityService.DeleteActivity(new DeleteActivityRequest { ActivityId = activityId }, null);
@@ -171,7 +171,7 @@ namespace Travely.ServiceManager.UnitTests
             // Arrange
             var activityService = new ActivityService(_activityManagerMock.Object);
 
-            _activityManagerMock.Setup(am => am.EditActivityAsync(It.IsAny<Activity>())).ReturnsAsync(Mocks.Activity);
+            _activityManagerMock.Setup(am => am.EditActivity(It.IsAny<Activity>())).Returns(Mocks.Activity);
 
             // Act
             var result = await activityService.EditActivity(Mocks.Activity, null);
@@ -186,14 +186,14 @@ namespace Travely.ServiceManager.UnitTests
             // Arrange
             var activityService = new ActivityService(_activityManagerMock.Object);
 
-            _activityManagerMock.Setup(am => am.EditActivityAsync(It.IsAny<Activity>())).ReturnsAsync(Mocks.Activity);
+            _activityManagerMock.Setup(am => am.EditActivity(It.IsAny<Activity>())).Returns(Mocks.Activity);
 
             // Act
             var result = await activityService.EditActivity(Mocks.Activity, null);
 
             // Assert
-            _activityManagerMock.Verify(am => am.EditActivityAsync(Mocks.Activity), Times.Once);
-            _activityManagerMock.Verify(am => am.EditActivityAsync(It.IsAny<Activity>()), Times.Once);
+            _activityManagerMock.Verify(am => am.EditActivity(Mocks.Activity), Times.Once);
+            _activityManagerMock.Verify(am => am.EditActivity(It.IsAny<Activity>()), Times.Once);
         }
     }
 }
