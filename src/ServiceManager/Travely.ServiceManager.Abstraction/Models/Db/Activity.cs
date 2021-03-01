@@ -14,7 +14,7 @@ namespace Travely.ServiceManager.Abstraction.Models.Db
         public string Phone { get; set; } = null!;
         public string Website { get; set; }
         public decimal? Price { get; set; }
-        public string Currency { get; set; }
+        public string Currency { get; set; } = null!;
         public string Notes { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime LastUpdatedDate { get; set; }

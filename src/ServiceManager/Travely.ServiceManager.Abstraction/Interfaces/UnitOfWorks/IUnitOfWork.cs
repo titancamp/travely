@@ -9,5 +9,6 @@ namespace Travely.ServiceManager.Abstraction.Interfaces.UnitOfWorks
         IActivityRepository ActivityRepository { get; }
         IActivityTypeRepository ActivityTypeRepository { get; }
         Task<int> SaveAsync();
+        int Save();
     }
 }

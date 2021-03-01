@@ -10,6 +10,7 @@ using Travely.ServiceManager.Service.Managers;
 using Travely.ServiceManager.DAL;
 using Travely.ServiceManager.DAL.UnitOfWorks;
 using Microsoft.Extensions.Configuration;
+using Travely.ServiceManager.Service.Mappers;
 
 namespace Travely.ServiceManager.Service
 {
@@ -30,7 +31,7 @@ namespace Travely.ServiceManager.Service
                 options.UseServiceManagerDatabaseServer(Configuration));
 
             services.AddGrpc();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(typeof(ActivityProfile));
             services.AddScoped<IActivityManager, ActivityManager>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }

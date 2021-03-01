@@ -1,36 +1,70 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Travely.ServiceManager.Abstraction.Interfaces.UnitOfWorks;
+using ServiceManagerDb = Travely.ServiceManager.Abstraction.Models.Db;
 
 namespace Travely.ServiceManager.Service.Managers
 {
     public class ActivityManager : IActivityManager
     {
         protected readonly IUnitOfWork _unitOfWork;
+        protected readonly IMapper _mapper;
 
-        public ActivityManager(IUnitOfWork unitOfWork)
+        public ActivityManager(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
-        }
-        public Task<Activity> CreateActivityAsync(Activity activity)
-        {
-            throw new NotImplementedException();
+            _mapper = mapper;
         }
 
-        public Task<IEnumerable<Activity>> GetActivitiesAsync(int agencyId)
+        public async Task<Activity> CreateActivity(Activity activity)
         {
-            throw new NotImplementedException();
+            var activityEntity = new ServiceManagerDb.Activity();
+
+            var activityType = await _unitOfWork.ActivityTypeRepository.GetActivityTypeAsync(activity.Type.AgencyId, activity.Type.ActivityName);
+
+            if (activityType is not null && activityType.Id != 0)
+            {
+                activityEntity = await _unitOfWork.ActivityRepository.GetActivityAsync(activityType.AgencyId, activity.Name, activityType.Id);
+                if (activityEntity != null) { throw new InvalidOperationException(); }
+            }
+
+            activityEntity = _mapper.Map<ServiceManagerDb.Activity>(activity);
+            if (activityType is not null)
+            {
+                activityEntity.ActivityType = activityType;
+            }
+
+            var createdActivity = _unitOfWork.ActivityRepository.Create(activityEntity);
+            await _unitOfWork.SaveAsync();
+            return _mapper.Map<Activity>(createdActivity);
         }
 
-        public Task<ActivityResponse> DeleteActivityAsync(long activityId)
+        public async Task<IEnumerable<Activity>> GetActivitiesAsync(long agencyId)
         {
-            throw new NotImplementedException();
+            var activities = await _unitOfWork.ActivityRepository.GetAllActivitiesAsync(agencyId);
+            return _mapper.Map<List<Activity>>(activities);
         }
 
-        public Task<Activity> EditActivityAsync(Activity activity)
+        public async Task DeleteActivityAsync(long activityId)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.ActivityRepository.DeleteAsync(activityId);
+            await _unitOfWork.SaveAsync();
+        }
+
+        public Activity EditActivity(Activity activity)
+        {
+            var activityEntity = _mapper.Map<ServiceManagerDb.Activity>(activity);
+            _unitOfWork.ActivityRepository.Update(activityEntity);
+            _unitOfWork.Save();
+            return activity;
+        }
+
+        public async Task<List<ActivityType>> SearchActivityTypesAsync(long agenctId, string activityTypeName)
+        {
+            var activityTypes = await _unitOfWork.ActivityTypeRepository.SearchActivityTypesAsync(agenctId, activityTypeName);
+            return _mapper.Map<List<ActivityType>>(activityTypes);
         }
     }
 }
