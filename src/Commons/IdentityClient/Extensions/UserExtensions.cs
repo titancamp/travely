@@ -1,10 +1,11 @@
-﻿using System.Linq;
+﻿using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 using Travely.IdentityClient.Authorization.Data;
 
 namespace Microsoft.AspNetCore.Http
 {
-    public static class UserExtensions
+    public static class TravelyIdentityHttpContextExtensions
     {
         public static UserInfo GetTravelyUserInfo(this HttpContext httpContext)
         {
@@ -13,8 +14,8 @@ namespace Microsoft.AspNetCore.Http
                 AgancyId = 1,
                 EmployeeId = 1,
                 UserId = 1,
-                Email = "theuser@travely.com",
-                Name = "The admin."
+                Email = "torq@travely.com",
+                Name = "Torq Angegh"
             };
             //UserInfo userInfo = new UserInfo();
             //foreach(var prop in userInfo.GetType().GetProperties())
@@ -24,5 +25,14 @@ namespace Microsoft.AspNetCore.Http
 
             //return userInfo;
         }
+    }
+}
+
+namespace Grpc.Core
+{
+   
+    public static class TravelyIdentityServerCallContextExtensions
+    {
+        public static UserInfo GetTravelyUserInfo(this ServerCallContext context) => context.GetHttpContext().GetTravelyUserInfo();
     }
 }
