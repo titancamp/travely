@@ -8,7 +8,7 @@ using Travely.SchedulerManager.Job;
 using Travely.SchedulerManager.API.Services;
 using Travely.SchedulerManager.Notifier.Helpers;
 using Travely.SchedulerManager.Repository;
-using Travely.SchedulerManager.Service.Helpers;
+using Travely.SchedulerManager.Service.Extensions;
 using Travely.SchedulerManager.Common;
 using Travely.SchedulerManager.API.Helpers;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Travely.SchedulerManager.Common
+namespace Travely.SchedulerManager
 {
     public class NotificationInfo
     {
