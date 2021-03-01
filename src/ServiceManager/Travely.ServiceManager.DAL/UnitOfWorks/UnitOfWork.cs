@@ -42,5 +42,10 @@ namespace Travely.ServiceManager.DAL.UnitOfWorks
         {
             return _dbContext.SaveChangesAsync();
         }
+
+        public int Save()
+        {
+            return _dbContext.SaveChanges();
+        }
     }
 }
