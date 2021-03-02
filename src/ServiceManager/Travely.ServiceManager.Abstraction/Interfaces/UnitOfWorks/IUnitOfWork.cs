@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Travely.ServiceManager.Abstraction.Interfaces.Repositories;
 
 namespace Travely.ServiceManager.Abstraction.Interfaces.UnitOfWorks
@@ -9,6 +8,5 @@ namespace Travely.ServiceManager.Abstraction.Interfaces.UnitOfWorks
         IActivityRepository ActivityRepository { get; }
         IActivityTypeRepository ActivityTypeRepository { get; }
         Task<int> SaveAsync();
-        int Save();
     }
 }

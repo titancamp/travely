@@ -18,7 +18,7 @@ namespace Travely.ServiceManager.Service
         {
             try
             {
-                var createdActivity = await _activityManager.CreateActivity(activity);
+                var createdActivity = await _activityManager.CreateActivityAsync(activity);
                 return new ActivityResponse
                 {
                     Message = $"Successfully created new activity: {createdActivity?.Name}",
@@ -79,7 +79,7 @@ namespace Travely.ServiceManager.Service
         {
             try
             {
-                var editedActivity = _activityManager.EditActivity(activity);
+                var editedActivity = await _activityManager.EditActivityAsync(activity);
 
                 return new ActivityResponse
                 {
