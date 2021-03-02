@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Travely.ServiceManager.Abstraction.Interfaces;
-using Travely.ServiceManager.Abstraction.Models.Db;
 
 namespace Travely.ServiceManager.DAL.Repositories
 {
-    internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Activity
+    internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private readonly ServiceManagerDbContext _dbContext;
         private readonly DbSet<TEntity> _dbSet;
@@ -16,13 +15,13 @@ namespace Travely.ServiceManager.DAL.Repositories
             _dbContext = dbContext;
             _dbSet = dbContext.Set<TEntity>();
         }
-        public virtual async Task<TEntity> CreateAsync(TEntity entity)
+        public virtual TEntity Create(TEntity entity)
         {
-            var dbEntity = await _dbSet.AddAsync(entity);
+            var dbEntity = _dbSet.Add(entity);
             return dbEntity.Entity;
         }
 
-        public virtual async Task DeleteAsync(int entityId)
+        public virtual async Task DeleteAsync(long entityId)
         {
             var entity = await _dbSet.FindAsync(entityId);
             Delete(entity);
@@ -38,7 +37,7 @@ namespace Travely.ServiceManager.DAL.Repositories
             return await _dbSet.ToListAsync();
         }
 
-        public virtual async Task<TEntity> GetAsync(int entityId)
+        public virtual async Task<TEntity> GetAsync(long entityId)
         {
             return await _dbSet.FindAsync(entityId);
         }
