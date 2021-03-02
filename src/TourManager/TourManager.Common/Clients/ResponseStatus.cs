@@ -1,5 +1,4 @@
-﻿
-namespace TourManager.Common.Clients
+﻿namespace TourManager.Common.Clients
 {
 	public enum ResponseStatus
 	{
