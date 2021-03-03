@@ -12,31 +12,37 @@ namespace Travely.SchedulerManager.Service
 {
     public class NotificationService : INotificationService
     {
-        private readonly INotifierService _notifierService;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly IMessageCompiler _messageCompiler;
         private readonly IScheduleInfoRepository _scheduleRepository;
         private readonly IScheduleJobRepository _scheduleJobRepository;
         private readonly IScheduledAsyncJobService<NotificationJobParameter> _scheduledJobService;
         private readonly IMapper _mapper;
 
         public NotificationService(INotifierService notifierService,
-                                          IScheduleInfoRepository scheduleRepository,
-                                          IScheduleJobRepository scheduleJobRepository,
-                                          IScheduledAsyncJobService<NotificationJobParameter> scheduledJobService,
-                                          IMapper mapper)
+                                   IScheduleInfoRepository scheduleRepository,
+                                   IScheduleJobRepository scheduleJobRepository,
+                                   IScheduledAsyncJobService<NotificationJobParameter> scheduledJobService,
+                                   IMapper mapper)
         {
-            _notifierService = notifierService;
             _scheduleRepository = scheduleRepository;
             _scheduledJobService = scheduledJobService;
             _scheduleJobRepository = scheduleJobRepository;
             _mapper = mapper;
         }
 
-
         public async Task<NotificationModel> GetNotification(long scheduleId)
         {
-            var schedule = await _scheduleRepository.FindAsync(scheduleId);
-            //TODO-Question: Include Users in model?
-            return null;
+            var scheduleInfo = await _scheduleRepository.FindAsync(scheduleId);
+            var compiledMessage = await _messageCompiler.Compile(scheduleInfo.ScheduleMessageTemplate.Template, scheduleInfo.JsonData);
+            //TODO-Question: Include Users
+            return new NotificationModel()
+            {
+                UserIds = scheduleInfo.UserSchedules.Select(s => s.UserId).ToList(),
+                Module = scheduleInfo.Module,
+                Message = compiledMessage,
+                RecurseId = scheduleInfo.RecurseId
+            };
         }
 
         public async Task<IEnumerable<NotificationModel>> GetAllNotifications()
@@ -51,7 +57,7 @@ namespace Travely.SchedulerManager.Service
         {
             //TODO: add mapping in automapper
             var mapModel = _mapper.Map<CreateNotificationModel>(model);
-            return this.CreateNotification(mapModel);
+            return CreateNotification(mapModel);
         }
 
 
@@ -107,7 +113,7 @@ namespace Travely.SchedulerManager.Service
             foreach (var date in jobDates)
             {
                 var fireDate = entity.ExpirationDate.AddDays(-date);
-                var jobId = await _scheduledJobService.StartJobAsync(new NotificationJob(_notifierService, this), //TODO-Question: Why we create new obj?
+                var jobId = await _scheduledJobService.StartJobAsync(new NotificationJob(_serviceProvider), //TODO-Question: Why we create new obj?
                                                                      //TODO: Change this logic when Hangfire will change parameter type to DateTime.
                                                                      fireDate - DateTime.Now,
                                                                      new NotificationJobParameter

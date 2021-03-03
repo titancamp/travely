@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Travely.SchedulerManager.Service
 {
@@ -8,10 +9,11 @@ namespace Travely.SchedulerManager.Service
         private readonly INotifierService _notifierService;
         private readonly INotificationService _notificationService;
 
-        public NotificationJob(INotifierService notifierService, INotificationService notificationService)
+        public NotificationJob(IServiceProvider serviceProvider)
         {
-            _notifierService = notifierService;
-            _notificationService = notificationService;
+            using var scope = serviceProvider.CreateScope();
+            _notifierService = scope.ServiceProvider.GetService<INotifierService>();
+            _notificationService = scope.ServiceProvider.GetService<INotificationService>();
         }
 
         public async Task ExecuteAsync(NotificationJobParameter parameter)

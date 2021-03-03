@@ -16,7 +16,8 @@ namespace Travely.SchedulerManager.API.Services
 
         public override async Task<GetResponse> Get(GetRequest request, ServerCallContext context)
         {
-            var result = await _notificationService.GetNotification(request.BookingId); //TODO: Fix this and use scheduleId
+            var result = await _notificationService.GetNotification(request.BookingId); 
+            //TODO: Fix this and use scheduleId
             return new GetResponse()
             {
                 Notification = new Notification()
