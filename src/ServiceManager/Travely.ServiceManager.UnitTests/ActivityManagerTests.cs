@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Moq;
@@ -60,6 +61,7 @@ namespace Travely.ServiceManager.UnitTests
             activity.Type.Id = null;
             // Act, Assert
             await _target.CreateActivityAsync(Mocks.Activity);
+            _unitOfWorkMock.Verify(uow => uow.SaveAsync(), Times.Once);
         }
 
         [Fact]
@@ -88,6 +90,7 @@ namespace Travely.ServiceManager.UnitTests
 
             // Act, Assert
             await _target.CreateActivityAsync(Mocks.Activity);
+            _unitOfWorkMock.Verify(uow => uow.SaveAsync(), Times.Once);
         }
 
         [Fact]
@@ -121,6 +124,7 @@ namespace Travely.ServiceManager.UnitTests
 
             // Act, Assert
             await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _target.CreateActivityAsync(Mocks.Activity));
+            _unitOfWorkMock.Verify(uow => uow.SaveAsync(), Times.Never);
         }
 
         [Fact]
@@ -146,15 +150,15 @@ namespace Travely.ServiceManager.UnitTests
             {
                 Id = null
             };
+            var activityModel = _mapper.Map<ActivityDbModel>(activity);
 
             // Act
             await _target.CreateActivityAsync(Mocks.Activity);
 
             // Assert
-            _activityTypeRepoMock.Verify(repo => repo.Create(It.IsAny<ActivityTypeDbModel>()), Times.Never);
-
-            var activityModel = _mapper.Map<ActivityDbModel>(activity);
+            _unitOfWorkMock.Verify(uow => uow.SaveAsync(), Times.Once);
             _activityRepoMock.Verify(repo => repo.Create(It.IsAny<ActivityDbModel>()), Times.Once);
+            _activityTypeRepoMock.Verify(repo => repo.Create(It.IsAny<ActivityTypeDbModel>()), Times.Never);
 
             _activityRepoMock.Verify(repo => repo.Create(It.Is<ActivityDbModel>(m =>
                 m.Address == activityModel.Address &&
@@ -166,6 +170,84 @@ namespace Travely.ServiceManager.UnitTests
                 m.ActivityType.Id == activityModel.ActivityType.Id &&
                 m.ActivityType.Name == activityModel.ActivityType.Name &&
                 m.ActivityType.AgencyId == activityModel.ActivityType.AgencyId)), Times.Once);
+        }
+
+        [Fact]
+        public async void GetActivities_ForValidArg_ShouldPassValidArg()
+        {
+            // Arrange
+            var agencyId = 12L;
+            var activityDbModel = _mapper.Map<ActivityDbModel>(Mocks.Activity);
+            _activityRepoMock.Setup(repo => repo.GetAllActivitiesAsync(It.IsAny<long>()))
+                .ReturnsAsync(Enumerable.Repeat(activityDbModel, 4).ToList());
+
+            // Act
+            await _target.GetActivitiesAsync(agencyId);
+
+            // Assert
+            _unitOfWorkMock.Verify(uow => uow.SaveAsync(), Times.Never);
+            _activityRepoMock.Verify(repo => repo.GetAllActivitiesAsync(agencyId), Times.Once);
+            _activityRepoMock.Verify(repo => repo.GetAllActivitiesAsync(It.IsAny<long>()), Times.Once);
+        }
+
+        [Fact]
+        public async void DeleteActivity_ForValidArg_ShouldPassValidArg()
+        {
+            // Arrange
+            var activityId = 12L;
+
+            _activityRepoMock.Setup(repo => repo.DeleteAsync(It.IsAny<long>())).Returns(Task.CompletedTask);
+
+            // Act
+            await _target.DeleteActivityAsync(activityId);
+
+            // Assert
+            _unitOfWorkMock.Verify(uow => uow.SaveAsync(), Times.Once);
+            _activityRepoMock.Verify(repo => repo.DeleteAsync(activityId), Times.Once);
+        }
+
+        [Fact]
+        public async void EditActivity_ForValidArg_ShouldPassValidArg()
+        {
+            // Arrange
+            var activityModel = _mapper.Map<ActivityDbModel>(Mocks.Activity);
+            _activityRepoMock.Setup(repo => repo.Update(It.IsAny<ActivityDbModel>()));
+
+            // Act
+            await _target.EditActivityAsync(Mocks.Activity);
+
+            // Assert
+            _unitOfWorkMock.Verify(uow => uow.SaveAsync(), Times.Once);
+            _activityRepoMock.Verify(repo => repo.Update(It.Is<ActivityDbModel>(m =>
+                m.Address == activityModel.Address &&
+                m.Currency == activityModel.Currency &&
+                m.ChangeUser == activityModel.ChangeUser &&
+                m.ContactName == activityModel.ContactName &&
+                m.EmailAddress == activityModel.EmailAddress &&
+                m.ActivityTypeId == activityModel.ActivityTypeId &&
+                m.ActivityType.Id == activityModel.ActivityType.Id &&
+                m.ActivityType.Name == activityModel.ActivityType.Name &&
+                m.ActivityType.AgencyId == activityModel.ActivityType.AgencyId)), Times.Once);
+        }
+
+        [Fact]
+        public async void SearchActivityTypes_ForValidArg_ShouldPassValidArg()
+        {
+            // Arrange
+            var agencyId = 12L;
+            var activityTypeName = "type_name";
+
+            var activityTypeDbModel = _mapper.Map<ActivityTypeDbModel>(Mocks.ActivityType);
+            _activityTypeRepoMock.Setup(repo => repo.SearchActivityTypesAsync(It.IsAny<long>(), It.IsAny<string>()))
+                .ReturnsAsync(Enumerable.Repeat(activityTypeDbModel, 4).ToList());
+
+            // Act
+            await _target.SearchActivityTypesAsync(agencyId, activityTypeName);
+
+            // Assert
+            _unitOfWorkMock.Verify(uow => uow.SaveAsync(), Times.Never);
+            _activityTypeRepoMock.Verify(repo => repo.SearchActivityTypesAsync(agencyId, activityTypeName), Times.Once);
+            _activityTypeRepoMock.Verify(repo => repo.SearchActivityTypesAsync(It.IsAny<long>(), It.IsAny<string>()), Times.Once);
         }
     }
 }
