@@ -17,6 +17,7 @@ namespace Travely.SchedulerManager.Repository.Infrastructure.Configurations
                 .HasConstraintName("FK_UserSchedule_Schedule");
 
             builder.HasQueryFilter(s => !s.IsDeleted);
+            builder.HasQueryFilter(s => !s.ScheduleInfo.IsDeleted);
         }
     }
 }

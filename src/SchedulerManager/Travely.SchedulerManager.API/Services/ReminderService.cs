@@ -69,14 +69,14 @@ namespace Travely.SchedulerManager.API.Services
                 ExpireDate = request.ExpireDate.ToDateTime(),
                 UserIds = request.AssignedUserIds
             };
-            var result = await _notificationService.UpdateNotification(dto);
-            return new UpdateResponse() { Succeed = result };
+            await _notificationService.UpdateNotification(dto);
+            return new UpdateResponse() { };
         }
 
         public override async Task<DeleteResponse> Delete(DeleteRequest request, ServerCallContext context)
         {
-            var result = await _notificationService.DeleteNotification(request.BookingId);
-            return new DeleteResponse() { Succeed = result };
+            await _notificationService.DeleteNotification(request.BookingId);
+            return new DeleteResponse() { };
         }
     }
 }

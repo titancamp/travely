@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using Travely.SchedulerManager.Common.Enums;
 using Travely.SchedulerManager.Repository;
 using Travely.SchedulerManager.Repository.Entities;
@@ -13,17 +14,20 @@ namespace Travely.SchedulerManager.Service
     {
         private readonly INotifierService _notifierService;
         private readonly IScheduleInfoRepository _scheduleRepository;
+        private readonly IScheduleJobRepository _scheduleJobRepository;
         private readonly IScheduledAsyncJobService<NotificationJobParameter> _scheduledJobService;
         private readonly IMapper _mapper;
 
         public NotificationService(INotifierService notifierService,
                                           IScheduleInfoRepository scheduleRepository,
+                                          IScheduleJobRepository scheduleJobRepository,
                                           IScheduledAsyncJobService<NotificationJobParameter> scheduledJobService,
                                           IMapper mapper)
         {
             _notifierService = notifierService;
             _scheduleRepository = scheduleRepository;
             _scheduledJobService = scheduledJobService;
+            _scheduleJobRepository = scheduleJobRepository;
             _mapper = mapper;
         }
 
@@ -51,14 +55,22 @@ namespace Travely.SchedulerManager.Service
         }
 
 
-        public async Task<bool> UpdateNotification(UpdateNotificationModel model)
+        public async Task UpdateNotification(UpdateNotificationModel model)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<bool> DeleteNotification(long scheduleId)
+        public async Task DeleteNotification(long scheduleId)
         {
-            throw new NotImplementedException();
+            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                _scheduleRepository.Remove(scheduleId);
+                await _scheduleRepository.SaveAsync();
+
+                var jobIds = (await _scheduleJobRepository.GetJobIdsAsync(scheduleId)).ToList();
+                var removeTasks = jobIds.Select(id => _scheduledJobService.EndJobAsync(id));
+                await Task.WhenAll(removeTasks);
+            }
         }
 
         #region Private methods
@@ -120,5 +132,11 @@ namespace Travely.SchedulerManager.Service
         }
 
         #endregion
+        
+
+        public async Task<bool> SetStatus(long scheduleInfoId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
