@@ -9,19 +9,20 @@ using Travely.SchedulerManager.Notifier.Hubs;
 
 namespace Travely.SchedulerManager.Notifier.Services
 {
-    class NotificationService : INotificationService, IEmailService
+    class NotifierService : INotifierService, IEmailService
     {
         readonly IHubContext<NotificationHub, INotificationHub> _hubContext;
         readonly EmailOptions _emailOptions;
-        public NotificationService(IHubContext<NotificationHub, INotificationHub> hub, IOptionsMonitor<NotifierOptions> options)
+        public NotifierService(IHubContext<NotificationHub, INotificationHub> hub, IOptionsMonitor<NotifierOptions> options)
         {
             _hubContext = hub;
             _emailOptions = options.CurrentValue.EmailOptions;
         }
-        public Task NotifyAsync(NotificationInfo dto)
+        public async Task<string> NotifyAsync(NotificationModel model)
         {
-            //TODO
-            return _hubContext.Clients.Client("connectionId").ReceiveNotification(new { message = "Hola" });
+            //TODO: Add implementation to send notification and get statuses
+            await _hubContext.Clients.Client("connectionId").ReceiveNotification(new { message = "Hola" });
+            return string.Empty;
         }
 
         public async Task SendEmailAsync(string receiverEmail, string title, string subject, string content)

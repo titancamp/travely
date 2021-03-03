@@ -7,21 +7,21 @@ namespace Travely.SchedulerManager.API.Services
 {
     public class ReminderService : Reminder.ReminderBase
     {
-        private readonly IBookingNotificationService _notificationService;
+        private readonly INotificationService _notificationService;
 
-        public ReminderService(IBookingNotificationService notificationService)
+        public ReminderService(INotificationService notificationService)
         {
             _notificationService = notificationService;
         }
 
         public override async Task<GetResponse> Get(GetRequest request, ServerCallContext context)
         {
-            var result = await _notificationService.GetNotification(request.BookingId);
+            var result = await _notificationService.GetNotification(request.BookingId); //TODO: Fix this and use scheduleId
             return new GetResponse()
             {
                 Notification = new Notification()
                 {
-                    BookingId = result.BookingId,
+                    BookingId = result.RecurseId,
                     Message = result.Message
                 }
             };
@@ -33,7 +33,7 @@ namespace Travely.SchedulerManager.API.Services
             var response = new GetAllResponse();
             response.Notifications.AddRange(result.Select(n => new Notification()
             {
-                BookingId = n.BookingId,
+                BookingId = n.RecurseId,
                 Message = n.Message
             }));
             return response;
@@ -59,7 +59,7 @@ namespace Travely.SchedulerManager.API.Services
 
         public override async Task<UpdateResponse> Update(UpdateRequest request, ServerCallContext context)
         {
-            var dto = new UpdateNotification
+            var dto = new UpdateNotificationModel
             {
                 TourId = request.TourId,
                 TourName = request.TourName,
