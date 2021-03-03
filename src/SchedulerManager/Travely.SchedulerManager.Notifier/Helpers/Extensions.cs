@@ -12,7 +12,7 @@ namespace Travely.SchedulerManager.Notifier.Helpers
 
         public static IServiceCollection AddNotifier(this IServiceCollection services, NotifierOptions options)
         {
-            services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<INotifierService, NotifierService>();
             services.AddSignalR().AddStackExchangeRedis(options.RedisConnectionString, options =>
             {
                 options.Configuration.ChannelPrefix = "Travely";

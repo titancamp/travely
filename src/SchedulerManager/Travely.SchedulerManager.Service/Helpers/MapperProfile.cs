@@ -8,8 +8,8 @@ namespace Travely.SchedulerManager.Service.Helpers
         public MapperProfile()
         {
             //TODO
-            CreateMap<ScheduleInfo, Notification>()
-                .ForMember(dto => dto.BookingId, entity => entity.MapFrom(src => src.RecurseId));
+            //CreateMap<ScheduleInfo, NotificationModel>()
+            //    .ForMember(dto => dto.BookingId, entity => entity.MapFrom(src => src.RecurseId));
             //.ForMember(dto => dto.Message, entity => entity.MapFrom(src => $"{} booking for {} tour will expire in {}"));
         }
     }

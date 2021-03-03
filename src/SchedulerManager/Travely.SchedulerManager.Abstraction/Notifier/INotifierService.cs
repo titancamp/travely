@@ -3,8 +3,8 @@ using Travely.SchedulerManager.Common;
 
 namespace Travely.SchedulerManager
 {
-    public interface INotificationService
+    public interface INotifierService
     {
-        Task NotifyAsync(NotificationInfo dto);
+        Task<string> NotifyAsync(NotificationModel model);
     }
 }

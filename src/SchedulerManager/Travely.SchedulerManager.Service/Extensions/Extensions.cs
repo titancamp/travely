@@ -7,7 +7,7 @@ namespace Travely.SchedulerManager.Service.Extensions
     {
         public static IServiceCollection AddBusinessServices(this IServiceCollection services)
         {
-            services.AddScoped<IBookingNotificationService, BookingNotificationService>();
+            services.AddScoped<INotificationService, NotificationService>();
             services.AddAutoMapper(typeof(MapperProfile));
 
             return services;
