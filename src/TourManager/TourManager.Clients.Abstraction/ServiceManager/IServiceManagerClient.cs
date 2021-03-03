@@ -11,7 +11,7 @@ namespace TourManager.Clients.Abstraction.ServiceManager
     {
         Task<ActivityResponse> CreateActivityAsync(Activity activity);
         Task<ActivityResponse> EditActivityAsync(Activity activity);
-        Task<ActivityResponse> DeleteActivityAsync(long ActivityId);
+        Task<ActivityResponse> DeleteActivityAsync(long activityId);
         Task<IEnumerable<Activity>> GetActivitiesAsync(int agencyId);
     }
 }
