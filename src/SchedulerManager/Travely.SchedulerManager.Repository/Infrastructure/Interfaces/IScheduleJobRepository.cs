@@ -8,6 +8,6 @@ namespace Travely.SchedulerManager.Repository
 {
     public interface IScheduleJobRepository
     {
-        Task<IEnumerable<string>> GetJobIdAsync(long scheduleInfoId);
+        Task<IEnumerable<string>> GetJobIdsAsync(long scheduleInfoId);
     }
 }
