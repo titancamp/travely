@@ -18,7 +18,8 @@ namespace Travely.IdentityManager.Repository.EntityFramework
             {
                 return null;
             }
-            return await FindAsync(item => item.UserName == username, cancellationToken);
+            var user = await FindAsync(item => item.UserName == username, cancellationToken);
+            return user;
         }
     }
 }

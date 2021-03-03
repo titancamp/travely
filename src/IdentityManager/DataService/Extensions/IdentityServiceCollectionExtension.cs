@@ -19,8 +19,8 @@ namespace IdentityManager.DataService.Extensions
         public static void AddTravelyIdentityService(this IServiceCollection services)
         {
             services.AddScoped<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>()
-                   .AddScoped<IProfileService, ProfileService>()
-                   .AddScoped<IExtensionGrantValidator, DelegationGrantValidator>();
+                   .AddScoped<IProfileService, ProfileService>();
+                   //.AddScoped<IExtensionGrantValidator, DelegationGrantValidator>();
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
         }
 
@@ -29,10 +29,15 @@ namespace IdentityManager.DataService.Extensions
         public static void InitialConfigIdentityServices(this IServiceCollection services)
         {
             services.AddIdentityServer()
-                .AddDeveloperSigningCredential()//  AddSigningCredential()
+                .AddDeveloperSigningCredential()
+                  //.AddSigningCredential()
+                                                .AddClientStore<CustomClientStore>()
+                                                //.AddResourceStore<CustomResourceStore>()
+                                                .AddPersistedGrantStore<CustomPersistedGrantStore>()
                 .AddInMemoryApiResources(AuthConfigs.GetApiResources())
                 .AddInMemoryClients(AuthConfigs.GetClients())
-                .AddInMemoryApiScopes(AuthConfigs.GetScopes());
+                .AddInMemoryApiScopes(AuthConfigs.GetScopes())
+                ;
         }
 
 
