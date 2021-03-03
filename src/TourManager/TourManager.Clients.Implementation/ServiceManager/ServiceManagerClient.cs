@@ -67,7 +67,7 @@ namespace TourManager.Clients.Implementation.ServiceManager
             return activities.Activities_.AsEnumerable().Select(s => Mapping.Mapper.Map<Activity>(s));
         }
 
-        private ActivityProto.ActivityProtoClient GetActivityClinet() {
+        private ActivityProto.ActivityProtoClient GetActivityClient() {
             var channel = GrpcChannel.ForAddress(_serviceSettingsProvider.ComposeActivityServiceUrl());
 
             return new ActivityProto.ActivityProtoClient(channel);
