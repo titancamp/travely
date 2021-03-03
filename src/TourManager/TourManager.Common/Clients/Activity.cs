@@ -8,6 +8,9 @@ namespace TourManager.Common.Clients
 {
     public class Activity
     {
+        /// <summary>
+        /// Id is nullable long - it can be null when frontend inserts new activity
+        /// </summary>
         public long? Id { get; set; }
         public ActivityType Type { get; set; }
         public string Name { get; set; }

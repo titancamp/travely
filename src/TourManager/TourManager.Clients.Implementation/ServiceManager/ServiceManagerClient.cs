@@ -23,7 +23,7 @@ namespace TourManager.Clients.Implementation.ServiceManager
 
         public async Task<ActivityResponse> CreateActivityAsync(Activity activity)
         {
-            var activityClient = GetActivityClinet();
+            var activityClient = GetActivityClient();
 
             var activityProtoModel = Mapping.Mapper.Map<ActivityModel>(activity);
 
@@ -34,7 +34,7 @@ namespace TourManager.Clients.Implementation.ServiceManager
 
         public async Task<ActivityResponse> EditActivityAsync(Activity activity)
         {
-            var activityClient = GetActivityClinet();
+            var activityClient = GetActivityClient();
 
             var activityProtoModel = Mapping.Mapper.Map<ActivityModel>(activity);
 
@@ -45,7 +45,7 @@ namespace TourManager.Clients.Implementation.ServiceManager
 
         public async Task<ActivityResponse> DeleteActivityAsync(long ActivityId)
         {
-            var activityClient = GetActivityClinet();
+            var activityClient = GetActivityClient();
 
             var response = await activityClient.DeleteActivityAsync(new DeleteActivityRequest()
                                                                     {
@@ -57,7 +57,7 @@ namespace TourManager.Clients.Implementation.ServiceManager
 
         public async Task<IEnumerable<Activity>> GetActivitiesAsync(int AgencyId)
         {
-            var activityClient = GetActivityClinet();
+            var activityClient = GetActivityClient();
 
             var activities = await activityClient.GetActivitiesAsync(new GetActivitiesRequest()
                                                                     {
