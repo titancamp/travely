@@ -10,7 +10,7 @@ namespace Travely.IdentityManager.Repository.Abstractions.Entities
         public string Password { get; set; }
         public DateTime? LastLogin { get; set; }
         public Role Role { get; set; }
-        public int Status { get; set; }
+        public Status Status { get; set; }
         public DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
