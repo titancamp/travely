@@ -27,7 +27,6 @@ namespace IdentityManager.DataService.Extensions
                 .AddDeveloperSigningCredential()
                                                 //.AddSigningCredential()
                                                 .AddPersistedGrantStore<PersistedGrantStore>()
-                                               . AddInMemoryClients(AuthConfigs.GetClients())
                 .AddInMemoryApiResources(AuthConfigs.GetApiResources())
                 .AddInMemoryClients(AuthConfigs.GetClients())
                 .AddInMemoryApiScopes(AuthConfigs.GetScopes())
