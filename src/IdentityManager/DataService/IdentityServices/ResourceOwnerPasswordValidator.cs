@@ -27,17 +27,17 @@ namespace IdentityManager.DataService.IdentityServices
             try
             {
                 var user = await _userRepo.FindByEmailAsync(context.UserName);
-                if (user is null)
-                {
-                    user = new User
-                    {
-                        Id = 6
-                    };
-                }
+                //if (user is null)
+                //{
+                //    user = new User
+                //    {
+                //        Id = 6
+                //    };
+                //}
                 if (user != null)
                 {
-                    //PasswordVerificationResult verificationResult = _passHasher.VerifyHashedPassword(user, user.Password, context.Password);
-                    PasswordVerificationResult verificationResult = PasswordVerificationResult.Success;
+                    PasswordVerificationResult verificationResult = _passHasher.VerifyHashedPassword(user, user.Password, context.Password);
+                    //PasswordVerificationResult verificationResult = PasswordVerificationResult.Success;
                     if (verificationResult == PasswordVerificationResult.Success)
                     {
                         context.Result = new GrantValidationResult(user.Id.ToString(), "password", null, "local", null);
