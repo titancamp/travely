@@ -1,41 +1,25 @@
-﻿using System;
-using IdentityManager.API.Identity;
-using IdentityManager.API.Models;
+﻿using IdentityManager.API.Models;
 using IdentityManager.WebApi.Models.Response;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
 using IdentityManager.WebApi.Models;
-using IdentityModel;
-using Travely.IdentityManager.Repository.Abstractions.Entities;
+using Travely.IdentityManager.API.Identity;
+using IdentityManager.WebApi.Models.Request;
 
-namespace IdentityManager.API.Controllers
+namespace Travely.IdentityManager.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-
         private readonly IAuthenticationService _authenticationService;
         private readonly IConfiguration _configuration;
 
-        public AccountController(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
-            IAuthenticationService authenticationService,
-            IConfiguration configuration)
+        public AccountController(IAuthenticationService authenticationService, IConfiguration configuration)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _authenticationService = authenticationService;
             _configuration = configuration;
         }
@@ -48,7 +32,7 @@ namespace IdentityManager.API.Controllers
         [HttpPost("Register")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult<ResultViewModel>> RegisterAsync([FromBody] RegisterViewModel model, CancellationToken ct)
+        public async Task<ActionResult<ResultViewModel>> RegisterAsync([FromBody] RegisterViewModel model, CancellationToken ct = default)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +44,6 @@ namespace IdentityManager.API.Controllers
 
         }
 
-
         /// <summary>
         /// ConfirmEmail
         /// </summary>
@@ -68,11 +51,11 @@ namespace IdentityManager.API.Controllers
         /// <param name="token"></param>
         /// <returns></returns>
         [HttpGet("ConfirmEmail")]
-        public async Task<ActionResult> ConfirmEmail(string email, string token)
+        public async Task<IActionResult> ConfirmEmail(string email, string token, CancellationToken ct = default)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(token))
                 return NotFound();
-            var result = await _authenticationService.ConfirmEmailAsync(email, token);
+            var result = await _authenticationService.ConfirmEmailAsync(email, token, ct);
 
             return Redirect($"{_configuration["AppUrl"]}/ConfirmEmail.html");
         }
@@ -85,12 +68,12 @@ namespace IdentityManager.API.Controllers
         [HttpPost("ForgetPassword")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult<ResultViewModel>> ForgetPassword(ForgotPasswordViewModel forgotPasswordViewModel, CancellationToken ct)
+        public async Task<ActionResult<ResultViewModel>> ForgetPassword(ForgotPasswordViewModel forgotPasswordViewModel, CancellationToken cancellationToken = default)
         {
             if (!ModelState.IsValid)
                 return NotFound();
+            var result = await _authenticationService.ForgetPasswordAsync(forgotPasswordViewModel.Email, cancellationToken);
 
-            var result = await _authenticationService.ForgetPasswordAsync(forgotPasswordViewModel.Email, ct);
             return result;
         }
 
@@ -100,11 +83,12 @@ namespace IdentityManager.API.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("ResetPassword")]
-        public async Task<ActionResult<ResultViewModel>> ResetPassword([FromBody] ResetPasswordViewModel model, CancellationToken ct)
+        public async Task<ActionResult<ResultViewModel>> ResetPassword([FromBody] ResetPasswordViewModel model, CancellationToken cancellationToken = default)
         {
             if (ModelState.IsValid)
             {
-                var result = await _authenticationService.ResetPasswordAsync(model, ct);
+                var result = await _authenticationService.ResetPasswordAsync(model, cancellationToken);
+
                 return result;
             }
 
@@ -116,9 +100,20 @@ namespace IdentityManager.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<ActionResult<AgencyResponseModel>> GetAgencyByIdAsync(int id, CancellationToken ct)
+        public async Task<ActionResult<AgencyResponseModel>> GetAgencyByIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            return await _authenticationService.GetAgencyById(id, ct);
+            return await _authenticationService.GetAgencyById(id, cancellationToken);
+        }
+
+        /// <summary>
+        /// Add Agency
+        /// </summary>
+        /// <param name="agencyRequestModel"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<ActionResult<AgencyResponseModel>> CreateAgencyAsync(AgencyRequestModel agencyRequestModel, CancellationToken cancellationToken = default)
+        {
+            return await _authenticationService.CreateAgency(agencyRequestModel, cancellationToken);
         }
 
     }

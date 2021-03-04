@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 
-namespace IdentityManager.WebApi.Identity
+
+namespace Travely.IdentityManager.WebApi.Identity
 {
     public class BaseService: IBaseService
     {

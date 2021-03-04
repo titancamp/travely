@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Request\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DataService\IdentityManager.DataService.csproj" />
     <ProjectReference Include="..\Repository.Abstractions\IdentityManager.Repository.Abstractions.csproj" />
     <ProjectReference Include="..\Repository.EntityFramework\IdentityManager.Repository.EntityFramework.csproj" />

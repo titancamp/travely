@@ -68,5 +68,6 @@ namespace Travely.IdentityManager.Repository.EntityFramework
             }
             Set.Remove(entity);
         }
+
     }
 }
