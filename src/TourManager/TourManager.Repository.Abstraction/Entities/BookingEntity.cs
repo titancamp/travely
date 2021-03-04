@@ -1,35 +1,32 @@
-﻿using FluentValidation;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using TourManager.Common.Types;
 
-namespace TourManager.Service.Model
+namespace TourManager.Repository.Entities
 {
     /// <summary>
-    /// The booking validator
+    /// The booking entity
     /// </summary>
-    public class BookingValidator : AbstractValidator<Booking>
-    {
-        /// <summary>
-        /// Create new instance of booking validator
-        /// </summary>
-        public BookingValidator()
-        {
-            RuleFor(booking => booking.Name).NotEmpty().WithMessage("The booking name field is requiered!");
-            RuleFor(booking => booking.Notes).NotEmpty().WithMessage("The booking notes field is requiered!");
-            RuleFor(booking => booking.Destinations).NotEmpty().WithMessage("The booking should contain at least one destination!");
-        }
-    }
-
-    /// <summary>
-    /// The booking model
-    /// </summary>
-    public class Booking
+    public class BookingEntity
     {
         /// <summary>
         /// The booking id
         /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// The tour id of the booking
+        /// </summary>
+        public int TourId { get; set; }
+
+        /// <summary>
+        /// The external id
+        /// </summary>
+        public int ExternalId { get; set; }
+
+        /// <summary>
+        /// The tour entity of the booking
+        /// </summary>
+        public TourEntity Tour { get; set; }
 
         /// <summary>
         /// The booking name
@@ -39,27 +36,27 @@ namespace TourManager.Service.Model
         /// <summary>
         /// The booking type
         /// </summary>
-        public BookingType Type { get; set; }
+        public int Type { get; set; }
 
         /// <summary>
         /// The booking status
         /// </summary>
-        public BookingStatus Status { get; set; }
+        public int Status { get; set; }
 
         /// <summary>
         /// The booking checkin date
         /// </summary>
-        public DateTime? CheckInDate { get; set; }
+        public DateTime CheckInDate { get; set; }
 
         /// <summary>
         /// The booking checkout date
         /// </summary>
-        public DateTime? CheckOutDate { get; set; }
+        public DateTime CheckOutDate { get; set; }
 
         /// <summary>
         /// The booking cancellation deadline
         /// </summary>
-        public DateTime? CancellationDeadline { get; set; }
+        public DateTime CancellationDeadline { get; set; }
 
         /// <summary>
         /// The booking origin
@@ -69,7 +66,7 @@ namespace TourManager.Service.Model
         /// <summary>
         /// The booking arrival time
         /// </summary>
-        public DateTime? ArrivalTime { get; set; }
+        public DateTime ArrivalTime { get; set; }
 
         /// <summary>
         /// The booking arrival flight number
@@ -79,7 +76,7 @@ namespace TourManager.Service.Model
         /// <summary>
         /// The booking departure time
         /// </summary>
-        public DateTime? DepartureTime { get; set; }
+        public DateTime DepartureTime { get; set; }
 
         /// <summary>
         /// The booking departure flight number
@@ -94,6 +91,6 @@ namespace TourManager.Service.Model
         /// <summary>
         /// The booking destinations
         /// </summary>
-        public List<string> Destinations { get; set; }
+        public ICollection<string> Destinations { get; set; }
     }
 }

@@ -1,36 +1,37 @@
-﻿using FluentValidation;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
-namespace TourManager.Service.Model
+namespace TourManager.Repository.Entities
 {
     /// <summary>
-    /// The client validator
+    /// The client entity
     /// </summary>
-    public class ClientValidator : AbstractValidator<Client>
+    public class ClientEntity
     {
         /// <summary>
-        /// Create new instance of client validator
-        /// </summary>
-        public ClientValidator()
-        {
-            RuleFor(client => client.FirstName).NotEmpty().WithMessage("The client first name field is requiered!");
-            RuleFor(client => client.LastName).NotEmpty().WithMessage("The client last name field is requiered!");
-            RuleFor(client => client.Phone).NotEmpty().WithMessage("The client phone field is requiered!");
-            RuleFor(client => client.Email).NotEmpty().WithMessage("The client email field is requiered!")
-                .EmailAddress().WithMessage("The client email address is not valid!");
-            RuleFor(client => client.Notes).NotEmpty().WithMessage("The client notes field is requiered!");
-        }
-    }
-
-    /// <summary>
-    /// The tour client model
-    /// </summary>
-    public class Client
-    {
-        /// <summary>
-        /// The client id
+        /// The client entity id
         /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// The client tenant id
+        /// </summary>
+        public int TenantId { get; set; }
+
+        /// <summary>
+        /// The client external id
+        /// </summary>
+        public int ExternalId { get; set; }
+
+        /// <summary>
+        /// The client tenant entity
+        /// </summary>
+        public TenantEntity Tenant { get; set; }
+
+        /// <summary>
+        /// The tour clients collection
+        /// </summary>
+        public ICollection<TourClientEntity> TourClients { get; set; }
 
         /// <summary>
         /// The client first name
@@ -55,7 +56,7 @@ namespace TourManager.Service.Model
         /// <summary>
         /// The client date of birth
         /// </summary>
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         /// <summary>
         /// The client birthplace
@@ -75,12 +76,12 @@ namespace TourManager.Service.Model
         /// <summary>
         /// The client passport issue date
         /// </summary>
-        public DateTime? IssueDate { get; set; }
+        public DateTime IssueDate { get; set; }
 
         /// <summary>
         /// The client passport expiration date
         /// </summary>
-        public DateTime? ExpireDate { get; set; }
+        public DateTime ExpireDate { get; set; }
 
         /// <summary>
         /// The notes about the client
