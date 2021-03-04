@@ -33,7 +33,7 @@ namespace IdentityManager.DataService.IdentityServices
 				{
 					new Claim(JwtClaimTypes.Subject, user.Id.ToString()),
 					new Claim(JwtClaimTypes.Role, user.Role.ToString()),
-					new Claim(JwtClaimTypes.ZoneInfo, user.Agency.Id.ToString())
+					new Claim("AgencyId", user.Agency.Id.ToString())
 				};
 
 				context.IssuedClaims = claims;
