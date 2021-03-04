@@ -22,24 +22,18 @@ namespace IdentityManager.DataService.Extensions
                    .AddScoped<IProfileService, ProfileService>();
                    //.AddScoped<IExtensionGrantValidator, DelegationGrantValidator>();
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
-        }
 
-        
-
-        public static void InitialConfigIdentityServices(this IServiceCollection services)
-        {
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
-                  //.AddSigningCredential()
-                                                .AddClientStore<CustomClientStore>()
-                                                //.AddResourceStore<CustomResourceStore>()
-                                                .AddPersistedGrantStore<CustomPersistedGrantStore>()
+                                                //.AddSigningCredential()
+                                                .AddPersistedGrantStore<PersistedGrantStore>()
+                                               . AddInMemoryClients(AuthConfigs.GetClients())
                 .AddInMemoryApiResources(AuthConfigs.GetApiResources())
                 .AddInMemoryClients(AuthConfigs.GetClients())
                 .AddInMemoryApiScopes(AuthConfigs.GetScopes())
                 ;
         }
 
-
+        
     }
 }

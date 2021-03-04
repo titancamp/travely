@@ -29,8 +29,6 @@ namespace IdentityManager.API
 
             services.AddRepositoryServices();
 
-            services.InitialConfigIdentityServices();
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -12,12 +12,12 @@ using Travely.IdentityManager.Repository.Abstractions;
 
 namespace IdentityManager.DataService.IdentityServices
 {
-    public class CustomPersistedGrantStore : IPersistedGrantStore
+    public class PersistedGrantStore : IPersistedGrantStore
     {
         IPersistGrantRepository _persistGrantRepository;
         IUnitOfWork _unitOfWork;
 
-        public CustomPersistedGrantStore(IPersistGrantRepository persistGrantRepository, IUnitOfWork unitOfWork)
+        public PersistedGrantStore(IPersistGrantRepository persistGrantRepository, IUnitOfWork unitOfWork)
         {
             _persistGrantRepository = persistGrantRepository;
             _unitOfWork = unitOfWork;

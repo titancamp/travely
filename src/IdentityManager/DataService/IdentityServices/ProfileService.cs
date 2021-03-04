@@ -29,16 +29,6 @@ namespace IdentityManager.DataService.IdentityServices
 				var subjectId = context.Subject.GetSubjectId();
 				var user = await _userRepo.GetAll().Where(x=>x.Id == Convert.ToInt32(subjectId)).FirstOrDefaultAsync();
 
-				//user = new Travely.IdentityManager.Repository.Abstractions.Entities.User
-				//{
-				//	Id = 6,
-				//	Role = Travely.IdentityManager.Repository.Abstractions.Entities.Role.User,
-				//	Agency = new Travely.IdentityManager.Repository.Abstractions.Entities.Agency
-				//	{
-				//		Id = 1
-				//	}
-				//};
-
 				var claims = new List<Claim>
 				{
 					new Claim(JwtClaimTypes.Subject, user.Id.ToString()),
@@ -58,12 +48,6 @@ namespace IdentityManager.DataService.IdentityServices
 		public async Task IsActiveAsync(IsActiveContext context)
 		{			
 			var user = await _userRepo.GetAll().Where(x=>x.Id == Convert.ToInt32(context.Subject.GetSubjectId())).FirstOrDefaultAsync();
-
-			//user = new Travely.IdentityManager.Repository.Abstractions.Entities.User
-			//{
-			//	Id = 6,
-			//	Status= Travely.IdentityManager.Repository.Abstractions.Entities.Status.Active
-			//};
 
 			context.IsActive = (user != null && user.Status == Travely.IdentityManager.Repository.Abstractions.Entities.Status.Active); // && user.Active;
 			return;

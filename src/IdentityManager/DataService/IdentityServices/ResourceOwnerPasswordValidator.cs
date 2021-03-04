@@ -27,13 +27,6 @@ namespace IdentityManager.DataService.IdentityServices
             try
             {
                 var user = await _userRepo.FindByEmailAsync(context.UserName);
-                //if (user is null)
-                //{
-                //    user = new User
-                //    {
-                //        Id = 6
-                //    };
-                //}
                 if (user != null)
                 {
                     PasswordVerificationResult verificationResult = _passHasher.VerifyHashedPassword(user, user.Password, context.Password);
@@ -50,8 +43,7 @@ namespace IdentityManager.DataService.IdentityServices
             }
             catch (Exception ex)
             {
-
-                throw;
+                // some Logg here :D
             }
         }
     }
