@@ -1,6 +1,7 @@
 ﻿using IdentityServer4.Models;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,12 @@ namespace IdentityManager.DataService.IdentityServices
     {
         IUserRepository _userRepo;
         IPasswordHasher<User> _passHasher;
-
-        public ResourceOwnerPasswordValidator(IUserRepository rep, IPasswordHasher<User> passHasher)
+        ILogger _logger;
+        public ResourceOwnerPasswordValidator(ILogger logger,IUserRepository rep, IPasswordHasher<User> passHasher)
         {
             _userRepo = rep;
             _passHasher = passHasher;
+            _logger = logger;
         }
 
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
@@ -43,7 +45,7 @@ namespace IdentityManager.DataService.IdentityServices
             }
             catch (Exception ex)
             {
-                // some Logg here :D
+                _logger.LogDebug("Invalid data");
             }
         }
     }
