@@ -39,7 +39,7 @@ namespace IdentityManager.DataService.IdentityServices
 				context.IssuedClaims = claims;
 				return;// Task.FromResult(0);
 			}
-			catch (Exception x)
+			catch (Exception ex)
 			{
 				return;
 			}

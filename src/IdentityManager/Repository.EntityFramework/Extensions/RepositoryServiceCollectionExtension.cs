@@ -16,7 +16,7 @@ namespace Travely.IdentityManager.Repository.Extensions
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<IdentityServerDbContext>(options =>
-             options.UseSqlServer(configuration.GetConnectionString("IdentityServerDB"),
+             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                 optionBuilder => optionBuilder.MigrationsAssembly("IdentityManager.Repository.EntityFramework"))); 
         }
 

@@ -17,8 +17,8 @@ namespace IdentityManager.DataService.IdentityServices
     {
         IPersistGrantRepository _persistGrantRepository;
         IUnitOfWork _unitOfWork;
-        ILogger _logger;
-        public PersistedGrantStore(ILogger logger, IPersistGrantRepository persistGrantRepository, IUnitOfWork unitOfWork)
+        ILogger<PersistedGrantStore> _logger;
+        public PersistedGrantStore(ILogger<PersistedGrantStore> logger, IPersistGrantRepository persistGrantRepository, IUnitOfWork unitOfWork)
         {
             _persistGrantRepository = persistGrantRepository;
             _unitOfWork = unitOfWork;

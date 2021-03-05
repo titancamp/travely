@@ -19,10 +19,17 @@ namespace IdentityManager.API
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => {
-                    webBuilder.ConfigureAppConfiguration((ctx, conf) => {
+                 .ConfigureLogging(logging =>
+                 {
+                     logging.ClearProviders();
+                     logging.AddConsole();
+                 })
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.ConfigureAppConfiguration((ctx, conf) =>
+                    {
                         conf.AddJsonFile($"appsettings.local.json", optional: true, reloadOnChange: true);
-                        })
+                    })
                         .UseStartup<Startup>();
                 });
     }

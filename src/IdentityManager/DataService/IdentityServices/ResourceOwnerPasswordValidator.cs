@@ -16,8 +16,8 @@ namespace IdentityManager.DataService.IdentityServices
     {
         IUserRepository _userRepo;
         IPasswordHasher<User> _passHasher;
-        ILogger _logger;
-        public ResourceOwnerPasswordValidator(ILogger logger,IUserRepository rep, IPasswordHasher<User> passHasher)
+        ILogger<ResourceOwnerPasswordValidator> _logger;
+        public ResourceOwnerPasswordValidator(ILogger<ResourceOwnerPasswordValidator> logger,IUserRepository rep, IPasswordHasher<User> passHasher)
         {
             _userRepo = rep;
             _passHasher = passHasher;
