@@ -8,6 +8,7 @@ namespace TourManager.Api.Controllers
 	[Route("api/v{version:apiVersion}/[controller]")]
 	public class TourController : Controller
 	{
+
 		// GET: api/v1/tour
 		[HttpGet]
 		public async Task<IActionResult> Get()
