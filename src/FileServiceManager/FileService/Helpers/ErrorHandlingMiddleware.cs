@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -26,11 +27,15 @@ namespace FileService.Helpers
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<ErrorHandlingMiddleware> _logger;
+        private readonly IHostEnvironment _hostEnvironment;
+
         public ErrorHandlingMiddleware(RequestDelegate next,
-                                       ILogger<ErrorHandlingMiddleware> logger)
+                                       ILogger<ErrorHandlingMiddleware> logger,
+                                       IHostEnvironment hostEnvironment)
         {
             _next = next;
             _logger = logger;
+            _hostEnvironment = hostEnvironment;
         }
 
         public async Task Invoke(HttpContext context /* other scoped dependencies */)
@@ -41,11 +46,11 @@ namespace FileService.Helpers
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(context, ex, _logger);
+                await HandleExceptionAsync(context, ex, _logger, _hostEnvironment);
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception, ILogger<ErrorHandlingMiddleware> logger)
+        private static Task HandleExceptionAsync(HttpContext context, Exception exception, ILogger<ErrorHandlingMiddleware> logger, IHostEnvironment hostEnvironment)
         {
             int statusCode = GetErrorCode(exception);
 
@@ -58,7 +63,7 @@ namespace FileService.Helpers
                 Error = exception.Message
             };
 
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            if (hostEnvironment.IsDevelopment())
             {
                 errorResponse.StackTrace = exception.StackTrace;
             }

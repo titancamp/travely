@@ -28,13 +28,7 @@ namespace FileService.Controllers
         {
             var fileInfo = await _storage.GetFileAsync(fileId, companyId);
 
-            var memory = new MemoryStream();
-            using (var stream = new FileStream(fileInfo.FilePath, FileMode.Open))
-            {
-                await stream.CopyToAsync(memory);
-            }
-            memory.Position = 0;
-            return File(memory, fileInfo.FileContentType, fileInfo.Name + fileInfo.Extension);
+            return File(new FileStream(fileInfo.FilePath, FileMode.Open), fileInfo.FileContentType, fileInfo.Name + fileInfo.Extension);
         }
 
         [HttpPost("Upload")]
