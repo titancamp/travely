@@ -1,4 +1,5 @@
-﻿using IdentityManager.DataService.Mappers;
+﻿using AutoMapper;
+using IdentityManager.DataService.Mappers;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Stores;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Travely.IdentityManager.Repository.Abstractions;
+using entityModel = Travely.IdentityManager.Repository.Abstractions.Entities;
 
 namespace IdentityManager.DataService.IdentityServices
 {
@@ -18,11 +20,13 @@ namespace IdentityManager.DataService.IdentityServices
         IPersistGrantRepository _persistGrantRepository;
         IUnitOfWork _unitOfWork;
         ILogger<PersistedGrantStore> _logger;
-        public PersistedGrantStore(ILogger<PersistedGrantStore> logger, IPersistGrantRepository persistGrantRepository, IUnitOfWork unitOfWork)
+        IMapper _mapper;
+        public PersistedGrantStore(ILogger<PersistedGrantStore> logger, IPersistGrantRepository persistGrantRepository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _persistGrantRepository = persistGrantRepository;
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<PersistedGrant>> GetAllAsync(PersistedGrantFilter filter)
@@ -30,24 +34,23 @@ namespace IdentityManager.DataService.IdentityServices
             filter.Validate();
 
             var persistedGrants = await Filter(_persistGrantRepository.GetAll(), filter).ToArrayAsync();
-            persistedGrants = Filter(persistedGrants.AsQueryable(), filter).ToArray();
 
-            var model = persistedGrants.Select(x => x.ToModel());
+            var result = _mapper.Map<List<PersistedGrant>>(persistedGrants);
 
             _logger.LogDebug("{persistedGrantCount} persisted grants found for {@filter}", persistedGrants.Length, filter);
 
-            return model;
+            return result;
         }
 
         public async Task<PersistedGrant> GetAsync(string key)
         {
-            var persistedGrant = (await _persistGrantRepository.GetAll().Where(x => x.Key == key).ToArrayAsync())
-               .SingleOrDefault(x => x.Key == key);
-            var model = persistedGrant?.ToModel();
+            var persistedGrant = await _persistGrantRepository.FindAsync(x=>x.Key == key);
 
-            _logger.LogDebug("{persistedGrantKey} found in database: {persistedGrantKeyFound}", key, model != null);
+            var result = _mapper.Map<PersistedGrant>(persistedGrant);// persistedGrant?.ToModel();
 
-            return model;
+            _logger.LogDebug("{persistedGrantKey} found in database: {persistedGrantKeyFound}", key, result != null);
+
+            return result;
         }
 
         public async Task RemoveAllAsync(PersistedGrantFilter filter)
@@ -55,35 +58,28 @@ namespace IdentityManager.DataService.IdentityServices
             filter.Validate();
 
             var persistedGrants = await Filter(_persistGrantRepository.GetAll(), filter).ToArrayAsync();
-            persistedGrants = Filter(persistedGrants.AsQueryable(), filter).ToArray();
 
             _logger.LogDebug("removing {persistedGrantCount} persisted grants from database for {@filter}", persistedGrants.Length, filter);
-
-
 
             foreach (var item in persistedGrants)
             {
                 _persistGrantRepository.Remove(item);
             }
 
-
             await _unitOfWork.SaveChangesAsync();
-
         }
 
         public async Task RemoveAsync(string key)
         {
-            var persistedGrant = (await _persistGrantRepository.GetAll().Where(x => x.Key == key).ToArrayAsync())
-               .SingleOrDefault(x => x.Key == key);
+            var persistedGrant = await _persistGrantRepository.FindAsync(x => x.Key == key);
+
             if (persistedGrant != null)
             {
                 _logger.LogDebug("removing {persistedGrantKey} persisted grant from database", key);
 
                 _persistGrantRepository.Remove(persistedGrant);
 
-
                 await _unitOfWork.SaveChangesAsync();
-
             }
             else
             {
@@ -93,39 +89,30 @@ namespace IdentityManager.DataService.IdentityServices
 
         public async Task StoreAsync(PersistedGrant grant)
         {
-            var existing = (await _persistGrantRepository.GetAll().Where(x => x.Key == grant.Key).ToArrayAsync())
-                .SingleOrDefault(x => x.Key == grant.Key);
+            var existing = await _persistGrantRepository.FindAsync(x => x.Key == grant.Key);
             if (existing == null)
             {
                 _logger.LogDebug("{persistedGrantKey} not found in database", grant.Key);
 
-                var persistedGrant = grant.ToEntity();// map to db model
+                var persistedGrant = _mapper.Map<entityModel.PersistedGrant>(grant);// grant.ToEntity();// map to db model
                 _persistGrantRepository.Add(persistedGrant);
             }
             else
             {
                 _logger.LogDebug("{persistedGrantKey} found in database", grant.Key);
 
-
-
-                grant.UpdateEntity(existing);
+                existing = _mapper.Map(grant, existing);
             }
 
-
             await _unitOfWork.SaveChangesAsync();
-
         }
 
-        private IQueryable<Travely.IdentityManager.Repository.Abstractions.Entities.PersistedGrant> Filter(IQueryable<Travely.IdentityManager.Repository.Abstractions.Entities.PersistedGrant> query, PersistedGrantFilter filter)
+        private IQueryable<entityModel.PersistedGrant> Filter(IQueryable<entityModel.PersistedGrant> query, PersistedGrantFilter filter)
         {
             if (!String.IsNullOrWhiteSpace(filter.ClientId))
             {
                 query = query.Where(x => x.ClientId == filter.ClientId);
             }
-            //if (!String.IsNullOrWhiteSpace(filter.SessionId))
-            //{
-            //    query = query.Where(x => x.SessionId == filter.SessionId);
-            //}
             if (!String.IsNullOrWhiteSpace(filter.SubjectId))
             {
                 query = query.Where(x => x.SubjectId == filter.SubjectId);

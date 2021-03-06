@@ -1,5 +1,7 @@
-﻿using IdentityManager.DataService.Configs;
+﻿using AutoMapper;
+using IdentityManager.DataService.Configs;
 using IdentityManager.DataService.IdentityServices;
+using IdentityManager.DataService.Mappers;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Identity;
@@ -33,6 +35,17 @@ namespace IdentityManager.DataService.Extensions
                 ;
         }
 
-        
+        public static void ConfigureAutoMapper(this IServiceCollection services)
+        {
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new PersistGrantProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+        }
+
+
     }
 }

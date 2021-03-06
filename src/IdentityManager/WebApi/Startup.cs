@@ -27,6 +27,8 @@ namespace IdentityManager.API
 
             services.AddTravelyIdentityService();
 
+            services.ConfigureAutoMapper();
+
             services.AddRepositoryServices();
 
             services.AddControllers();
