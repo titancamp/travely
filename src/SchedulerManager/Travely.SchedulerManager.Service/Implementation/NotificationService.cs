@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using Travely.SchedulerManager.Common.Enums;
 using Travely.SchedulerManager.Repository;
 using Travely.SchedulerManager.Repository.Entities;
@@ -13,16 +14,19 @@ namespace Travely.SchedulerManager.Service
     {
         private readonly INotifierService _notifierService;
         private readonly IScheduleInfoRepository _scheduleRepository;
+        private readonly IScheduleJobRepository _scheduleJobRepository;
         private readonly IScheduledAsyncJobService<NotificationJobParameter> _scheduledJobService;
         private readonly IMapper _mapper;
 
         public NotificationService(INotifierService notifierService,
                                           IScheduleInfoRepository scheduleRepository,
+                                          IScheduleJobRepository scheduleJobRepository,
                                           IScheduledAsyncJobService<NotificationJobParameter> scheduledJobService,
                                           IMapper mapper)
         {
             _notifierService = notifierService;
             _scheduleRepository = scheduleRepository;
+            _scheduleJobRepository = scheduleJobRepository;
             _scheduledJobService = scheduledJobService;
             _mapper = mapper;
         }
@@ -51,9 +55,11 @@ namespace Travely.SchedulerManager.Service
         }
 
 
-        public async Task<bool> UpdateNotification(UpdateNotificationModel model)
+        public Task UpdateNotification<T>(T model) where T : INotificationModel
         {
-            throw new NotImplementedException();
+            //TODO: add mapping in automapper
+            var mapModel = _mapper.Map<UpdateNotificationModel>(model);
+            return UpdateNotification(mapModel);
         }
 
         public async Task<bool> DeleteNotification(long scheduleId)
@@ -96,7 +102,7 @@ namespace Travely.SchedulerManager.Service
             {
                 var fireDate = entity.ExpirationDate.AddDays(-date);
                 var jobId = await _scheduledJobService.StartJobAsync(new NotificationJob(_notifierService, this), //TODO-Question: Why we create new obj?
-                                                                     //TODO: Change this logic when Hangfire will change parameter type to DateTime.
+                                                                                                                  //TODO: Change this logic when Hangfire will change parameter type to DateTime.
                                                                      fireDate - DateTime.Now,
                                                                      new NotificationJobParameter
                                                                      {
@@ -117,6 +123,33 @@ namespace Travely.SchedulerManager.Service
             return await this._scheduleRepository.SaveAsync();
 
             #endregion
+        }
+
+        private async Task UpdateNotification(UpdateNotificationModel model)
+        {
+            using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
+
+            //find resource from db
+            var entity = await _scheduleRepository.FindAsync(model.RecurseId, true);
+            var jobs = await _scheduleJobRepository.GetJobIdAsync(entity.Id);
+
+            //update all fields in db
+            _mapper.Map(model, entity);
+            await this._scheduleRepository.SaveAsync();
+
+            //end job
+            var removeTasks = jobs.Select(id => _scheduledJobService.EndJobAsync(id));
+            await Task.WhenAll(removeTasks);
+
+            //TODO: Store job fire interval in DB or in some configuration file
+            var jobDates = new List<int> { 2, 10, 15 };
+            var createdJobs = new List<ScheduleJob>();
+            //TODO: start updated job
+
+            entity.ScheduleJobs = createdJobs;
+            await this._scheduleRepository.SaveAsync();
+
+            scope.Complete();
         }
 
         #endregion

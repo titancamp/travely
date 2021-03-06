@@ -59,18 +59,19 @@ namespace Travely.SchedulerManager.API.Services
 
         public override async Task<UpdateResponse> Update(UpdateRequest request, ServerCallContext context)
         {
-            var dto = new UpdateNotificationModel
-            {
-                TourId = request.TourId,
-                TourName = request.TourName,
-                BookingId = request.BookingId,
-                BookingName = request.BookingName,
-                BookingNotes = request.BookingNotes,
-                ExpireDate = request.ExpireDate.ToDateTime(),
-                UserIds = request.AssignedUserIds
-            };
-            var result = await _notificationService.UpdateNotification(dto);
-            return new UpdateResponse() { Succeed = result };
+            //TODO: 
+            //var dto = new UpdateNotificationModel
+            //{
+            //    TourId = request.TourId,
+            //    TourName = request.TourName,
+            //    BookingId = request.BookingId,
+            //    BookingName = request.BookingName,
+            //    BookingNotes = request.BookingNotes,
+            //    ExpireDate = request.ExpireDate.ToDateTime(),
+            //    UserIds = request.AssignedUserIds
+            //};
+            await _notificationService.UpdateNotification(dto);
+            return new UpdateResponse() { };
         }
 
         public override async Task<DeleteResponse> Delete(DeleteRequest request, ServerCallContext context)

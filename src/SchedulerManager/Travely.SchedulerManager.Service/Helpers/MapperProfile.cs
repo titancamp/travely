@@ -11,6 +11,8 @@ namespace Travely.SchedulerManager.Service.Helpers
             //CreateMap<ScheduleInfo, NotificationModel>()
             //    .ForMember(dto => dto.BookingId, entity => entity.MapFrom(src => src.RecurseId));
             //.ForMember(dto => dto.Message, entity => entity.MapFrom(src => $"{} booking for {} tour will expire in {}"));
+
+            //TODO from UpdateNotificationModel to ScheduleInfo
         }
     }
 }
