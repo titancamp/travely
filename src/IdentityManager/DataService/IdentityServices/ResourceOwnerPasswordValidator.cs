@@ -29,8 +29,7 @@ namespace IdentityManager.DataService.IdentityServices
             try
             {
                 var user = await _userRepo.FindByEmailAsync(context.UserName);
-                user = new User
-                
+               
                 if (user != null)
                 {
                     PasswordVerificationResult verificationResult = _passHasher.VerifyHashedPassword(user, user.Password, context.Password);
