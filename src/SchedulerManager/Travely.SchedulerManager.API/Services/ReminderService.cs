@@ -71,7 +71,7 @@ namespace Travely.SchedulerManager.API.Services
             //    ExpireDate = request.ExpireDate.ToDateTime(),
             //    UserIds = request.AssignedUserIds
             //};
-            await _notificationService.UpdateNotification(dto);
+            //await _notificationService.UpdateNotification(dto);
             return new UpdateResponse() { };
         }
 

@@ -146,7 +146,7 @@ namespace Travely.SchedulerManager.Service
 
             //find resource from db
             var entity = await _scheduleRepository.FindAsync(model.RecurseId, true);
-            var jobs = await _scheduleJobRepository.GetJobIdAsync(entity.Id);
+            var jobs = await _scheduleJobRepository.GetJobIdsAsync(entity.Id);
 
             //update all fields in db
             _mapper.Map(model, entity);
