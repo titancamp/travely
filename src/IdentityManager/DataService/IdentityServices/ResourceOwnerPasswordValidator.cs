@@ -33,7 +33,6 @@ namespace IdentityManager.DataService.IdentityServices
                 if (user != null)
                 {
                     PasswordVerificationResult verificationResult = _passHasher.VerifyHashedPassword(user, user.Password, context.Password);
-                    //PasswordVerificationResult verificationResult = PasswordVerificationResult.Success;
                     if (verificationResult == PasswordVerificationResult.Success)
                     {
                         context.Result = new GrantValidationResult(user.Id.ToString(), "password", null, "local", null);
