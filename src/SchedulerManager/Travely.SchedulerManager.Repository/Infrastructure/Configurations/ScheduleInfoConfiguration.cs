@@ -19,6 +19,7 @@ namespace Travely.SchedulerManager.Repository.Infrastructure.Configurations
                 .HasConstraintName("FK_Schedule_MessageTemplate");
 
             builder.HasQueryFilter(s => !s.IsDeleted);
+            builder.HasQueryFilter(s => !s.ScheduleMessageTemplate.IsDeleted);
         }
     }
 }

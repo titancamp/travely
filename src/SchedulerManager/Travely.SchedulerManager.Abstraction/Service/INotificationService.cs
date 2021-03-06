@@ -14,6 +14,6 @@ namespace Travely.SchedulerManager
 
         Task UpdateNotification<T>(T model) where T : INotificationModel;
 
-        Task<bool> DeleteNotification(long scheduleId);
+        Task DeleteNotification(long scheduleId);
     }
 }

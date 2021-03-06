@@ -11,7 +11,7 @@ namespace Travely.SchedulerManager.Repository.Implementation
     {
         public ScheduleJobRepository(SchedulerDbContext context) : base(context) { }
 
-        public async Task<IEnumerable<string>> GetJobIdAsync(long scheduleInfoId)
+        public async Task<IEnumerable<string>> GetJobIdsAsync(long scheduleInfoId)
         {
             var jobList = await GetListAsync(o => o.ScheduleInfoId == scheduleInfoId);
             return jobList.Select(o => o.JobId);

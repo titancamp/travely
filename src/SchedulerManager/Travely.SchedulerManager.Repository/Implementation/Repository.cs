@@ -75,7 +75,10 @@ namespace Travely.SchedulerManager.Repository.Implementation
         public void Remove(long id)
         {
            var entity = _dbSet.Find(id);
-           entity.IsDeleted = true;
+            if (entity == null)
+                throw new ArgumentException(nameof(entity));
+
+            entity.IsDeleted = true;
         }
 
         public void Remove(TEntity entity)
