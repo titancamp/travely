@@ -33,11 +33,11 @@ namespace IdentityManager.DataService.IdentityServices
         {
             filter.Validate();
 
-            var persistedGrants = await Filter(_persistGrantRepository.GetAll(), filter).ToArrayAsync();
+            var persistedGrants = Filter(_persistGrantRepository.GetAll(), filter);
 
-            var result = _mapper.Map<List<PersistedGrant>>(persistedGrants);
+            var result = _mapper.ProjectTo<PersistedGrant>(persistedGrants).ToList();
 
-            _logger.LogDebug("{persistedGrantCount} persisted grants found for {@filter}", persistedGrants.Length, filter);
+            _logger.LogDebug("{persistedGrantCount} persisted grants found for {@filter}", result.Count, filter);
 
             return result;
         }

@@ -4,7 +4,8 @@
 
   </PropertyGroup>
   <ItemGroup Label="Nupkg Versions">
-    <PackageReference Update="AutoMapper" Version="10.1.1"/>
+    <!--<PackageReference Update="AutoMapper" Version="10.1.1"/>-->
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" version="8.1.1"/>
     <PackageReference Update="IdentityServer4" Version="4.1.1" />
     <PackageReference Update="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
     

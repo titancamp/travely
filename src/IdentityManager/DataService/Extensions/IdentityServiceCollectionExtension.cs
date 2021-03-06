@@ -35,16 +35,7 @@ namespace IdentityManager.DataService.Extensions
                 ;
         }
 
-        public static void ConfigureAutoMapper(this IServiceCollection services)
-        {
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new PersistGrantProfile());
-            });
-
-            IMapper mapper = mapperConfig.CreateMapper();
-            services.AddSingleton(mapper);
-        }
+        
 
 
     }
