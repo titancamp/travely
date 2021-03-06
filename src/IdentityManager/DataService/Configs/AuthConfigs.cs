@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using Travely.IdentityManager.Repository.Abstractions.Entities;
 using IdentityServer4.Models;
 
 namespace IdentityManager.DataService.Configs
@@ -26,7 +27,7 @@ namespace IdentityManager.DataService.Configs
         {
             return new List<ApiResource>
             {
-               new ApiResource("Travely.com.auth", "My API Display Name")
+               new ApiResource()
             };
         }
 

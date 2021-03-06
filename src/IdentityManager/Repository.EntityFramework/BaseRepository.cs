@@ -57,7 +57,7 @@ namespace Travely.IdentityManager.Repository.EntityFramework
 
         public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default)
         {
-            return await Set.SingleAsync(expression, cancellationToken);
+            return await Set.SingleOrDefaultAsync(expression, cancellationToken);
         }
 
         public void Remove(TEntity entity)

@@ -1,4 +1,5 @@
 using IdentityManager.DataService.Extensions;
+using IdentityManager.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ namespace IdentityManager.WebApi
     public class Startup
     {
         public Startup(IConfiguration configuration)
-        {            
+        {
             Configuration = configuration;
         }
 
@@ -27,9 +28,9 @@ namespace IdentityManager.WebApi
 
             services.AddTravelyIdentityService();
 
-            services.AddRepositoryServices();
+            services.ConfigureAutoMapper();
 
-            services.InitialConfigIdentityServices();
+            services.AddRepositoryServices();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -49,16 +50,20 @@ namespace IdentityManager.WebApi
             }
 
 
+            app.UseIdentityServer();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
 
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
         }
+
     }
 }

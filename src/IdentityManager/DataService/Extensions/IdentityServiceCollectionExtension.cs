@@ -1,5 +1,7 @@
-﻿using IdentityManager.DataService.Configs;
+﻿using AutoMapper;
+using IdentityManager.DataService.Configs;
 using IdentityManager.DataService.IdentityServices;
+using IdentityManager.DataService.Mappers;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Identity;
@@ -19,21 +21,21 @@ namespace IdentityManager.DataService.Extensions
         public static void AddTravelyIdentityService(this IServiceCollection services)
         {
             services.AddScoped<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>()
-                   .AddScoped<IProfileService, ProfileService>()
-                   .AddScoped<IExtensionGrantValidator, DelegationGrantValidator>();
+                   .AddScoped<IProfileService, ProfileService>();
+                   //.AddScoped<IExtensionGrantValidator, DelegationGrantValidator>();
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
+
+            services.AddIdentityServer()
+                .AddDeveloperSigningCredential()
+                                                //.AddSigningCredential()
+                                                .AddPersistedGrantStore<PersistedGrantStore>()
+                .AddInMemoryApiResources(AuthConfigs.GetApiResources())
+                .AddInMemoryClients(AuthConfigs.GetClients())
+                .AddInMemoryApiScopes(AuthConfigs.GetScopes())
+                ;
         }
 
         
-
-        public static void InitialConfigIdentityServices(this IServiceCollection services)
-        {
-            services.AddIdentityServer()
-                .AddDeveloperSigningCredential()//  AddSigningCredential()
-                .AddInMemoryApiResources(AuthConfigs.GetApiResources())
-                .AddInMemoryClients(AuthConfigs.GetClients())
-                .AddInMemoryApiScopes(AuthConfigs.GetScopes());
-        }
 
 
     }

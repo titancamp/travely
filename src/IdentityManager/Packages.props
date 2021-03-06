@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="latest" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="Nupkg Versions">
-    <PackageReference Update="AutoMapper" Version="10.1.1"/>
+    <!--<PackageReference Update="AutoMapper" Version="10.1.1"/>-->
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" version="8.1.1"/>
     <PackageReference Update="IdentityServer4" Version="4.1.1" />
     <PackageReference Update="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
     <PackageReference Update="Microsoft.EntityFrameworkCore" Version="5.0.3" />
