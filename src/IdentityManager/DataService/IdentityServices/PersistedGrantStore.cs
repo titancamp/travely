@@ -35,7 +35,7 @@ namespace IdentityManager.DataService.IdentityServices
 
             var persistedGrants = Filter(_persistGrantRepository.GetAll(), filter);
 
-            var result = _mapper.ProjectTo<PersistedGrant>(persistedGrants).ToList();
+            var result = await _mapper.ProjectTo<PersistedGrant>(persistedGrants).ToListAsync();
 
             _logger.LogDebug("{persistedGrantCount} persisted grants found for {@filter}", result.Count, filter);
 
