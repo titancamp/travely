@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Travely.SchedulerManager.Common;
 using Travely.SchedulerManager.Notifier.Hubs;
@@ -12,8 +11,10 @@ namespace Travely.SchedulerManager.Notifier.Helpers
 
         public static IServiceCollection AddNotifier(this IServiceCollection services, NotifierOptions options)
         {
+            services.AddStackExchangeRedisCache(x => x.Configuration = options.RedisConnectionString);
             services.AddScoped<INotifierService, NotifierService>();
-            services.AddSignalR().AddStackExchangeRedis(options.RedisConnectionString, options =>
+            services.AddSignalR()
+                .AddStackExchangeRedis(options.RedisConnectionString, options =>
             {
                 options.Configuration.ChannelPrefix = "Travely";
             });

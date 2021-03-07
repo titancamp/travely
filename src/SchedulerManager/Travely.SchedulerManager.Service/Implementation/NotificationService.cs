@@ -14,6 +14,7 @@ namespace Travely.SchedulerManager.Service
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IMessageCompiler _messageCompiler;
+        private readonly INotifierService _notifierService;
         private readonly IScheduleInfoRepository _scheduleRepository;
         private readonly IScheduleJobRepository _scheduleJobRepository;
         private readonly IScheduledAsyncJobService<NotificationJobParameter> _scheduledJobService;
@@ -22,6 +23,7 @@ namespace Travely.SchedulerManager.Service
         public NotificationService(INotifierService notifierService,
                                           IScheduleInfoRepository scheduleRepository,
                                           IScheduleJobRepository scheduleJobRepository,
+                                           IMessageCompiler messageCompiler,
                                           IScheduledAsyncJobService<NotificationJobParameter> scheduledJobService,
                                           IMapper mapper)
         {
@@ -29,6 +31,8 @@ namespace Travely.SchedulerManager.Service
             _scheduleJobRepository = scheduleJobRepository;
             _scheduledJobService = scheduledJobService;
             _scheduleJobRepository = scheduleJobRepository;
+            _messageCompiler = messageCompiler;
+            _notifierService = notifierService;
             _mapper = mapper;
         }
 
@@ -71,15 +75,13 @@ namespace Travely.SchedulerManager.Service
 
         public async Task DeleteNotification(long scheduleId)
         {
-            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            {
-                _scheduleRepository.Remove(scheduleId);
-                await _scheduleRepository.SaveAsync();
+            using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
+            _scheduleRepository.Remove(scheduleId);
+            await _scheduleRepository.SaveAsync();
 
-                var jobIds = (await _scheduleJobRepository.GetJobIdsAsync(scheduleId)).ToList();
-                var removeTasks = jobIds.Select(id => _scheduledJobService.EndJobAsync(id));
-                await Task.WhenAll(removeTasks);
-            }
+            var jobIds = (await _scheduleJobRepository.GetJobIdsAsync(scheduleId)).ToList();
+            var removeTasks = jobIds.Select(id => _scheduledJobService.EndJobAsync(id));
+            await Task.WhenAll(removeTasks);
         }
 
         #region Private methods
@@ -117,7 +119,7 @@ namespace Travely.SchedulerManager.Service
             {
                 var fireDate = entity.ExpirationDate.AddDays(-date);
                 var jobId = await _scheduledJobService.StartJobAsync(new NotificationJob(_serviceProvider), //TODO-Question: Why we create new obj?
-                                                                     //TODO: Change this logic when Hangfire will change parameter type to DateTime.
+                                                                                                            //TODO: Change this logic when Hangfire will change parameter type to DateTime.
                                                                      fireDate - DateTime.Now,
                                                                      new NotificationJobParameter
                                                                      {
@@ -168,7 +170,7 @@ namespace Travely.SchedulerManager.Service
         }
 
         #endregion
-        
+
 
         public async Task<bool> SetStatus(long scheduleInfoId)
         {

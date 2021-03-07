@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using StackExchange.Redis;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Authentication;
 using System.Threading.Tasks;
 using Travely.SchedulerManager.Common;
@@ -11,18 +14,18 @@ namespace Travely.SchedulerManager.Notifier.Services
 {
     class NotifierService : INotifierService, IEmailService
     {
-        readonly IHubContext<NotificationHub, INotificationHub> _hubContext;
-        readonly EmailOptions _emailOptions;
+        private readonly IHubContext<NotificationHub, INotificationHub> _hubContext;
+        private readonly NotifierOptions _notifierOptions;
         public NotifierService(IHubContext<NotificationHub, INotificationHub> hub, IOptionsMonitor<NotifierOptions> options)
         {
             _hubContext = hub;
-            _emailOptions = options.CurrentValue.EmailOptions;
+            _notifierOptions = options.CurrentValue;
         }
-        public async Task<string> NotifyAsync(NotificationModel model)
+        public async Task<IEnumerable<string>> NotifyAsync(NotificationModel model)
         {
-            //TODO: Add implementation to send notification and get statuses
-            await _hubContext.Clients.Client("connectionId").ReceiveNotification(new { message = "Hola" });
-            return string.Empty;
+            var shouldGet = (await GetOnlineUsers()).Intersect(model.UserIds.Select(id => id.ToString())).ToList();
+            await _hubContext.Clients.Users(shouldGet).ReceiveNotification(model);
+            return shouldGet;
         }
 
         public async Task SendEmailAsync(string receiverEmail, string title, string subject, string content)
@@ -36,16 +39,24 @@ namespace Travely.SchedulerManager.Notifier.Services
                 }
             };
             mimeMessage.To.Add(new MailboxAddress(title, receiverEmail));
-            mimeMessage.From.Add(new MailboxAddress(_emailOptions.Sender, _emailOptions.Username));
+            mimeMessage.From.Add(new MailboxAddress(_notifierOptions.EmailOptions.Sender, _notifierOptions.EmailOptions.Username));
             using var client = new SmtpClient
             {
                 ServerCertificateValidationCallback = (_, _, _, _) => true,
                 SslProtocols = SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12
             };
-            await client.ConnectAsync(_emailOptions.Server, _emailOptions.Port, false);
-            await client.AuthenticateAsync(_emailOptions.Username, _emailOptions.Password);
+            await client.ConnectAsync(_notifierOptions.EmailOptions.Server, _notifierOptions.EmailOptions.Port, false);
+            await client.AuthenticateAsync(_notifierOptions.EmailOptions.Username, _notifierOptions.EmailOptions.Password);
             await client.SendAsync(mimeMessage);
             await client.DisconnectAsync(true);
+        }
+
+        private async Task<IEnumerable<string>> GetOnlineUsers()
+        {
+            using var redis = await ConnectionMultiplexer.ConnectAsync(_notifierOptions.RedisConnectionString);
+            var db = redis.GetDatabase();
+            var keys = redis.GetServer(_notifierOptions.RedisConnectionString).Keys();
+            return keys.Select(key => key.ToString()).ToList();
         }
     }
 }

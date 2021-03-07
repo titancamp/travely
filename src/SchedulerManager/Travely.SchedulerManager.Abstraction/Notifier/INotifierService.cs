@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using Travely.SchedulerManager.Common;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Travely.SchedulerManager
 {
     public interface INotifierService
     {
-        Task<string> NotifyAsync(NotificationModel model);
+        Task<IEnumerable<string>> NotifyAsync(NotificationModel model);
     }
 }

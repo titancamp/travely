@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 using Travely.SchedulerManager.Common;
 using Travely.SchedulerManager.Repository.Implementation;
 using Travely.SchedulerManager.Repository.Infrastructure.Interfaces;
@@ -19,14 +21,14 @@ namespace Travely.SchedulerManager.Repository
             return services;
         }
 
-        public static void ConfigureRepositoryLayer(this IApplicationBuilder app, bool isDevelopmentEnvironment)
+        public static async Task<IHost> SeedData(this IHost host, bool isDevelopmentEnvironment = true)
         {
-            var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
-            using var scope = scopeFactory.CreateScope();
+            using var scope = host.Services.CreateScope();
+            var scopeFactory = scope.ServiceProvider.GetRequiredService<IServiceScopeFactory>();
             var dbInitializer = scope.ServiceProvider.GetService<IDbInitializer>();
-            dbInitializer.Initialize();
-            //TODO: Find a better solution instead of wait!
-            dbInitializer.SeedData(isDevelopmentEnvironment).Wait();
+            dbInitializer.Initialize(scope);
+            await dbInitializer.SeedData(isDevelopmentEnvironment);
+            return host;
         }
 
         private static void AddDContext(this IServiceCollection services, string connectionString)
@@ -40,6 +42,7 @@ namespace Travely.SchedulerManager.Repository
         {
             services.AddScoped<IScheduleInfoRepository, ScheduleInfoRepository>();
             services.AddScoped<IScheduleMessageTemplateRepository, ScheduleMessageTemplateRepository>();
+            services.AddScoped<IScheduleJobRepository, ScheduleJobRepository>();
         }
 
         private static void AddDbSeeding(this IServiceCollection service)
