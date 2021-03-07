@@ -2,7 +2,9 @@
 <Project ToolsVersion="latest" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="Nupkg Versions">
     <!--<PackageReference Update="AutoMapper" Version="10.1.1"/>-->
+    
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" version="8.1.1"/>
+     <PackageReference Update="AutoMapperBuilder" Version="1.1.0" />
     <PackageReference Update="IdentityServer4" Version="4.1.1" />
     <PackageReference Update="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
     <PackageReference Update="Microsoft.EntityFrameworkCore" Version="5.0.3" />
@@ -16,7 +18,7 @@
     <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" IncludeAssets="runtime; build; native; contentfiles; analyzers" />
     
     <PackageReference Update="Nerdbank.GitVersioning" Version="3.3.37" PrivateAssets="All" IncludeAssets="runtime; build; native; contentfiles; analyzers" />
-
+   
     <PackageReference Update="AutoMapper" Version="10.1.1" />
   </ItemGroup>
 </Project>

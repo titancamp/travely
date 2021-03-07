@@ -9,11 +9,13 @@ using IdentityManager.WebApi.Models.Request;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
-    public class UsersController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserController : Controller
     {
         private readonly IAuthenticationService _authenticationService;
 
-        public UsersController(IAuthenticationService authenticationService)
+        public UserController(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;         
         }
@@ -23,7 +25,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<UserResponseModel>> GetUserByIdAsync(int id, CancellationToken cancellationToken = default)
         {
             return await _authenticationService.GetUserById(id, cancellationToken);

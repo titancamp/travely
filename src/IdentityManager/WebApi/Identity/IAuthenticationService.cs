@@ -11,7 +11,7 @@ namespace Travely.IdentityManager.API.Identity
 {
     public interface IAuthenticationService
     {
-        Task<ResultViewModel> RegisterUserAsync(RegisterViewModel model, CancellationToken ct);
+        Task RegisterUserAsync(RegisterRequestModel model, CancellationToken ct);
         Task<ResultViewModel> ConfirmEmailAsync(string email, string token, CancellationToken ct);
         Task<ResultViewModel> ForgetPasswordAsync(string email, CancellationToken ct);
         Task<ResultViewModel> ResetPasswordAsync(ResetPasswordViewModel model, CancellationToken ct);

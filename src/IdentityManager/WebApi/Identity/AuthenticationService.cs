@@ -12,9 +12,9 @@ using Travely.IdentityManager.API.Identity;
 using Travely.IdentityManager.WebApi.Identity;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
 using IdentityManager.WebApi.Models.Request;
+using Microsoft.AspNetCore.Identity;
 
-
-namespace Travely.IdentityManager.WebApi.Controllers
+namespace Travely.IdentityManager.API.Identity
 {
     public class AuthenticationService : BaseService, IAuthenticationService
     {
@@ -24,9 +24,10 @@ namespace Travely.IdentityManager.WebApi.Controllers
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IAgencyRepository _agencyRepository;
         private readonly IMapper _mapper;
+        private readonly IPasswordHasher<User> _passHasher;
 
-        public AuthenticationService( IUserRepository userRepository, IUnitOfWork unitOfWork,
-            IEmployeeRepository employeeRepository, IAgencyRepository agencyRepository, IMapper mapper) : base(mapper)
+        public AuthenticationService(IUserRepository userRepository, IUnitOfWork unitOfWork,
+            IEmployeeRepository employeeRepository, IAgencyRepository agencyRepository, IMapper mapper, IPasswordHasher<User> passHasher) : base(mapper)
         {
 
             _userRepository = userRepository;
@@ -34,6 +35,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
             _employeeRepository = employeeRepository;
             _agencyRepository = agencyRepository;
             _mapper = mapper;
+            _passHasher = passHasher;
         }
 
         /// <summary>
@@ -67,9 +69,12 @@ namespace Travely.IdentityManager.WebApi.Controllers
             throw new NotImplementedException();
         }
 
-        public async Task<ResultViewModel> RegisterUserAsync(RegisterViewModel model, CancellationToken ct)
+        public async Task RegisterUserAsync(RegisterRequestModel model, CancellationToken ct)
         {
-            throw new NotImplementedException();
+            User user = _mapper.Map<User>(model);
+            _userRepository.Add(user);
+
+            await _unitOfWork.SaveChangesAsync();
         }
 
         /// <summary>

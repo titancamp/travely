@@ -8,11 +8,15 @@ using System.Threading.Tasks;
 using IdentityManager.WebApi.Models;
 using Travely.IdentityManager.API.Identity;
 using IdentityManager.WebApi.Models.Request;
+using Microsoft.AspNetCore.Http;
+using IdentityManager.WebApi.Models.Error;
+using System.Collections.Generic;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [Produces("application/json")]
+    //[ApiController]
     public class AccountController : ControllerBase
     {
         private readonly IAuthenticationService _authenticationService;
@@ -31,17 +35,14 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <returns></returns>
         [HttpPost("Register")]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult<ResultViewModel>> RegisterAsync([FromBody] RegisterViewModel model, CancellationToken ct = default)
+        //[ValidateAntiForgeryToken]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<ValidationErrorModel>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequestModel model, CancellationToken ct = default)
         {
-            if (ModelState.IsValid)
-            {
-                var result = await _authenticationService.RegisterUserAsync(model, ct);
+             await _authenticationService.RegisterUserAsync(model, ct);
 
-                return result;
-            }
-            return BadRequest("Some properties are not valid");
-
+            return Ok();
         }
 
         /// <summary>
@@ -95,26 +96,26 @@ namespace Travely.IdentityManager.WebApi.Controllers
             return BadRequest("Some properties are not valid");
         }
 
-        /// <summary>
-        /// Get agency by agency id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<ActionResult<AgencyResponseModel>> GetAgencyByIdAsync(int id, CancellationToken cancellationToken = default)
-        {
-            return await _authenticationService.GetAgencyById(id, cancellationToken);
-        }
+        ///// <summary>
+        ///// Get agency by agency id
+        ///// </summary>
+        ///// <param name="id"></param>
+        ///// <returns></returns>
+        //public async Task<ActionResult<AgencyResponseModel>> GetAgencyByIdAsync(int id, CancellationToken cancellationToken = default)
+        //{
+        //    return await _authenticationService.GetAgencyById(id, cancellationToken);
+        //}
 
-        /// <summary>
-        /// Add Agency
-        /// </summary>
-        /// <param name="agencyRequestModel"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public async Task<ActionResult<AgencyResponseModel>> CreateAgencyAsync(AgencyRequestModel agencyRequestModel, CancellationToken cancellationToken = default)
-        {
-            return await _authenticationService.CreateAgency(agencyRequestModel, cancellationToken);
-        }
+        ///// <summary>
+        ///// Add Agency
+        ///// </summary>
+        ///// <param name="agencyRequestModel"></param>
+        ///// <param name="cancellationToken"></param>
+        ///// <returns></returns>
+        //public async Task<ActionResult<AgencyResponseModel>> CreateAgencyAsync(AgencyRequestModel agencyRequestModel, CancellationToken cancellationToken = default)
+        //{
+        //    return await _authenticationService.CreateAgency(agencyRequestModel, cancellationToken);
+        //}
 
     }
 }
