@@ -22,6 +22,7 @@ namespace Travely.ServiceManager.DAL.Repositories
             return await _serviceManagerDbContext.Activities
                 .Include(x => x.ActivityType)
                 .Where(x => x.ActivityType.AgencyId == agencyId)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
@@ -30,6 +31,7 @@ namespace Travely.ServiceManager.DAL.Repositories
             return await _serviceManagerDbContext.Activities
                 .Include(x => x.ActivityType)
                 .Where(x => x.ActivityType.AgencyId == agencyId && x.Name == activityName && x.ActivityTypeId == activityTypeId)
+                .AsNoTracking()
                 .SingleOrDefaultAsync();
         }
     }

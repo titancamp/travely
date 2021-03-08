@@ -6,6 +6,7 @@ using TourManager.Clients.Abstraction.ServiceManager;
 using TourManager.Clients.Abstraction.Settings;
 using Travely.ServiceManager.Service;
 using Activity = TourManager.Common.Clients.Activity;
+using ActivityType = TourManager.Common.Clients.ActivityType;
 using ActivityModel = Travely.ServiceManager.Service.Activity;
 using ActivityResponse = TourManager.Common.Clients.ActivityResponse;
 using TourManager.Clients.Implementation.Mappers;
@@ -55,7 +56,7 @@ namespace TourManager.Clients.Implementation.ServiceManager
             return Mapping.Mapper.Map<ActivityResponse>(response); 
         }
 
-        public async Task<IEnumerable<Activity>> GetActivitiesAsync(int AgencyId)
+        public async Task<IEnumerable<Activity>> GetActivitiesAsync(long AgencyId)
         {
             var activityClient = GetActivityClient();
 
@@ -65,6 +66,20 @@ namespace TourManager.Clients.Implementation.ServiceManager
                                                                     });
 
             return activities.Activities_.AsEnumerable().Select(s => Mapping.Mapper.Map<Activity>(s));
+        }
+
+        public async Task<IEnumerable<ActivityType>> SearchActivityTypesAsync(long agencyId, string activityTypeName)
+        {
+            var activityClient = GetActivityClient();
+
+            var activityTypes = await activityClient.SearchActivityTypesAsync(new SearchActivityTypesRequest()
+            {
+                AgencyId = agencyId,
+                ActivityTypeName = activityTypeName
+
+            });
+
+            return activityTypes.ActivityTypes_.AsEnumerable().Select(s => Mapping.Mapper.Map<ActivityType>(s));
         }
 
         private ActivityProto.ActivityProtoClient GetActivityClient() {

@@ -44,7 +44,7 @@ message ActivityResponse {
 }
 
 message GetActivitiesRequest {
-	int32 agencyId = 1;
+	int64 agencyId = 1;
 }
 
 message DeleteActivityRequest {
