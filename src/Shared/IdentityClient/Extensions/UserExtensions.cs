@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
 
 using Travely.IdentityClient.Authorization.Data;
 
@@ -11,7 +13,20 @@ namespace Microsoft.AspNetCore.Http
             UserInfo userInfo = new UserInfo();
             foreach(var prop in userInfo.GetType().GetProperties())
             {
-                prop.SetValue(userInfo, httpContext.User.Claims.FirstOrDefault(claim => claim.Type == prop.Name)?.Value);
+                Type tProp = prop.PropertyType;
+                var value = httpContext.User.Claims.FirstOrDefault(claim => claim.Type == prop.Name)?.Value;
+                if (tProp.IsGenericType && tProp.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
+                {
+                    if (value == null)
+                    {
+                        prop.SetValue(userInfo, null);
+                        continue;
+                    }
+
+                    tProp = new NullableConverter(prop.PropertyType).UnderlyingType;
+                }
+
+                prop.SetValue(userInfo, Convert.ChangeType(value, tProp));
             }
 
             return userInfo;
