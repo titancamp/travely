@@ -13,6 +13,8 @@ using Travely.IdentityManager.WebApi.Identity;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
 using IdentityManager.WebApi.Models.Request;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.JsonPatch;
+using System.Linq;
 
 namespace Travely.IdentityManager.API.Identity
 {
@@ -145,6 +147,24 @@ namespace Travely.IdentityManager.API.Identity
         {
             var entity = Mapper.Map<User>(userRequestModel);
             _userRepository.Remove(entity);
+        }
+
+        public async Task UpdateAccountAsync(UserContextModel userContext, JsonPatchDocument<UpdateAgencyRequestModel> jsonPatch, CancellationToken ct)
+        {
+            Agency agency = await _agencyRepository.GetAll().Where(x => x.Id == userContext.AgencyId).Include
+                (x => x.Employees).FirstOrDefaultAsync();
+
+            UpdateAgencyRequestModel jsonPatchDTO = _mapper.Map<UpdateAgencyRequestModel>(agency);
+
+            jsonPatch.ApplyTo(jsonPatchDTO);
+
+            _mapper.Map(jsonPatchDTO, agency);
+
+            _agencyRepository.Update(agency);
+
+            await _unitOfWork.SaveChangesAsync();
+
+            //return jsonPatchDTO;
         }
 
         /// <summary>

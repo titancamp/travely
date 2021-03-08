@@ -26,6 +26,8 @@ namespace IdentityManager.WebApi
         {
             services.ConfigureFilterServices();
 
+            services.AddContextServices();
+
             services.ConfigureSqlContext(Configuration);
 
             services.AddTravelyIdentityService();

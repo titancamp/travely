@@ -11,6 +11,8 @@ using IdentityManager.WebApi.Models.Request;
 using Microsoft.AspNetCore.Http;
 using IdentityManager.WebApi.Models.Error;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.JsonPatch;
+using IdentityManager.WebApi.Services;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
@@ -21,11 +23,12 @@ namespace Travely.IdentityManager.WebApi.Controllers
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IConfiguration _configuration;
-
-        public AccountController(IAuthenticationService authenticationService, IConfiguration configuration)
+        private readonly IUserContextService _userContext;
+        public AccountController(IAuthenticationService authenticationService, IConfiguration configuration, IUserContextService userContext)
         {
             _authenticationService = authenticationService;
             _configuration = configuration;
+            _userContext = userContext;
         }
 
         /// <summary>
@@ -94,6 +97,14 @@ namespace Travely.IdentityManager.WebApi.Controllers
             }
 
             return BadRequest("Some properties are not valid");
+        }
+
+        [HttpPatch()]
+        [Authorize]
+        public async Task UpdateAccountAsync([FromBody] JsonPatchDocument<UpdateAgencyRequestModel> agencyPatch, CancellationToken cancellationToken = default)
+        {
+
+            await _authenticationService.UpdateAccountAsync(_userContext.GetUserContext(), agencyPatch, cancellationToken);
         }
 
         ///// <summary>

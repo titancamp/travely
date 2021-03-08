@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Travely.IdentityManager.Repository.Migrations
+namespace Travely.IdentityManager.Repository.EntityFramework.Migrations
 {
-    public partial class CreateIdentityServerDB : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -517,7 +517,7 @@ namespace Travely.IdentityManager.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Organization",
+                name: "Agency",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -534,9 +534,9 @@ namespace Travely.IdentityManager.Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Organization", x => x.Id);
+                    table.PrimaryKey("PK_Agency", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Organization_OwnerId",
+                        name: "FK_Agency_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -552,7 +552,7 @@ namespace Travely.IdentityManager.Repository.Migrations
                     AgencyId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     JobTitle = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
@@ -566,9 +566,9 @@ namespace Travely.IdentityManager.Repository.Migrations
                 {
                     table.PrimaryKey("PK_Employee", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_User_OrganizationId",
+                        name: "FK_User_AgencyId",
                         column: x => x.AgencyId,
-                        principalTable: "Organization",
+                        principalTable: "Agency",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -578,6 +578,12 @@ namespace Travely.IdentityManager.Repository.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Agency_OwnerId",
+                table: "Agency",
+                column: "OwnerId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ApiResourceClaims_ApiResourceId",
@@ -698,12 +704,6 @@ namespace Travely.IdentityManager.Repository.Migrations
                 table: "IdentityResources",
                 column: "Name",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Organization_OwnerId",
-                table: "Organization",
-                column: "OwnerId",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -775,7 +775,7 @@ namespace Travely.IdentityManager.Repository.Migrations
                 name: "Clients");
 
             migrationBuilder.DropTable(
-                name: "Organization");
+                name: "Agency");
 
             migrationBuilder.DropTable(
                 name: "IdentityResources");

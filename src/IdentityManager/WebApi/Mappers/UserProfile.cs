@@ -26,11 +26,17 @@ namespace IdentityManager.WebApi.Mappers
             CreateMap<RegisterRequestModel, Agency>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.AgencyName))
                 .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow)
+                .AfterMap((src, dest) => dest.LogoFile = "aa")
+                .AfterMap((src, dest) => dest.Address = "ad")
                 ;
             
             CreateMap<RegisterRequestModel, Employee>()
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow)
+                .AfterMap((src, dest) => dest.FirstName = "a") // remove after fix db nullable
+                .AfterMap((src, dest) => dest.LastName = "a")
+                .AfterMap((src, dest) => dest.JobTitle = "a")
+                .AfterMap((src, dest) => dest.PhoneNumber = "a")
                 ;
 
 

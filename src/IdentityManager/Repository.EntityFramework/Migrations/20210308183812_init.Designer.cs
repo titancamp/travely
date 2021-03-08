@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Travely.IdentityManager.Repository.EntityFramework;
 
-namespace Travely.IdentityManager.Repository.Migrations
+namespace Travely.IdentityManager.Repository.EntityFramework.Migrations
 {
     [DbContext(typeof(IdentityServerDbContext))]
-    [Migration("20210307211036_nullableEmployee")]
-    partial class nullableEmployee
+    [Migration("20210308183812_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,7 +67,7 @@ namespace Travely.IdentityManager.Repository.Migrations
                     b.HasIndex("OwnerId")
                         .IsUnique();
 
-                    b.ToTable("Organization");
+                    b.ToTable("Agency");
                 });
 
             modelBuilder.Entity("Travely.IdentityManager.Repository.Abstractions.Entities.ApiResource", b =>
@@ -958,7 +958,7 @@ namespace Travely.IdentityManager.Repository.Migrations
                     b.HasOne("Travely.IdentityManager.Repository.Abstractions.Entities.User", "Owner")
                         .WithOne("Agency")
                         .HasForeignKey("Travely.IdentityManager.Repository.Abstractions.Entities.Agency", "OwnerId")
-                        .HasConstraintName("FK_Organization_OwnerId")
+                        .HasConstraintName("FK_Agency_OwnerId")
                         .IsRequired();
 
                     b.Navigation("Owner");
@@ -1134,7 +1134,7 @@ namespace Travely.IdentityManager.Repository.Migrations
                     b.HasOne("Travely.IdentityManager.Repository.Abstractions.Entities.Agency", "Agency")
                         .WithMany("Employees")
                         .HasForeignKey("AgencyId")
-                        .HasConstraintName("FK_User_OrganizationId")
+                        .HasConstraintName("FK_User_AgencyId")
                         .IsRequired();
 
                     b.HasOne("Travely.IdentityManager.Repository.Abstractions.Entities.User", "User")

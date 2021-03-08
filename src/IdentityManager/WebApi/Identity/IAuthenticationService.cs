@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using IdentityManager.WebApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using IdentityManager.WebApi.Models.Request;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace Travely.IdentityManager.API.Identity
 {
@@ -19,6 +20,8 @@ namespace Travely.IdentityManager.API.Identity
         Task<IEnumerable<UserResponseModel>> GetUsers(CancellationToken ct);
         Task<AgencyResponseModel> GetAgencyById(int id, CancellationToken ct);
         Task<UserResponseModel> Create(UserRequestModel userRequestModel, CancellationToken ct);
+
+        Task UpdateAccountAsync(UserContextModel userContext, JsonPatchDocument<UpdateAgencyRequestModel> jsonPatch, CancellationToken ct);
         Task<UserResponseModel> Update(UserRequestModel userRequestModel, CancellationToken ct);
         Task DeleteUser(UserRequestModel userRequestModel, CancellationToken ct);
         Task <AgencyResponseModel> CreateAgency(AgencyRequestModel agencyRequestModel, CancellationToken ct);

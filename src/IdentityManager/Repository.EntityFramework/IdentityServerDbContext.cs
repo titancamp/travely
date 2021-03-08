@@ -365,7 +365,7 @@ namespace Travely.IdentityManager.Repository.EntityFramework
                     .WithMany(p => p.Employees)
                     .HasForeignKey(d => d.AgencyId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_User_OrganizationId");
+                    .HasConstraintName("FK_User_AgencyId");
 
                 entity.HasOne(d => d.User)                
                     .WithOne(p => p.Employee)
@@ -420,7 +420,7 @@ namespace Travely.IdentityManager.Repository.EntityFramework
 
             modelBuilder.Entity<Agency>(entity =>
             {
-                entity.ToTable("Organization");
+                entity.ToTable("Agency");
 
                 entity.Property(e => e.Address)
                     .IsRequired()
@@ -438,7 +438,7 @@ namespace Travely.IdentityManager.Repository.EntityFramework
                     .WithOne(p => p.Agency)
                     .HasForeignKey<Agency>(d => d.OwnerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Organization_OwnerId");
+                    .HasConstraintName("FK_Agency_OwnerId");
             });
 
             modelBuilder.Entity<PersistedGrant>(entity =>

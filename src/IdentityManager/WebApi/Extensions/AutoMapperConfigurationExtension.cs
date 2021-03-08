@@ -21,6 +21,7 @@ namespace IdentityManager.WebApi.Extensions
             services.AddAutoMapperBuilder(builder =>
             {
                 builder.Profiles.Add(new UserProfile(services.BuildServiceProvider().GetRequiredService<IPasswordHasher<User>>()));
+                builder.Profiles.Add(new PersistGrantProfile());
             });
 
             //var mapperConfig = new MapperConfiguration(mc =>

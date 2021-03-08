@@ -1,4 +1,6 @@
 ﻿using IdentityManager.WebApi.Filters;
+using IdentityManager.WebApi.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -18,6 +20,12 @@ namespace IdentityManager.WebApi.Extensions
             });
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+        }
+
+        public static void AddContextServices(this IServiceCollection services)
+        {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IUserContextService, UserContextService>();
         }
     }
 
