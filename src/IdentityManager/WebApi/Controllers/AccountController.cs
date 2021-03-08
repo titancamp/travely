@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Http;
 using IdentityManager.WebApi.Models.Error;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.JsonPatch;
-using IdentityManager.WebApi.Services;
+using IdentityManager.WebApi.Extensions;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
@@ -23,12 +23,10 @@ namespace Travely.IdentityManager.WebApi.Controllers
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IConfiguration _configuration;
-        private readonly IUserContextService _userContext;
-        public AccountController(IAuthenticationService authenticationService, IConfiguration configuration, IUserContextService userContext)
+        public AccountController(IAuthenticationService authenticationService, IConfiguration configuration)
         {
             _authenticationService = authenticationService;
             _configuration = configuration;
-            _userContext = userContext;
         }
 
         /// <summary>
@@ -44,7 +42,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequestModel model, CancellationToken ct = default)
         {
              await _authenticationService.RegisterUserAsync(model, ct);
-
+            
             return Ok();
         }
 
@@ -103,8 +101,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         [Authorize]
         public async Task UpdateAccountAsync([FromBody] JsonPatchDocument<UpdateAgencyRequestModel> agencyPatch, CancellationToken cancellationToken = default)
         {
-
-            await _authenticationService.UpdateAccountAsync(_userContext.GetUserContext(), agencyPatch, cancellationToken);
+            await _authenticationService.UpdateAccountAsync(HttpContext.GetUserContext(), agencyPatch, cancellationToken);
         }
 
         ///// <summary>

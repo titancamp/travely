@@ -26,8 +26,6 @@ namespace IdentityManager.WebApi
         {
             services.ConfigureFilterServices();
 
-            services.AddContextServices();
-
             services.ConfigureSqlContext(Configuration);
 
             services.AddTravelyIdentityService();
@@ -40,6 +38,15 @@ namespace IdentityManager.WebApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IdentityManager.WebApi", Version = "v1" });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme ",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
             });
         }
 

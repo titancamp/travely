@@ -75,6 +75,12 @@ namespace Travely.IdentityManager.API.Identity
         {
             User user = _mapper.Map<User>(model);
             _userRepository.Add(user);
+            user.Agency.Owner = user;
+
+            user.Employee.Agency = user.Agency;
+            _agencyRepository.Add(user.Agency);
+            
+            
 
             await _unitOfWork.SaveChangesAsync();
         }

@@ -1,5 +1,5 @@
 ﻿using IdentityManager.WebApi.Filters;
-using IdentityManager.WebApi.Services;
+using IdentityManager.WebApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Travely.IdentityManager.API.Identity;
+using Travely.IdentityManager.Repository.Abstractions.Entities;
 
 namespace IdentityManager.WebApi.Extensions
 {
@@ -22,10 +23,15 @@ namespace IdentityManager.WebApi.Extensions
             services.AddScoped<IAuthenticationService, AuthenticationService>();
         }
 
-        public static void AddContextServices(this IServiceCollection services)
+        public static UserContextModel GetUserContext(this HttpContext context)
         {
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<IUserContextService, UserContextService>();
+            var claims = context?.User?.Claims;
+            UserContextModel userContext = new UserContextModel();
+            userContext.Role = (Role)int.Parse(claims.First(p => p.Type.Contains("role")).Value);
+            userContext.UserId = int.Parse(claims.First(p => p.Type == "sub").Value);
+            userContext.AgencyId = int.Parse(claims.First(p => p.Type == "AgencyId").Value);
+
+            return userContext;
         }
     }
 
