@@ -366,6 +366,3 @@ FodyWeavers.xsd
 
 # nbgv files
 */.store/nbgv/3.3.37
-
-# appsettings.Development
-*/IdentityManager/WebApi/appsettings.Development.json
