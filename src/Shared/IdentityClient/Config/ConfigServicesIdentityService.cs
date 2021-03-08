@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Security.Claims;
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Hosting;
-using IdentityModel;
 using Microsoft.IdentityModel.Tokens;
-using System;
+
 using Travely.IdentityClient.Authorization;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -14,14 +15,11 @@ namespace Microsoft.Extensions.DependencyInjection
             services
                 .AddAuthorization(options =>
                 {
-                    //TODO: check the keys
-                    options.AddPolicy(UserTypes.User, policy => policy.RequireAssertion(context => context.User.HasClaim(userClaim =>
-                        userClaim.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role" && userClaim.Value == "User"
-                    )));
-                    options.AddPolicy(UserTypes.Admin, policy => policy.RequireAssertion(context => context.User.HasClaim(userClaim =>
-                        userClaim.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role" && userClaim.Value == "Admin"
-                    )));
-        })
+                    options.AddPolicy(UserTypes.User, policy => policy.RequireAssertion(context => 
+                        context.User.HasClaim(userClaim => userClaim.Type == ClaimTypes.Role && userClaim.Value == "User")));
+                    options.AddPolicy(UserTypes.Admin, policy => policy.RequireAssertion(context =>
+                        context.User.HasClaim(userClaim => userClaim.Type == ClaimTypes.Role && userClaim.Value == "Admin")));
+                })
                 .AddAuthentication(options => {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -35,8 +33,7 @@ namespace Microsoft.Extensions.DependencyInjection
                         //ValidateIssuerSigningKey = true,
                         ValidateAudience = false,
                         ValidateIssuer = true,
-                        RoleClaimType = JwtClaimTypes.Role,
-                        NameClaimType = JwtClaimTypes.Subject,
+                        RoleClaimType = ClaimTypes.Role,
                     };
 
                     if (!environment.IsDevelopment())

@@ -11,22 +11,28 @@ namespace Microsoft.AspNetCore.Http
         public static UserInfo GetTravelyUserInfo(this HttpContext httpContext)
         {
             UserInfo userInfo = new UserInfo();
-            foreach(var prop in userInfo.GetType().GetProperties())
+            foreach(var propInfo in userInfo.GetType().GetProperties())
             {
-                Type tProp = prop.PropertyType;
-                var value = httpContext.User.Claims.FirstOrDefault(claim => claim.Type == prop.Name)?.Value;
-                if (tProp.IsGenericType && tProp.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
+                Type typeProp = propInfo.PropertyType;
+                var value = httpContext.User.Claims.FirstOrDefault(claim => claim.Type == propInfo.Name)?.Value;
+                if (Attribute.IsDefined(propInfo, typeof(DisplayNameAttribute)))
+                {
+                    DisplayNameAttribute displayName = (DisplayNameAttribute)Attribute.GetCustomAttribute(propInfo, typeof(DisplayNameAttribute));
+                    value = httpContext.User.Claims.FirstOrDefault(claim => claim.Type == displayName.DisplayName)?.Value;
+                }
+
+                if (typeProp.IsGenericType && typeProp.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
                 {
                     if (value == null)
                     {
-                        prop.SetValue(userInfo, null);
+                        propInfo.SetValue(userInfo, null);
                         continue;
                     }
 
-                    tProp = new NullableConverter(prop.PropertyType).UnderlyingType;
+                    typeProp = new NullableConverter(propInfo.PropertyType).UnderlyingType;
                 }
 
-                prop.SetValue(userInfo, Convert.ChangeType(value, tProp));
+                propInfo.SetValue(userInfo, Convert.ChangeType(value, typeProp));
             }
 
             return userInfo;
