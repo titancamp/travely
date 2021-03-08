@@ -15,10 +15,8 @@ namespace Microsoft.Extensions.DependencyInjection
             services
                 .AddAuthorization(options =>
                 {
-                    options.AddPolicy(UserTypes.User, policy => policy.RequireAssertion(context => 
-                        context.User.HasClaim(userClaim => userClaim.Type == ClaimTypes.Role && userClaim.Value == "User")));
-                    options.AddPolicy(UserTypes.Admin, policy => policy.RequireAssertion(context =>
-                        context.User.HasClaim(userClaim => userClaim.Type == ClaimTypes.Role && userClaim.Value == "Admin")));
+                    options.AddPolicy(UserPolicy.User, policy => policy.RequireAssertion(context => context.User.IsInRole("User")));
+                    options.AddPolicy(UserPolicy.Admin, policy => policy.RequireAssertion(context => context.User.IsInRole("Admin")));
                 })
                 .AddAuthentication(options => {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

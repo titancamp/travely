@@ -1,10 +1,6 @@
 ﻿namespace Travely.IdentityClient.Authorization
 {
-    //
-    // Summary:
-    //     class for user Roles for Authorize attribute
-    //
-    public static class UserTypes
+    public static class UserPolicy
     {
         public const string User = "User";
         public const string Admin = "Admin";
