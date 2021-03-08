@@ -1,4 +1,5 @@
 using IdentityManager.DataService.Extensions;
+using IdentityManager.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,7 @@ using Microsoft.OpenApi.Models;
 using Travely.IdentityManager.Repository.EntityFramework;
 using Travely.IdentityManager.Repository.Extensions;
 
-namespace IdentityManager.API
+namespace IdentityManager.WebApi
 {
     public class Startup
     {
@@ -27,26 +28,27 @@ namespace IdentityManager.API
 
             services.AddTravelyIdentityService();
 
+            services.ConfigureAutoMapper();
+
             services.AddRepositoryServices();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IdentityManager.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IdentityManager.WebApi", Version = "v1" });
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IdentityServerDbContext dbContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityManager.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityManager.WebApi v1"));
             }
 
-            dbContext.Database.Migrate();
 
             app.UseIdentityServer();
 

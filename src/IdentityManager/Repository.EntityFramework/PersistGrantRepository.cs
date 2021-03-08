@@ -13,6 +13,8 @@ namespace Travely.IdentityManager.Repository.EntityFramework
         public PersistGrantRepository(IdentityServerDbContext dbContext) : base(dbContext)
         {
         }
+
+        
     }
 
     

@@ -10,6 +10,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Travely.IdentityManager.Repository.Abstractions;
+using Travely.IdentityManager.Repository.Abstractions.Entities;
 
 namespace IdentityManager.DataService.IdentityServices
 {
@@ -27,7 +28,7 @@ namespace IdentityManager.DataService.IdentityServices
 			try
 			{
 				var subjectId = context.Subject.GetSubjectId();
-				var user = await _userRepo.GetAll().Where(x=>x.Id == Convert.ToInt32(subjectId)).FirstOrDefaultAsync();
+				User user = await _userRepo.GetAll().Where(x=>x.Id == Convert.ToInt32(subjectId)).FirstOrDefaultAsync();
 
 				var claims = new List<Claim>
 				{
