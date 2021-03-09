@@ -13,6 +13,6 @@ namespace TourManager.Common.Clients
         /// </summary>
         public long? Id { get; set; }
         public string ActivityName { get; set; }
-        public int AgencyId { get; set; }
+        public long AgencyId { get; set; }
     }
 }
