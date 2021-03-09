@@ -65,7 +65,7 @@ namespace TourManager.Clients.Implementation.ServiceManager
                                                                         AgencyId = AgencyId
                                                                     });
 
-            return activities.Activities_.AsEnumerable().Select(s => Mapping.Mapper.Map<Activity>(s));
+            return activities.Activities_.Select(s => Mapping.Mapper.Map<Activity>(s));
         }
 
         public async Task<IEnumerable<ActivityType>> SearchActivityTypesAsync(long agencyId, string activityTypeName)
@@ -76,10 +76,9 @@ namespace TourManager.Clients.Implementation.ServiceManager
             {
                 AgencyId = agencyId,
                 ActivityTypeName = activityTypeName
-
             });
 
-            return activityTypes.ActivityTypes_.AsEnumerable().Select(s => Mapping.Mapper.Map<ActivityType>(s));
+            return activityTypes.ActivityTypes_.Select(s => Mapping.Mapper.Map<ActivityType>(s));
         }
 
         private ActivityProto.ActivityProtoClient GetActivityClient() {
