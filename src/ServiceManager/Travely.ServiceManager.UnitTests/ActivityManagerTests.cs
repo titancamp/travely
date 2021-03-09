@@ -123,7 +123,10 @@ namespace Travely.ServiceManager.UnitTests
             var activity = new Activity(Mocks.Activity);
 
             // Act, Assert
-            await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _target.CreateActivityAsync(Mocks.Activity));
+            Task act() => _target.CreateActivityAsync(Mocks.Activity);
+
+            // Assert
+            await Assert.ThrowsAnyAsync<InvalidOperationException>(act);
             _unitOfWorkMock.Verify(uow => uow.SaveAsync(), Times.Never);
         }
 
