@@ -20,7 +20,6 @@ namespace Travely.ServiceManager.DAL.Repositories
         {
             return await _serviceManagerDbContext.ActivityTypes
                 .Where(x => x.AgencyId == agencyId && x.Name == activityTypeName)
-                .AsNoTracking()
                 .SingleOrDefaultAsync();
         }
 
