@@ -1,14 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using FileService.DAL;
+using FileService.Helpers;
+using FileService.DAL.Storages.Options;
 
 namespace FileServiceManager.FileService
 {
@@ -38,16 +35,20 @@ namespace FileServiceManager.FileService
                 });
             });
 
+            services.Configure<StorageOption>(Configuration.GetSection(StorageOption.Storage));
+
+
             switch (Configuration["storage:type"])
             {
                 case "FileSystem":
-                    services.AddScoped<IStorage, FileSystemStorage>();
+                    services.AddFileSystemServices();
                     break;
                 case "AzureBlob":
-                    //services.AddScoped<IStorage, AzureBlobStorage>();
+                    //TODO
+                    //services.AddAzureBlogServices();
                     break;
                 default:
-                    services.AddScoped<IStorage, FileSystemStorage>();
+                    services.AddFileSystemServices();
                     break;
             }
         }
@@ -69,6 +70,8 @@ namespace FileServiceManager.FileService
                     c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "Travely.FileService API");
                 });
             }
+
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
