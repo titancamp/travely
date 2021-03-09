@@ -59,8 +59,12 @@ namespace Travely.ServiceManager.UnitTests
             };
 
             activity.Type.Id = null;
-            // Act, Assert
-            await _target.CreateActivityAsync(Mocks.Activity);
+
+            // Act
+            Task act() => _target.CreateActivityAsync(Mocks.Activity);
+
+            // Assert
+            await act();
             _unitOfWorkMock.Verify(uow => uow.SaveAsync(), Times.Once);
         }
 
@@ -88,8 +92,11 @@ namespace Travely.ServiceManager.UnitTests
                 Id = null
             };
 
-            // Act, Assert
-            await _target.CreateActivityAsync(Mocks.Activity);
+            // Act
+            Task act() => _target.CreateActivityAsync(Mocks.Activity);
+
+            // Assert
+            await act();
             _unitOfWorkMock.Verify(uow => uow.SaveAsync(), Times.Once);
         }
 
@@ -122,7 +129,7 @@ namespace Travely.ServiceManager.UnitTests
 
             var activity = new Activity(Mocks.Activity);
 
-            // Act, Assert
+            // Act
             Task act() => _target.CreateActivityAsync(Mocks.Activity);
 
             // Assert
