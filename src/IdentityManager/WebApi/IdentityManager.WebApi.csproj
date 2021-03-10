@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapperBuilder" />
+    <!--<PackageReference Include="AutoMapperBuilder" />-->
     <PackageReference Include="IdentityServer4" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />

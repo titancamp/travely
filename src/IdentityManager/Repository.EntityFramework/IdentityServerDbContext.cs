@@ -350,15 +350,15 @@ namespace Travely.IdentityManager.Repository.EntityFramework
                 entity.Property(e => e.Email).HasMaxLength(256);
 
                 entity.Property(e => e.FirstName)
-                    .IsRequired()
+                    //.IsRequired()
                     .HasMaxLength(256);
 
                 entity.Property(e => e.JobTitle)
-                    .IsRequired()
+                    //.IsRequired()
                     .HasMaxLength(256);
 
                 entity.Property(e => e.LastName)
-                    .IsRequired()
+                    //.IsRequired()
                     .HasMaxLength(256);
 
                 entity.HasOne(d => d.Agency)
@@ -423,11 +423,11 @@ namespace Travely.IdentityManager.Repository.EntityFramework
                 entity.ToTable("Agency");
 
                 entity.Property(e => e.Address)
-                    .IsRequired()
+                    //.IsRequired()
                     .HasMaxLength(256);
 
                 entity.Property(e => e.LogoFile)
-                    .IsRequired()
+                    //.IsRequired()
                     .HasMaxLength(256);
 
                 entity.Property(e => e.Name)

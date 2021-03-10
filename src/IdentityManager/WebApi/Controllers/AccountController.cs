@@ -18,7 +18,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [Produces("application/json")]
-    //[ApiController]
+    [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly IAuthenticationService _authenticationService;

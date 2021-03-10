@@ -10,8 +10,8 @@ using Travely.IdentityManager.Repository.EntityFramework;
 namespace Travely.IdentityManager.Repository.EntityFramework.Migrations
 {
     [DbContext(typeof(IdentityServerDbContext))]
-    [Migration("20210308183812_init")]
-    partial class init
+    [Migration("20210310200610_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,7 +30,6 @@ namespace Travely.IdentityManager.Repository.EntityFramework.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -41,7 +40,6 @@ namespace Travely.IdentityManager.Repository.EntityFramework.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LogoFile")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -737,7 +735,6 @@ namespace Travely.IdentityManager.Repository.EntityFramework.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -745,12 +742,10 @@ namespace Travely.IdentityManager.Repository.EntityFramework.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("JobTitle")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 

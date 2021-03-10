@@ -30,13 +30,6 @@ namespace IdentityManager.DataService.IdentityServices
                 var subjectId = context.Subject.GetSubjectId();
                 User user = await _userRepo.GetAll().Where(x => x.Id == Convert.ToInt32(subjectId)).Include(x => x.Agency).FirstOrDefaultAsync();
 
-                //user = new User
-                //{
-                //    Id = 2,
-                //    Role = Role.Admin,
-                //    Agency = new Agency { Id = 1 }
-                //};
-
                 var claims = new List<Claim>
                 {
                     new Claim(JwtClaimTypes.Subject, user.Id.ToString()),
@@ -45,7 +38,7 @@ namespace IdentityManager.DataService.IdentityServices
                 };
 
                 context.IssuedClaims = claims;
-                return;// Task.FromResult(0);
+                return;
             }
             catch (Exception ex)
             {
