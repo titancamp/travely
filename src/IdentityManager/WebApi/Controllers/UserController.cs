@@ -59,15 +59,15 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <param name="id"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<ActionResult<UserResponseModel>> EditAsync([FromQuery]int id, [FromBody] UserRequestModel userRequestModel, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<UserResponseModel>> EditAsync(int id, [FromBody] UserRequestModel userRequestModel, CancellationToken cancellationToken = default)
         {
-            var entityForValidation = await _authenticationService.GetUserById(id, cancellationToken);
-            if (entityForValidation == null)
-            {
-                return NotFound();
-            }
+            //var entityForValidation = await _authenticationService.GetUserById(id, cancellationToken);
+            //if (entityForValidation == null)
+            //{
+            //    return NotFound();
+            //}
             userRequestModel.Id = id;
             return await _authenticationService.Update(userRequestModel, cancellationToken);
         }

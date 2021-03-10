@@ -135,6 +135,7 @@ namespace Travely.IdentityManager.API.Identity
                 // report user with this email exists
             }
             user = _mapper.Map<User>(userRequestModel);
+            user.Password = Guid.NewGuid().ToString();
             user.Agency = agency;
             user.Employee.Agency = user.Agency;
             
@@ -152,10 +153,18 @@ namespace Travely.IdentityManager.API.Identity
         /// <param name="ct"></param>
         /// <returns></returns>
         public async Task<UserResponseModel> Update(UserRequestModel userRequestModel, CancellationToken ct = default)
-        {
-            var entity = Mapper.Map<User>(userRequestModel);
-            var data = Mapper.Map<UserResponseModel>(_userRepository.Update(entity));
+        {            
+            User user = await _userRepository.FindAsync(x => x.UserName == userRequestModel.Email);
+            if (user is null)
+            {
+                // report user not found
+            }
+            user = _mapper.Map<User>(userRequestModel);
+
+            _userRepository.Update(user);
+
             await _unitOfWork.SaveChangesAsync(ct);
+            var data = _mapper.Map<UserResponseModel>(user);
             return data;
         }
 

@@ -20,7 +20,7 @@ namespace IdentityManager.WebApi.Mappers
             CreateMap<UserRequestModel, User>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.Employee, opt => opt.MapFrom(src => src))
-                .AfterMap((src, dest) => dest.Password = Guid.NewGuid().ToString())
+                //.AfterMap((src, dest) => dest.Password = Guid.NewGuid().ToString())
                 .AfterMap((src, dest) => dest.Status = Status.Inactive)
                 .AfterMap((src, dest) => dest.Role = Role.User)
                 .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow);
