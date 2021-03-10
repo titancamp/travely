@@ -25,14 +25,11 @@ namespace IdentityManager.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.ConfigureSqlContext(Configuration);
-
             services.AddTravelyIdentityService();
-
             services.ConfigureAutoMapper();
-
             services.AddRepositoryServices();
-
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IdentityManager.WebApi", Version = "v1" });
@@ -49,15 +46,10 @@ namespace IdentityManager.WebApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityManager.WebApi v1"));
             }
 
-
             app.UseIdentityServer();
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
 
             app.UseEndpoints(endpoints =>
             {

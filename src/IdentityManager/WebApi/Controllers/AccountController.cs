@@ -6,12 +6,12 @@ using Microsoft.Extensions.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 using IdentityManager.WebApi.Models;
-using Travely.IdentityManager.API.Identity;
+using Travely.IdentityManager.WebApi.Identity;
 using IdentityManager.WebApi.Models.Request;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/account")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -29,7 +29,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost("Register")]
+        [HttpPost("register")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult<ResultViewModel>> RegisterAsync([FromBody] RegisterViewModel model, CancellationToken ct = default)
@@ -50,7 +50,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <param name="userId"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet("ConfirmEmail")]
+        [HttpGet("confirm")]
         public async Task<IActionResult> ConfirmEmail(string email, string token, CancellationToken ct = default)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(token))
@@ -65,7 +65,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        [HttpPost("ForgetPassword")]
+        [HttpPost("password/forget")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult<ResultViewModel>> ForgetPassword(ForgotPasswordViewModel forgotPasswordViewModel, CancellationToken cancellationToken = default)
@@ -82,7 +82,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost("ResetPassword")]
+        [HttpPost("password/reset")]
         public async Task<ActionResult<ResultViewModel>> ResetPassword([FromBody] ResetPasswordViewModel model, CancellationToken cancellationToken = default)
         {
             if (ModelState.IsValid)
@@ -95,26 +95,27 @@ namespace Travely.IdentityManager.WebApi.Controllers
             return BadRequest("Some properties are not valid");
         }
 
-        /// <summary>
-        /// Get agency by agency id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task<ActionResult<AgencyResponseModel>> GetAgencyByIdAsync(int id, CancellationToken cancellationToken = default)
-        {
-            return await _authenticationService.GetAgencyById(id, cancellationToken);
-        }
+        ///// <summary>
+        ///// Get agency by agency id
+        ///// </summary>
+        ///// <param name="id"></param>
+        ///// <returns></returns>
+        //[HttpGet]
+        //public async Task<ActionResult<AgencyResponseModel>> GetAgencyByIdAsync(int id, CancellationToken cancellationToken = default)
+        //{
+        //    return await _authenticationService.GetAgencyById(id, cancellationToken);
+        //}
 
-        /// <summary>
-        /// Add Agency
-        /// </summary>
-        /// <param name="agencyRequestModel"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public async Task<ActionResult<AgencyResponseModel>> CreateAgencyAsync(AgencyRequestModel agencyRequestModel, CancellationToken cancellationToken = default)
-        {
-            return await _authenticationService.CreateAgency(agencyRequestModel, cancellationToken);
-        }
+        ///// <summary>
+        ///// Add Agency
+        ///// </summary>
+        ///// <param name="agencyRequestModel"></param>
+        ///// <param name="cancellationToken"></param>
+        ///// <returns></returns>
+        //public async Task<ActionResult<AgencyResponseModel>> CreateAgencyAsync(AgencyRequestModel agencyRequestModel, CancellationToken cancellationToken = default)
+        //{
+        //    return await _authenticationService.CreateAgency(agencyRequestModel, cancellationToken);
+        //}
 
     }
 }

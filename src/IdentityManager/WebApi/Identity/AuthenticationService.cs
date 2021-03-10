@@ -1,17 +1,16 @@
-﻿using IdentityManager.API.Models;
-using System;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using IdentityManager.API.Models;
+using IdentityManager.WebApi.Models;
+using IdentityManager.WebApi.Models.Request;
 using IdentityManager.WebApi.Models.Response;
-using Travely.IdentityManager.Repository.Abstractions;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Threading;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using IdentityManager.WebApi.Models;
-using Travely.IdentityManager.API.Identity;
-using Travely.IdentityManager.WebApi.Identity;
+using System.Threading.Tasks;
+using Travely.IdentityManager.Repository.Abstractions;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
-using IdentityManager.WebApi.Models.Request;
+using Travely.IdentityManager.WebApi.Identity;
 
 
 namespace Travely.IdentityManager.WebApi.Controllers
@@ -42,7 +41,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <param name="userId"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<ResultViewModel> ConfirmEmailAsync(string userId, string token, CancellationToken ct)
+        public async Task<ResultViewModel> ConfirmEmailAsync(string userId, string token, CancellationToken ct = default)
         {
             throw new NotImplementedException();
         }
@@ -52,7 +51,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public async Task<ResultViewModel> ForgetPasswordAsync(string email, CancellationToken ct)
+        public async Task<ResultViewModel> ForgetPasswordAsync(string email, CancellationToken ct = default)
         {
             throw new NotImplementedException();
         }
@@ -62,12 +61,12 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<ResultViewModel> ResetPasswordAsync(ResetPasswordViewModel model, CancellationToken ct)
+        public async Task<ResultViewModel> ResetPasswordAsync(ResetPasswordViewModel model, CancellationToken ct = default)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<ResultViewModel> RegisterUserAsync(RegisterViewModel model, CancellationToken ct)
+        public async Task<ResultViewModel> RegisterUserAsync(RegisterViewModel model, CancellationToken ct = default)
         {
             throw new NotImplementedException();
         }
@@ -77,7 +76,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<UserResponseModel> GetUserById(int id, CancellationToken ct)
+        public async Task<UserResponseModel> GetUserById(int id, CancellationToken ct = default)
         {
             return Mapper.Map<UserResponseModel>(await _userRepository.FindByIdAsync(id, ct));
         }
@@ -86,7 +85,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// Get all users
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<UserResponseModel>> GetUsers(CancellationToken ct)
+        public async Task<List<UserResponseModel>> GetUsers(CancellationToken ct = default)
         {
             return await _mapper.ProjectTo<UserResponseModel>(_userRepository.GetAll()).ToListAsync(); ;
 
@@ -97,7 +96,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<AgencyResponseModel> GetAgencyById(int id, CancellationToken ct)
+        public async Task<AgencyResponseModel> GetAgencyById(int id, CancellationToken ct = default)
         {
             return Mapper.Map<AgencyResponseModel>(await _agencyRepository.FindByIdAsync(id, ct));
         }
@@ -108,7 +107,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <param name="userResponseModel"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<UserResponseModel> Create(UserRequestModel userRequestModel, CancellationToken ct)
+        public async Task<UserResponseModel> Create(UserRequestModel userRequestModel, CancellationToken ct = default)
         {
             var entity = Mapper.Map<User>(userRequestModel);
             var data = Mapper.Map<UserResponseModel>(_userRepository.Add(entity));
@@ -122,7 +121,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <param name="userRequestModel"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<UserResponseModel> Update(UserRequestModel userRequestModel, CancellationToken ct)
+        public async Task<UserResponseModel> Update(UserRequestModel userRequestModel, CancellationToken ct = default)
         {
             var entity = Mapper.Map<User>(userRequestModel);
             var data = Mapper.Map<UserResponseModel>(_userRepository.Update(entity));
@@ -136,10 +135,11 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <param name="id"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task DeleteUser(UserRequestModel userRequestModel, CancellationToken ct)
+        public async Task DeleteUser(int id, CancellationToken ct = default)
         {
-            var entity = Mapper.Map<User>(userRequestModel);
+            var entity = await _userRepository.FindByIdAsync(id, ct);
             _userRepository.Remove(entity);
+            await _unitOfWork.SaveChangesAsync(ct);
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <param name="agencyRequestModel"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<AgencyResponseModel> CreateAgency(AgencyRequestModel agencyRequestModel, CancellationToken ct)
+        public async Task<AgencyResponseModel> CreateAgency(AgencyRequestModel agencyRequestModel, CancellationToken ct = default)
         {
             var entity = Mapper.Map<Agency>(agencyRequestModel);
             var data = Mapper.Map<AgencyResponseModel>(_agencyRepository.Add(entity));
