@@ -27,11 +27,8 @@ namespace IdentityManager.WebApi
             services.ConfigureFilterServices();
 
             services.ConfigureSqlContext(Configuration);
-
             services.AddTravelyIdentityService();
-
             services.ConfigureAutoMapper();
-
             services.AddRepositoryServices();
 
             services.AddControllers().AddNewtonsoftJson();
@@ -60,15 +57,12 @@ namespace IdentityManager.WebApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityManager.WebApi v1"));
             }
 
-
             app.UseIdentityServer();
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
+            app.UseAuthorization();
 
             app.UseAuthentication();
-
 
             app.UseEndpoints(endpoints =>
             {

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using System.Threading;
 using System.Threading.Tasks;
 using IdentityManager.WebApi.Models;
-using Travely.IdentityManager.API.Identity;
+using Travely.IdentityManager.WebApi.Identity;
 using IdentityManager.WebApi.Models.Request;
 using Microsoft.AspNetCore.Http;
 using IdentityManager.WebApi.Models.Error;
@@ -34,7 +34,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost("Register")]
+        [HttpPost("register")]
         [AllowAnonymous]
         //[ValidateAntiForgeryToken]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -52,7 +52,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <param name="userId"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        [HttpGet("ConfirmEmail")]
+        [HttpGet("confirm")]
         public async Task<IActionResult> ConfirmEmail(string email, string token, CancellationToken ct = default)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(token))
@@ -67,7 +67,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        [HttpPost("ForgetPassword")]
+        [HttpPost("password/forget")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult<ResultViewModel>> ForgetPassword(ForgotPasswordViewModel forgotPasswordViewModel, CancellationToken cancellationToken = default)
@@ -84,7 +84,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost("ResetPassword")]
+        [HttpPost("password/reset")]
         public async Task<ActionResult<ResultViewModel>> ResetPassword([FromBody] ResetPasswordViewModel model, CancellationToken cancellationToken = default)
         {
             if (ModelState.IsValid)
@@ -103,12 +103,12 @@ namespace Travely.IdentityManager.WebApi.Controllers
         {
             await _authenticationService.UpdateAccountAsync(HttpContext.GetUserContext(), agencyPatch, cancellationToken);
         }
-
         ///// <summary>
         ///// Get agency by agency id
         ///// </summary>
         ///// <param name="id"></param>
         ///// <returns></returns>
+        //[HttpGet]
         //public async Task<ActionResult<AgencyResponseModel>> GetAgencyByIdAsync(int id, CancellationToken cancellationToken = default)
         //{
         //    return await _authenticationService.GetAgencyById(id, cancellationToken);

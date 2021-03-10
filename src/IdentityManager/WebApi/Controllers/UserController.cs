@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Travely.IdentityManager.API.Identity;
+using Travely.IdentityManager.WebApi.Identity;
 using IdentityManager.WebApi.Models.Request;
 
 namespace Travely.IdentityManager.WebApi.Controllers
@@ -17,7 +17,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
 
         public UserController(IAuthenticationService authenticationService)
         {
-            _authenticationService = authenticationService;         
+            _authenticationService = authenticationService;
         }
         /// <summary>
         /// Get user by id
@@ -26,7 +26,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserResponseModel>> GetUserByIdAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<UserResponseModel>> GetUserByIdAsync([FromQuery]int id, CancellationToken cancellationToken = default)
         {
             return await _authenticationService.GetUserById(id, cancellationToken);
         }
@@ -37,7 +37,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<IEnumerable<UserResponseModel>> GetUsersAsync(CancellationToken cancellationToken = default)
+        public async Task<ActionResult<IEnumerable<UserResponseModel>>> GetUsersAsync(CancellationToken cancellationToken = default)
         {
             return await _authenticationService.GetUsers(cancellationToken);
         }
@@ -60,8 +60,8 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
-        [HttpPut("{id:int:min(1)}")]
-        public async Task<ActionResult<UserResponseModel>> EditAsync(int id, [FromBody] UserRequestModel userRequestModel, CancellationToken cancellationToken = default)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UserResponseModel>> EditAsync([FromQuery]int id, [FromBody] UserRequestModel userRequestModel, CancellationToken cancellationToken = default)
         {
             var entityForValidation = await _authenticationService.GetUserById(id, cancellationToken);
             if (entityForValidation == null)
@@ -78,16 +78,17 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
-        [HttpDelete("{id:int:min(1)}")]
-        public async Task DeleteUserAsync(UserRequestModel userRequestModel, CancellationToken cancellationToken)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUserAsync([FromQuery] int id, CancellationToken cancellationToken)
         {
-            var entityForValidation = await _authenticationService.GetUserById(userRequestModel.Id, cancellationToken);
+            var entityForValidation = await _authenticationService.GetUserById(id, cancellationToken);
             if (entityForValidation == null)
             {
-                 NotFound();
+                NotFound();
             }
-             await _authenticationService.DeleteUser(userRequestModel, cancellationToken);
+            await _authenticationService.DeleteUser(id, cancellationToken);
 
+            return NoContent();
         }
 
     }
