@@ -11,11 +11,11 @@ namespace Travely.IdentityManager.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : Controller
+    public class UsersController : Controller
     {
         private readonly IAuthenticationService _authenticationService;
 
-        public UserController(IAuthenticationService authenticationService)
+        public UsersController(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
         }
@@ -36,7 +36,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         //[Authorize(Roles = "Admin")]
-        [HttpGet("/Api/Users")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<UserResponseModel>>> GetUsersAsync(CancellationToken cancellationToken = default)
         {
             return await _authenticationService.GetUsers(cancellationToken);
