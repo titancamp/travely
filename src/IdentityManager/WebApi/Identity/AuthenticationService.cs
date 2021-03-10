@@ -92,7 +92,7 @@ namespace Travely.IdentityManager.API.Identity
         /// <returns></returns>
         public async Task<UserResponseModel> GetUserById(int id, CancellationToken ct = default)
         {
-            return _mapper.Map<UserResponseModel>(await _userRepository.FindByIdAsync(id, ct));
+            return _mapper.Map<UserResponseModel>(await _userRepository.GetAll().Include(x => x.Employee).FirstOrDefaultAsync(x=>x.Id == id));
         }
 
         /// <summary>

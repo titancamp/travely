@@ -24,9 +24,9 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserResponseModel>> GetUserByIdAsync([FromQuery]int id, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<UserResponseModel>> GetUserByIdAsync(int id, CancellationToken cancellationToken = default)
         {
             return await _authenticationService.GetUserById(id, cancellationToken);
         }
