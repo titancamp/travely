@@ -7,10 +7,13 @@ namespace Travely.SchedulerManager.API
 {
     public class Program
     {
-        public static async Task Main(string[] args)
-        {
-            await (await CreateHostBuilder(args).Build().SeedData()).RunAsync();
-        }
+        public static Task Main(string[] args) => CreateHostBuilder(args).Build().RunAsync();
+        //TODO: Fix an issue related to seeding data
+        //public static async Task Main(string[] args)
+        //{
+
+        //    await (await CreateHostBuilder(args).Build().SeedData()).RunAsync();
+        //}
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
