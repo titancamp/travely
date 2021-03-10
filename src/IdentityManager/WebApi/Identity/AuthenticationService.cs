@@ -92,7 +92,7 @@ namespace Travely.IdentityManager.API.Identity
         /// <returns></returns>
         public async Task<UserResponseModel> GetUserById(int id, CancellationToken ct = default)
         {
-            return Mapper.Map<UserResponseModel>(await _userRepository.FindByIdAsync(id, ct));
+            return _mapper.Map<UserResponseModel>(await _userRepository.FindByIdAsync(id, ct));
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace Travely.IdentityManager.API.Identity
         /// <returns></returns>
         public async Task<AgencyResponseModel> GetAgencyById(int id, CancellationToken ct = default)
         {
-            return Mapper.Map<AgencyResponseModel>(await _agencyRepository.FindByIdAsync(id, ct));
+            return _mapper.Map<AgencyResponseModel>(await _agencyRepository.FindByIdAsync(id, ct));
         }
 
         /// <summary>
@@ -123,8 +123,8 @@ namespace Travely.IdentityManager.API.Identity
         /// <returns></returns>
         public async Task<UserResponseModel> Create(UserRequestModel userRequestModel, CancellationToken ct = default)
         {
-            var entity = Mapper.Map<User>(userRequestModel);
-            var data = Mapper.Map<UserResponseModel>(_userRepository.Add(entity));
+            var entity = _mapper.Map<User>(userRequestModel);
+            var data = _mapper.Map<UserResponseModel>(_userRepository.Add(entity));
             await _unitOfWork.SaveChangesAsync(ct);
             return data;
         }
@@ -182,8 +182,8 @@ namespace Travely.IdentityManager.API.Identity
         /// <returns></returns>
         public async Task<AgencyResponseModel> CreateAgency(AgencyRequestModel agencyRequestModel, CancellationToken ct = default)
         {
-            var entity = Mapper.Map<Agency>(agencyRequestModel);
-            var data = Mapper.Map<AgencyResponseModel>(_agencyRepository.Add(entity));
+            var entity = _mapper.Map<Agency>(agencyRequestModel);
+            var data = _mapper.Map<AgencyResponseModel>(_agencyRepository.Add(entity));
             var user = new User
             {
                 Agency = entity
