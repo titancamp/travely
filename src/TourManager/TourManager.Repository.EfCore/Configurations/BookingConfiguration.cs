@@ -4,9 +4,9 @@ using TourManager.Repository.Entities;
 
 namespace TourManager.Repository.EfCore.Configurations
 {
-    public class BookingConfiguration : IEntityTypeConfiguration<Booking>
+    public class BookingConfiguration : IEntityTypeConfiguration<BookingEntity>
     {
-        public void Configure(EntityTypeBuilder<Booking> builder)
+        public void Configure(EntityTypeBuilder<BookingEntity> builder)
         {
             builder
                 .HasKey(a => a.Id);

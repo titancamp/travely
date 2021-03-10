@@ -25,9 +25,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PropertyManager", "Property
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SchedulerManager", "SchedulerManager", "{160F72D1-9D69-4FE2-9D68-53CB828103DF}"
-	ProjectSection(SolutionItems) = preProject
-		src\SchedulerManager\test.txt = src\SchedulerManager\test.txt
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceManager", "ServiceManager", "{E26E508D-1A14-4C81-AC6C-3F78699C9B37}"
 	ProjectSection(SolutionItems) = preProject
