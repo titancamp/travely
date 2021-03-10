@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Travely.SchedulerManager.Common.Enums;
 using Travely.SchedulerManager.Repository.Entities;
-using Travely.SchedulerManager.Repository.Implementation;
-using Travely.SchedulerManager.Repository.Infrastructure.Interfaces;
 
 namespace Travely.SchedulerManager.Repository.Infrastructure.Seeding
 {
@@ -16,11 +13,11 @@ namespace Travely.SchedulerManager.Repository.Infrastructure.Seeding
             var allScheduleMessageTemplates = new Dictionary<MessageTemplate, ScheduleMessageTemplate>
             {
                 {
-                    MessageTemplate.TourExpire,
+                    MessageTemplate.BookingExpire,
                     new ScheduleMessageTemplate()
                     {
-                        TemplateName = MessageTemplate.TourExpire,
-                        Template = "Your booking assigned to you at {@Model.BookingName} for {@Model.TourName} tour will expire on {@Model.ExpireDate}"
+                        TemplateName = MessageTemplate.BookingExpire,
+                        Template = "Your booking {@Model.BookingName} for {@Model.TourName} tour will expire on {@Model.ExpireDate}"
                     }
                 }
             };

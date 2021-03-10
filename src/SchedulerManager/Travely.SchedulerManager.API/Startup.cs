@@ -4,19 +4,20 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Travely.SchedulerManager.Job;
+using Travely.SchedulerManager.API.Helpers;
 using Travely.SchedulerManager.API.Services;
+using Travely.SchedulerManager.Common;
+using Travely.SchedulerManager.Job;
 using Travely.SchedulerManager.Notifier.Helpers;
 using Travely.SchedulerManager.Repository;
-using Travely.SchedulerManager.Service.Helpers;
-using Travely.SchedulerManager.Common;
-using Travely.SchedulerManager.API.Helpers;
+using Travely.SchedulerManager.Service.Extensions;
 
 namespace Travely.SchedulerManager.API
 {
     public class Startup
     {
         private readonly IConfiguration _configuration;
+
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -36,6 +37,9 @@ namespace Travely.SchedulerManager.API
                     });
             });
 
+            // todo use identity package
+            // services.AddAuthentication();
+
             services.Configure<NotifierOptions>(_configuration.GetSection(NotifierOptions.Section));
             services.Configure<JobOptions>(_configuration.GetSection(JobOptions.Section));
             services.Configure<RepositoryOptions>(_configuration.GetSection(RepositoryOptions.Section));
@@ -54,14 +58,13 @@ namespace Travely.SchedulerManager.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.ConfigureRepositoryLayer(env.IsDevelopment());
-
-            app.UseCors("CORS");
             app.UseRouting();
+            app.UseCors("CORS");
+            // app.UseAuthentication();
+            // app.UseAuthorization();
 
-            app.UseNotifier();
             app.UseJobClient();
-
+            app.UseNotifier();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<ReminderService>();
@@ -71,7 +74,6 @@ namespace Travely.SchedulerManager.API
             //xx.StartJobAsync(new InformationJob(), new InformationJobParameter { TourName = "Enqueue Job" }).GetAwaiter().GetResult();
             //yy.StartJobAsync(new InformationJob(), TimeSpan.FromSeconds(5), new InformationJobParameter { TourName = "Scheduled Job" }).GetAwaiter().GetResult();
             //zz.StartJobAsync(new InformationJob(), "Recurrent Job", "* * * * *", new InformationJobParameter { TourName = "Recurrent Job" });
-
         }
     }
 }

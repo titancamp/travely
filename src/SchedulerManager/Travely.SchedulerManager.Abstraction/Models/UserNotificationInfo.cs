@@ -2,7 +2,7 @@
 
 namespace Travely.SchedulerManager
 {
-    public class UserNotificationInfoDTO
+    public class UserNotificationInfo
     {
         public long UserScheduleId { get; set; }
 

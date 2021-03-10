@@ -19,11 +19,10 @@ namespace Travely.SchedulerManager.Notifier.Helpers
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                await _sp.CreateScope().ServiceProvider
-                  .GetRequiredService<IHubContext<NotificationHub, INotificationHub>>()
-                  .Clients.All
-                  .ReceiveNotification(new Random().Next());
-                await Task.Delay(2000, stoppingToken);
+                using var scope = _sp.CreateScope();
+                var notificationHub = scope.ServiceProvider.GetRequiredService<IHubContext<NotificationHub, INotificationHub>>();
+                await notificationHub.Clients.All.ReceiveNotification(new NotificationModel { Message = "Hola" });
+                await Task.Delay(10000, stoppingToken);
             }
         }
     }

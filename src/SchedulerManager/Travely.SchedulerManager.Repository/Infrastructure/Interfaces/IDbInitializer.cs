@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace Travely.SchedulerManager.Repository.Infrastructure.Interfaces
 {
@@ -8,7 +9,7 @@ namespace Travely.SchedulerManager.Repository.Infrastructure.Interfaces
         /// Applies any pending migrations for the context to the database.
         /// Will create the database if it does not already exist.
         /// </summary>
-        void Initialize();
+        void Initialize(IServiceScope scope);
 
         /// <summary>
         /// Adds some default values to the Db

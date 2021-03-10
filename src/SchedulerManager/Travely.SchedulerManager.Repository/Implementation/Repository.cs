@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Travely.SchedulerManager.Repository.Entities;
-using Travely.SchedulerManager.Repository.Infrastructure.Interfaces;
 
 namespace Travely.SchedulerManager.Repository.Implementation
 {
@@ -76,7 +75,10 @@ namespace Travely.SchedulerManager.Repository.Implementation
         public void Remove(long id)
         {
            var entity = _dbSet.Find(id);
-           entity.IsDeleted = true;
+            if (entity == null)
+                throw new ArgumentException(nameof(entity));
+
+            entity.IsDeleted = true;
         }
 
         public void Remove(TEntity entity)
