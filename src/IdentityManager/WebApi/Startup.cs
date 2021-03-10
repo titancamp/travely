@@ -34,7 +34,7 @@ namespace IdentityManager.WebApi
 
             services.AddRepositoryServices();
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IdentityManager.WebApi", Version = "v1" });
@@ -67,7 +67,7 @@ namespace IdentityManager.WebApi
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication();
 
 
             app.UseEndpoints(endpoints =>
