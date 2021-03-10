@@ -1,32 +1,25 @@
 ﻿using IdentityManager.API.Models;
-using IdentityManager.WebApi.Models.Response;
+using IdentityManager.WebApi.Models;
+using IdentityManager.WebApi.Models.Error;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using IdentityManager.WebApi.Models;
 using Travely.IdentityManager.WebApi.Identity;
-using IdentityManager.WebApi.Models.Request;
-using Microsoft.AspNetCore.Http;
-using IdentityManager.WebApi.Models.Error;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.JsonPatch;
-using IdentityManager.WebApi.Extensions;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
-    [Route("Api/[controller]")]
+    [Route("api/account")]
     [Produces("application/json")]
     [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly IAuthenticationService _authenticationService;
-        private readonly IConfiguration _configuration;
-        public AccountController(IAuthenticationService authenticationService, IConfiguration configuration)
+        public AccountController(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
-            _configuration = configuration;
         }
 
         /// <summary>
@@ -59,7 +52,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
                 return NotFound();
             var result = await _authenticationService.ConfirmEmailAsync(email, token, ct);
 
-            return Redirect($"{_configuration["AppUrl"]}/ConfirmEmail.html");
+            return Ok(result);// TODO: refactor
         }
 
         /// <summary>
@@ -96,34 +89,5 @@ namespace Travely.IdentityManager.WebApi.Controllers
 
             return BadRequest("Some properties are not valid");
         }
-
-        [HttpPatch("UpdateAgency")]
-        [Authorize]
-        public async Task UpdateAccountAsync([FromBody] JsonPatchDocument<UpdateAgencyRequestModel> agencyPatch, CancellationToken cancellationToken = default)
-        {
-            await _authenticationService.UpdateAccountAsync(HttpContext.GetUserContext(), agencyPatch, cancellationToken);
-        }
-        ///// <summary>
-        ///// Get agency by agency id
-        ///// </summary>
-        ///// <param name="id"></param>
-        ///// <returns></returns>
-        //[HttpGet]
-        //public async Task<ActionResult<AgencyResponseModel>> GetAgencyByIdAsync(int id, CancellationToken cancellationToken = default)
-        //{
-        //    return await _authenticationService.GetAgencyById(id, cancellationToken);
-        //}
-
-        ///// <summary>
-        ///// Add Agency
-        ///// </summary>
-        ///// <param name="agencyRequestModel"></param>
-        ///// <param name="cancellationToken"></param>
-        ///// <returns></returns>
-        //public async Task<ActionResult<AgencyResponseModel>> CreateAgencyAsync(AgencyRequestModel agencyRequestModel, CancellationToken cancellationToken = default)
-        //{
-        //    return await _authenticationService.CreateAgency(agencyRequestModel, cancellationToken);
-        //}
-
     }
 }

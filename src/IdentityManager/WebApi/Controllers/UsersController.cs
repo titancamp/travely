@@ -9,7 +9,7 @@ using IdentityManager.WebApi.Models.Request;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UsersController : Controller
     {
@@ -51,6 +51,8 @@ namespace Travely.IdentityManager.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<UserResponseModel>> CreateUserAsync([FromBody] UserRequestModel userResponseModel, CancellationToken cancellationToken = default)
         {
+            //TODO: make this method patch
+            // TODO: validate logged in user agencyId
             return await _authenticationService.Create(userResponseModel, cancellationToken);
         }
         /// <summary>
@@ -63,6 +65,8 @@ namespace Travely.IdentityManager.WebApi.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<UserResponseModel>> EditAsync(int id, [FromBody] UserRequestModel userRequestModel, CancellationToken cancellationToken = default)
         {
+            //TODO: make this method patch
+            // TODO: validate logged in user agencyId
             //var entityForValidation = await _authenticationService.GetUserById(id, cancellationToken);
             //if (entityForValidation == null)
             //{
@@ -81,6 +85,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserAsync([FromQuery] int id, CancellationToken cancellationToken)
         {
+            // TODO: validate logged in user agencyId
             var entityForValidation = await _authenticationService.GetUserById(id, cancellationToken);
             if (entityForValidation == null)
             {
