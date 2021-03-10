@@ -9,7 +9,7 @@ using IdentityManager.WebApi.Models.Request;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UsersController : Controller
     {

@@ -16,7 +16,7 @@ using IdentityManager.WebApi.Extensions;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
-    [Route("Api/[controller]")]
+    [Route("api/account")]
     [Produces("application/json")]
     [ApiController]
     public class AccountController : ControllerBase
@@ -97,7 +97,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
             return BadRequest("Some properties are not valid");
         }
 
-        [HttpPatch("UpdateAgency")]
+        [HttpPatch("agency")]
         [Authorize]
         public async Task UpdateAccountAsync([FromBody] JsonPatchDocument<UpdateAgencyRequestModel> agencyPatch, CancellationToken cancellationToken = default)
         {
