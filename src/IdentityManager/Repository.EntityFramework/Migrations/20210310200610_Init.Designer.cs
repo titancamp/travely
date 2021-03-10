@@ -4,13 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Travely.IdentityManager.Repository.EntityFramework;
 
-namespace Travely.IdentityManager.Repository.Migrations
+namespace Travely.IdentityManager.Repository.EntityFramework.Migrations
 {
     [DbContext(typeof(IdentityServerDbContext))]
-    [Migration("20210218214309_CreateIdentityServerDB")]
-    partial class CreateIdentityServerDB
+    [Migration("20210310200610_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,7 +30,6 @@ namespace Travely.IdentityManager.Repository.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -40,7 +40,6 @@ namespace Travely.IdentityManager.Repository.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LogoFile")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -66,7 +65,7 @@ namespace Travely.IdentityManager.Repository.Migrations
                     b.HasIndex("OwnerId")
                         .IsUnique();
 
-                    b.ToTable("Organization");
+                    b.ToTable("Agency");
                 });
 
             modelBuilder.Entity("Travely.IdentityManager.Repository.Abstractions.Entities.ApiResource", b =>
@@ -736,7 +735,6 @@ namespace Travely.IdentityManager.Repository.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -744,17 +742,14 @@ namespace Travely.IdentityManager.Repository.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("JobTitle")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UpdatedBy")
@@ -958,7 +953,7 @@ namespace Travely.IdentityManager.Repository.Migrations
                     b.HasOne("Travely.IdentityManager.Repository.Abstractions.Entities.User", "Owner")
                         .WithOne("Agency")
                         .HasForeignKey("Travely.IdentityManager.Repository.Abstractions.Entities.Agency", "OwnerId")
-                        .HasConstraintName("FK_Organization_OwnerId")
+                        .HasConstraintName("FK_Agency_OwnerId")
                         .IsRequired();
 
                     b.Navigation("Owner");
@@ -1134,7 +1129,7 @@ namespace Travely.IdentityManager.Repository.Migrations
                     b.HasOne("Travely.IdentityManager.Repository.Abstractions.Entities.Agency", "Agency")
                         .WithMany("Employees")
                         .HasForeignKey("AgencyId")
-                        .HasConstraintName("FK_User_OrganizationId")
+                        .HasConstraintName("FK_User_AgencyId")
                         .IsRequired();
 
                     b.HasOne("Travely.IdentityManager.Repository.Abstractions.Entities.User", "User")

@@ -9,7 +9,7 @@ using IdentityManager.WebApi.Models.Request;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
-    [Route("api/users")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UsersController : Controller
     {
@@ -24,9 +24,9 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserResponseModel>> GetUserByIdAsync([FromQuery]int id, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<UserResponseModel>> GetUserByIdAsync(int id, CancellationToken cancellationToken = default)
         {
             return await _authenticationService.GetUserById(id, cancellationToken);
         }
@@ -35,7 +35,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// Get all users
         /// </summary>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserResponseModel>>> GetUsersAsync(CancellationToken cancellationToken = default)
         {
@@ -47,7 +47,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="userResponseModel"></param>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<UserResponseModel>> CreateUserAsync([FromBody] UserRequestModel userResponseModel, CancellationToken cancellationToken = default)
         {
@@ -59,15 +59,15 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <param name="id"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<ActionResult<UserResponseModel>> EditAsync([FromQuery]int id, [FromBody] UserRequestModel userRequestModel, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<UserResponseModel>> EditAsync(int id, [FromBody] UserRequestModel userRequestModel, CancellationToken cancellationToken = default)
         {
-            var entityForValidation = await _authenticationService.GetUserById(id, cancellationToken);
-            if (entityForValidation == null)
-            {
-                return NotFound();
-            }
+            //var entityForValidation = await _authenticationService.GetUserById(id, cancellationToken);
+            //if (entityForValidation == null)
+            //{
+            //    return NotFound();
+            //}
             userRequestModel.Id = id;
             return await _authenticationService.Update(userRequestModel, cancellationToken);
         }

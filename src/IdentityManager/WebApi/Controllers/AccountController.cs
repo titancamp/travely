@@ -8,16 +8,21 @@ using System.Threading.Tasks;
 using IdentityManager.WebApi.Models;
 using Travely.IdentityManager.WebApi.Identity;
 using IdentityManager.WebApi.Models.Request;
+using Microsoft.AspNetCore.Http;
+using IdentityManager.WebApi.Models.Error;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.JsonPatch;
+using IdentityManager.WebApi.Extensions;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
-    [Route("api/account")]
+    [Route("Api/[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IConfiguration _configuration;
-
         public AccountController(IAuthenticationService authenticationService, IConfiguration configuration)
         {
             _authenticationService = authenticationService;
@@ -31,17 +36,14 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <returns></returns>
         [HttpPost("register")]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult<ResultViewModel>> RegisterAsync([FromBody] RegisterViewModel model, CancellationToken ct = default)
+        //[ValidateAntiForgeryToken]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<ValidationErrorModel>), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequestModel model, CancellationToken ct = default)
         {
-            if (ModelState.IsValid)
-            {
-                var result = await _authenticationService.RegisterUserAsync(model, ct);
-
-                return result;
-            }
-            return BadRequest("Some properties are not valid");
-
+             await _authenticationService.RegisterUserAsync(model, ct);
+            
+            return Ok();
         }
 
         /// <summary>
@@ -95,6 +97,12 @@ namespace Travely.IdentityManager.WebApi.Controllers
             return BadRequest("Some properties are not valid");
         }
 
+        [HttpPatch("UpdateAgency")]
+        [Authorize]
+        public async Task UpdateAccountAsync([FromBody] JsonPatchDocument<UpdateAgencyRequestModel> agencyPatch, CancellationToken cancellationToken = default)
+        {
+            await _authenticationService.UpdateAccountAsync(HttpContext.GetUserContext(), agencyPatch, cancellationToken);
+        }
         ///// <summary>
         ///// Get agency by agency id
         ///// </summary>
