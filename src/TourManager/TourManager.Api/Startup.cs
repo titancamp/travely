@@ -1,7 +1,7 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +12,10 @@ using TourManager.Clients.Implementation.ServiceManager;
 using TourManager.Common.Settings;
 using TourManager.Clients.Abstraction.Settings;
 using TourManager.Clients.Implementation.Settings;
+
+using System.Reflection;
+using TourManager.Api.Bootstrapper;
+using TourManager.Service.Model;
 
 namespace TourManager.Api
 {
@@ -27,12 +31,11 @@ namespace TourManager.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TourDbContext>(
-                options => options.UseSqlServer(
-                        Configuration.GetConnectionString("TourDbContext"),
-                        x => x.MigrationsAssembly("TourManager.Repository.EfCore.MsSql")));
+            services
+                .AddCors()
+                .AddControllers()
+                .AddFluentValidation(opt => opt.RegisterValidatorsFromAssembly(typeof(TourValidator).Assembly));
 
-            services.AddControllers();
             services.AddApiVersioning(config =>
             {
                 config.DefaultApiVersion = new ApiVersion(1, 0);
@@ -47,6 +50,12 @@ namespace TourManager.Api
             services.AddScoped<IServiceSettingsProvider, ServiceSettingsProvider>();
             services.Configure<GrpcServiceSettings>(Configuration.GetSection("GrpcServiceSettings"));
 
+
+            services
+                .AddSqlServer(Configuration)
+                .AddAutoMapper(typeof(Startup))
+                .AddSwagger()
+                .AddTourManagerServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,8 +64,7 @@ namespace TourManager.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TourManager.Api v1"));
+                app.UseSwaggerDevUI();
             }
 
             app.UseHttpsRedirection();
