@@ -79,8 +79,8 @@ namespace Travely.IdentityManager.API.Identity
 
             user.Employee.Agency = user.Agency;
             _agencyRepository.Add(user.Agency);
-            
-            
+
+
 
             await _unitOfWork.SaveChangesAsync();
         }
@@ -101,7 +101,7 @@ namespace Travely.IdentityManager.API.Identity
         /// <returns></returns>
         public async Task<List<UserResponseModel>> GetUsers(CancellationToken ct = default)
         {
-            return await _mapper.ProjectTo<UserResponseModel>(_userRepository.GetAll()).ToListAsync(); ;
+            return await _mapper.ProjectTo<UserResponseModel>(_userRepository.GetAll().Include(x=>x.Employee)).ToListAsync();
 
         }
 
@@ -123,9 +123,25 @@ namespace Travely.IdentityManager.API.Identity
         /// <returns></returns>
         public async Task<UserResponseModel> Create(UserRequestModel userRequestModel, CancellationToken ct = default)
         {
-            var entity = _mapper.Map<User>(userRequestModel);
-            var data = _mapper.Map<UserResponseModel>(_userRepository.Add(entity));
+            int agencyId = 1;// this value cames by parameter, from token claims
+            Agency agency = await _agencyRepository.FindAsync(x => x.Id == agencyId);
+            if (agency is null)
+            {
+                // report agency doesn't exist
+            }
+            User user = await _userRepository.FindAsync(x => x.UserName == userRequestModel.Email);
+            if (user != null)
+            {
+                // report user with this email exists
+            }
+            user = _mapper.Map<User>(userRequestModel);
+            user.Agency = agency;
+            user.Employee.Agency = user.Agency;
+            
+            _userRepository.Add(user);
+
             await _unitOfWork.SaveChangesAsync(ct);
+            var data = _mapper.Map<UserResponseModel>(user);
             return data;
         }
 

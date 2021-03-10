@@ -35,8 +35,8 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// Get all users
         /// </summary>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
-        [HttpGet]
+        //[Authorize(Roles = "Admin")]
+        [HttpGet("/Api/Users")]
         public async Task<ActionResult<IEnumerable<UserResponseModel>>> GetUsersAsync(CancellationToken cancellationToken = default)
         {
             return await _authenticationService.GetUsers(cancellationToken);
@@ -47,7 +47,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="userResponseModel"></param>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<UserResponseModel>> CreateUserAsync([FromBody] UserRequestModel userResponseModel, CancellationToken cancellationToken = default)
         {
