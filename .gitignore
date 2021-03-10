@@ -363,3 +363,6 @@ FodyWeavers.xsd
 
 # nbgv files
 */.store/nbgv/3.3.37
+
+# Jetbrains cache directory
+.idea
