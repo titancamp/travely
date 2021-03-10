@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Travely.IdentityManager.API.Identity;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
+using Travely.IdentityManager.WebApi.Identity;
 
 namespace IdentityManager.WebApi.Extensions
 {
