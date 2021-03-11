@@ -1,27 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-  	<TargetFramework>net5.0</TargetFramework>
-  	<UserSecretsId>2dc530e7-76a3-4ca4-9b9a-7330355ceccb</UserSecretsId>
-  	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-  	<DockerfileContext>..\..</DockerfileContext>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>2dc530e7-76a3-4ca4-9b9a-7330355ceccb</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
-	
-	
-  <ItemGroup> 
-  	<PackageReference Include="AutoMapper" Version="10.1.1" />
-	<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-  	<PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
-  	<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.2">
-  		<PrivateAssets>all</PrivateAssets>
-  		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-  	</PackageReference>
-  	<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Travely.PropertyManager.API.Models\Travely.PropertyManager.API.Models.csproj" />
     <ProjectReference Include="..\Travely.PropertyManager.Service\Travely.PropertyManager.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\..\..\proto\base.proto" GrpcServices="Server">
+      <Link>Protos\base.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\..\..\proto\properties.proto" GrpcServices="Server">
+      <Link>Protos\properties.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
 </Project>

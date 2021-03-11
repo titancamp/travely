@@ -2,7 +2,6 @@
 using Google.Protobuf.Collections;
 using System.Collections.Generic;
 using Travely.PropertyManager.API.MappingProfiles.Converters;
-using Travely.PropertyManager.API.Models;
 using Travely.PropertyManager.Service.Models.Commands;
 using Travely.PropertyManager.Service.Models.Queries;
 using Travely.PropertyManager.Service.Models.Responses;
@@ -22,9 +21,8 @@ namespace Travely.PropertyManager.API.MappingProfiles
 
             CreateMap<PropertyResponse, GetPropertiesResponse>();
 
-            CreateMap<Travely.PropertyManager.API.Models.OrderingBaseModel, Travely.PropertyManager.Service.Models.Base.OrderingBaseModel>();
-            CreateMap<Travely.PropertyManager.API.Models.FilteringBaseModel, Travely.PropertyManager.Service.Models.Base.FilteringBaseModel>();
-
+            CreateMap<Travely.PropertyManager.API.OrderingBaseModel, Travely.PropertyManager.Service.Models.Base.OrderingBaseModel>();
+            CreateMap<Travely.PropertyManager.API.FilteringBaseModel, Travely.PropertyManager.Service.Models.Base.FilteringBaseModel>();
         }
     }
 }

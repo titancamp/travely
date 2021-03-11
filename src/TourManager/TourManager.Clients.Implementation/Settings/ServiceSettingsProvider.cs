@@ -17,5 +17,10 @@ namespace TourManager.Clients.Implementation.Settings
         {
             return _grpcServiceSettings.Value.ActivityServiceUrl;
         }
+
+        public string ComposePropertyServiceUrl()
+        {
+            return _grpcServiceSettings.Value.PropertyServiceUrl;
+        }
     }
 }
