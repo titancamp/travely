@@ -194,7 +194,6 @@ namespace Travely.IdentityManager.API.Identity
 
             await _unitOfWork.SaveChangesAsync();
 
-            //return jsonPatchDTO;
         }
 
         /// <summary>

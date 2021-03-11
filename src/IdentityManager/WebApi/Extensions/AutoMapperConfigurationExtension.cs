@@ -16,8 +16,6 @@ namespace IdentityManager.WebApi.Extensions
     {
         public static void ConfigureAutoMapper(this IServiceCollection services)
         {
-            //services.AddAutoMapper(typeof(PersistGrantProfile));
-            //services.AddAutoMapper(typeof(UserProfile));
             services.AddSingleton(provider => new MapperConfiguration(cfg => 
             {
                 cfg.AddProfile(new UserProfile(provider.GetService<IPasswordHasher<User>>()));
@@ -25,19 +23,6 @@ namespace IdentityManager.WebApi.Extensions
                 cfg.AddProfile(new EmployeeProfile());
             }).CreateMapper());
 
-            //services.AddAutoMapperBuilder(builder =>
-            //{
-            //    builder.Profiles.Add(new UserProfile(services.BuildServiceProvider().GetRequiredService<IPasswordHasher<User>>()));
-            //    builder.Profiles.Add(new PersistGrantProfile());
-            //});
-            
-            //var mapperConfig = new MapperConfiguration(mc =>
-            //{
-            //    mc.AddProfile(new PersistGrantProfile());
-            //});
-
-            //IMapper mapper = mapperConfig.CreateMapper();
-            //services.AddSingleton(mapper);
         }
     }
 }
