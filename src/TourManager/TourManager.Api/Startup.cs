@@ -38,15 +38,15 @@ namespace TourManager.Api
                 config.AssumeDefaultVersionWhenUnspecified = true;
             });
 
-            services.AddScoped<IServiceManagerClient, ServiceManagerClient>();
-            services.AddScoped<IServiceSettingsProvider, ServiceSettingsProvider>();
             services.Configure<GrpcServiceSettings>(Configuration.GetSection("GrpcServiceSettings"));
 
             services
                 .AddSqlServer(Configuration)
                 .AddAutoMapper(typeof(Startup))
                 .AddSwagger()
-                .AddTourManagerServices();
+                .AddTourManagerServices()
+                .AddTourManagerRepositories()
+                .AddTourClientServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
