@@ -12,7 +12,7 @@ namespace TourManager.Service.Model
 		public string Phone { get; set; }
 		public string Email { get; set; }
 		public string Website { get; set; }
-		public ActivityOption ActivityType { get; set; }
+		public ActivityType Type { get; set; }
 		public List<string> Files { get; set; }
 	}
 }
