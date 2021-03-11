@@ -101,9 +101,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.Jo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.Notifier", "src\SchedulerManager\Travely.SchedulerManager.Notifier\Travely.SchedulerManager.Notifier.csproj", "{3FFF39FD-E734-4740-8603-170B312BFFAB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.API", "src\SchedulerManager\Travely.SchedulerManager.API\Travely.SchedulerManager.API.csproj", "{3C0A22D4-CCD6-4E56-A44D-B0BA7E60560C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.SchedulerManager.API", "src\SchedulerManager\Travely.SchedulerManager.API\Travely.SchedulerManager.API.csproj", "{3C0A22D4-CCD6-4E56-A44D-B0BA7E60560C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.Common", "src\SchedulerManager\Travely.SchedulerManager.Common\Travely.SchedulerManager.Common.csproj", "{29CC9EA9-09B9-4C33-A3CA-07134909DD75}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.SchedulerManager.Common", "src\SchedulerManager\Travely.SchedulerManager.Common\Travely.SchedulerManager.Common.csproj", "{29CC9EA9-09B9-4C33-A3CA-07134909DD75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
