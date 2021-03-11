@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\TourManager.Clients.Abstraction\TourManager.Clients.Abstraction.csproj" />
       <ProjectReference Include="..\TourManager.Service.Abstraction\TourManager.Service.Abstraction.csproj" />
       <ProjectReference Include="..\TourManager.Service.Model\TourManager.Service.Model.csproj" />
     </ItemGroup>

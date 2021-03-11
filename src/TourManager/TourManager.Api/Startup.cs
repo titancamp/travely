@@ -6,16 +6,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using TourManager.Repository.EfCore.Context;
 using TourManager.Clients.Abstraction.ServiceManager;
 using TourManager.Clients.Implementation.ServiceManager;
 using TourManager.Common.Settings;
 using TourManager.Clients.Abstraction.Settings;
 using TourManager.Clients.Implementation.Settings;
-
-using System.Reflection;
 using TourManager.Api.Bootstrapper;
 using TourManager.Service.Model;
+using TourManager.Clients.Abstraction.PropertyManager;
+using TourManager.Service.Implementation;
+using TourManager.Service.Abstraction;
+using TourManager.Clients.Implementation.PropertyManager;
 
 namespace TourManager.Api
 {
@@ -48,6 +49,8 @@ namespace TourManager.Api
 
             services.AddScoped<IServiceManagerClient, ServiceManagerClient>();
             services.AddScoped<IServiceSettingsProvider, ServiceSettingsProvider>();
+            services.AddScoped<IPropertyManagerClient, PropertyManagerClient>();
+            services.AddScoped<IPropertyService, PropertyService>();
             services.Configure<GrpcServiceSettings>(Configuration.GetSection("GrpcServiceSettings"));
 
 
