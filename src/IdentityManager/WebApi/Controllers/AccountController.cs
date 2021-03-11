@@ -98,10 +98,17 @@ namespace Travely.IdentityManager.WebApi.Controllers
         }
 
         [HttpPatch("agency")]
-        [Authorize]
+        //[Authorize]
         public async Task UpdateAccountAsync([FromBody] JsonPatchDocument<UpdateAgencyRequestModel> agencyPatch, CancellationToken cancellationToken = default)
         {
-            await _authenticationService.UpdateAccountAsync(HttpContext.GetUserContext(), agencyPatch, cancellationToken);
+            UserContextModel contextModel = new UserContextModel
+            {
+                AgencyId = 1,
+                Role = Repository.Abstractions.Entities.Role.Admin,
+                UserId = 1
+            };
+            //HttpContext.GetUserContext()
+            await _authenticationService.UpdateAccountAsync(contextModel, agencyPatch, cancellationToken);
         }
         ///// <summary>
         ///// Get agency by agency id
