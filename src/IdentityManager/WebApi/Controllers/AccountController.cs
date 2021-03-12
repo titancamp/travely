@@ -8,6 +8,12 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Travely.IdentityManager.WebApi.Identity;
+using IdentityManager.WebApi.Models.Request;
+using Microsoft.AspNetCore.Http;
+using IdentityManager.WebApi.Models.Error;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.JsonPatch;
+using IdentityManager.WebApi.Extensions;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
@@ -89,5 +95,21 @@ namespace Travely.IdentityManager.WebApi.Controllers
 
             return BadRequest("Some properties are not valid");
         }
+
+        [HttpPatch("agency")]
+        //[Authorize]
+        public async Task UpdateAccountAsync([FromBody] JsonPatchDocument<UpdateAgencyRequestModel> agencyPatch, CancellationToken cancellationToken = default)
+        {
+            UserContextModel contextModel = new UserContextModel
+            {
+                AgencyId = 1,
+                Role = Repository.Abstractions.Entities.Role.Admin,
+                UserId = 1
+            };
+            //HttpContext.GetUserContext()
+            await _authenticationService.UpdateAccountAsync(contextModel, agencyPatch, cancellationToken);
+        }
+        
+
     }
 }

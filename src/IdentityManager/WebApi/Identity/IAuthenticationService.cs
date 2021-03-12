@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.JsonPatch;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using IdentityManager.WebApi.Models;
+using Microsoft.AspNetCore.Mvc;
+using IdentityManager.WebApi.Models.Request;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace Travely.IdentityManager.WebApi.Identity
 {

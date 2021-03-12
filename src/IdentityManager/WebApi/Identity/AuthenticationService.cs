@@ -183,20 +183,17 @@ namespace Travely.IdentityManager.API.Identity
 
         public async Task UpdateAccountAsync(UserContextModel userContext, JsonPatchDocument<UpdateAgencyRequestModel> jsonPatch, CancellationToken ct)
         {
-            Agency agency = await _agencyRepository.GetAll().Where(x => x.Id == userContext.AgencyId).Include
-                (x => x.Employees).FirstOrDefaultAsync();
-
-            UpdateAgencyRequestModel jsonPatchDTO = _mapper.Map<UpdateAgencyRequestModel>(agency);
+            Employee employee = await _employeeRepository.GetAll().Where(x => x.AgencyId == userContext.AgencyId).Include(x => x.Agency).FirstOrDefaultAsync();
+            UpdateAgencyRequestModel jsonPatchDTO = _mapper.Map<UpdateAgencyRequestModel>(employee);
 
             jsonPatch.ApplyTo(jsonPatchDTO);
 
-            _mapper.Map(jsonPatchDTO, agency);
+            _mapper.Map(jsonPatchDTO, employee);
 
-            _agencyRepository.Update(agency);
+            _employeeRepository.Update(employee);
 
             await _unitOfWork.SaveChangesAsync();
 
-            //return jsonPatchDTO;
         }
 
         /// <summary>
