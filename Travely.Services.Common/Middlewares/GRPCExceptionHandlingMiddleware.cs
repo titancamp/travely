@@ -14,7 +14,7 @@ namespace Travely.Services.Common.Middlewares
 		{
 		}
 
-		public Task HandleExceptionAsync(HttpContext context, Exception exception)
+		 public override Task HandleExceptionAsync(HttpContext context, Exception exception)
 		{
 			var statusCode = StatusCode.Internal;
 			var message = string.Empty;
