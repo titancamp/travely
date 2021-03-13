@@ -107,6 +107,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.Co
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D0402C66-7A9E-4E24-B9BB-97C98B149A9F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{89EB1A38-E372-4C12-AB1B-4C0FFB036D4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityClient", "IdentityClient", "{7CC4583B-D8AA-4047-BF0D-9BC237A94D73}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.Shared.IdentityClient.Authorization", "src\Shared\IdentityClient\Travely.Shared.IdentityClient.Authorization.csproj", "{DB1D81F1-2BED-4C17-A0D2-1A82844D6B2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -229,6 +235,10 @@ Global
 		{D0402C66-7A9E-4E24-B9BB-97C98B149A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0402C66-7A9E-4E24-B9BB-97C98B149A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0402C66-7A9E-4E24-B9BB-97C98B149A9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB1D81F1-2BED-4C17-A0D2-1A82844D6B2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB1D81F1-2BED-4C17-A0D2-1A82844D6B2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB1D81F1-2BED-4C17-A0D2-1A82844D6B2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB1D81F1-2BED-4C17-A0D2-1A82844D6B2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -268,6 +278,8 @@ Global
 		{3FFF39FD-E734-4740-8603-170B312BFFAB} = {160F72D1-9D69-4FE2-9D68-53CB828103DF}
 		{3C0A22D4-CCD6-4E56-A44D-B0BA7E60560C} = {160F72D1-9D69-4FE2-9D68-53CB828103DF}
 		{29CC9EA9-09B9-4C33-A3CA-07134909DD75} = {160F72D1-9D69-4FE2-9D68-53CB828103DF}
+		{7CC4583B-D8AA-4047-BF0D-9BC237A94D73} = {89EB1A38-E372-4C12-AB1B-4C0FFB036D4A}
+		{DB1D81F1-2BED-4C17-A0D2-1A82844D6B2D} = {7CC4583B-D8AA-4047-BF0D-9BC237A94D73}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}
