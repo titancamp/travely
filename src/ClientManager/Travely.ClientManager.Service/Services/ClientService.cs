@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Travely.ClientManager.Abstraction.Abstraction.Repository;
 using Travely.ClientManager.Abstraction.Entity;
@@ -14,7 +11,7 @@ using Travely.Services.Common.CustomExceptions;
 
 namespace Travely.ClientManager.Service.Services
 {
-	public class ClientService : ClientProtoService.ClientProtoServiceBase
+    public class ClientService : ClientProtoService.ClientProtoServiceBase
 	{
 		private readonly ITouristRepository _touristRepository;
 		private readonly IMapper _mapper;
