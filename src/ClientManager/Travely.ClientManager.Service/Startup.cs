@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Travely.ClientManager.Service.Extensions.ServiceCollectionExtensions;
 using Travely.ClientManager.Service.Services;
@@ -11,43 +15,44 @@ using Travely.Services.Common.Extensions;
 
 namespace Travely.ClientManager.Service
 {
-	public class Startup
-	{
-		public IConfiguration _configuration { get; }
-		public Startup(IConfiguration configuration)
-		{
-			_configuration = configuration;
-		}
+    public class Startup
+    {
+        public IConfiguration _configuration { get; }
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+                
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.ConfigureSqlContext(_configuration);
 
-		public void ConfigureServices(IServiceCollection services)
-		{
-			services.ConfigureSqlContext(_configuration);
+            services.AddGrpc();
 
-			services.AddGrpc();
+            services.ConfigureAutoMapper();
 
-			services.ConfigureAutoMapper();
+            services.InstallRepositoryServices();
+        }
 
-			services.InstallRepositoryServices();
-		}
-
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-		{
-			if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			}
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 			app.UseGRPCExceptionHandler();
-			app.UseRouting();
+            app.UseRouting();
 
-			app.UseEndpoints(endpoints =>
-			{
-				endpoints.MapGrpcService<ClientService>();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGrpcService<ClientService>();
+                endpoints.MapGrpcService<PreferenceService>();
 
-				endpoints.MapGet("/", async context =>
-				{
-					await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
-				});
-			});
-		}
-	}
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+                });
+            });
+        }
+    }
 }

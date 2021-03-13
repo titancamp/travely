@@ -5,9 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Reflection;
+using TourManager.Clients.Abstraction.ServiceManager;
+using TourManager.Clients.Implementation.ServiceManager;
+using TourManager.Common.Settings;
+using TourManager.Clients.Abstraction.Settings;
+using TourManager.Clients.Implementation.Settings;
 using TourManager.Api.Bootstrapper;
 using TourManager.Service.Model;
+using System.Reflection;
+using TourManager.Api.Bootstrapper;
 
 namespace TourManager.Api
 {
@@ -34,11 +40,15 @@ namespace TourManager.Api
                 config.AssumeDefaultVersionWhenUnspecified = true;
             });
 
+            services.Configure<GrpcServiceSettings>(Configuration.GetSection("GrpcServiceSettings"));
+
             services
                 .AddSqlServer(Configuration)
                 .AddAutoMapper(typeof(Startup))
                 .AddSwagger()
-                .AddTourManagerServices();
+                .AddTourManagerServices()
+                .AddTourManagerRepositories()
+                .AddTourClientServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
