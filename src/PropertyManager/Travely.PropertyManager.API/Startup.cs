@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Travely.PropertyManager.API.Helpers;
 using Travely.PropertyManager.API.Services;
 using Travely.PropertyManager.Bootstrapper.Helpers;
 
@@ -28,6 +30,8 @@ namespace Travely.PropertyManager.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.ApplyDatabaseMigrations();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -1,6 +1,7 @@
 ﻿using Grpc.Core;
 using Grpc.Net.Client;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using TourManager.Clients.Abstraction.PropertyManager;
 using TourManager.Clients.Abstraction.Settings;
@@ -47,7 +48,17 @@ namespace TourManager.Clients.Implementation.PropertyManager
 
         private Property.PropertyClient GetPropertyClient()
         {
-            var channel = GrpcChannel.ForAddress(_serviceSettingsProvider.ComposePropertyServiceUrl());
+            var httpHandler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            };
+
+            var channel = GrpcChannel.ForAddress(
+                _serviceSettingsProvider.ComposePropertyServiceUrl(),
+                new GrpcChannelOptions
+                {
+                    HttpHandler = httpHandler
+                });
 
             return new Property.PropertyClient(channel);
         }
