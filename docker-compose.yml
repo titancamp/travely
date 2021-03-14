@@ -19,3 +19,9 @@ services:
     environment: 
         SA_PASSWORD: "Passw0rd!"
         ACCEPT_EULA: "Y"
+  travely.clientmanager.service:
+    image: ${DOCKER_REGISTRY-}travelyclientmanagerservice
+    build:
+      context: .
+      dockerfile: src/ClientManager/Travely.ClientManager.Service/Dockerfile
+

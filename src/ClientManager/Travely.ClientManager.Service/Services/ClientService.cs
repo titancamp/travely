@@ -11,7 +11,7 @@ using Travely.Services.Common.CustomExceptions;
 
 namespace Travely.ClientManager.Service.Services
 {
-    public class ClientService : ClientProtoService.ClientProtoServiceBase
+	public class ClientService : ClientProtoService.ClientProtoServiceBase
 	{
 		private readonly ITouristRepository _touristRepository;
 		private readonly IMapper _mapper;
@@ -37,21 +37,6 @@ namespace Travely.ClientManager.Service.Services
 			ClientModel clientModel = _mapper.Map<ClientModel>(client);
 
 			return clientModel;
-		}
-
-		public override async Task<ClientWithPreferencesModel> GetClientWithPreferences(GetClientRequest request,
-																ServerCallContext context)
-		{
-			Tourist client = await _touristRepository.GetNoTracking(x => x.Id == request.Id, "Preferences").FirstOrDefaultAsync();
-
-			if (client == null)
-			{
-				throw new NotFoundException(nameof(Tourist), request.Id);
-			}
-
-			ClientWithPreferencesModel clientPreferencesModel = _mapper.Map<ClientWithPreferencesModel>(client);
-
-			return clientPreferencesModel;
 		}
 
 		public override async Task GetAllClients(GetAllClientsRequest request,

@@ -11,6 +11,7 @@ namespace TourManager.Clients.Implementation.Mappers
                 // This line ensures that internal properties are also mapped over.
                 cfg.ShouldMapProperty = p => p.GetMethod.IsPublic || p.GetMethod.IsAssembly;
                 cfg.AddProfile<ActivityClientProfile>();
+                cfg.AddProfile<ClientManagerClientProfile>();
             });
             var mapper = config.CreateMapper();
             return mapper;
