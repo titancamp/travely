@@ -88,7 +88,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <returns></returns>
         public async Task<IEnumerable<UserResponseModel>> GetUsers(CancellationToken ct)
         {
-            return await _mapper.ProjectTo<UserResponseModel>(_userRepository.GetAll()).ToListAsync(); ;
+            return await _mapper.ProjectTo<UserResponseModel>(_userRepository.GetAll()).ToListAsync(); 
 
         }
 
