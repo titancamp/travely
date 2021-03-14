@@ -105,6 +105,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.Common", "src\SchedulerManager\Travely.SchedulerManager.Common\Travely.SchedulerManager.Common.csproj", "{29CC9EA9-09B9-4C33-A3CA-07134909DD75}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D0402C66-7A9E-4E24-B9BB-97C98B149A9F}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.PropertyManager.API", "src\PropertyManager\Travely.PropertyManager.API\Travely.PropertyManager.API.csproj", "{3045F704-0D57-4008-A1D9-B6E3ECE7929C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.PropertyManager.Service", "src\PropertyManager\Travely.PropertyManager.Service\Travely.PropertyManager.Service.csproj", "{ED254CAE-58A5-4966-90BE-2F6990DD30FA}"
@@ -231,22 +233,6 @@ Global
 		{29CC9EA9-09B9-4C33-A3CA-07134909DD75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29CC9EA9-09B9-4C33-A3CA-07134909DD75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29CC9EA9-09B9-4C33-A3CA-07134909DD75}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3045F704-0D57-4008-A1D9-B6E3ECE7929C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3045F704-0D57-4008-A1D9-B6E3ECE7929C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3045F704-0D57-4008-A1D9-B6E3ECE7929C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3045F704-0D57-4008-A1D9-B6E3ECE7929C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED254CAE-58A5-4966-90BE-2F6990DD30FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED254CAE-58A5-4966-90BE-2F6990DD30FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED254CAE-58A5-4966-90BE-2F6990DD30FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED254CAE-58A5-4966-90BE-2F6990DD30FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A2E92C01-D7CC-47D6-A3FC-1B5DAF2EDF6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A2E92C01-D7CC-47D6-A3FC-1B5DAF2EDF6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A2E92C01-D7CC-47D6-A3FC-1B5DAF2EDF6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A2E92C01-D7CC-47D6-A3FC-1B5DAF2EDF6D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2CEBE477-FC6D-41E7-AE52-2D4F9587CBB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2CEBE477-FC6D-41E7-AE52-2D4F9587CBB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2CEBE477-FC6D-41E7-AE52-2D4F9587CBB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2CEBE477-FC6D-41E7-AE52-2D4F9587CBB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
