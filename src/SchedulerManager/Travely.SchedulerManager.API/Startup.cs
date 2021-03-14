@@ -17,10 +17,12 @@ namespace Travely.SchedulerManager.API
     public class Startup
     {
         private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _environment;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             _configuration = configuration;
+            _environment = environment;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -37,9 +39,6 @@ namespace Travely.SchedulerManager.API
                     });
             });
 
-            // todo use identity package
-            // services.AddAuthentication();
-
             services.Configure<NotifierOptions>(_configuration.GetSection(NotifierOptions.Section));
             services.Configure<JobOptions>(_configuration.GetSection(JobOptions.Section));
             services.Configure<RepositoryOptions>(_configuration.GetSection(RepositoryOptions.Section));
@@ -49,6 +48,7 @@ namespace Travely.SchedulerManager.API
             services.AddRepositoryLayer(_configuration);
             services.AddNotifier(_configuration);
             services.AddBusinessServices();
+            services.AddTravelyAuthentication(_configuration, _environment);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -60,9 +60,7 @@ namespace Travely.SchedulerManager.API
 
             app.UseRouting();
             app.UseCors("CORS");
-            // app.UseAuthentication();
-            // app.UseAuthorization();
-
+            app.ConfigureTravelyAuthentication();
             app.UseJobClient();
             app.UseNotifier();
             app.UseEndpoints(endpoints =>

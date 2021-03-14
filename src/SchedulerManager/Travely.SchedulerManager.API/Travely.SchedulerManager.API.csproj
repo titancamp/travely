@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\IdentityClient\Travely.Shared.IdentityClient.Authorization.csproj" />
     <ProjectReference Include="..\Travely.SchedulerManager.Job\Travely.SchedulerManager.Job.csproj" />
     <ProjectReference Include="..\Travely.SchedulerManager.Notifier\Travely.SchedulerManager.Notifier.csproj" />
     <ProjectReference Include="..\Travely.SchedulerManager.Repository\Travely.SchedulerManager.Repository.csproj" />

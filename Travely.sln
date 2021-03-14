@@ -107,6 +107,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.Co
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D0402C66-7A9E-4E24-B9BB-97C98B149A9F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.Shared.IdentityClient.Authorization", "src\Shared\IdentityClient\Travely.Shared.IdentityClient.Authorization.csproj", "{7D778945-0814-4885-A7F4-C76CE98E2A1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -229,6 +231,10 @@ Global
 		{D0402C66-7A9E-4E24-B9BB-97C98B149A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0402C66-7A9E-4E24-B9BB-97C98B149A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0402C66-7A9E-4E24-B9BB-97C98B149A9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D778945-0814-4885-A7F4-C76CE98E2A1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D778945-0814-4885-A7F4-C76CE98E2A1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D778945-0814-4885-A7F4-C76CE98E2A1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D778945-0814-4885-A7F4-C76CE98E2A1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
