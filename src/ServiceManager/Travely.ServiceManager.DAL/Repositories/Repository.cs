@@ -34,7 +34,7 @@ namespace Travely.ServiceManager.DAL.Repositories
 
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return await _dbSet.AsNoTracking().ToListAsync();
         }
 
         public virtual async Task<TEntity> GetAsync(long entityId)

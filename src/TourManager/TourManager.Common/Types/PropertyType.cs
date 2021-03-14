@@ -1,6 +1,6 @@
 ﻿namespace TourManager.Common.Types
 {
-	public enum PropertyOption
+	public enum PropertyType
 	{
 		None,
 		Hotel,
