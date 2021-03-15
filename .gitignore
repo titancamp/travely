@@ -3,9 +3,6 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-# ignore appsettings configuration files
-**/appsettings.Local.json
-
 # User-specific files
 *.rsuser
 *.suo
@@ -366,6 +363,3 @@ FodyWeavers.xsd
 
 # nbgv files
 */.store/nbgv/3.3.37
-
-# Jetbrains cache directory
-.idea

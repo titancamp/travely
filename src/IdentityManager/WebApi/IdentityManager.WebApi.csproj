@@ -3,22 +3,23 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>434315b8-7714-43f7-9173-a3c23940fc5a</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
-    <!--<PackageReference Include="AutoMapperBuilder" />-->
     <PackageReference Include="IdentityServer4" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" />
     <PackageReference Include="Swashbuckle.AspNetCore" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DataService\IdentityManager.DataService.csproj" />
-    <ProjectReference Include="..\Repository.EntityFramework\IdentityManager.Repository.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,15 +8,6 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY ["src/TourManager/TourManager.Api/TourManager.Api.csproj", "src/TourManager/TourManager.Api/"]
-COPY ["src/TourManager/TourManager.Clients.Implementation/TourManager.Clients.Implementation.csproj", "src/TourManager/TourManager.Clients.Implementation/"]
-COPY ["src/TourManager/TourManager.Common/TourManager.Common.csproj", "src/TourManager/TourManager.Common/"]
-COPY ["src/TourManager/TourManager.Clients.Abstraction/TourManager.Clients.Abstraction.csproj", "src/TourManager/TourManager.Clients.Abstraction/"]
-COPY ["src/TourManager/TourManager.Repository.EfCore/TourManager.Repository.EfCore.csproj", "src/TourManager/TourManager.Repository.EfCore/"]
-COPY ["src/TourManager/TourManager.Repository.Abstraction/TourManager.Repository.Abstraction.csproj", "src/TourManager/TourManager.Repository.Abstraction/"]
-COPY ["src/TourManager/TourManager.Service.Model/TourManager.Service.Model.csproj", "src/TourManager/TourManager.Service.Model/"]
-COPY ["src/TourManager/TourManager.Service.Implementation/TourManager.Service.Implementation.csproj", "src/TourManager/TourManager.Service.Implementation/"]
-COPY ["src/TourManager/TourManager.Service.Abstraction/TourManager.Service.Abstraction.csproj", "src/TourManager/TourManager.Service.Abstraction/"]
-COPY ["src/TourManager/TourManager.Repository.EfCore.MsSql/TourManager.Repository.EfCore.MsSql.csproj", "src/TourManager/TourManager.Repository.EfCore.MsSql/"]
 RUN dotnet restore "src/TourManager/TourManager.Api/TourManager.Api.csproj"
 COPY . .
 WORKDIR "/src/src/TourManager/TourManager.Api"
