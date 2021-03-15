@@ -5,6 +5,7 @@
     <UserSecretsId>14760101-0e0f-4edc-a4ac-37515e840462</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TourManager.Clients.Abstraction\TourManager.Clients.Abstraction.csproj" />
+    <ProjectReference Include="..\TourManager.Clients.Implementation\TourManager.Clients.Implementation.csproj" />
     <ProjectReference Include="..\TourManager.Repository.EfCore.MsSql\TourManager.Repository.EfCore.MsSql.csproj" />
     <ProjectReference Include="..\TourManager.Repository.EfCore\TourManager.Repository.EfCore.csproj" />
     <ProjectReference Include="..\TourManager.Service.Abstraction\TourManager.Service.Abstraction.csproj" />

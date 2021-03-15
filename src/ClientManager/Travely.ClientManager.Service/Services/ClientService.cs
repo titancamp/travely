@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Travely.ClientManager.Abstraction.Abstraction.Repository;
 using Travely.ClientManager.Abstraction.Entity;
@@ -14,15 +11,15 @@ using Travely.Services.Common.CustomExceptions;
 
 namespace Travely.ClientManager.Service.Services
 {
-	public class ClientService : ClientProtoService.ClientProtoServiceBase
+    public class ClientService : ClientProtoService.ClientProtoServiceBase
 	{
-		private readonly ITouristRepository _turistRepository;
+		private readonly ITouristRepository _touristRepository;
 		private readonly IMapper _mapper;
 		private readonly ILogger<ClientService> _logger;
-		public ClientService(ILogger<ClientService> logger, ITouristRepository turistRepository, IMapper mapper)
+		public ClientService(ILogger<ClientService> logger, ITouristRepository touristRepository, IMapper mapper)
 		{
 			_logger = logger;
-			_turistRepository = turistRepository;
+			_touristRepository = touristRepository;
 			_mapper = mapper;
 		}
 
@@ -30,7 +27,7 @@ namespace Travely.ClientManager.Service.Services
 		public override async Task<ClientModel> GetClient(GetClientRequest request,
 																ServerCallContext context)
 		{
-			Tourist client = await _turistRepository.GetNoTracking(x => x.Id == request.Id).FirstOrDefaultAsync();
+			Tourist client = await _touristRepository.GetNoTracking(x => x.Id == request.Id).FirstOrDefaultAsync();
 
 			if (client == null)
 			{
@@ -45,7 +42,7 @@ namespace Travely.ClientManager.Service.Services
 		public override async Task<ClientWithPreferencesModel> GetClientWithPreferences(GetClientRequest request,
 																ServerCallContext context)
 		{
-			Tourist client = await _turistRepository.GetNoTracking(x => x.Id == request.Id, "Preferences").FirstOrDefaultAsync();
+			Tourist client = await _touristRepository.GetNoTracking(x => x.Id == request.Id, "Preferences").FirstOrDefaultAsync();
 
 			if (client == null)
 			{
@@ -61,7 +58,7 @@ namespace Travely.ClientManager.Service.Services
 													IServerStreamWriter<ClientModel> responseStream,
 													ServerCallContext context)
 		{
-			List<Tourist> clientList = await _turistRepository.GetNoTracking().ToListAsync();
+			List<Tourist> clientList = await _touristRepository.GetNoTracking().ToListAsync();
 
 			foreach (var client in clientList)
 			{
@@ -78,8 +75,8 @@ namespace Travely.ClientManager.Service.Services
 			Tourist client = _mapper.Map<Tourist>(request.Client);
 			client.Id = default;
 
-			_turistRepository.Add(client);
-			await _turistRepository.SaveChangesAsync();
+			_touristRepository.Add(client);
+			await _touristRepository.SaveChangesAsync();
 
 			var clientModel = request.Client;
 			return clientModel;
@@ -90,10 +87,10 @@ namespace Travely.ClientManager.Service.Services
 			while (await requestStream.MoveNext())
 			{
 				Tourist client = _mapper.Map<Tourist>(requestStream.Current);
-				_turistRepository.Add(client);
+				_touristRepository.Add(client);
 			}
 
-			var insertCount = await _turistRepository.SaveChangesAsync();
+			var insertCount = await _touristRepository.SaveChangesAsync();
 
 			var response = new AddRangeClientReponse
 			{
@@ -112,7 +109,7 @@ namespace Travely.ClientManager.Service.Services
 		{
 			Tourist client = _mapper.Map<Tourist>(request.Client);
 
-			bool isExist = await _turistRepository.Get(x => x.Id == request.Client.Id).AnyAsync();
+			bool isExist = await _touristRepository.Get(x => x.Id == request.Client.Id).AnyAsync();
 
 			if (!isExist)
 			{
@@ -120,8 +117,8 @@ namespace Travely.ClientManager.Service.Services
 			}
 
 
-			_turistRepository.Update(client);
-			await _turistRepository.SaveChangesAsync();
+			_touristRepository.Update(client);
+			await _touristRepository.SaveChangesAsync();
 
 			ClientModel clientModel = _mapper.Map<ClientModel>(client);
 			return clientModel;
@@ -132,15 +129,15 @@ namespace Travely.ClientManager.Service.Services
 		#region DELETE
 		public override async Task<DeleteClientResponse> DeleteClient(DeleteClientRequest request, ServerCallContext context)
 		{
-			Tourist client = await _turistRepository.Get(x => x.Id == request.Id).FirstOrDefaultAsync();
+			Tourist client = await _touristRepository.Get(x => x.Id == request.Id).FirstOrDefaultAsync();
 			if (client == null)
 			{
 				throw new NotFoundException(nameof(Tourist), request.Id);
 			}
 
-			_turistRepository.Delete(client);
+			_touristRepository.Delete(client);
 
-			var deleteCount = await _turistRepository.SaveChangesAsync();
+			var deleteCount = await _touristRepository.SaveChangesAsync();
 
 			var response = new DeleteClientResponse
 			{
