@@ -1,24 +1,99 @@
-﻿using System;
-using TourManager.Common.Types;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
+using TourManager.Common.Types;
 
 namespace TourManager.Service.Model
 {
-	public class Booking
-	{
-		public int Id { get; set; }
-		public string Name { get; set; }
-		public BookingType Type { get; set; }
-		public BookingStatus Status { get; set; }
-		public DateTime? CheckInDate { get; set; }
-		public DateTime? CheckOutDate { get; set; }
-		public DateTime? CancellationDeadline { get; set; }
-		public string Origin { get; set; }
-		public DateTime? ArrivalTime { get; set; }
-		public string ArrivalFlightNumber { get; set; }
-		public DateTime? DepartureTime { get; set; }
-		public string DepartureFlightNumber { get; set; }
-		public string Notes { get; set; }
-		public List<string> Destinations { get; set; }
-	}
+    /// <summary>
+    /// The booking validator
+    /// </summary>
+    public class BookingValidator : AbstractValidator<Booking>
+    {
+        /// <summary>
+        /// Create new instance of booking validator
+        /// </summary>
+        public BookingValidator()
+        {
+            RuleFor(booking => booking.Name).NotEmpty().WithMessage("The booking name field is requiered!");
+            RuleFor(booking => booking.Notes).NotEmpty().WithMessage("The booking notes field is requiered!");
+            RuleFor(booking => booking.Destinations).NotEmpty().WithMessage("The booking should contain at least one destination!");
+        }
+    }
+
+    /// <summary>
+    /// The booking model
+    /// </summary>
+    public class Booking
+    {
+        /// <summary>
+        /// The booking id
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// The booking name
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// The booking type
+        /// </summary>
+        public BookingType Type { get; set; }
+
+        /// <summary>
+        /// The booking status
+        /// </summary>
+        public BookingStatus Status { get; set; }
+
+        /// <summary>
+        /// The booking checkin date
+        /// </summary>
+        public DateTime? CheckInDate { get; set; }
+
+        /// <summary>
+        /// The booking checkout date
+        /// </summary>
+        public DateTime? CheckOutDate { get; set; }
+
+        /// <summary>
+        /// The booking cancellation deadline
+        /// </summary>
+        public DateTime? CancellationDeadline { get; set; }
+
+        /// <summary>
+        /// The booking origin
+        /// </summary>
+        public string Origin { get; set; }
+
+        /// <summary>
+        /// The booking arrival time
+        /// </summary>
+        public DateTime? ArrivalTime { get; set; }
+
+        /// <summary>
+        /// The booking arrival flight number
+        /// </summary>
+        public string ArrivalFlightNumber { get; set; }
+
+        /// <summary>
+        /// The booking departure time
+        /// </summary>
+        public DateTime? DepartureTime { get; set; }
+
+        /// <summary>
+        /// The booking departure flight number
+        /// </summary>
+        public string DepartureFlightNumber { get; set; }
+
+        /// <summary>
+        /// The booking notes
+        /// </summary>
+        public string Notes { get; set; }
+
+        /// <summary>
+        /// The booking destinations
+        /// </summary>
+        public List<string> Destinations { get; set; }
+    }
 }

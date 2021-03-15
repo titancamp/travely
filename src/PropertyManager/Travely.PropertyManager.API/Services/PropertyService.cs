@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Grpc.Core;
 using System.Threading.Tasks;
-using Travely.PropertyManager.API.Models;
 using Travely.PropertyManager.Service.Contracts;
 using Travely.PropertyManager.Service.Models.Commands;
 using Travely.PropertyManager.Service.Models.Queries;

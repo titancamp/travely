@@ -4,4 +4,34 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="10.1.1" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+      <PackageReference Include="Google.Protobuf" Version="3.14.0" />
+      <PackageReference Include="Grpc.Net.Client" Version="2.35.0" />
+      <PackageReference Include="Grpc.Net.ClientFactory" Version="2.32.0" />
+      <PackageReference Include="Grpc.Tools" Version="2.35.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TourManager.Clients.Abstraction\TourManager.Clients.Abstraction.csproj" />
+      <ProjectReference Include="..\TourManager.Common\TourManager.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Protobuf Include="..\..\..\proto\activity.proto" GrpcServices="Client">
+        <Link>Protos\activity.proto</Link>
+      </Protobuf>
+      <Protobuf Include="..\..\..\proto\base.proto" GrpcServices="Client">
+        <Link>Protos\base.proto</Link>
+      </Protobuf>
+      <Protobuf Include="..\..\..\proto\properties.proto" GrpcServices="Client">
+        <Link>Protos\properties.proto</Link>
+      </Protobuf>
+    </ItemGroup>
+
 </Project>
