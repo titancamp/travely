@@ -1,10 +1,10 @@
 ﻿syntax = "proto3";
  
 import "google/protobuf/wrappers.proto"; 
-import "Protos/base.proto";
+import "base.proto";
 
 
-option csharp_namespace = "Travely.PropertyManager.API.Models";
+option csharp_namespace = "Travely.PropertyManager.API";
 
 service Property {
 	rpc AddProperty(AddPropertyRequest) returns (AddPropertyResponse);

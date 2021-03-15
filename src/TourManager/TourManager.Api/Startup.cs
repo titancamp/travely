@@ -12,6 +12,10 @@ using TourManager.Clients.Abstraction.Settings;
 using TourManager.Clients.Implementation.Settings;
 using TourManager.Api.Bootstrapper;
 using TourManager.Service.Model;
+using TourManager.Clients.Abstraction.PropertyManager;
+using TourManager.Service.Implementation;
+using TourManager.Service.Abstraction;
+using TourManager.Clients.Implementation.PropertyManager;
 
 namespace TourManager.Api
 {
@@ -38,6 +42,10 @@ namespace TourManager.Api
                 config.AssumeDefaultVersionWhenUnspecified = true;
             });
 
+            services.AddScoped<IServiceManagerClient, ServiceManagerClient>();
+            services.AddScoped<IServiceSettingsProvider, ServiceSettingsProvider>();
+            services.AddScoped<IPropertyManagerClient, PropertyManagerClient>();
+            services.AddScoped<IPropertyService, PropertyService>();
             services.Configure<GrpcServiceSettings>(Configuration.GetSection("GrpcServiceSettings"));
 
             services
