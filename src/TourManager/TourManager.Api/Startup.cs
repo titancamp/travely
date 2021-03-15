@@ -5,19 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TourManager.Clients.Abstraction.ServiceManager;
-using TourManager.Clients.Implementation.ServiceManager;
 using TourManager.Common.Settings;
-using TourManager.Clients.Abstraction.Settings;
-using TourManager.Clients.Implementation.Settings;
 using TourManager.Api.Bootstrapper;
 using TourManager.Service.Model;
-using System.Reflection;
-using TourManager.Api.Bootstrapper;
 
 namespace TourManager.Api
 {
-    public class Startup
+	public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -32,7 +26,8 @@ namespace TourManager.Api
             services
                 .AddCors()
                 .AddControllers()
-                .AddFluentValidation(opt => opt.RegisterValidatorsFromAssembly(typeof(TourValidator).Assembly));
+                .AddFluentValidation(opt => opt.RegisterValidatorsFromAssembly(typeof(TourValidator).Assembly))
+                .AddFluentValidation(opt => opt.RegisterValidatorsFromAssembly(typeof(ClientValidator).Assembly));
 
             services.AddApiVersioning(config =>
             {

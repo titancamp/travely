@@ -11,11 +11,14 @@ using Travely.Services.Common.CustomExceptions;
 
 namespace Travely.ClientManager.Service.Services
 {
-    public class ClientService : ClientProtoService.ClientProtoServiceBase
+	public class ClientService : ClientProtoService.ClientProtoServiceBase
 	{
 		private readonly ITouristRepository _touristRepository;
+
 		private readonly IMapper _mapper;
+
 		private readonly ILogger<ClientService> _logger;
+
 		public ClientService(ILogger<ClientService> logger, ITouristRepository touristRepository, IMapper mapper)
 		{
 			_logger = logger;
@@ -23,7 +26,6 @@ namespace Travely.ClientManager.Service.Services
 			_mapper = mapper;
 		}
 
-		#region GET
 		public override async Task<ClientModel> GetClient(GetClientRequest request,
 																ServerCallContext context)
 		{
@@ -39,37 +41,14 @@ namespace Travely.ClientManager.Service.Services
 			return clientModel;
 		}
 
-		public override async Task<ClientWithPreferencesModel> GetClientWithPreferences(GetClientRequest request,
-																ServerCallContext context)
+		public async override Task<Clients> GetAllClients(GetAllClientsRequest request, ServerCallContext context)
 		{
-			Tourist client = await _touristRepository.GetNoTracking(x => x.Id == request.Id, "Preferences").FirstOrDefaultAsync();
-
-			if (client == null)
-			{
-				throw new NotFoundException(nameof(Tourist), request.Id);
-			}
-
-			ClientWithPreferencesModel clientPreferencesModel = _mapper.Map<ClientWithPreferencesModel>(client);
-
-			return clientPreferencesModel;
+			List<ClientModel> clientsList = _mapper.Map<List<ClientModel>>(await _touristRepository.GetNoTracking().ToListAsync());
+			var clients = new Clients();
+			clients.Clients_.AddRange(clientsList);
+			return clients;
 		}
 
-		public override async Task GetAllClients(GetAllClientsRequest request,
-													IServerStreamWriter<ClientModel> responseStream,
-													ServerCallContext context)
-		{
-			List<Tourist> clientList = await _touristRepository.GetNoTracking().ToListAsync();
-
-			foreach (var client in clientList)
-			{
-				ClientModel clientModel = _mapper.Map<ClientModel>(client);
-
-				await responseStream.WriteAsync(clientModel);
-			}
-		}
-		#endregion
-
-		#region CREATE
 		public override async Task<ClientModel> CreateClient(CreateClientRequest request, ServerCallContext context)
 		{
 			Tourist client = _mapper.Map<Tourist>(request.Client);
@@ -101,10 +80,6 @@ namespace Travely.ClientManager.Service.Services
 			return response;
 		}
 
-		#endregion
-
-		#region UPDATE
-
 		public override async Task<ClientModel> UpdateClient(UpdateClientRequest request, ServerCallContext context)
 		{
 			Tourist client = _mapper.Map<Tourist>(request.Client);
@@ -124,9 +99,6 @@ namespace Travely.ClientManager.Service.Services
 			return clientModel;
 		}
 
-		#endregion
-
-		#region DELETE
 		public override async Task<DeleteClientResponse> DeleteClient(DeleteClientRequest request, ServerCallContext context)
 		{
 			Tourist client = await _touristRepository.Get(x => x.Id == request.Id).FirstOrDefaultAsync();
@@ -146,7 +118,5 @@ namespace Travely.ClientManager.Service.Services
 
 			return response;
 		}
-		#endregion
-
 	}
 }
