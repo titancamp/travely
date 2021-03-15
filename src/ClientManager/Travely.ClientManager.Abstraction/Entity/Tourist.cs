@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Travely.ClientManager.Abstraction.Entity
 {
-    [Table("Tourist")]
+	[Table("Tourist")]
     public class Tourist : BaseEntity
     {
         public string FirstName { get; set; }
@@ -21,7 +17,6 @@ namespace Travely.ClientManager.Abstraction.Entity
         public DateTime? IssuedDate { get; set; }
         public DateTime? ExpireDate { get; set; }
         public int AgencyId { get; set; }
-
-        public virtual ICollection<Preference> Preferences { get; set; }
+		public string Notes { get; set; }
     }
 }

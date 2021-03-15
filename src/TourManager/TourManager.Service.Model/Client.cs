@@ -75,7 +75,7 @@ namespace TourManager.Service.Model
         /// <summary>
         /// The client passport issue date
         /// </summary>
-        public DateTime? IssueDate { get; set; }
+        public DateTime? IssuedDate { get; set; }
 
         /// <summary>
         /// The client passport expiration date
