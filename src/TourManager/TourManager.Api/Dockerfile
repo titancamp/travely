@@ -14,6 +14,7 @@ COPY ["src/TourManager/TourManager.Clients.Abstraction/TourManager.Clients.Abstr
 COPY ["src/TourManager/TourManager.Repository.EfCore/TourManager.Repository.EfCore.csproj", "src/TourManager/TourManager.Repository.EfCore/"]
 COPY ["src/TourManager/TourManager.Repository.Abstraction/TourManager.Repository.Abstraction.csproj", "src/TourManager/TourManager.Repository.Abstraction/"]
 COPY ["src/TourManager/TourManager.Service.Model/TourManager.Service.Model.csproj", "src/TourManager/TourManager.Service.Model/"]
+COPY ["src/Shared/IdentityClient/Travely.Shared.IdentityClient.Authorization.csproj", "src/Shared/IdentityClient/"]
 COPY ["src/TourManager/TourManager.Service.Implementation/TourManager.Service.Implementation.csproj", "src/TourManager/TourManager.Service.Implementation/"]
 COPY ["src/TourManager/TourManager.Service.Abstraction/TourManager.Service.Abstraction.csproj", "src/TourManager/TourManager.Service.Abstraction/"]
 COPY ["src/TourManager/TourManager.Repository.EfCore.MsSql/TourManager.Repository.EfCore.MsSql.csproj", "src/TourManager/TourManager.Repository.EfCore.MsSql/"]
