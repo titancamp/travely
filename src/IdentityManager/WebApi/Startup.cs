@@ -1,16 +1,18 @@
-using IdentityManager.DataService.Extensions;
-using IdentityManager.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Travely.IdentityManager.Repository.EntityFramework;
-using Travely.IdentityManager.Repository.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace IdentityManager.WebApi
+namespace IdentityManager.API
 {
     public class Startup
     {
@@ -24,26 +26,11 @@ namespace IdentityManager.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.ConfigureFilterServices();
 
-            services.ConfigureSqlContext(Configuration);
-            services.AddTravelyIdentityService();
-            services.ConfigureAutoMapper();
-            services.AddRepositoryServices();
-
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IdentityManager.WebApi", Version = "v1" });
-
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Description = "JWT Authorization header using the Bearer scheme ",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
-                });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IdentityManager.API", Version = "v1" });
             });
         }
 
@@ -54,21 +41,19 @@ namespace IdentityManager.WebApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityManager.WebApi v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityManager.API v1"));
             }
 
-            app.UseIdentityServer();
             app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseAuthorization();
 
-            app.UseAuthentication();
+            app.UseRouting();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
         }
-
     }
 }
