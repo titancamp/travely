@@ -8,7 +8,7 @@ trigger:
     - master
   paths:
     include:
-    - src/TourManager
+    - src/FileServiceManager
 
 pool:
   vmImage: ubuntu-latest
@@ -17,10 +17,10 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'DockerHub'
-    repository: 'titancamp/tourmanager'
+    repository: 'titancamp/filesystemmanager'
     command: 'buildAndPush'
-    Dockerfile: 'src/TourManager/TourManager.Api/Dockerfile'
+    Dockerfile: 'src/FileServiceManager/Dockerfile'
     buildContext: '.'
     tags: |
       $(Build.BuildId)
-      latest
+      latest% 
