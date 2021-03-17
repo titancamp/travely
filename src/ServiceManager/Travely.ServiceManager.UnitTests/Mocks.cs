@@ -4,6 +4,13 @@ namespace Travely.ServiceManager.UnitTests
 {
     public static class Mocks
     {
+        public static ActivityType ActivityType = new ActivityType
+        {
+            ActivityName = "act_name",
+            AgencyId = 12,
+            Id = 345,
+        };
+
         public static Activity Activity = new Activity
         {
             Id = 12,
@@ -19,12 +26,7 @@ namespace Travely.ServiceManager.UnitTests
                 Currency = "cur",
                 Price_ = 12,
             },
-            Type = new ActivityType
-            {
-                ActivityName = "act",
-                AgencyId = 3112,
-                Id = 11,
-            },
+            Type = ActivityType,
         };
     }
 }
