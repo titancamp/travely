@@ -33,6 +33,8 @@ namespace IdentityManager.DataService.Extensions
                 .AddInMemoryClients(AuthConfigs.GetClients())
                 .AddInMemoryApiScopes(AuthConfigs.GetScopes())
                 ;
+
+            services.AddLocalApiAuthentication();
         }
 
         

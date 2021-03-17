@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IdentityServer4;
 //using Travely.IdentityManager.Repository.Abstractions.Entities;
 using IdentityServer4.Models;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace IdentityManager.DataService.Configs
 {
@@ -14,12 +16,14 @@ namespace IdentityManager.DataService.Configs
         {
             return new List<ApiScope>
             {
+               // new ApiScope(LocalApi.ScopeName),
                 //StandardScopes.OfflineAccess,
                 new ApiScope
                 {
                     Name = "api1",
                     Description = "My API",
-                }
+                },
+                //new ApiScope(LocalApi.ScopeName)
             };
         }
 
@@ -27,7 +31,8 @@ namespace IdentityManager.DataService.Configs
         {
             return new List<ApiResource>
             {
-               new ApiResource()
+               new ApiResource(),
+               new ApiResource(LocalApi.ScopeName)
             };
         }
 
@@ -47,7 +52,8 @@ namespace IdentityManager.DataService.Configs
                     AllowedScopes =
                     {
                         "offline_access",
-                        "api1"
+                        "api1",
+                        IdentityServerConstants.LocalApi.ScopeName
                     }
                 },
                 new Client

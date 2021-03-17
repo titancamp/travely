@@ -14,6 +14,7 @@ using IdentityManager.WebApi.Models.Error;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.JsonPatch;
 using IdentityManager.WebApi.Extensions;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
@@ -97,7 +98,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         }
 
         [HttpPatch("agency")]
-        //[Authorize]
+        [Authorize(LocalApi.PolicyName)]
         public async Task UpdateAccountAsync([FromBody] JsonPatchDocument<UpdateAgencyRequestModel> agencyPatch, CancellationToken cancellationToken = default)
         {
             UserContextModel contextModel = new UserContextModel
