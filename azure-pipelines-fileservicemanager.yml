@@ -17,10 +17,10 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'DockerHub'
-    repository: 'titancamp/filesystemmanager'
+    repository: 'titancamp/fileservicemanager'
     command: 'buildAndPush'
     Dockerfile: 'src/FileServiceManager/Dockerfile'
     buildContext: '.'
     tags: |
       $(Build.BuildId)
-      latest% 
+      latest
