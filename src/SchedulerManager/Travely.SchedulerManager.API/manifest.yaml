@@ -2,37 +2,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tourmanager-api
+  name: schedulermanager-api
   labels:
-    app: tourmanager-api
+    app: schedulermanager-api
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: tourmanager-api
+      app: schedulermanager-api
   template:
     metadata:
       labels:
-        app: tourmanager-api
+        app: schedulermanager-api
     spec:
       containers:
-      - name: tourmanager-api
-        image: titancamp/tourmanager:latest
+      - name: schedulermanager-api
+        image: titancamp/schedulermanager:latest
         ports:
         - containerPort: 80
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: tourmanager-api-service
+  name: schedulermanager-api-service
   namespace: dev
   labels:
-    app: tourmanager-api
+    app: schedulermanager-api
 spec:
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
   selector:
-    app: tourmanager-api
+    app: schedulermanager-api
   type: NodePort
