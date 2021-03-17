@@ -8,7 +8,7 @@ trigger:
     - master
   paths:
     include:
-    - src/IdentityManager
+    - src/TourManager
 
 pool:
   vmImage: ubuntu-latest
@@ -17,9 +17,9 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'DockerHub'
-    repository: 'titancamp/identitymanager'
+    repository: 'titancamp/tourmanager'
     command: 'buildAndPush'
-    Dockerfile: 'src/IdentityManager/WebApi/Dockerfile'
+    Dockerfile: 'src/TourManager/TourManager.Api/Dockerfile'
     buildContext: '.'
     tags: |
       $(Build.BuildId)
