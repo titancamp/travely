@@ -21,12 +21,14 @@ namespace TourManager.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Environment = env;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -54,7 +56,8 @@ namespace TourManager.Api
                 .AddSwagger()
                 .AddTourManagerServices()
                 .AddTourManagerRepositories()
-                .AddTourClientServices();
+                .AddTourClientServices()
+                .AddTravelyAuthentication(Configuration, Environment);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,7 +73,7 @@ namespace TourManager.Api
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.ConfigureTravelyAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
