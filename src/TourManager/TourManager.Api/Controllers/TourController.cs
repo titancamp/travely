@@ -3,11 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using TourManager.Api.Utils;
 using TourManager.Service.Abstraction;
 using TourManager.Service.Model;
+using Microsoft.AspNetCore.Authorization;
+using Travely.IdentityClient.Authorization;
 
 namespace TourManager.Api.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
+    [Authorize(Roles = UserRoles.User)]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class TourController : ControllerBase
     {
