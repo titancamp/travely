@@ -43,7 +43,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
             return BadRequest("Some properties are not valid");
 
         }
-
+        
         /// <summary>
         /// ConfirmEmail
         /// </summary>

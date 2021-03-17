@@ -11,6 +11,6 @@ namespace IdentityManager.DataService.EmailValidationService
     {
         Task<string> CreateTokenAsync(string email, CancellationToken cancellationToken = default);
 
-        Task<bool> ValidateTokenAsync(string token, CancellationToken cancellationToken = default);
+        Task<bool> ValidateTokenAsync(string email, string token, CancellationToken cancellationToken = default);
     }
 }

@@ -9,7 +9,7 @@ namespace Travely.IdentityManager.Repository.Abstractions.Entities
     public class UserEmailValidationModel
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
+        public string UserEmail { get; set; }
         public string Token { get; set; }
         public DateTimeOffset CreatedDate { get; set; }
     }
