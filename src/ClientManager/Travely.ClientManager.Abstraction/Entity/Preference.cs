@@ -3,8 +3,8 @@
 namespace Travely.ClientManager.Abstraction.Entity
 {
 	[Table("Preference")]
-    public class Preference : BaseEntity
-    {
-        public string Note { get; set; }
-    }
+	public class Preference : BaseEntity
+	{
+		public string Note { get; set; }
+	}
 }
