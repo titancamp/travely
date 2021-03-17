@@ -14,6 +14,8 @@ steps:
   inputs:
     containerregistrytype: 'Container Registry'
     dockerRegistryEndpoint: 'DockerHub'
-    dockerComposeFile: '**/docker-compose.yml'
+    dockerComposeFile: 'docker-compose.yml'
     action: 'Push services'
     additionalImageTags: 'latest'
+    includeSourceTags: true
+    includeLatestTag: true
