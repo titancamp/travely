@@ -10,12 +10,13 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: DockerCompose@0
+- task: Docker@2
   inputs:
-    containerregistrytype: 'Container Registry'
-    dockerRegistryEndpoint: 'DockerHub'
-    dockerComposeFile: 'docker-compose.yml'
-    action: 'Push services'
-    additionalImageTags: 'latest'
-    includeSourceTags: true
-    includeLatestTag: true
+    containerRegistry: 'DockerHub'
+    repository: 'titancampm/tourmanagerapi'
+    command: 'buildAndPush'
+    Dockerfile: 'src/TourManager/TourManager.Api/Dockerfile'
+    buildContext: '.'
+    tags: |
+      $(Build.BuildId)
+      latest
