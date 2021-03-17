@@ -13,7 +13,7 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'DockerHub'
-    repository: 'titancampm/tourmanager'
+    repository: 'titancamp/tourmanager'
     command: 'buildAndPush'
     Dockerfile: 'src/TourManager/TourManager.Api/Dockerfile'
     buildContext: '.'
