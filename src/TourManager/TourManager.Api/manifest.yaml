@@ -1,0 +1,74 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tourmanager.api
+  labels:
+    app: tourmanager.api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tourmanager.api
+  template:
+    metadata:
+      labels:
+        app: tourmanager.api
+    spec:
+      containers:
+      - name: tourmanager.api
+        image: titancamp/tourmanager:latest
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: tourmanager.api-service
+  namespace: dev
+  labels:
+    app: tourmanager.api
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  selector:
+    app: travely-client
+  type: NodePort
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: name-virtual-host-ingress-no-third-host
+spec:
+  rules:
+  - host: travely.am
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: travely-client-service
+            port:
+              number: 80
+  - host: www.travely.am
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: travely-client-service
+            port:
+              number: 80
+  - http: 
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: travely-client-service
+            port:
+              number: 80
