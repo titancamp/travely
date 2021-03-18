@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identitymanager-webapi
+  labels:
+    app: identitymanager-webapi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: identitymanager-webapi
+  template:
+    metadata:
+      labels:
+        app: identitymanager-webapi
+    spec:
+      containers:
+      - name: identitymanager-webapi
+        image: titancamp/identitymanager:latest
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: identitymanager-webapi-service
+  namespace: dev
+  labels:
+    app: identitymanager-webapi
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+  selector:
+    app: identitymanager-webapi
+  type: NodePort

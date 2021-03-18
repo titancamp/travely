@@ -1,0 +1,25 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - src/ServiceManager
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'DockerHub'
+    repository: 'titancamp/servicemanager'
+    command: 'buildAndPush'
+    Dockerfile: 'src/ServiceManager/Travely.ServiceManager.Service/Dockerfile'
+    tags: |
+      $(Build.BuildId)
+      latest
