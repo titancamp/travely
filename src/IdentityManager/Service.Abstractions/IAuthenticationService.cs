@@ -1,14 +1,9 @@
-﻿//using IdentityManager.API.Models;
-//using IdentityManager.WebApi.Models;
-//using IdentityManager.WebApi.Models.Request;
-//using IdentityManager.WebApi.Models.Response;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.JsonPatch;
-//using IdentityManager.WebApi.Models;
-//using IdentityManager.WebApi.Models.Request;
-//using IdentityManager.WebApi.Models.Response;
+
 using Travely.IdentityManager.Service.Abstractions.Models;
 using Travely.IdentityManager.Service.Abstractions.Models.Request;
 using Travely.IdentityManager.Service.Abstractions.Models.Response;

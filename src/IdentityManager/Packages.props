@@ -20,7 +20,6 @@
     <PackageReference Update="Nerdbank.GitVersioning" Version="3.3.37" PrivateAssets="All" IncludeAssets="runtime; build; native; contentfiles; analyzers" />
 
 	<PackageReference Update="Microsoft.AspNetCore.JsonPatch" Version="5.0.4" />
-
-	  <PackageReference Update="AutoMapper" Version="10.1.1" />
+	<PackageReference Update="AutoMapper" Version="10.1.1" />
   </ItemGroup>
 </Project>
