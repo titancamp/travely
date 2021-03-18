@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Travely.ServiceManager.Abstraction.Models.Db;
 
-namespace Travely.ServiceManager.Abstraction.Interfaces
+namespace Travely.ServiceManager.Abstraction.Interfaces.Repositories
 {
     public interface IActivityRepository : IRepository<Activity>
     {

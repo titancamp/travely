@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fileservicemanager
+  labels:
+    app: fileservicemanager
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fileservicemanager
+  template:
+    metadata:
+      labels:
+        app: fileservicemanager
+    spec:
+      containers:
+      - name: fileservicemanager
+        image: titancamp/fileservicemanager:latest
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: fileservicemanager-service
+  namespace: dev
+  labels:
+    app: fileservicemanager
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+  selector:
+    app: fileservicemanager
+  type: NodePort

@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servicemanager-service
+  labels:
+    app: servicemanager-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: servicemanager-service
+  template:
+    metadata:
+      labels:
+        app: servicemanager-service
+    spec:
+      containers:
+      - name: servicemanager-service
+        image: titancamp/servicemanager:latest
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: servicemanager-service-service
+  namespace: dev
+  labels:
+    app: servicemanager-service
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+  selector:
+    app: servicemanager-service
+  type: NodePort

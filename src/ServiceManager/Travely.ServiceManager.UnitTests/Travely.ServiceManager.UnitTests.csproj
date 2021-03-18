@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\ServiceManager\Travely.ServiceManager.Abstraction\Travely.ServiceManager.Abstraction.csproj" />
-    <ProjectReference Include="..\src\ServiceManager\Travely.ServiceManager.Service\Travely.ServiceManager.Service.csproj" />
+    <ProjectReference Include="..\Travely.ServiceManager.Abstraction\Travely.ServiceManager.Abstraction.csproj" />
+    <ProjectReference Include="..\Travely.ServiceManager.Service\Travely.ServiceManager.Service.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tourmanager-api
+  labels:
+    app: tourmanager-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tourmanager-api
+  template:
+    metadata:
+      labels:
+        app: tourmanager-api
+    spec:
+      containers:
+      - name: tourmanager-api
+        image: titancamp/tourmanager:latest
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: tourmanager-api-service
+  namespace: dev
+  labels:
+    app: tourmanager-api
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+  selector:
+    app: tourmanager-api
+  type: NodePort

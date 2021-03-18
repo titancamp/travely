@@ -93,13 +93,13 @@ namespace Travely.ServiceManager.UnitTests
                 AgencyId = 12,
             };
 
-            _activityManagerMock.Setup(am => am.GetActivitiesAsync(It.IsAny<int>())).ReturnsAsync(new List<Activity> { Mocks.Activity });
+            _activityManagerMock.Setup(am => am.GetActivitiesAsync(It.IsAny<long>())).ReturnsAsync(new List<Activity> { Mocks.Activity });
 
             // Act
             await activityService.GetActivities(request, null);
 
             // Assert
-            _activityManagerMock.Verify(am => am.GetActivitiesAsync(It.IsAny<int>()), Times.Once);
+            _activityManagerMock.Verify(am => am.GetActivitiesAsync(It.IsAny<long>()), Times.Once);
             _activityManagerMock.Verify(am => am.GetActivitiesAsync(request.AgencyId), Times.Once);
         }
 
@@ -114,7 +114,7 @@ namespace Travely.ServiceManager.UnitTests
             };
             var activities = new List<Activity> { Mocks.Activity };
 
-            _activityManagerMock.Setup(am => am.GetActivitiesAsync(It.IsAny<int>())).ReturnsAsync(activities);
+            _activityManagerMock.Setup(am => am.GetActivitiesAsync(It.IsAny<long>())).ReturnsAsync(activities);
 
             // Act
             var result = await activityService.GetActivities(request, null);
@@ -130,18 +130,15 @@ namespace Travely.ServiceManager.UnitTests
         {
             // Arrange
             var activityService = new ActivityService(_activityManagerMock.Object);
-            var response = new ActivityResponse
-            {
-                Status = ResponseStatus.Success,
-            };
 
-            _activityManagerMock.Setup(am => am.DeleteActivityAsync(It.IsAny<long>())).ReturnsAsync(response);
+            _activityManagerMock.Setup(am => am.DeleteActivityAsync(It.IsAny<long>())).Returns(Task.CompletedTask);
 
             // Act
             var result = await activityService.DeleteActivity(new DeleteActivityRequest { ActivityId = 1 }, null);
 
             // Assert
-            Assert.Equal(response, result);
+            Assert.NotNull(result);
+            Assert.Equal(ResponseStatus.Success, result.Status);
         }
 
         [Fact]
@@ -155,7 +152,7 @@ namespace Travely.ServiceManager.UnitTests
                 Status = ResponseStatus.Success,
             };
 
-            _activityManagerMock.Setup(am => am.DeleteActivityAsync(It.IsAny<long>())).ReturnsAsync(response);
+            _activityManagerMock.Setup(am => am.DeleteActivityAsync(It.IsAny<long>())).Returns(Task.CompletedTask);
 
             // Act
             var result = await activityService.DeleteActivity(new DeleteActivityRequest { ActivityId = activityId }, null);
