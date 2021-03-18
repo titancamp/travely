@@ -58,7 +58,7 @@ namespace IdentityManager.WebApi
             }
 
             app.UseIdentityServer();
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
 

@@ -98,7 +98,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         }
 
         [HttpPatch("agency")]
-        [Authorize(LocalApi.PolicyName)]
+        [Authorize]
         public async Task UpdateAccountAsync([FromBody] JsonPatchDocument<UpdateAgencyRequestModel> agencyPatch, CancellationToken cancellationToken = default)
         {
             UserContextModel contextModel = new UserContextModel

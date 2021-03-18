@@ -23,7 +23,7 @@ namespace IdentityManager.DataService.Configs
                     Name = "api1",
                     Description = "My API",
                 },
-                //new ApiScope(LocalApi.ScopeName)
+                new ApiScope(LocalApi.ScopeName)
             };
         }
 
