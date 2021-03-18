@@ -6,6 +6,7 @@ namespace Travely.SchedulerManager
 {
     public class NotificationModel
     {
+        public long ScheduleId { get; set; }
         public long RecurseId { get; set; }
         public TravelyModule Module { get; set; }
         public string Message { get; set; }

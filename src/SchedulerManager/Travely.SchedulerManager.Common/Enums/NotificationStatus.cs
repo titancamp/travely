@@ -11,6 +11,7 @@ namespace Travely.SchedulerManager.Common.Enums
         Waiting = 2,
         Pending = 3,
         Error = 4,
-        Succeeded = 5
+        Succeeded = 5,
+        Failed = 6
     }
 }

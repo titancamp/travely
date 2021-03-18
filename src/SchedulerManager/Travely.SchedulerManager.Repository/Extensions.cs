@@ -21,14 +21,14 @@ namespace Travely.SchedulerManager.Repository
             return services;
         }
 
-        public static async Task<IHost> SeedData(this IHost host, bool isDevelopmentEnvironment = true)
+        public static void ConfigureRepositoryLayer(this IApplicationBuilder app, bool isDevelopmentEnvironment)
         {
-            using var scope = host.Services.CreateScope();
-            var scopeFactory = scope.ServiceProvider.GetRequiredService<IServiceScopeFactory>();
+            var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            using var scope = scopeFactory.CreateScope();
             var dbInitializer = scope.ServiceProvider.GetService<IDbInitializer>();
-            dbInitializer.Initialize(scope);
-            await dbInitializer.SeedData(isDevelopmentEnvironment);
-            return host;
+            dbInitializer.Initialize();
+            //TODO: Find a better solution instead of wait!
+            dbInitializer.SeedData(isDevelopmentEnvironment).Wait();
         }
 
         private static void AddDContext(this IServiceCollection services, string connectionString)

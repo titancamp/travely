@@ -60,9 +60,9 @@ namespace Travely.SchedulerManager.API
 
             app.UseRouting();
             app.UseCors("CORS");
+            app.ConfigureRepositoryLayer(env.IsDevelopment());
             // app.UseAuthentication();
             // app.UseAuthorization();
-
             app.UseJobClient();
             app.UseNotifier();
             app.UseEndpoints(endpoints =>
