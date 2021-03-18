@@ -1,0 +1,15 @@
+trigger:
+  - master
+
+steps:
+  - task: Docker@2
+    displayName: "Build and push to docker hub with latest tag."
+    inputs:
+      containerRegistry: "DockerHub"
+      repository: "titancamp/travely-client"
+      command: "buildAndPush"
+      Dockerfile: "Dockerfile"
+      buildContext: "."
+      tags: |
+        $(Build.BuildId)
+        latest
