@@ -20,7 +20,6 @@ steps:
     repository: 'titancamp/servicemanager'
     command: 'buildAndPush'
     Dockerfile: 'src/ServiceManager/Travely.ServiceManager.Service/Dockerfile'
-    buildContext: '.'
     tags: |
       $(Build.BuildId)
       latest
