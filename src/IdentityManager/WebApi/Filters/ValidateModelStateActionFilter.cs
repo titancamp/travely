@@ -1,11 +1,11 @@
-﻿using IdentityManager.WebApi.Models.Error;
+﻿using System.Collections.Generic;
+using System.Linq;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+using Travely.IdentityManager.Service.Abstractions.Models.Error;
 
 namespace IdentityManager.WebApi.Filters
 {

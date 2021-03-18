@@ -17,8 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataService\IdentityManager.DataService.csproj" />
     <ProjectReference Include="..\Repository.EntityFramework\IdentityManager.Repository.EntityFramework.csproj" />
+    <ProjectReference Include="..\Service.Abstractions\IdentityManager.Service.Abstractions.csproj" />
+    <ProjectReference Include="..\Service\IdentityManager.Service.csproj" />
   </ItemGroup>
 
 </Project>

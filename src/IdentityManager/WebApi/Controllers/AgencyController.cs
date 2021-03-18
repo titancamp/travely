@@ -1,16 +1,15 @@
-﻿using AutoMapper.Configuration;
-using IdentityManager.WebApi.Extensions;
-using IdentityManager.WebApi.Models.Request;
-using IdentityManager.WebApi.Models.Response;
+﻿using System.Threading;
+using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Travely.IdentityManager.WebApi.Identity;
+
+using IdentityManager.WebApi.Extensions;
+
+using Travely.IdentityManager.Service.Abstractions;
+using Travely.IdentityManager.Service.Abstractions.Models.Request;
+using Travely.IdentityManager.Service.Abstractions.Models.Response;
 
 namespace IdentityManager.WebApi.Controllers
 {

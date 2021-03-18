@@ -1,11 +1,13 @@
-﻿using IdentityManager.WebApi.Models.Response;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Travely.IdentityManager.WebApi.Identity;
-using IdentityManager.WebApi.Models.Request;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+using Travely.IdentityManager.Service.Abstractions;
+using Travely.IdentityManager.Service.Abstractions.Models.Response;
+using Travely.IdentityManager.Service.Abstractions.Models.Request;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {

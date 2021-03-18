@@ -1,13 +1,13 @@
-﻿using AutoMapper;
-using IdentityManager.API.Models;
-using IdentityManager.WebApi.Models.Request;
-using IdentityManager.WebApi.Models.Response;
+﻿using System;
+
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+using AutoMapper;
+
 using Travely.IdentityManager.Repository.Abstractions.Entities;
+
+using Travely.IdentityManager.Service.Abstractions.Models.Request;
+using Travely.IdentityManager.Service.Abstractions.Models.Response;
 
 namespace IdentityManager.WebApi.Mappers
 {
@@ -23,14 +23,13 @@ namespace IdentityManager.WebApi.Mappers
                 //.AfterMap((src, dest) => dest.Password = Guid.NewGuid().ToString())
                 .AfterMap((src, dest) => dest.Status = Status.Inactive)
                 .AfterMap((src, dest) => dest.Role = Role.User)
-                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow);
-
+                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow)
+                ;
 
             CreateMap<UserRequestModel, Employee>()
                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow)
                ;
-
 
             CreateMap<RegisterRequestModel, User>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
@@ -51,9 +50,11 @@ namespace IdentityManager.WebApi.Mappers
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow)
                 ;
+
             #endregion
 
             #region From Entity
+
             CreateMap<Employee, UserResponseModel>();
 
             CreateMap<User, UserResponseModel>()
@@ -63,14 +64,8 @@ namespace IdentityManager.WebApi.Mappers
                 .ForMember(dest => dest.JobTitle, opt => opt.MapFrom(src => src.Employee.JobTitle))
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Employee.PhoneNumber))
                 ;
-
-
-
-
+            
             #endregion
-
-
         }
-
     }
 }

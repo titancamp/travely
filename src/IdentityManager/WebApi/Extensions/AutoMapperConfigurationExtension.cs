@@ -1,13 +1,11 @@
-﻿using AutoMapper;
-using IdentityManager.API;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
+
+using AutoMapper;
+
 using IdentityManager.DataService.Mappers;
 using IdentityManager.WebApi.Mappers;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using Travely.IdentityManager.Repository.Abstractions.Entities;
 
 namespace IdentityManager.WebApi.Extensions

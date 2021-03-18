@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IdentityManager.WebApi.Models.Error
+namespace Travely.IdentityManager.Service.Abstractions.Models.Error
 {
     public class ErrorModel
     {

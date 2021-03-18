@@ -1,19 +1,16 @@
-﻿using IdentityManager.API.Models;
-using IdentityManager.WebApi.Models;
-using IdentityManager.WebApi.Models.Error;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Travely.IdentityManager.WebApi.Identity;
-using IdentityManager.WebApi.Models.Request;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using IdentityManager.WebApi.Models.Error;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.JsonPatch;
-using IdentityManager.WebApi.Extensions;
+using Microsoft.AspNetCore.Mvc;
+
+using Travely.IdentityManager.Service.Abstractions;
+using Travely.IdentityManager.Service.Abstractions.Models;
+using Travely.IdentityManager.Service.Abstractions.Models.Error;
+using Travely.IdentityManager.Service.Abstractions.Models.Request;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {

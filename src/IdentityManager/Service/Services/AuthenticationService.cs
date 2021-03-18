@@ -1,22 +1,23 @@
-﻿using AutoMapper;
-using IdentityManager.API.Models;
-using IdentityManager.WebApi.Models;
-using IdentityManager.WebApi.Models.Request;
-using IdentityManager.WebApi.Models.Response;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Travely.IdentityManager.Repository.Abstractions;
-using Travely.IdentityManager.Repository.Abstractions.Entities;
-using IdentityManager.WebApi.Models.Request;
+
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.JsonPatch;
-using System.Linq;
-using Travely.IdentityManager.WebApi.Identity;
+using Microsoft.EntityFrameworkCore;
 
-namespace Travely.IdentityManager.API.Identity
+using Travely.IdentityManager.Repository.Abstractions;
+using Travely.IdentityManager.Repository.Abstractions.Entities;
+
+using Travely.IdentityManager.Service.Abstractions;
+using Travely.IdentityManager.Service.Abstractions.Models;
+using Travely.IdentityManager.Service.Abstractions.Models.Request;
+using Travely.IdentityManager.Service.Abstractions.Models.Response;
+
+namespace Travely.IdentityManager.Service.Identity
 {
     public class AuthenticationService : BaseService, IAuthenticationService
     {
