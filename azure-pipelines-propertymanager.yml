@@ -19,7 +19,7 @@ steps:
     containerRegistry: 'DockerHub'
     repository: 'titancamp/propertymanager'
     command: 'buildAndPush'
-    Dockerfile: 'src/PropertyManager/Dockerfile'
+    Dockerfile: 'src/PropertyManager/Travely.PropertyManager.API/Dockerfile'
     buildContext: '.'
     tags: |
       $(Build.BuildId)
