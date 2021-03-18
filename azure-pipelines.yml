@@ -8,7 +8,7 @@ trigger:
     - master
   paths:
     include:
-    - src/PropertyManager
+    - src/ServiceManager
 
 pool:
   vmImage: ubuntu-latest
@@ -17,9 +17,9 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'DockerHub'
-    repository: 'titancamp/propertymanager'
+    repository: 'titancamp/servicemanager'
     command: 'buildAndPush'
-    Dockerfile: 'src/PropertyManager/Dockerfile'
+    Dockerfile: 'src/ServiceManager/Travely.ServiceManager.Service/Dockerfile'
     buildContext: '.'
     tags: |
       $(Build.BuildId)
