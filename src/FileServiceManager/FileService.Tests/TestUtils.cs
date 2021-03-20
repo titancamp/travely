@@ -70,5 +70,12 @@ namespace FileService.Tests
 
             return list;
         }
+
+        public static async IAsyncEnumerable<FileMetadata> GetTestFiles()
+        {
+            yield return new FileMetadata() {Name = "one"};
+            yield return new FileMetadata() {Name = "two"};
+            await Task.CompletedTask;
+        }
     }
 }

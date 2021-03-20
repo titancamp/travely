@@ -141,14 +141,12 @@ namespace FileService.DAL
 
         public async Task RemoveConfigurationAsync(int companyId, Guid fileId)
         {
-            Console.WriteLine("inside remove configuration");
             StreamWriter fileWriter = null;
             try
             {
                 JToken rootToken = await GetRootTokenAsync();
                 if (rootToken != null)
-                {
-                    Console.WriteLine("condition passed");
+                {             
                     JToken fileToken = rootToken.SelectToken($"$.companies[?(@.company_id == {companyId})]")?.SelectToken($"$..files[?(@.id == '{fileId}')]");
 
                     if (fileToken != null)
