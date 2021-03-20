@@ -31,43 +31,37 @@ namespace FileService.DAL
             {
                 JToken rootToken = await GetRootTokenAsync();
 
-                if (rootToken != null)
-                {
-                    JToken companiesToken = rootToken.SelectToken($"$.companies[?(@.company_id == {companyId})]");
-
-                    //if company node exists, add new file to files array
-                    if (companiesToken != null)
-                    {
-                        JArray filesArrayToken = (JArray)companiesToken.SelectToken($"$..files");
-                        filesArrayToken.Add(JToken.FromObject(fileMetadata));
-                    }
-                    else
-                    {
-                        //if company node does not exist, add company first, then files array to that company
-                        var compArray = (JArray)rootToken.SelectToken($"$.companies");
-
-                        CompanyMetadata company = new CompanyMetadata() { CompanyId = companyId, files = new List<FileMetadata>() { fileMetadata } };
-                        compArray.Add(JToken.FromObject(company));
-                    }
-
-                    using (fileWriter = File.CreateText(_configPath))
-                    {
-                        using (JsonTextWriter writer = new JsonTextWriter(fileWriter) { Formatting = Formatting.Indented })
-                        {
-                            await rootToken.WriteToAsync(writer);
-                        }
-                    }
-                }
-                else
+                if (rootToken == null)
                 {
                     throw new FileNotFoundException("Configuration file is not found");
                 }
+
+                JToken companiesToken = rootToken.SelectToken($"$.companies[?(@.companyId == {companyId})]");
+
+                //if company node exists, add new file to files array
+                if (companiesToken != null)
+                {
+                    JArray filesArrayToken = (JArray)companiesToken.SelectToken($"$..files");
+                    filesArrayToken.Add(JToken.FromObject(fileMetadata));
+                }
+                else
+                {
+                    //if company node does not exist, add company first, then files array to that company
+                    var compArray = (JArray)rootToken.SelectToken($"$.companies");
+
+                    CompanyMetadata company = new CompanyMetadata() { CompanyId = companyId, files = new List<FileMetadata>() { fileMetadata } };
+                    compArray.Add(JToken.FromObject(company));
+                }
+
+                using (fileWriter = File.CreateText(_configPath))
+                {
+                    using (JsonTextWriter writer = new JsonTextWriter(fileWriter) { Formatting = Formatting.Indented })
+                    {
+                        await rootToken.WriteToAsync(writer);
+                    }
+                }
             }
 
-            catch (Exception)
-            {
-                throw;
-            }
             finally
             {
                 fileWriter?.Close();
@@ -77,66 +71,45 @@ namespace FileService.DAL
         public async IAsyncEnumerable<FileMetadata> GetAllConfigurationsAsync(int companyId)
         {
             JToken filesToken;
-            try
-            {
-                JToken rootToken = await GetRootTokenAsync();
+    
+            JToken rootToken = await GetRootTokenAsync();
 
-                if (rootToken != null)
-                {
-                    filesToken = rootToken.SelectToken($"$.companies[?(@.company_id == {companyId})]")?.SelectToken($"$..files");
-                }
-                else
-                {
-                     throw new FileNotFoundException("Configuration file is not found");
-                }
+            if(rootToken == null)
+            {
+                throw new FileNotFoundException("Configuration file is not found");
             }
 
-            catch (Exception)
-            {
-                throw;
-            }
+            filesToken = rootToken.SelectToken($"$.companies[?(@.companyId == {companyId})]")?.SelectToken($"$..files");
 
             if (filesToken == null)
             {
                 throw new InvalidOperationException($"Company ID = {companyId} is not found");
             }
-            else
+
+            foreach (var fileToken in filesToken)
             {
-                foreach (var fileToken in filesToken)
-                {
-                    yield return fileToken.ToObject<FileMetadata>();
-                }
+                yield return fileToken.ToObject<FileMetadata>();
             }
         }
 
         public async Task<FileMetadata> GetConfigurationAsync(int companyId, Guid fileId)
         {
-            try
-            {
-                JToken rootToken = await GetRootTokenAsync();
+ 
+            JToken rootToken = await GetRootTokenAsync();
 
-                if (rootToken != null)
-                {          
-                    JToken filesToken = rootToken.SelectToken($"$.companies[?(@.company_id == {companyId})]")?.SelectToken($"$..files[?(@.id == '{fileId}')]");
-                    if (filesToken != null)
-                    {
-                        return filesToken.ToObject<FileMetadata>();
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException($"File for Company ID = { companyId } is not found");
-                    }
-                }
-                else
-                {
-                    throw new FileNotFoundException("Configuration file is not found");
-                }
+            if (rootToken == null)
+            {
+                throw new FileNotFoundException("Configuration file is not found");
             }
 
-            catch (Exception)
+            JToken filesToken = rootToken.SelectToken($"$.companies[?(@.companyId == {companyId})]")?.SelectToken($"$..files[?(@.Id == '{fileId}')]");
+
+            if (filesToken == null)
             {
-                throw;
+                throw new InvalidOperationException($"File for Company ID = { companyId } is not found");
             }
+
+            return filesToken.ToObject<FileMetadata>();
         }
 
         public async Task RemoveConfigurationAsync(int companyId, Guid fileId)
@@ -145,33 +118,27 @@ namespace FileService.DAL
             try
             {
                 JToken rootToken = await GetRootTokenAsync();
-                if (rootToken != null)
-                {             
-                    JToken fileToken = rootToken.SelectToken($"$.companies[?(@.company_id == {companyId})]")?.SelectToken($"$..files[?(@.id == '{fileId}')]");
-
-                    if (fileToken != null)
-                    {
-                        fileToken.Remove();
-                    }
-
-                    using (fileWriter = File.CreateText(_configPath))
-                    {
-                        using (JsonTextWriter writer = new JsonTextWriter(fileWriter) { Formatting = Formatting.Indented })
-                        {
-                            await rootToken.WriteToAsync(writer);
-                        }
-                    }
-                }
-                else
+                if (rootToken == null)
                 {
                     throw new FileNotFoundException("Configuration file is not found");
                 }
+
+                JToken fileToken = rootToken.SelectToken($"$.companies[?(@.companyId == {companyId})]")?.SelectToken($"$..files[?(@.Id == '{fileId}')]");
+
+                if (fileToken != null)
+                {
+                    fileToken.Remove();
+                }
+
+                using (fileWriter = File.CreateText(_configPath))
+                {
+                    using (JsonTextWriter writer = new JsonTextWriter(fileWriter) { Formatting = Formatting.Indented })
+                    {
+                        await rootToken.WriteToAsync(writer);
+                    }
+                }
             }
 
-            catch (Exception)
-            {
-                throw;
-            }
             finally
             {
                 fileWriter?.Close();
@@ -192,9 +159,9 @@ namespace FileService.DAL
                     }
                 }
             }
-            catch(Exception)
+            catch(FileNotFoundException e)
             {
-                throw;
+                throw new FileNotFoundException("Configuration file is not found", e);
             }
             finally
             {

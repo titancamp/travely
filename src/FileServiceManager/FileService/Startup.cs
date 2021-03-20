@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using FileService.DAL;
 using FileService.Helpers;
 using FileService.DAL.Storages.Options;
 
@@ -82,19 +81,6 @@ namespace FileServiceManager.FileService
             {
                 endpoints.MapControllers();
             });
-        }
-    }
-
-    public static class FileSystemServiceRegistrator
-    {
-        /// <summary>
-        /// Adds IFileSystemConfigurator and IStorage implementations as scoped services
-        /// </summary>
-        /// <param name="services"></param>
-        public static void AddFileSystemServices(this IServiceCollection services)
-        {
-            services.AddScoped<IFileSystemConfigurator, FileSystemJsonConfigurator>();
-            services.AddScoped<IStorage, FileSystemStorage>();
         }
     }
 }

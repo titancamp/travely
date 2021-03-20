@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TourManager.Repository.Abstraction\TourManager.Repository.Abstraction.csproj" />
+      <ProjectReference Include="..\TourManager.Service.Model\TourManager.Service.Model.csproj" />
+    </ItemGroup>
+
+</Project>
