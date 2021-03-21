@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
+﻿using IdentityManager.WebApi.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Travely.IdentityManager.Service.Abstractions;
 using Travely.IdentityManager.Service.Abstractions.Models;
 using Travely.IdentityManager.Service.Abstractions.Models.Error;
@@ -94,17 +93,10 @@ namespace Travely.IdentityManager.WebApi.Controllers
         }
 
         [HttpPatch("agency")]
-        //[Authorize]
+        [Authorize]
         public async Task UpdateAccountAsync([FromBody] JsonPatchDocument<UpdateAgencyRequestModel> agencyPatch, CancellationToken cancellationToken = default)
         {
-            UserContextModel contextModel = new UserContextModel
-            {
-                AgencyId = 1,
-                Role = Repository.Abstractions.Entities.Role.Admin,
-                UserId = 1
-            };
-            //HttpContext.GetUserContext()
-            await _authenticationService.UpdateAccountAsync(contextModel, agencyPatch, cancellationToken);
+            await _authenticationService.UpdateAccountAsync(HttpContext.GetUserContext(), agencyPatch, cancellationToken);
         }
         
 

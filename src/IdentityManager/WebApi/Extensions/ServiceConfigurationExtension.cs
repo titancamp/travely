@@ -1,10 +1,8 @@
-﻿using System.Linq;
-
+﻿using IdentityManager.WebApi.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-
-using IdentityManager.WebApi.Filters;
-
+using System;
+using System.Linq;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
 using Travely.IdentityManager.Service.Abstractions;
 using Travely.IdentityManager.Service.Abstractions.Models;
@@ -28,11 +26,16 @@ namespace IdentityManager.WebApi.Extensions
         {
             var claims = context?.User?.Claims;
             UserContextModel userContext = new UserContextModel();
-            userContext.Role = (Role)int.Parse(claims.First(p => p.Type.Contains("role")).Value);
+            userContext.Role = claims.First(p => p.Type.Contains("role")).Value.ToEnum<Role>();
             userContext.UserId = int.Parse(claims.First(p => p.Type == "sub").Value);
             userContext.AgencyId = int.Parse(claims.First(p => p.Type == "AgencyId").Value);
 
             return userContext;
+        }
+
+        public static T ToEnum<T>(this string value)
+        {
+            return (T)Enum.Parse(typeof(T), value, true);
         }
     }
 
