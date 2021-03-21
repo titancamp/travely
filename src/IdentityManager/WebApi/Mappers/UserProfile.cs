@@ -1,22 +1,16 @@
-﻿using System;
-
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-
-using AutoMapper;
-
+using System;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
-
 using Travely.IdentityManager.Service.Abstractions.Models.Request;
 using Travely.IdentityManager.Service.Abstractions.Models.Response;
 
-namespace IdentityManager.WebApi.Mappers
+namespace Travely.IdentityManager.WebApi.Mappers
 {
     public class UserProfile : Profile
     {
         public UserProfile(IPasswordHasher<User> passwordHasher)
         {
-            #region To Entity
-
             CreateMap<UserRequestModel, User>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.Employee, opt => opt.MapFrom(src => src))
@@ -51,9 +45,6 @@ namespace IdentityManager.WebApi.Mappers
                 .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow)
                 ;
 
-            #endregion
-
-            #region From Entity
 
             CreateMap<Employee, UserResponseModel>();
 
@@ -64,8 +55,6 @@ namespace IdentityManager.WebApi.Mappers
                 .ForMember(dest => dest.JobTitle, opt => opt.MapFrom(src => src.Employee.JobTitle))
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Employee.PhoneNumber))
                 ;
-            
-            #endregion
         }
     }
 }

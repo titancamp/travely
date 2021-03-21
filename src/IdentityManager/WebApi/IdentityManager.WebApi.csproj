@@ -5,6 +5,7 @@
     <UserSecretsId>434315b8-7714-43f7-9173-a3c23940fc5a</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
+    <RootNamespace>Travely.IdentityManager.WebApi</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

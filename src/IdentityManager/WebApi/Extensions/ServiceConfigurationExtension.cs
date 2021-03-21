@@ -1,5 +1,4 @@
-﻿using IdentityManager.WebApi.Filters;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
@@ -7,8 +6,9 @@ using Travely.IdentityManager.Repository.Abstractions.Entities;
 using Travely.IdentityManager.Service.Abstractions;
 using Travely.IdentityManager.Service.Abstractions.Models;
 using Travely.IdentityManager.Service.Identity;
+using Travely.IdentityManager.WebApi.Filters;
 
-namespace IdentityManager.WebApi.Extensions
+namespace Travely.IdentityManager.WebApi.Extensions
 {
     public static class ServiceConfigurationExtension
     {

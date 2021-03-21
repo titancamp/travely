@@ -4,7 +4,7 @@ using Travely.IdentityManager.Repository.Abstractions.Entities;
 
 using Travely.IdentityManager.Service.Abstractions.Models.Request;
 
-namespace IdentityManager.WebApi.Mappers
+namespace Travely.IdentityManager.WebApi.Mappers
 {
     public class EmployeeProfile : Profile
     {

@@ -1,5 +1,4 @@
-﻿using IdentityManager.WebApi.Extensions;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +9,7 @@ using Travely.IdentityManager.Service.Abstractions;
 using Travely.IdentityManager.Service.Abstractions.Models;
 using Travely.IdentityManager.Service.Abstractions.Models.Error;
 using Travely.IdentityManager.Service.Abstractions.Models.Request;
+using Travely.IdentityManager.WebApi.Extensions;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
