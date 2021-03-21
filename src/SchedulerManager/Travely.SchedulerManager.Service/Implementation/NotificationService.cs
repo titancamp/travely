@@ -37,9 +37,14 @@ namespace Travely.SchedulerManager.Service
             _mapper = mapper;
         }
 
-        public async Task<NotificationModel> GetNotification(long tourId, long scheduleId)
+        public async Task<NotificationModel> GetNotification(long tourId, long bookingId, MessageTemplate template)
         {
-            var scheduleInfo = await _scheduleRepository.FindAsync(scheduleId);
+            //TODO: new implementation
+            return null;
+        }
+        public async Task<NotificationModel> GetNotification(long scheduleId)
+        { 
+            var scheduleInfo = await _scheduleRepository.FindAsync(25);//TODO: scheduleId);
             var compiledMessage = await _messageCompiler.Compile(scheduleInfo.ScheduleMessageTemplate.Template, scheduleInfo.JsonData);
             return new NotificationModel
             {
@@ -65,23 +70,25 @@ namespace Travely.SchedulerManager.Service
             return CreateNotification(mapModel);
         }
 
-
-        public Task UpdateNotification<T>(T model) where T : INotificationModel
+        public Task<bool> UpdateNotification<T>(T model) where T : INotificationModel
         {
             //TODO: add mapping in automapper
             var mapModel = _mapper.Map<UpdateNotificationModel>(model);
             return UpdateNotification(mapModel);
         }
 
-        public async Task DeleteNotification(long scheduleId)
+        public async Task<bool> DeleteNotification(long tourId, long bookingId, MessageTemplate template)
         {
-            using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-            _scheduleRepository.Remove(scheduleId);
-            await _scheduleRepository.SaveAsync();
+            //TODO: new implementation
+            //using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
+            //_scheduleRepository.Remove(scheduleId);
+            //await _scheduleRepository.SaveAsync();
 
-            var jobIds = (await _scheduleJobRepository.GetJobIdsAsync(scheduleId)).ToList();
-            var removeTasks = jobIds.Select(id => _scheduledJobService.EndJobAsync(id));
-            await Task.WhenAll(removeTasks);
+            //var jobIds = (await _scheduleJobRepository.GetJobIdsAsync(scheduleId)).ToList();
+            //var removeTasks = jobIds.Select(id => _scheduledJobService.EndJobAsync(id));
+            //await Task.WhenAll(removeTasks);
+            //scope.Commit();
+            return true;
         }
 
         public void SetNotificationStatus(NotificationStatus status, long scheduleId, params long[] userIds)
@@ -148,7 +155,7 @@ namespace Travely.SchedulerManager.Service
             #endregion
         }
 
-        private async Task UpdateNotification(UpdateNotificationModel model)
+        private async Task<bool> UpdateNotification(UpdateNotificationModel model)
         {
             using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
 
@@ -170,9 +177,10 @@ namespace Travely.SchedulerManager.Service
             //TODO: start updated job
 
             entity.ScheduleJobs = createdJobs;
-            await _scheduleRepository.SaveAsync();
+            var result = await _scheduleRepository.SaveAsync();
 
             scope.Complete();
+            return result;
         }
 
         #endregion

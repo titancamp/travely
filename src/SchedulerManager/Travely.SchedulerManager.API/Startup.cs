@@ -11,6 +11,7 @@ using Travely.SchedulerManager.Job;
 using Travely.SchedulerManager.Notifier.Helpers;
 using Travely.SchedulerManager.Repository;
 using Travely.SchedulerManager.Service.Extensions;
+using Serilog;
 
 namespace Travely.SchedulerManager.API
 {
@@ -58,6 +59,7 @@ namespace Travely.SchedulerManager.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSerilogRequestLogging();
             app.UseRouting();
             app.UseCors("CORS");
             app.ConfigureTravelyAuthentication();
