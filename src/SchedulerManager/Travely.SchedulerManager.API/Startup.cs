@@ -17,10 +17,12 @@ namespace Travely.SchedulerManager.API
     public class Startup
     {
         private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _environment;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             _configuration = configuration;
+            _environment = environment;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -49,6 +51,7 @@ namespace Travely.SchedulerManager.API
             services.AddRepositoryLayer(_configuration);
             services.AddNotifier(_configuration);
             services.AddBusinessServices();
+            services.AddTravelyAuthentication(_configuration, _environment);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -60,9 +63,8 @@ namespace Travely.SchedulerManager.API
 
             app.UseRouting();
             app.UseCors("CORS");
+            app.ConfigureTravelyAuthentication();
             app.ConfigureRepositoryLayer(env.IsDevelopment());
-            // app.UseAuthentication();
-            // app.UseAuthorization();
             app.UseJobClient();
             app.UseNotifier();
             app.UseEndpoints(endpoints =>
