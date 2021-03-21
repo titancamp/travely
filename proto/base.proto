@@ -1,0 +1,17 @@
+﻿syntax = "proto3";
+option csharp_namespace = "Travely.PropertyManager.API";
+
+message OrderingBaseModel{
+	string FieldName = 1;
+	bool IsDescending = 2;
+}
+message FilteringBaseModel{
+	string FieldName = 1;
+	string Value = 2;
+	FilteringOperationType Type = 3;
+}
+enum FilteringOperationType{
+	NOT_USE = 0;
+	EQUALS = 1;
+	CONTAINS = 2;
+}

@@ -19,3 +19,13 @@ services:
     environment: 
         SA_PASSWORD: "Passw0rd!"
         ACCEPT_EULA: "Y"
+  travely.propertymanager.api:
+    image: ${DOCKER_REGISTRY-}travelypropertymanagerapi
+    build:
+      context: .
+      dockerfile: src/PropertyManager/Travely.PropertyManager.API/Dockerfile
+    ports:
+        - "5100:80"
+        - "5101:443"
+    depends_on:
+        - sql-server-db
