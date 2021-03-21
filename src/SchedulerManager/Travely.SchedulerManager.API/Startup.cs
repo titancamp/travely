@@ -67,7 +67,7 @@ namespace Travely.SchedulerManager.API
             app.UseNotifier();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<ReminderService>();
+                //endpoints.MapGrpcService<ReminderService>();
                 endpoints.MapGet("/", async context => await context.Response.WriteAsync("Service running"));
             });
 

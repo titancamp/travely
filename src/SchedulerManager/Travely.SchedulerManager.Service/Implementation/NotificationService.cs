@@ -37,7 +37,7 @@ namespace Travely.SchedulerManager.Service
             _mapper = mapper;
         }
 
-        public async Task<NotificationModel> GetNotification(long scheduleId)
+        public async Task<NotificationModel> GetNotification(long tourId, long scheduleId)
         {
             var scheduleInfo = await _scheduleRepository.FindAsync(scheduleId);
             var compiledMessage = await _messageCompiler.Compile(scheduleInfo.ScheduleMessageTemplate.Template, scheduleInfo.JsonData);

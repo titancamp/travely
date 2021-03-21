@@ -16,13 +16,12 @@ namespace Travely.SchedulerManager.API.Services
 
         public override async Task<GetResponse> Get(GetRequest request, ServerCallContext context)
         {
-            var result = await _notificationService.GetNotification(request.BookingId); 
+            var result = await _notificationService.GetNotification(request.TourId, request.BookingId, request.NotificationType);
             //TODO: Fix this and use scheduleId
             return new GetResponse()
             {
                 Notification = new Notification()
                 {
-                    BookingId = result.RecurseId,
                     Message = result.Message
                 }
             };
@@ -34,14 +33,13 @@ namespace Travely.SchedulerManager.API.Services
             var response = new GetAllResponse();
             response.Notifications.AddRange(result.Select(n => new Notification()
             {
-                BookingId = n.RecurseId,
                 Message = n.Message
             }));
             return response;
         }
 
-        public override async Task<CreateResponse> Create(CreateRequest request, ServerCallContext context)
-        {
+        public override async Task<CreateScheduledNotificationResponse> CreateScheduledNotification(CreateScheduledNotificationRequest request, ServerCallContext context)
+        {            
             //TODO: change to BookingExpireNotification model
             //var dto = new CreateNotification
             //{
@@ -53,12 +51,11 @@ namespace Travely.SchedulerManager.API.Services
             //    ExpireDate = request.ExpireDate.ToDateTime(),
             //    UserIds = request.AssignedUserIds
             //};
-            //var result = await _notificationService.CreateNotification(dto);
-            //return new CreateResponse() { Succeed = result };
-            throw new NotImplementedException();
+            var result = await _notificationService.CreateScheduledNotification(dto);
+            return new CreateScheduledNotificationResponse() { Succeed = result };
         }
 
-        public override async Task<UpdateResponse> Update(UpdateRequest request, ServerCallContext context)
+        public override async Task<UpdateScheduledNotificationResponse> UpdateScheduledNotification(UpdateScheduledNotificationRequest request, ServerCallContext context)
         {
             //TODO: 
             //var dto = new UpdateNotificationModel
@@ -71,14 +68,20 @@ namespace Travely.SchedulerManager.API.Services
             //    ExpireDate = request.ExpireDate.ToDateTime(),
             //    UserIds = request.AssignedUserIds
             //};
-            //await _notificationService.UpdateNotification(dto);
-            return new UpdateResponse() { };
+            var result = await _notificationService.UpdateScheduledNotification(dto);
+            return new UpdateScheduledNotificationResponse() { Succeed = result};
         }
 
-        public override async Task<DeleteResponse> Delete(DeleteRequest request, ServerCallContext context)
+        public override async Task<DeleteScheduledNotificationResponse> DeleteScheduledNotification(DeleteScheduledNotificationRequest request, ServerCallContext context)
         {
-            await _notificationService.DeleteNotification(request.BookingId);
-            return new DeleteResponse() { };
+            var result = await _notificationService.DeleteScheduledNotification(request.TourId, request.BookingId, request.NotificationType);
+            return new DeleteScheduledNotificationResponse() { Succeed = result};
+        }
+
+        public override async Task<CreateFieldChangedNotificationResponse> CreateFieldChangedNotification(CreateFieldChangedNotificationRequest request, ServerCallContext context)
+        {
+            var result = await _notificationService.CreateFieldChangedNotification();
+            return new CreateFieldChangedNotificationResponse() { Succeed = result };
         }
     }
 }
