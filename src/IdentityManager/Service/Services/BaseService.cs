@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 
+using Travely.IdentityManager.Service.Abstractions;
 
-namespace Travely.IdentityManager.WebApi.Identity
+namespace Travely.IdentityManager.Service
 {
     public class BaseService: IBaseService
     {

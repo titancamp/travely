@@ -13,6 +13,7 @@
 	
   <ItemGroup>
     <ProjectReference Include="..\Repository.Abstractions\IdentityManager.Repository.Abstractions.csproj" />
+    <ProjectReference Include="..\Service.Abstractions\IdentityManager.Service.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

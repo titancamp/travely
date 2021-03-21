@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace IdentityManager.WebApi.Models.Request
+﻿namespace Travely.IdentityManager.Service.Abstractions.Models.Request
 {
     public class UpdateAgencyRequestModel
     {

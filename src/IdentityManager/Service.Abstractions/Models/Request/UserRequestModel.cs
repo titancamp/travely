@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
-namespace IdentityManager.WebApi.Models.Request
+namespace Travely.IdentityManager.Service.Abstractions.Models.Request
 {
     public class UserRequestModel
     {

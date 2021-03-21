@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
 
-namespace IdentityManager.WebApi.Models
+namespace Travely.IdentityManager.Service.Abstractions.Models
 {
     public class UserContextModel
     {

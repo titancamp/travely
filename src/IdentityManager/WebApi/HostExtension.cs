@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
 using Travely.IdentityManager.Repository.EntityFramework;
 
-namespace IdentityManager.WebApi
+namespace Travely.IdentityManager.WebApi
 {
     public static class HostExtension
     {

@@ -1,16 +1,11 @@
 ﻿using AutoMapper;
-using IdentityManager.API;
 using IdentityManager.DataService.Mappers;
-using IdentityManager.WebApi.Mappers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
+using Travely.IdentityManager.WebApi.Mappers;
 
-namespace IdentityManager.WebApi.Extensions
+namespace Travely.IdentityManager.WebApi.Extensions
 {
     public static class AutoMapperConfigurationExtension
     {
@@ -18,7 +13,7 @@ namespace IdentityManager.WebApi.Extensions
         {
             services.AddSingleton(provider => new MapperConfiguration(cfg => 
             {
-                cfg.AddProfile(new UserProfile(provider.GetService<IPasswordHasher<User>>()));
+                cfg.AddProfile(new UserProfile(provider.GetRequiredService<IPasswordHasher<User>>()));
                 cfg.AddProfile(new PersistGrantProfile());
                 cfg.AddProfile(new EmployeeProfile());
             }).CreateMapper());

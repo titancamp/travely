@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using IdentityManager.WebApi.Models.Request;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using Travely.IdentityManager.Repository.Abstractions.Entities;
 
-namespace IdentityManager.WebApi.Mappers
+using Travely.IdentityManager.Service.Abstractions.Models.Request;
+
+namespace Travely.IdentityManager.WebApi.Mappers
 {
     public class EmployeeProfile : Profile
     {

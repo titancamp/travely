@@ -1,18 +1,14 @@
-﻿using AutoMapper.Configuration;
-using IdentityManager.WebApi.Extensions;
-using IdentityManager.WebApi.Models.Request;
-using IdentityManager.WebApi.Models.Response;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Travely.IdentityManager.WebApi.Identity;
+using Travely.IdentityManager.Service.Abstractions;
+using Travely.IdentityManager.Service.Abstractions.Models.Request;
+using Travely.IdentityManager.Service.Abstractions.Models.Response;
+using Travely.IdentityManager.WebApi.Extensions;
 
-namespace IdentityManager.WebApi.Controllers
+namespace Travely.IdentityManager.WebApi.Controllers
 {
     [Route("api/agency")]
     [Produces("application/json")]

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace IdentityManager.API.Models
+namespace Travely.IdentityManager.Service.Abstractions.Models
 {
     public class LoginViewModel
     {
