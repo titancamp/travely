@@ -6,7 +6,7 @@ using Travely.SchedulerManager.Notifier.Services;
 
 namespace Travely.SchedulerManager.Notifier.Helpers
 {
-    public static class Extensions
+    public static class DIExtensions
     {
 
         public static IServiceCollection AddNotifier(this IServiceCollection services, NotifierOptions options)

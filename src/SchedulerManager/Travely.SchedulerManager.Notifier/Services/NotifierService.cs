@@ -21,10 +21,10 @@ namespace Travely.SchedulerManager.Notifier.Services
             _hubContext = hub;
             _notifierOptions = options.CurrentValue;
         }
-        public async Task<IEnumerable<string>> NotifyAsync(NotificationModel model)
+        public async Task<IEnumerable<long>> NotifyAsync(NotificationModel model)
         {
-            var shouldGet = (await GetOnlineUsers()).Intersect(model.UserIds.Select(id => id.ToString())).ToList();
-            await _hubContext.Clients.Users(shouldGet).ReceiveNotification(model);
+            var shouldGet = (await GetOnlineUsers()).Intersect(model.UserIds).ToList();
+            await _hubContext.Clients.Users(shouldGet.Select(id=>id.ToString())).ReceiveNotification(model);
             return shouldGet;
         }
 
@@ -51,12 +51,12 @@ namespace Travely.SchedulerManager.Notifier.Services
             await client.DisconnectAsync(true);
         }
 
-        private async Task<IEnumerable<string>> GetOnlineUsers()
+        private async Task<IEnumerable<long>> GetOnlineUsers()
         {
             using var redis = await ConnectionMultiplexer.ConnectAsync(_notifierOptions.RedisConnectionString);
             var db = redis.GetDatabase();
             var keys = redis.GetServer(_notifierOptions.RedisConnectionString).Keys();
-            return keys.Select(key => key.ToString()).ToList();
+            return keys.Select(key => long.Parse(key.ToString())).ToList();
         }
     }
 }

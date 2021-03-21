@@ -39,9 +39,6 @@ namespace Travely.SchedulerManager.API
                     });
             });
 
-            // todo use identity package
-            // services.AddAuthentication();
-
             services.Configure<NotifierOptions>(_configuration.GetSection(NotifierOptions.Section));
             services.Configure<JobOptions>(_configuration.GetSection(JobOptions.Section));
             services.Configure<RepositoryOptions>(_configuration.GetSection(RepositoryOptions.Section));
@@ -70,6 +67,7 @@ namespace Travely.SchedulerManager.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<ReminderService>();
+                endpoints.MapGrpcService<EmailService>();
                 endpoints.MapGet("/", async context => await context.Response.WriteAsync("Service running"));
             });
 
