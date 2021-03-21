@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="5.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\IdentityClient\Travely.Shared.IdentityClient.Authorization.csproj" />
     <ProjectReference Include="..\Travely.SchedulerManager.Abstraction\Travely.SchedulerManager.Abstraction.csproj" />
   </ItemGroup>
 

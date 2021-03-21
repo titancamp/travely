@@ -43,6 +43,7 @@ namespace Travely.SchedulerManager.Repository
             services.AddScoped<IScheduleInfoRepository, ScheduleInfoRepository>();
             services.AddScoped<IScheduleMessageTemplateRepository, ScheduleMessageTemplateRepository>();
             services.AddScoped<IScheduleJobRepository, ScheduleJobRepository>();
+            services.AddScoped<IUserScheduleRepository, UserScheduleRepository>();
         }
 
         private static void AddDbSeeding(this IServiceCollection service)

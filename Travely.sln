@@ -27,15 +27,19 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SchedulerManager", "SchedulerManager", "{160F72D1-9D69-4FE2-9D68-53CB828103DF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceManager", "ServiceManager", "{E26E508D-1A14-4C81-AC6C-3F78699C9B37}"
-	ProjectSection(SolutionItems) = preProject
-		src\ServiceManager\test.txt = src\ServiceManager\test.txt
-	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ServiceManager.Service", "src\ServiceManager\Travely.ServiceManager.Service\Travely.ServiceManager.Service.csproj", "{5426BCE3-4AE4-4E53-888B-4AECCB5F2569}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ServiceManager.Abstraction", "src\ServiceManager\Travely.ServiceManager.Abstraction\Travely.ServiceManager.Abstraction.csproj", "{8B610929-1305-459C-B29A-7A5E6002B57D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ServiceManager.DAL", "src\ServiceManager\Travely.ServiceManager.DAL\Travely.ServiceManager.DAL.csproj", "{0D8ADF2F-8C1B-4963-98C0-AB9C0090280C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ClientManager.Service", "src\ClientManager\Travely.ClientManager.Service\Travely.ClientManager.Service.csproj", "{01CFF23F-F7E5-4263-B563-489069A1B906}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ClientManager.Repository", "src\ClientManager\Travely.ClientManager.Repository\Travely.ClientManager.Repository.csproj", "{27EF9DF1-D3EB-40AC-9072-F5F8E5474BBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.ClientManager.Abstraction", "src\ClientManager\Travely.ClientManager.Abstraction\Travely.ClientManager.Abstraction.csproj", "{D33F1F2F-A5E5-4E70-8527-5FBAB02B7F2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ClientManager.Abstraction", "src\ClientManager\Travely.ClientManager.Abstraction\Travely.ClientManager.Abstraction.csproj", "{D33F1F2F-A5E5-4E70-8527-5FBAB02B7F2B}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repositories", "Repositories", "{460C6386-F8B7-4CF6-AC9C-D25A582492C1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{3574B680-9A16-4461-A262-608E28BF717D}"
@@ -62,9 +66,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{CF50
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourManager.Service.Model", "src\TourManager\TourManager.Service.Model\TourManager.Service.Model.csproj", "{C4446477-115B-44EE-A514-339C7C09E06E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.Common", "src\Commons\Travely.Common\Travely.Common.csproj", "{FF2C00CD-A094-43CB-B133-9D716CBBA4AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.Common", "src\Commons\Travely.Common\Travely.Common.csproj", "{FF2C00CD-A094-43CB-B133-9D716CBBA4AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourManager.Common", "src\TourManager\TourManager.Common\TourManager.Common.csproj", "{29B72C9C-3D4E-4322-8D67-34E2155D68B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourManager.Common", "src\TourManager\TourManager.Common\TourManager.Common.csproj", "{29B72C9C-3D4E-4322-8D67-34E2155D68B6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ServiceManager.UnitTests", "Travely.ServiceManager.UnitTests\Travely.ServiceManager.UnitTests.csproj", "{3766BFAA-6556-4195-B1DD-473575417429}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1252B952-BC6A-4EB2-9BE9-262D1E07F261}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileService", "src\FileServiceManager\FileService\FileService.csproj", "{0E19803B-CFD8-4D4D-9256-6B0DC136D18B}"
 EndProject
@@ -90,9 +101,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.Jo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.Notifier", "src\SchedulerManager\Travely.SchedulerManager.Notifier\Travely.SchedulerManager.Notifier.csproj", "{3FFF39FD-E734-4740-8603-170B312BFFAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.SchedulerManager.API", "src\SchedulerManager\Travely.SchedulerManager.API\Travely.SchedulerManager.API.csproj", "{3C0A22D4-CCD6-4E56-A44D-B0BA7E60560C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.API", "src\SchedulerManager\Travely.SchedulerManager.API\Travely.SchedulerManager.API.csproj", "{3C0A22D4-CCD6-4E56-A44D-B0BA7E60560C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.SchedulerManager.Common", "src\SchedulerManager\Travely.SchedulerManager.Common\Travely.SchedulerManager.Common.csproj", "{29CC9EA9-09B9-4C33-A3CA-07134909DD75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SchedulerManager.Common", "src\SchedulerManager\Travely.SchedulerManager.Common\Travely.SchedulerManager.Common.csproj", "{29CC9EA9-09B9-4C33-A3CA-07134909DD75}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D0402C66-7A9E-4E24-B9BB-97C98B149A9F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.Shared.IdentityClient.Authorization", "src\Shared\IdentityClient\Travely.Shared.IdentityClient.Authorization.csproj", "{7D778945-0814-4885-A7F4-C76CE98E2A1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,22 +115,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1364D557-6F6B-433B-B1DE-C08B3A09FA91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1364D557-6F6B-433B-B1DE-C08B3A09FA91}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1364D557-6F6B-433B-B1DE-C08B3A09FA91}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1364D557-6F6B-433B-B1DE-C08B3A09FA91}.Release|Any CPU.Build.0 = Release|Any CPU
-		{88706F69-278E-4BDB-B397-04C5EFB969D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{88706F69-278E-4BDB-B397-04C5EFB969D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{88706F69-278E-4BDB-B397-04C5EFB969D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{88706F69-278E-4BDB-B397-04C5EFB969D4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5426BCE3-4AE4-4E53-888B-4AECCB5F2569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5426BCE3-4AE4-4E53-888B-4AECCB5F2569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5426BCE3-4AE4-4E53-888B-4AECCB5F2569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5426BCE3-4AE4-4E53-888B-4AECCB5F2569}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B610929-1305-459C-B29A-7A5E6002B57D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B610929-1305-459C-B29A-7A5E6002B57D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B610929-1305-459C-B29A-7A5E6002B57D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B610929-1305-459C-B29A-7A5E6002B57D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D8ADF2F-8C1B-4963-98C0-AB9C0090280C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D8ADF2F-8C1B-4963-98C0-AB9C0090280C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D8ADF2F-8C1B-4963-98C0-AB9C0090280C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D8ADF2F-8C1B-4963-98C0-AB9C0090280C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{01CFF23F-F7E5-4263-B563-489069A1B906}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{01CFF23F-F7E5-4263-B563-489069A1B906}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01CFF23F-F7E5-4263-B563-489069A1B906}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -172,6 +183,10 @@ Global
 		{29B72C9C-3D4E-4322-8D67-34E2155D68B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29B72C9C-3D4E-4322-8D67-34E2155D68B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29B72C9C-3D4E-4322-8D67-34E2155D68B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3766BFAA-6556-4195-B1DD-473575417429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3766BFAA-6556-4195-B1DD-473575417429}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3766BFAA-6556-4195-B1DD-473575417429}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3766BFAA-6556-4195-B1DD-473575417429}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E19803B-CFD8-4D4D-9256-6B0DC136D18B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E19803B-CFD8-4D4D-9256-6B0DC136D18B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E19803B-CFD8-4D4D-9256-6B0DC136D18B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -212,15 +227,22 @@ Global
 		{29CC9EA9-09B9-4C33-A3CA-07134909DD75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29CC9EA9-09B9-4C33-A3CA-07134909DD75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29CC9EA9-09B9-4C33-A3CA-07134909DD75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0402C66-7A9E-4E24-B9BB-97C98B149A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0402C66-7A9E-4E24-B9BB-97C98B149A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0402C66-7A9E-4E24-B9BB-97C98B149A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0402C66-7A9E-4E24-B9BB-97C98B149A9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D778945-0814-4885-A7F4-C76CE98E2A1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D778945-0814-4885-A7F4-C76CE98E2A1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D778945-0814-4885-A7F4-C76CE98E2A1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D778945-0814-4885-A7F4-C76CE98E2A1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{D70AA8A7-FADE-47AE-B094-6FB4ADF7DD09} = {90D98036-508B-4ED9-A502-0D0340502EC4}
-		{1364D557-6F6B-433B-B1DE-C08B3A09FA91} = {90D98036-508B-4ED9-A502-0D0340502EC4}
-		{88706F69-278E-4BDB-B397-04C5EFB969D4} = {90D98036-508B-4ED9-A502-0D0340502EC4}
-		{5E9D68A4-5653-4A6D-B099-E2AF8703BB03} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{5426BCE3-4AE4-4E53-888B-4AECCB5F2569} = {E26E508D-1A14-4C81-AC6C-3F78699C9B37}
+		{8B610929-1305-459C-B29A-7A5E6002B57D} = {E26E508D-1A14-4C81-AC6C-3F78699C9B37}
+		{0D8ADF2F-8C1B-4963-98C0-AB9C0090280C} = {E26E508D-1A14-4C81-AC6C-3F78699C9B37}
 		{01CFF23F-F7E5-4263-B563-489069A1B906} = {DD524728-1376-4BBE-9528-4FC9688B8F8B}
 		{27EF9DF1-D3EB-40AC-9072-F5F8E5474BBB} = {DD524728-1376-4BBE-9528-4FC9688B8F8B}
 		{D33F1F2F-A5E5-4E70-8527-5FBAB02B7F2B} = {DD524728-1376-4BBE-9528-4FC9688B8F8B}
@@ -238,6 +260,7 @@ Global
 		{C4446477-115B-44EE-A514-339C7C09E06E} = {3574B680-9A16-4461-A262-608E28BF717D}
 		{FF2C00CD-A094-43CB-B133-9D716CBBA4AE} = {CF50A7A4-CC65-4638-A4B6-40FE5A7484AB}
 		{29B72C9C-3D4E-4322-8D67-34E2155D68B6} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{3766BFAA-6556-4195-B1DD-473575417429} = {E26E508D-1A14-4C81-AC6C-3F78699C9B37}
 		{0E19803B-CFD8-4D4D-9256-6B0DC136D18B} = {91C8ABB2-45E1-499B-BC62-68CAC2C560C3}
 		{91C8ABB2-45E1-499B-BC62-68CAC2C560C3} = {D2162C4E-9F43-4948-A11A-603EB06B2F22}
 		{3A9DF6F2-2A4C-4203-810B-DC551CDE8B17} = {D2162C4E-9F43-4948-A11A-603EB06B2F22}
