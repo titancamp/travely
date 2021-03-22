@@ -31,6 +31,13 @@ namespace TourManager.Service.Abstraction
         public Task CreateBooking(Booking booking);
 
         /// <summary>
+        /// Create several booking
+        /// </summary>
+        /// <param name="bookings">Booking list to create</param>
+        /// <returns></returns>
+        Task CreateBookings(int tourId, IEnumerable<Booking> bookings);
+
+        /// <summary>
         /// Cancel a specific booking by id
         /// </summary>
         /// <param name="bookingId">The booking id to cancel</param>

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TourManager.Common.Types;
 using TourManager.Repository.Abstraction;
@@ -67,6 +68,20 @@ namespace TourManager.Service.Implementation
         public Task CreateBooking(Booking booking)
         {
             return this.bookingRepository.Add(this.mapper.Map<BookingEntity>(booking));
+        }
+
+        /// <summary>
+        /// Create several booking
+        /// </summary>
+        /// <param name="bookings">Booking list to create</param>
+        /// <returns></returns>
+        public Task CreateBookings(int tourId, IEnumerable<Booking> bookings)
+        {
+            var entity = this.mapper.Map<IEnumerable<BookingEntity>>(bookings).ToList();
+
+            entity.ForEach(x => x.TourId = tourId);
+
+            return this.bookingRepository.AddRange(entity);
         }
 
         /// <summary>

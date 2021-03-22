@@ -10,7 +10,7 @@ namespace TourManager.Api.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
-    [Authorize(Roles = UserRoles.User)]
+    //[Authorize(Roles = UserRoles.User)]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class TourController : ControllerBase
     {
@@ -20,7 +20,7 @@ namespace TourManager.Api.Controllers
         public TourController(ITourService tourService)
         {
             _tourService = tourService;
-            _tenantId = int.Parse(User.FindFirst(TravelyClaimTypes.tenantId).Value);
+            _tenantId = 1;// int.Parse(User.FindFirst(TravelyClaimTypes.tenantId).Value);
         }
 
         [HttpGet]
