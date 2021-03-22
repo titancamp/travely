@@ -1,8 +1,8 @@
-﻿using Grpc.Core;
-using Grpc.Net.Client;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Grpc.Core;
+using Grpc.Net.Client;
 using TourManager.Clients.Abstraction.PropertyManager;
 using TourManager.Clients.Abstraction.Settings;
 using TourManager.Clients.Implementation.Mappers;
@@ -31,6 +31,22 @@ namespace TourManager.Clients.Implementation.PropertyManager
             var response = await client.AddPropertyAsync(request);
 
             return response.Id;
+        }
+
+        public async Task DeletePropertyAsync(int id)
+        {
+            var client = GetPropertyClient();
+
+            await client.DeletePropertyAsync(new DeletePropertyRequest { Id = id });
+        }
+
+        public async Task<PropertyResponse> GetByIdAsync(int id)
+        {
+            var client = GetPropertyClient();
+
+            var property = await client.GetPropertyByIdAsync(new GetPropertyByIdRequest { Id = id });
+
+            return Mapping.Mapper.Map<PropertyResponse>(property);
         }
 
         public async Task<IEnumerable<PropertyResponse>> GetPropertiesAsync()

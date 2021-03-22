@@ -1,6 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Google.Protobuf.Collections;
-using System.Collections.Generic;
 
 namespace Travely.PropertyManager.API.MappingProfiles.Converters
 {
@@ -8,11 +8,13 @@ namespace Travely.PropertyManager.API.MappingProfiles.Converters
     {
         public ICollection<TDest> Convert(RepeatedField<TSource> source, ICollection<TDest> destination, ResolutionContext context)
         {
-            destination = destination ?? new List<TDest>();
+            destination ??= new List<TDest>();
+
             foreach (var item in source)
             {
                 destination.Add(context.Mapper.Map<TDest>(item));
             }
+
             return destination;
         }
     }

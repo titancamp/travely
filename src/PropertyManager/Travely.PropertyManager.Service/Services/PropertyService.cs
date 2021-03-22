@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Travely.PropertyManager.Data.EntityFramework;
+using Travely.PropertyManager.Data.Models;
+using Travely.PropertyManager.Service.Contracts;
 using Travely.PropertyManager.Service.Models.Commands;
 using Travely.PropertyManager.Service.Models.Queries;
 using Travely.PropertyManager.Service.Models.Responses;
-using Travely.PropertyManager.Service.Contracts;
-using Travely.PropertyManager.Data.EntityFramework;
-using AutoMapper;
-using Microsoft.Extensions.Logging;
-using Travely.PropertyManager.Data.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Travely.PropertyManager.Service.Services
 {
@@ -32,15 +33,38 @@ namespace Travely.PropertyManager.Service.Services
             return propertyModel.Id;
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            var property = await GetByIdCoreAsync(id);
+
+            _dbContext.Properties.Remove(property);
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<PropertyResponse> GetByIdAsync(int id)
+        {
+            var property = await GetByIdCoreAsync(id);
+
+            return Mapper.Map<PropertyResponse>(property);
+        }
+
         public async Task<IEnumerable<PropertyResponse>> GetAsync(GetPropertiesQuery query)
         {
-            IQueryable<Property> propertiesQueryable = _dbContext.Properties.AsQueryable();
+            var propertiesQuery = _dbContext.Properties.Include(item => item.Attachments).AsQueryable();
 
-            propertiesQueryable = base.BuildFilters(propertiesQueryable, query.Filters);
-            propertiesQueryable = base.BuildOrderings(propertiesQueryable, query.Orderings);
+            propertiesQuery = BuildFilters(propertiesQuery, query.Filters);
+            propertiesQuery = BuildOrderings(propertiesQuery, query.Orderings);
 
-            var dbProperties = await propertiesQueryable.ToListAsync();
-            return dbProperties.Select(Mapper.Map<Property, PropertyResponse>);
+            var properties = await propertiesQuery.ToListAsync();
+
+            return Mapper.Map<IEnumerable<Property>, IEnumerable<PropertyResponse>>(properties);
+        }
+
+        public async Task<Property> GetByIdCoreAsync(int id)
+        {
+            return await _dbContext.Properties.Include(item => item.Attachments).FirstOrDefaultAsync(item => item.Id == id)
+                ?? throw new Exception("Property not found");
         }
     }
 }
