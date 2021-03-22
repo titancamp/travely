@@ -14,7 +14,6 @@ namespace FileService.Tests
     [TestClass]
     public class FileSystemStorageTest
     {
-
         static IStorage sut;
         static IOptions<StorageOption> options;
         static Guid testId = Guid.NewGuid();

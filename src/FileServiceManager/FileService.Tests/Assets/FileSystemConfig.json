@@ -39,6 +39,10 @@
       ]
     },
     {
+      "company_id": 1001,
+      "files": []
+    },
+    {
       "company_id": 2001,
       "files": [
         {
@@ -50,10 +54,6 @@
           "file_path": "//Files/"
         }
       ]
-    },
-    {
-      "company_id": 1001,
-      "files": []
     }
   ]
 }

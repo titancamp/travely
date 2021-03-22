@@ -19,7 +19,6 @@ namespace FileService.Tests
         static IOptions<StorageOption> option;
         static int newConfigurationCompanyID = 1001;
         static Guid newConfigurationGuid = Guid.NewGuid();
-
         static int companyIdToDeleteConfigFrom = 2001;
         static Guid guidToDeleteConfigFrom = Guid.Parse("cb766b03-9553-4caa-a588-9493870a2bad");
 
@@ -39,14 +38,15 @@ namespace FileService.Tests
             TestUtils.AssertThrowsAsync(() => sut.AddConfigurationAsync(80, new FileMetadata()));
         }
 
-
         [TestMethod] 
         public async Task FileSystemJsonConfigurator2_JsonConfigFileAndRootTokenExistCompanyTokenDoesNotExist_AddConfigurationPasses() 
         {
             var id = newConfigurationCompanyID;
             var guid = newConfigurationGuid;
             await sut.AddConfigurationAsync(id, new FileMetadata() {Id = guid, Name = "TestName", Extension = "ext", CreatedOn = DateTime.Now, FilePath = "path", FileContentType = "type"});
-          
+            var actualFileMetadata = await sut.GetConfigurationAsync(newConfigurationCompanyID, newConfigurationGuid);
+            Assert.AreEqual("TestName", actualFileMetadata.Name);
+            Assert.AreEqual("ext", actualFileMetadata.Extension);
         }
 
         [TestMethod]
@@ -94,8 +94,5 @@ namespace FileService.Tests
             var files = await sut.GetAllConfigurationsAsync(companyIdToDeleteConfigFrom).ToListAsync();
             Assert.AreEqual(1, files.Count());
         }
-
-        
-
     }
 }
