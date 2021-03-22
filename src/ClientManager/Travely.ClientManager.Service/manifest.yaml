@@ -2,22 +2,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: servicemanager-service
+  name: clientmanager-service
   labels:
-    app: servicemanager-service
+    app: clientmanager-service
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: servicemanager-service
+      app: clientmanager-service
   template:
     metadata:
       labels:
-        app: servicemanager-service
+        app: clientmanager-service
     spec:
       containers:
-      - name: servicemanager-service
-        image: titancamp/servicemanager:latest
+      - name: clientmanager-service
+        image: titancamp/clientmanager:latest
         ports:
         - containerPort: 80
         env:
@@ -40,15 +40,15 @@ spec:
           valueFrom:
             secretKeyRef:
               name: dbconnection
-              key: port
+              key: port  
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: servicemanager-service-service
+  name: clientmanager-service-service
   namespace: dev
   labels:
-    app: servicemanager-service
+    app: clientmanager-service
 spec:
   ports:
     - name: http
@@ -60,5 +60,5 @@ spec:
       port: 443
       targetPort: 443
   selector:
-    app: servicemanager-service
+    app: clientmanager-service
   type: NodePort
