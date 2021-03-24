@@ -69,19 +69,14 @@ namespace TourManager.Repository.Entities
         public string DropOffDetails { get; set; }
 
         /// <summary>
-        /// The tour description
+        /// The tour notes
         /// </summary>
-        public string Description { get; set; }
+        public string Notes { get; set; }
 
         /// <summary>
         /// The tour tenant entity
         /// </summary>
         public TenantEntity Tenant { get; set; }
-
-        /// <summary>
-		/// The tour destinations
-		/// </summary>
-		public ICollection<string> Destinations { get; set; }
 
         /// <summary>
         /// The tour bookings collection

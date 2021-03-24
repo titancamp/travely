@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace TourManager.Repository.Entities
 {
@@ -89,8 +88,8 @@ namespace TourManager.Repository.Entities
         public string Notes { get; set; }
 
         /// <summary>
-        /// The booking destinations
+        /// The booking destination
         /// </summary>
-        public ICollection<string> Destinations { get; set; }
+        public string Destination { get; set; }
     }
 }

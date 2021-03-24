@@ -41,7 +41,10 @@ namespace TourManager.Service.Implementation
         /// <param name="tourRepository">The tour repository</param>
         /// <param name="bookingService">The booking service</param>
         /// <param name="clientService">The client service</param>
-        public TourService(IMapper mapper, ITourRepository tourRepository, IBookingService bookingService, IClientService clientService)
+        public TourService(IMapper mapper,
+            ITourRepository tourRepository,
+            IBookingService bookingService,
+            IClientService clientService)
         {
             this.mapper = mapper;
             this.tourRepository = tourRepository;
@@ -78,24 +81,15 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="tour">The tour to create</param>
         /// <returns></returns>
-        public Task<Tour> CreateTour(int tenantId, Tour tour)
+        public async Task<Tour> CreateTour(int tenantId, Tour tour)
         {
-            // create clients
-            foreach (var client in tour.Clients)
-            {
-                this.clientService.CreateClient(client);
-            }
+            var newTour = await this.tourRepository.Add(this.mapper.Map<TourEntity>(tour));
 
-            // create bookings
-            foreach (var booking in tour.Bookings)
-            {
-                this.bookingService.CreateBooking(booking);
-            }
+            await clientService.CreateClients(tenantId, newTour.Id, tour.Clients);
 
-            // create tour
-            this.tourRepository.Add(this.mapper.Map<TourEntity>(tour));
+            await this.bookingService.CreateBookings(newTour.Id, tour.Bookings);
 
-            throw new NotImplementedException();
+            return this.mapper.Map<Tour>(newTour);
         }
 
         /// <summary>
