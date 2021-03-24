@@ -1,7 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>ee8c6ded-1895-4d73-bf22-3b131396f240</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,9 +16,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Commons\Travely.Services.Common\Travely.Services.Common.csproj" />
     <ProjectReference Include="..\Travely.ClientManager.Abstraction\Travely.ClientManager.Abstraction.csproj" />
     <ProjectReference Include="..\Travely.ClientManager.Repository\Travely.ClientManager.Repository.csproj" />
   </ItemGroup>

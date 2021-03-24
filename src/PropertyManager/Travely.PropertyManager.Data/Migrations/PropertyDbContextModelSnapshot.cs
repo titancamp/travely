@@ -61,6 +61,48 @@ namespace Travely.PropertyManager.Data.Migrations
 
                     b.ToTable("Property");
                 });
+
+            modelBuilder.Entity("Travely.PropertyManager.Data.Models.PropertyAttachment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PropertyId");
+
+                    b.ToTable("PropertyAttachment");
+                });
+
+            modelBuilder.Entity("Travely.PropertyManager.Data.Models.PropertyAttachment", b =>
+                {
+                    b.HasOne("Travely.PropertyManager.Data.Models.Property", "Property")
+                        .WithMany("Attachments")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Property");
+                });
+
+            modelBuilder.Entity("Travely.PropertyManager.Data.Models.Property", b =>
+                {
+                    b.Navigation("Attachments");
+                });
 #pragma warning restore 612, 618
         }
     }

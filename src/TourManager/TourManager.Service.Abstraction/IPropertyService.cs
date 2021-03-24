@@ -8,6 +8,10 @@ namespace TourManager.Service.Abstraction
     {
         Task<int> AddAsync(AddPropertyRequest request);
 
+        Task DeleteAsync(int id);
+
+        Task<PropertyResponse> GetByIdAsync(int id);
+
         Task<IEnumerable<PropertyResponse>> GetAsync();
     }
 }

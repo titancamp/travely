@@ -1,26 +1,31 @@
-﻿using Microsoft.Extensions.Options;
-using TourManager.Clients.Abstraction.Settings;
-using TourManager.Common.Settings;
-
-namespace TourManager.Clients.Implementation.Settings
+﻿namespace TourManager.Clients.Implementation.Settings
 {
-    public class ServiceSettingsProvider : IServiceSettingsProvider
-    {
-        private readonly IOptions<GrpcServiceSettings> _grpcServiceSettings;
+	using Microsoft.Extensions.Options;
+	using TourManager.Clients.Abstraction.Settings;
+	using TourManager.Common.Settings;
 
-        public ServiceSettingsProvider(IOptions<GrpcServiceSettings> grpcServiceSettings)
-        {
-            _grpcServiceSettings = grpcServiceSettings;
-        }
+	public class ServiceSettingsProvider : IServiceSettingsProvider
+	{
+		private readonly IOptions<GrpcServiceSettings> _grpcServiceSettings;
 
-        public string ComposeActivityServiceUrl()
-        {
-            return _grpcServiceSettings.Value.ActivityServiceUrl;
-        }
+		public ServiceSettingsProvider(IOptions<GrpcServiceSettings> grpcServiceSettings)
+		{
+			_grpcServiceSettings = grpcServiceSettings;
+		}
 
-        public string ComposePropertyServiceUrl()
-        {
-            return _grpcServiceSettings.Value.PropertyServiceUrl;
-        }
-    }
+		public string ComposeActivityServiceUrl()
+		{
+			return _grpcServiceSettings.Value.ActivityServiceUrl;
+		}
+
+		public string ComposePropertyServiceUrl()
+		{
+			return _grpcServiceSettings.Value.PropertyServiceUrl;
+		}
+
+		public string ComposeClientServiceUrl()
+		{
+			return _grpcServiceSettings.Value.ClientServiceUrl;
+		}
+	}
 }

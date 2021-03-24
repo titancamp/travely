@@ -1,4 +1,6 @@
-﻿namespace TourManager.Common.Clients.PropertyManager
+﻿using System.Collections.Generic;
+
+namespace TourManager.Common.Clients.PropertyManager
 {
     public class PropertyResponse
     {
@@ -21,5 +23,7 @@
         public string Phone { get; set; }
 
         public string Website { get; set; }
+
+        public IEnumerable<PropertyAttachment> Attachments { get; set; } = new List<PropertyAttachment>();
     }
 }

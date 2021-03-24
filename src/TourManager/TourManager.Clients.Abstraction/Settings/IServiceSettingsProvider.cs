@@ -1,9 +1,11 @@
 ﻿namespace TourManager.Clients.Abstraction.Settings
 {
-    public interface IServiceSettingsProvider
-    {
-        string ComposeActivityServiceUrl();
+	public interface IServiceSettingsProvider
+	{
+		string ComposeActivityServiceUrl();
 
-        string ComposePropertyServiceUrl();
-    }
+		string ComposePropertyServiceUrl();
+
+		string ComposeClientServiceUrl();
+	}
 }

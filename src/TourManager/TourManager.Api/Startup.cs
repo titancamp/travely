@@ -5,17 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TourManager.Clients.Abstraction.ServiceManager;
-using TourManager.Clients.Implementation.ServiceManager;
-using TourManager.Common.Settings;
-using TourManager.Clients.Abstraction.Settings;
-using TourManager.Clients.Implementation.Settings;
 using TourManager.Api.Bootstrapper;
-using TourManager.Service.Model;
 using TourManager.Clients.Abstraction.PropertyManager;
-using TourManager.Service.Implementation;
-using TourManager.Service.Abstraction;
+using TourManager.Clients.Abstraction.ServiceManager;
+using TourManager.Clients.Abstraction.Settings;
 using TourManager.Clients.Implementation.PropertyManager;
+using TourManager.Clients.Implementation.ServiceManager;
+using TourManager.Clients.Implementation.Settings;
+using TourManager.Common.Settings;
+using TourManager.Service.Abstraction;
+using TourManager.Service.Implementation;
+using TourManager.Service.Model;
 
 namespace TourManager.Api
 {
@@ -69,6 +69,10 @@ namespace TourManager.Api
                 app.UseSwaggerDevUI();
             }
 
+            app.UseCors(conf => conf.AllowAnyOrigin()
+                                    .AllowAnyMethod()
+                                    .AllowAnyHeader()
+                                    .SetIsOriginAllowed(_ => true));
             app.UseHttpsRedirection();
 
             app.UseRouting();
