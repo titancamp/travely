@@ -14,11 +14,6 @@ namespace TourManager.Repository.EfCore.Configurations
                 .Property(m => m.Name)
                 .IsRequired()
                 .HasMaxLength(50);
-
-            builder
-                .HasOne(m => m.Tenant)
-                .WithMany(a => a.TourEntities)
-                .HasForeignKey(m => m.TenantId);
         }
     }
 }

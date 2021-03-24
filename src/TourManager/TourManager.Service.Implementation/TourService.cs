@@ -64,9 +64,9 @@ namespace TourManager.Service.Implementation
         /// <summary>
         /// Get specific tour by id
         /// </summary>
-        /// <param name="tourId">The tour id</param>
+        /// <param name="tourId">The agency id</param>
         /// <returns></returns>
-        public async Task<Tour> GetTourById(int tenantId, int tourId)
+        public async Task<Tour> GetTourById(int agencyId, int tourId)
         {
             var result = await this.tourRepository.GetById(tourId);
 
@@ -78,7 +78,7 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="tour">The tour to create</param>
         /// <returns></returns>
-        public Task<Tour> CreateTour(int tenantId, Tour tour)
+        public Task<Tour> CreateTour(int agencyId, Tour tour)
         {
             // create clients
             foreach (var client in tour.Clients)
@@ -103,7 +103,7 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="tour">The tour to update</param>
         /// <returns></returns>
-        public Task<Tour> UpdateTour(int tenantId, int id, Tour tour)
+        public Task<Tour> UpdateTour(int agencyId, int id, Tour tour)
         {
             // update clients
             foreach (var client in tour.Clients)
@@ -128,7 +128,7 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="tourId">The tour id to remove</param>
         /// <returns></returns>
-        public async Task RemoveTour(int tenantId, int tourId)
+        public async Task RemoveTour(int agencyId, int tourId)
         {
             // find tour to remove by id
             var tour = await this.tourRepository.GetById(tourId);
