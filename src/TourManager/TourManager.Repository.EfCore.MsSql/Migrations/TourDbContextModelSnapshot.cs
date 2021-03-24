@@ -85,6 +85,9 @@ namespace TourManager.Repository.EfCore.MsSql.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int>("AgencyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
@@ -121,38 +124,9 @@ namespace TourManager.Repository.EfCore.MsSql.Migrations
                     b.Property<string>("PlaceOfBirth")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TenantId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TenantId");
 
                     b.ToTable("Clients");
-                });
-
-            modelBuilder.Entity("TourManager.Repository.Entities.TenantEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Key")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Key")
-                        .IsUnique()
-                        .HasFilter("[Key] IS NOT NULL");
-
-                    b.ToTable("Tenants");
                 });
 
             modelBuilder.Entity("TourManager.Repository.Entities.TourClientEntity", b =>
@@ -183,6 +157,9 @@ namespace TourManager.Repository.EfCore.MsSql.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
+
+                    b.Property<int>("AgencyId")
+                        .HasColumnType("int");
 
                     b.Property<string>("DropOffDetails")
                         .HasColumnType("nvarchar(max)");
@@ -219,12 +196,7 @@ namespace TourManager.Repository.EfCore.MsSql.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TenantId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TenantId");
 
                     b.ToTable("Tours");
                 });
@@ -238,17 +210,6 @@ namespace TourManager.Repository.EfCore.MsSql.Migrations
                         .IsRequired();
 
                     b.Navigation("Tour");
-                });
-
-            modelBuilder.Entity("TourManager.Repository.Entities.ClientEntity", b =>
-                {
-                    b.HasOne("TourManager.Repository.Entities.TenantEntity", "Tenant")
-                        .WithMany("ClientEntities")
-                        .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tenant");
                 });
 
             modelBuilder.Entity("TourManager.Repository.Entities.TourClientEntity", b =>
@@ -270,27 +231,9 @@ namespace TourManager.Repository.EfCore.MsSql.Migrations
                     b.Navigation("Tour");
                 });
 
-            modelBuilder.Entity("TourManager.Repository.Entities.TourEntity", b =>
-                {
-                    b.HasOne("TourManager.Repository.Entities.TenantEntity", "Tenant")
-                        .WithMany("TourEntities")
-                        .HasForeignKey("TenantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Tenant");
-                });
-
             modelBuilder.Entity("TourManager.Repository.Entities.ClientEntity", b =>
                 {
                     b.Navigation("TourClients");
-                });
-
-            modelBuilder.Entity("TourManager.Repository.Entities.TenantEntity", b =>
-                {
-                    b.Navigation("ClientEntities");
-
-                    b.Navigation("TourEntities");
                 });
 
             modelBuilder.Entity("TourManager.Repository.Entities.TourEntity", b =>
