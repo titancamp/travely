@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TourManager.Service.Abstraction;
 using TourManager.Service.Model;
@@ -8,7 +9,7 @@ using Travely.IdentityClient.Authorization;
 namespace TourManager.Api.Controllers
 {
     [ApiVersion("1.0")]
-    [Authorize(Roles = UserRoles.User)]
+    //[Authorize(Roles = UserRoles.User)]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class TourController : TravelyControllerBase
     {
@@ -20,9 +21,9 @@ namespace TourManager.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(DateTime? startDate, DateTime? endDate)
         {
-            var data = await _tourService.GetTours(UserInfo.AgencyId);
+            var data = await _tourService.GetTours(UserInfo.AgencyId, startDate, endDate);
 
             if (data == null)
                 return NotFound();

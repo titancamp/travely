@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TourManager.Repository.Abstraction;
 using TourManager.Repository.EfCore.Context;
 using TourManager.Repository.Entities;
+using TourManager.Repository.Models;
 
 namespace TourManager.Repository.EfCore.MsSql.Repositories
 {
@@ -20,13 +23,27 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
         }
 
         /// <summary>
-        /// Get all bookings of a tour
+        /// Get bookings
         /// </summary>
-        /// <param name="tourId">The tour id</param>
+        /// <param name="filter">The filter</param>
         /// <returns></returns>
-        public Task<List<BookingEntity>> GetAll(int tourId)
+        public Task<List<BookingEntity>> Get(GetBookingFilter filter)
         {
-            return this.Find(booking => booking.TourId == tourId);
+            Expression<Func<BookingEntity, bool>> filterExp = x => x.Tour.AgencyId == filter.AgencyId;
+
+            if (filter.TourId != null)
+            {
+                var compiled = filterExp.Compile();
+                filterExp = x => compiled(x) && x.TourId == filter.TourId;
+            }
+
+            if (filter.CancellationDeadlineFrom != null)
+            {
+                var compiled = filterExp.Compile();
+                filterExp = x => compiled(x) && x.CancellationDeadline >= filter.CancellationDeadlineFrom;
+            }
+
+            return this.Find(filterExp);
         }
     }
 }
