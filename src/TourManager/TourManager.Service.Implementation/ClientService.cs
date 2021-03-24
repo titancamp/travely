@@ -106,7 +106,7 @@ namespace TourManager.Service.Implementation
             foreach (var entity in entities)
             {
                 entity.TourId = tourId;
-                entity.Client.TenantId = tenantId;
+                entity.Client.AgencyId = tenantId;
 
                 if (entity.ClientId != default)
                     entity.Client = null;

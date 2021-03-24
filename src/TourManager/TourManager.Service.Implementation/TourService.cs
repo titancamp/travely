@@ -81,11 +81,11 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="tour">The tour to create</param>
         /// <returns></returns>
-        public Task<Tour> CreateTour(int agencyId, Tour tour)
+        public async Task<Tour> CreateTour(int agencyId, Tour tour)
         {
             var newTour = await this.tourRepository.Add(this.mapper.Map<TourEntity>(tour));
 
-            await clientService.CreateClients(tenantId, newTour.Id, tour.Clients);
+            await clientService.CreateClients(agencyId, newTour.Id, tour.Clients);
 
             await this.bookingService.CreateBookings(newTour.Id, tour.Bookings);
 
