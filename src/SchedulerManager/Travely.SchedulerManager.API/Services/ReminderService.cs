@@ -23,7 +23,7 @@ namespace Travely.SchedulerManager.API.Services
                 NotificationType.BookingCancellationExpiration => MessageTemplate.BookingCancellationExpiration,
                 NotificationType.IncompleteBookingRequests => MessageTemplate.IncompleteBookingRequests,
                 NotificationType.TourIsApproaching => MessageTemplate.TourIsApproaching,
-                _ => MessageTemplate.BookingCancellationExpiration
+                _ => throw new RpcException(Status.DefaultCancelled)
             };
             var result = await _notificationService.GetNotification(request.TourId, request.BookingId, msgTemplate);
             //TODO: Fix this and use scheduleId
@@ -77,7 +77,7 @@ namespace Travely.SchedulerManager.API.Services
                     UserIds = request.AssignedUserIds
                 },
 
-                _ => null
+                _ => throw new RpcException(Status.DefaultCancelled)
             };
 
             var result = await _notificationService.CreateNotification(model);
@@ -114,7 +114,7 @@ namespace Travely.SchedulerManager.API.Services
                     UserIds = request.AssignedUserIds
                 },
 
-                _ => null
+                _ => throw new RpcException(Status.DefaultCancelled)
             };
 
             var result = await _notificationService.UpdateNotification(model);
@@ -128,7 +128,7 @@ namespace Travely.SchedulerManager.API.Services
                 NotificationType.BookingCancellationExpiration => MessageTemplate.BookingCancellationExpiration,
                 NotificationType.IncompleteBookingRequests => MessageTemplate.IncompleteBookingRequests,
                 NotificationType.TourIsApproaching => MessageTemplate.TourIsApproaching,
-                _ => MessageTemplate.BookingCancellationExpiration
+                _ => throw new RpcException(Status.DefaultCancelled)
             };
                 
             var result = await _notificationService.DeleteNotification(request.TourId, request.BookingId, msgTemplate);

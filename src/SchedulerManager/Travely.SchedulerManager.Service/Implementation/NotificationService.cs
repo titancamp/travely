@@ -44,7 +44,7 @@ namespace Travely.SchedulerManager.Service
         }
         public async Task<NotificationModel> GetNotification(long scheduleId)
         { 
-            var scheduleInfo = await _scheduleRepository.FindAsync(25);//TODO: scheduleId);
+            var scheduleInfo = await _scheduleRepository.FindAsync(scheduleId);
             var compiledMessage = await _messageCompiler.Compile(scheduleInfo.ScheduleMessageTemplate.Template, scheduleInfo.JsonData);
             return new NotificationModel
             {
