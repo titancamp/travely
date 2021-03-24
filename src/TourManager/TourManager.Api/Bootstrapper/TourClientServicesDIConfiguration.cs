@@ -1,43 +1,51 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using TourManager.Clients.Abstraction.ClientManager;
 using TourManager.Clients.Abstraction.ServiceManager;
 using TourManager.Clients.Abstraction.Settings;
+using TourManager.Clients.Implementation.ClientManager;
 using TourManager.Clients.Implementation.ServiceManager;
 using TourManager.Clients.Implementation.Settings;
 
 namespace TourManager.Api.Bootstrapper
 {
-    public static class TourClientServicesDIConfiguration
-    {
-        public static IServiceCollection AddTourClientServices(this IServiceCollection services)
-        {
-            #region ServiceManager
+	public static class TourClientServicesDIConfiguration
+	{
+		public static IServiceCollection AddTourClientServices(this IServiceCollection services)
+		{
+			#region ServiceManager
 
-            services.AddScoped<IServiceManagerClient, ServiceManagerClient>();
-            services.AddScoped<IServiceSettingsProvider, ServiceSettingsProvider>();
+			services.AddScoped<IServiceManagerClient, ServiceManagerClient>();
+			services.AddScoped<IServiceSettingsProvider, ServiceSettingsProvider>();
 
-            #endregion
+			#endregion
 
-            #region ClientManager
+			#region ClientManager
 
-            #endregion
+			#endregion
 
-            #region EquipmentManager
+			#region EquipmentManager
 
-            #endregion
+			#endregion
 
-            #region FileServiceManager
+			#region FileServiceManager
 
-            #endregion
+			#endregion
 
-            #region PropertyManager
+			#region PropertyManager
 
-            #endregion
+			#endregion
 
-            #region SchedulerManager
+			#region SchedulerManager
 
-            #endregion
+			#endregion
 
-            return services;
-        }
-    }
+			#region ClientManager
+
+			services.AddScoped<IClientManagerServiceClient, ClientManagerServiceClient>();
+
+			#endregion
+
+			return services;
+		}
+	}
 }

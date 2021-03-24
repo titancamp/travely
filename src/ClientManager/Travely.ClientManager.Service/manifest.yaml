@@ -1,0 +1,64 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clientmanager-service
+  labels:
+    app: clientmanager-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: clientmanager-service
+  template:
+    metadata:
+      labels:
+        app: clientmanager-service
+    spec:
+      containers:
+      - name: clientmanager-service
+        image: titancamp/clientmanager:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: "mssql_hostname"
+          valueFrom:
+            secretKeyRef:
+              name: dbconnection
+              key: hostname
+        - name: "mssql_password"
+          valueFrom:
+            secretKeyRef:
+              name: dbconnection
+              key: password
+        - name: "mssql_username"
+          valueFrom:
+            secretKeyRef:
+              name: dbconnection
+              key: username
+        - name: "mssql_port"
+          valueFrom:
+            secretKeyRef:
+              name: dbconnection
+              key: port  
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: clientmanager-service-service
+  namespace: dev
+  labels:
+    app: clientmanager-service
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+  selector:
+    app: clientmanager-service
+  type: NodePort

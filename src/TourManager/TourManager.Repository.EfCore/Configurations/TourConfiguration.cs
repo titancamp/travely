@@ -18,11 +18,6 @@ namespace TourManager.Repository.EfCore.Configurations
             builder
                .Property(p => p.Price)
                .HasColumnType("decimal(18,2)");
-
-            builder
-                .HasOne(m => m.Tenant)
-                .WithMany(a => a.TourEntities)
-                .HasForeignKey(m => m.TenantId);
         }
     }
 }
