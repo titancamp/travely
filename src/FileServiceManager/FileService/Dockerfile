@@ -15,6 +15,8 @@ RUN dotnet restore "travely/src/FileServiceManager/Models/Models.csproj"
 COPY ["FileService/FileService.csproj", "travely/src/FileServiceManager/FileService/"]
 RUN dotnet restore "travely/src/FileServiceManager/FileService/FileService.csproj"
 
+COPY ["src/Shared/IdentityClient/Travely.Shared.IdentityClient.Authorization.csproj", "src/Shared/IdentityClient/"]
+
 WORKDIR "/src/travely/src/FileServiceManager/Models"
 COPY "Models/" .
 RUN dotnet build "Models.csproj" -c Release -o /app/build
