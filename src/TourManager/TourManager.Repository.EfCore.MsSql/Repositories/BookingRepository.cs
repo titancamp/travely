@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq.Expressions;
+using System.Linq;
 using System.Threading.Tasks;
 using TourManager.Repository.Abstraction;
 using TourManager.Repository.EfCore.Context;
@@ -29,21 +29,16 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
         /// <returns></returns>
         public Task<List<BookingEntity>> Get(GetBookingFilter filter)
         {
-            Expression<Func<BookingEntity, bool>> filterExp = x => x.Tour.AgencyId == filter.AgencyId;
+            var query = DbSet
+              .AsNoTracking()
+              .Where(x => x.Tour.AgencyId == filter.AgencyId);
 
-            if (filter.TourId != null)
+            if (filter.CancellationDeadlineFrom.HasValue)
             {
-                var compiled = filterExp.Compile();
-                filterExp = x => compiled(x) && x.TourId == filter.TourId;
+                query = query.Where(x => x.CancellationDeadline >= filter.CancellationDeadlineFrom);
             }
 
-            if (filter.CancellationDeadlineFrom != null)
-            {
-                var compiled = filterExp.Compile();
-                filterExp = x => compiled(x) && x.CancellationDeadline >= filter.CancellationDeadlineFrom;
-            }
-
-            return this.Find(filterExp);
+            return query.ToListAsync();
         }
     }
 }

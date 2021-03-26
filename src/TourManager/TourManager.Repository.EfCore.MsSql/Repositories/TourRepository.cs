@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq.Expressions;
+using System.Linq;
 using System.Threading.Tasks;
 using TourManager.Repository.Abstraction;
 using TourManager.Repository.EfCore.Context;
@@ -27,23 +27,23 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
         /// </summary>
         /// <param name="filter">The filter</param>
         /// <returns></returns>
-        public async Task<List<TourEntity>> Get(GetTourFilter filter)
+        public Task<List<TourEntity>> Get(GetTourFilter filter)
         {
-            Expression<Func<TourEntity, bool>> filterExp = x => x.AgencyId == filter.AgencyId;
+            var query = DbSet
+                .AsNoTracking()
+                .Where(x => x.AgencyId == filter.AgencyId);
 
             if (filter.StartDate != null)
             {
-                var compiled = filterExp.Compile();
-                filterExp = x => compiled(x) && x.StartDate >= filter.StartDate;
+                query = query.Where(x => x.StartDate >= filter.StartDate);
             }
 
             if (filter.EndDate != null)
             {
-                var compiled = filterExp.Compile();
-                filterExp = x => compiled(x) && x.EndDate <= filter.EndDate;
+                query = query.Where(x => x.EndDate <= filter.EndDate);
             }
 
-            return await this.Find(filterExp);
+            return query.ToListAsync();
         }
     }
 }
