@@ -1,21 +1,13 @@
-﻿
-using IdentityManager.DataService.Configs;
+﻿using IdentityManager.DataService.Configs;
 using IdentityManager.DataService.IdentityServices;
-using IdentityManager.DataService.Mappers;
-using IdentityServer4;
+using IdentityManager.Service.Abstractions;
+using IdentityManager.Service.Services;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
-using static IdentityServer4.IdentityServerConstants;
 
 namespace IdentityManager.DataService.Extensions
 {
@@ -50,9 +42,9 @@ namespace IdentityManager.DataService.Extensions
                     options.ExpectedScope = null;
                     
                 });
+
+            services.AddScoped<IEmailTokenService, EmailTokenService>();
+            
         }
-
-
-
     }
 }
