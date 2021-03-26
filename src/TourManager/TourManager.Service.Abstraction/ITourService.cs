@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TourManager.Service.Model;
 
@@ -10,15 +11,18 @@ namespace TourManager.Service.Abstraction
     public interface ITourService
     {
         /// <summary>
-        /// Get tour by agency Id
+        /// Get tours
         /// </summary>
         /// <param name="agencyId">The agency id</param>
+        /// <param name="startDate">The agency id</param>
+        /// <param name="endDate">The agency id</param>
         /// <returns></returns>
-        public Task<List<Tour>> GetTours(int agencyId);
+        public Task<List<Tour>> GetTours(int agencyId, DateTime? startDate, DateTime? endDate);
 
         /// <summary>
         /// Get specific tour by id 
         /// </summary>
+        /// <param name="agencyId">The agency id</param>
         /// <param name="tourId">The tour id</param>
         /// <returns></returns>
         public Task<Tour> GetTourById(int agencyId, int tourId);
@@ -26,6 +30,7 @@ namespace TourManager.Service.Abstraction
         /// <summary>
         /// Create new tour
         /// </summary>
+        /// <param name="agencyId">The agency id</param>
         /// <param name="tour">The tour to create</param>
         /// <returns></returns>
         public Task<Tour> CreateTour(int agencyId, Tour tour);
@@ -33,6 +38,7 @@ namespace TourManager.Service.Abstraction
         /// <summary>
         /// Update the specific tour
         /// </summary>
+        /// <param name="agencyId">The agency id</param>
         /// <param name="tour">The tour to update</param>
         /// <returns></returns>
         public Task<Tour> UpdateTour(int agencyId, int id, Tour tour);
@@ -40,6 +46,7 @@ namespace TourManager.Service.Abstraction
         /// <summary>
         /// Remove specific tour by id
         /// </summary>
+        /// <param name="agencyId">The agency id</param>
         /// <param name="tourId">The tour id to remove</param>
         /// <returns></returns>
         public Task RemoveTour(int agencyId, int tourId);

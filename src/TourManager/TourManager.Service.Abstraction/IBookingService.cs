@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TourManager.Service.Model;
 
@@ -10,11 +11,11 @@ namespace TourManager.Service.Abstraction
     public interface IBookingService
     {
         /// <summary>
-        /// Get the bookings of a tour
+        /// Get bookings
         /// </summary>
-        /// <param name="tourId">The tour id</param>
+        /// <param name="agencyId">The agency id</param>
         /// <returns></returns>
-        public Task<List<Booking>> GetBookings(int tourId);
+        public Task<List<Booking>> GetBookings(int agencyId, int? tourId, DateTime? cancellationDeadlineFrom);
 
         /// <summary>
         /// Get specific booking by id 

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using TourManager.Repository.Abstraction;
 using TourManager.Repository.Entities;
+using TourManager.Repository.Models;
 using TourManager.Service.Abstraction;
 using TourManager.Service.Model;
 
@@ -53,13 +55,22 @@ namespace TourManager.Service.Implementation
         }
 
         /// <summary>
-        /// Get tour by tenant id
+        /// Get tours
         /// </summary>
-        /// <param name="tenantId">The tenant id</param>
+        /// <param name="agencyId">The agency id</param>
+        /// <param name="startDate">The agency id</param>
+        /// <param name="endDate">The agency id</param>
         /// <returns></returns>
-        public async Task<List<Tour>> GetTours(int tenantId)
+        public async Task<List<Tour>> GetTours(int agencyId, DateTime? startDate, DateTime? endDate)
         {
-            var result = await this.tourRepository.GetAll();
+            var filter = new GetTourFilter()
+            {
+                AgencyId = agencyId,
+                StartDate = startDate,
+                EndDate = endDate
+            };
+
+            var result = await this.tourRepository.Get(filter);
 
             return this.mapper.Map<List<Tour>>(result);
         }
