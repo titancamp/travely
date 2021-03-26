@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using Travely.PropertyManager.Service.Models.Commands;
+using Microsoft.AspNetCore.Http;
+using TourManager.Common.Clients.PropertyManager;
 
-namespace Travely.PropertyManager.Service.Models.Responses
+namespace TourManager.Api.Models.Requests
 {
-    public class PropertyResponse
+    public class AddPropertyRequestModel
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public byte Stars { get; set; }
@@ -25,6 +24,8 @@ namespace Travely.PropertyManager.Service.Models.Responses
 
         public string Website { get; set; }
 
-        public IEnumerable<PropertyAttachmentModel> Attachments { get; set; } = new List<PropertyAttachmentModel>();
+        public IEnumerable<PropertyAttachment> Attachments { get; set; }
+
+        public IFormFileCollection AttachmentsToAdd { get; set; }
     }
 }
