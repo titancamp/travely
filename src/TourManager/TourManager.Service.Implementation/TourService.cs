@@ -67,9 +67,9 @@ namespace TourManager.Service.Implementation
         /// <summary>
         /// Get specific tour by id
         /// </summary>
-        /// <param name="tourId">The tour id</param>
+        /// <param name="tourId">The agency id</param>
         /// <returns></returns>
-        public async Task<Tour> GetTourById(int tenantId, int tourId)
+        public async Task<Tour> GetTourById(int agencyId, int tourId)
         {
             var result = await this.tourRepository.GetById(tourId);
 
@@ -81,11 +81,11 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="tour">The tour to create</param>
         /// <returns></returns>
-        public async Task<Tour> CreateTour(int tenantId, Tour tour)
+        public async Task<Tour> CreateTour(int agencyId, Tour tour)
         {
             var newTour = await this.tourRepository.Add(this.mapper.Map<TourEntity>(tour));
 
-            await clientService.CreateClients(tenantId, newTour.Id, tour.Clients);
+            await clientService.CreateClients(agencyId, newTour.Id, tour.Clients);
 
             await this.bookingService.CreateBookings(newTour.Id, tour.Bookings);
 
@@ -97,7 +97,7 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="tour">The tour to update</param>
         /// <returns></returns>
-        public Task<Tour> UpdateTour(int tenantId, int id, Tour tour)
+        public Task<Tour> UpdateTour(int agencyId, int id, Tour tour)
         {
             // update clients
             foreach (var client in tour.Clients)
@@ -122,7 +122,7 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="tourId">The tour id to remove</param>
         /// <returns></returns>
-        public async Task RemoveTour(int tenantId, int tourId)
+        public async Task RemoveTour(int agencyId, int tourId)
         {
             // find tour to remove by id
             var tour = await this.tourRepository.GetById(tourId);

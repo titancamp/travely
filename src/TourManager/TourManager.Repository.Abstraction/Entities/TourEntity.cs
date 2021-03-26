@@ -14,9 +14,9 @@ namespace TourManager.Repository.Entities
         public int Id { get; set; }
 
         /// <summary>
-        /// The tour tenant id
+        /// The tour agency id
         /// </summary>
-        public int TenantId { get; set; }
+        public int AgencyId { get; set; }
 
         /// <summary>
         /// Is tour package
@@ -72,11 +72,6 @@ namespace TourManager.Repository.Entities
         /// The tour notes
         /// </summary>
         public string Notes { get; set; }
-
-        /// <summary>
-        /// The tour tenant entity
-        /// </summary>
-        public TenantEntity Tenant { get; set; }
 
         /// <summary>
         /// The tour bookings collection

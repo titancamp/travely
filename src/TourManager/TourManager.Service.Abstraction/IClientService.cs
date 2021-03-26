@@ -10,11 +10,11 @@ namespace TourManager.Service.Abstraction
     public interface IClientService
     {
         /// <summary>
-        /// Get the clients by tenant
+        /// Get the clients by tour
         /// </summary>
-        /// <param name="tenantId">The tenant id</param>
+        /// <param name="tenantId">The tour id</param>
         /// <returns></returns>
-        public Task<List<Client>> GetClients(int tenantId);
+        public Task<List<Client>> GetClients(int tourId);
 
         /// <summary>
         /// Get specific client by id 

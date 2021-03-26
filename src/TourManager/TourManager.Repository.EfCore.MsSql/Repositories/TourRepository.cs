@@ -23,11 +23,11 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
         /// <summary>
         /// Get all tours by tenant
         /// </summary>
-        /// <param name="tenantId">The tenant id</param>
+        /// <param name="agencyId">The agency id</param>
         /// <returns></returns>
-        public Task<List<TourEntity>> GetAll(int tenantId)
+        public Task<List<TourEntity>> GetAll(int agencyId)
         {
-            return this.Find(tour => tour.TenantId == tenantId);
+            return this.Find(tour => tour.AgencyId == agencyId);
         }
 
         /// <summary>

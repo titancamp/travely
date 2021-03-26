@@ -8,26 +8,12 @@ namespace TourManager.Repository.EfCore.MsSql.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Tenants",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Key = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tenants", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Clients",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TenantId = table.Column<int>(type: "int", nullable: false),
+                    AgencyId = table.Column<int>(type: "int", nullable: false),
                     ExternalId = table.Column<int>(type: "int", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -44,12 +30,6 @@ namespace TourManager.Repository.EfCore.MsSql.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Clients", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Clients_Tenants_TenantId",
-                        column: x => x.TenantId,
-                        principalTable: "Tenants",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,7 +38,7 @@ namespace TourManager.Repository.EfCore.MsSql.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TenantId = table.Column<int>(type: "int", nullable: false),
+                    AgencyId = table.Column<int>(type: "int", nullable: false),
                     IsPackage = table.Column<bool>(type: "bit", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -74,12 +54,6 @@ namespace TourManager.Repository.EfCore.MsSql.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tours", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tours_Tenants_TenantId",
-                        column: x => x.TenantId,
-                        principalTable: "Tenants",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -147,18 +121,6 @@ namespace TourManager.Repository.EfCore.MsSql.Migrations
                 column: "TourId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clients_TenantId",
-                table: "Clients",
-                column: "TenantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tenants_Key",
-                table: "Tenants",
-                column: "Key",
-                unique: true,
-                filter: "[Key] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TourClients_ClientId",
                 table: "TourClients",
                 column: "ClientId");
@@ -167,11 +129,6 @@ namespace TourManager.Repository.EfCore.MsSql.Migrations
                 name: "IX_TourClients_TourId",
                 table: "TourClients",
                 column: "TourId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tours_TenantId",
-                table: "Tours",
-                column: "TenantId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -187,9 +144,6 @@ namespace TourManager.Repository.EfCore.MsSql.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tours");
-
-            migrationBuilder.DropTable(
-                name: "Tenants");
         }
     }
 }
