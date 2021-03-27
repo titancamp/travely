@@ -32,6 +32,11 @@ namespace TourManager.Service.Model
         public int Id { get; set; }
 
         /// <summary>
+        /// The external id
+        /// </summary>
+        public int ExternalId { get; set; }
+
+        /// <summary>
         /// The booking name
         /// </summary>
         public string Name { get; set; }

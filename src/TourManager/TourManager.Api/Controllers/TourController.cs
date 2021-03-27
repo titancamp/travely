@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TourManager.Api.Utils;
 using TourManager.Service.Abstraction;
 using TourManager.Service.Model;
 using Microsoft.AspNetCore.Authorization;
@@ -8,25 +8,22 @@ using Travely.IdentityClient.Authorization;
 
 namespace TourManager.Api.Controllers
 {
-    [ApiController]
     [ApiVersion("1.0")]
     [Authorize(Roles = UserRoles.User)]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class TourController : ControllerBase
+    public class TourController : TravelyControllerBase
     {
-        private readonly int _tenantId;
         private readonly ITourService _tourService;
 
         public TourController(ITourService tourService)
         {
             _tourService = tourService;
-            _tenantId = int.Parse(User.FindFirst(TravelyClaimTypes.tenantId).Value);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(DateTime? startDate, DateTime? endDate)
         {
-            var data = await _tourService.GetTours(_tenantId);
+            var data = await _tourService.GetTours(UserInfo.AgencyId, startDate, endDate);
 
             if (data == null)
                 return NotFound();
@@ -37,7 +34,7 @@ namespace TourManager.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var data = await _tourService.GetTourById(_tenantId, id);
+            var data = await _tourService.GetTourById(UserInfo.AgencyId, id);
 
             if (data == null)
                 return NotFound();
@@ -48,7 +45,7 @@ namespace TourManager.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Tour tour)
         {
-            var newTour = await _tourService.CreateTour(_tenantId, tour);
+            var newTour = await _tourService.CreateTour(UserInfo.AgencyId, tour);
 
             if (newTour == null)
                 return BadRequest();
@@ -59,7 +56,7 @@ namespace TourManager.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Tour tour)
         {
-            var updatedTour = await _tourService.UpdateTour(_tenantId, id, tour);
+            var updatedTour = await _tourService.UpdateTour(UserInfo.AgencyId, id, tour);
 
             if (updatedTour == null)
                 return BadRequest();
@@ -70,7 +67,7 @@ namespace TourManager.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _tourService.RemoveTour(_tenantId, id);
+            await _tourService.RemoveTour(UserInfo.AgencyId, id);
 
             return NoContent();
         }

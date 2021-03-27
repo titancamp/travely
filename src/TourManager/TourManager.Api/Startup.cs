@@ -16,6 +16,10 @@ using TourManager.Common.Settings;
 using TourManager.Service.Abstraction;
 using TourManager.Service.Implementation;
 using TourManager.Service.Model;
+using TourManager.Clients.Abstraction.PropertyManager;
+using TourManager.Service.Implementation;
+using TourManager.Service.Abstraction;
+using TourManager.Clients.Implementation.PropertyManager;
 
 namespace TourManager.Api
 {
@@ -63,6 +67,8 @@ namespace TourManager.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.ApplyDatabaseMigrations();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

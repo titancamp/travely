@@ -35,9 +35,9 @@ namespace TourManager.Service.Model
         public int Id { get; set; }
 
         /// <summary>
-        /// The tour tenant id
+        /// The tour agency id
         /// </summary>
-        public int TenantId { get; set; }
+        public int AgencyId { get; set; }
 
         /// <summary>
         /// Is tour package
