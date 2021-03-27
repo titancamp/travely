@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using TourManager.Clients.Abstraction.ServiceManager;
 using TourManager.Common.Clients;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Travely.IdentityClient.Authorization;
-using TourManager.Api.Utils;
 
 namespace TourManager.Api.Controllers
 {
@@ -20,7 +20,8 @@ namespace TourManager.Api.Controllers
         public ServiceController(IServiceManagerClient serviceManagerClient)
         {
             _serviceManagerClient = serviceManagerClient;
-            _agencyId = long.Parse(User.FindFirst(TravelyClaimTypes.tenantId).Value);
+            var userInfo = HttpContext.GetTravelyUserInfo();
+            if (userInfo is not null) { _agencyId = userInfo.AgencyId; }
         }
 
         // GET api/<ServiceController>
@@ -38,7 +39,7 @@ namespace TourManager.Api.Controllers
         public async Task<ActivityResponse> Post([FromBody] Activity activity)
         {
             if (activity.Type != null) { activity.Type.AgencyId = _agencyId; }
-            
+
             var result = await _serviceManagerClient.CreateActivityAsync(activity);
 
             return result;
@@ -50,7 +51,7 @@ namespace TourManager.Api.Controllers
         public async Task<ActivityResponse> Put([FromBody] Activity activity)
         {
             if (activity.Type != null) { activity.Type.AgencyId = _agencyId; }
-            
+
             var result = await _serviceManagerClient.EditActivityAsync(activity);
 
             return result;
