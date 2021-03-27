@@ -11,7 +11,7 @@ namespace TourManager.Api.Controllers
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class PropertiesController : ControllerBase
+    public class PropertiesController : TravelyControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IPropertyService _service;

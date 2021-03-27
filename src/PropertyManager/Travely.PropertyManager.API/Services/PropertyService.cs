@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Threading.Tasks;
+using AutoMapper;
 using Grpc.Core;
-using System.Threading.Tasks;
+using Travely.PropertyManager.API.Helpers;
+using Travely.PropertyManager.API.Validators;
 using Travely.PropertyManager.Service.Contracts;
 using Travely.PropertyManager.Service.Models.Commands;
 using Travely.PropertyManager.Service.Models.Queries;
@@ -21,6 +23,8 @@ namespace Travely.PropertyManager.API.Services
 
         public override async Task<AddPropertyResponse> AddProperty(AddPropertyRequest request, ServerCallContext context)
         {
+            RequestValidatorHelper.EnsureValidity<AddPropertyRequestValidator, AddPropertyRequest>(request);
+
             var command = _mapper.Map<AddPropertyRequest, AddPropertyCommand>(request);
             var resultId = await _propertyService.AddAsync(command);
 

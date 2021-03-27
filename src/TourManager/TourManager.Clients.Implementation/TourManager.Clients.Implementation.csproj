@@ -18,6 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Commons\Travely.Services.Common\Travely.Services.Common.csproj" />
       <ProjectReference Include="..\TourManager.Clients.Abstraction\TourManager.Clients.Abstraction.csproj" />
       <ProjectReference Include="..\TourManager.Common\TourManager.Common.csproj" />
       <ProjectReference Include="..\TourManager.Service.Model\TourManager.Service.Model.csproj" />
