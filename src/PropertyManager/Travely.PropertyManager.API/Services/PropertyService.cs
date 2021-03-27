@@ -27,6 +27,20 @@ namespace Travely.PropertyManager.API.Services
             return new AddPropertyResponse { Id = resultId };
         }
 
+        public override async Task<DeletePropertyResponse> DeleteProperty(DeletePropertyRequest request, ServerCallContext context)
+        {
+            await _propertyService.DeleteAsync(request.Id);
+
+            return new DeletePropertyResponse();
+        }
+
+        public override async Task<GetPropertyByIdResponse> GetPropertyById(GetPropertyByIdRequest request, ServerCallContext context)
+        {
+            var result = await _propertyService.GetByIdAsync(request.Id);
+
+            return _mapper.Map<GetPropertyByIdResponse>(result);
+        }
+
         public override async Task GetProperties(GetPropertiesRequest request, IServerStreamWriter<GetPropertiesResponse> responseStream, ServerCallContext context)
         {
             var query = _mapper.Map<GetPropertiesRequest, GetPropertiesQuery>(request);
