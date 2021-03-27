@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TourManager.Repository.Abstraction;
 using TourManager.Repository.EfCore.Context;
 using TourManager.Repository.Entities;
+using TourManager.Repository.Models;
 
 namespace TourManager.Repository.EfCore.MsSql.Repositories
 {
@@ -21,22 +23,27 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
         }
 
         /// <summary>
-        /// Get all tours by tenant
+        /// Get tours
         /// </summary>
-        /// <param name="tenantId">The tenant id</param>
+        /// <param name="filter">The filter</param>
         /// <returns></returns>
-        public Task<List<TourEntity>> GetAll(int tenantId)
+        public Task<List<TourEntity>> Get(GetTourFilter filter)
         {
-            return this.Find(tour => tour.TenantId == tenantId);
-        }
+            var query = DbSet
+                .AsNoTracking()
+                .Where(x => x.AgencyId == filter.AgencyId);
 
-        /// <summary>
-        /// Get all tours starting from now
-        /// </summary>
-        /// <returns></returns>
-        public Task<List<TourEntity>> GetAllFromToday()
-        {
-            return this.Find(tour => tour.StartDate > DateTime.Now);
+            if (filter.StartDate != null)
+            {
+                query = query.Where(x => x.StartDate >= filter.StartDate);
+            }
+
+            if (filter.EndDate != null)
+            {
+                query = query.Where(x => x.EndDate <= filter.EndDate);
+            }
+
+            return query.ToListAsync();
         }
     }
 }

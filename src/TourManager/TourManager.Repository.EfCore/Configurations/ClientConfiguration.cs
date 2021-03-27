@@ -14,11 +14,6 @@ namespace TourManager.Repository.EfCore.Configurations
             builder
                 .Property(m => m.ExternalId)
                 .IsRequired();
-
-            builder
-                .HasOne(m => m.Tenant)
-                .WithMany(a => a.ClientEntities)
-                .HasForeignKey(m => m.TenantId);
         }
     }
 }

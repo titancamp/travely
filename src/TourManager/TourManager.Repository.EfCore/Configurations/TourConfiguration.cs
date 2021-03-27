@@ -16,9 +16,8 @@ namespace TourManager.Repository.EfCore.Configurations
                 .HasMaxLength(50);
 
             builder
-                .HasOne(m => m.Tenant)
-                .WithMany(a => a.TourEntities)
-                .HasForeignKey(m => m.TenantId);
+               .Property(p => p.Price)
+               .HasColumnType("decimal(18,2)");
         }
     }
 }
