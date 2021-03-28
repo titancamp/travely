@@ -10,6 +10,8 @@ namespace Travely.PropertyManager.Service.Contracts
     {
         Task<int> AddAsync(int agencyId, AddPropertyCommand command);
 
+        Task<int> EditAsync(int agencyId, EditPropertyCommand command);
+
         Task DeleteAsync(int agencyId, int id);
 
         Task<PropertyResponse> GetByIdAsync(int agencyId, int id);

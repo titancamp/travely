@@ -10,8 +10,6 @@ using TourManager.Clients.Implementation.Mappers;
 using TourManager.Common.Clients.PropertyManager;
 using Travely.PropertyManager.API;
 using Travely.Services.Common.CustomExceptions;
-using AddPropertyRequest = TourManager.Common.Clients.PropertyManager.AddPropertyRequest;
-using AddPropertyRequestDto = Travely.PropertyManager.API.AddPropertyRequest;
 
 namespace TourManager.Clients.Implementation.PropertyManager
 {
@@ -24,16 +22,31 @@ namespace TourManager.Clients.Implementation.PropertyManager
             _serviceSettingsProvider = serviceSettingsProvider;
         }
 
-        public Task<int> AddPropertyAsync(int agencyId, AddPropertyRequest model)
+        public Task<int> AddPropertyAsync(int agencyId, AddPropertyRequestDto model)
         {
             return HandleAsync(async () =>
             {
                 var client = GetPropertyClient();
 
-                var request = Mapping.Mapper.Map<AddPropertyRequestDto>(model, opt =>
+                var request = Mapping.Mapper.Map<AddPropertyRequest>(model, opt =>
                     opt.AfterMap((src, dest) => dest.AgencyId = agencyId));
 
                 var response = await client.AddPropertyAsync(request);
+
+                return response.Id;
+            });
+        }
+
+        public Task<int> EditPropertyAsync(int agencyId, EditPropertyRequestDto model)
+        {
+            return HandleAsync(async () =>
+            {
+                var client = GetPropertyClient();
+
+                var request = Mapping.Mapper.Map<EditPropertyRequest>(model, opt =>
+                    opt.AfterMap((src, dest) => dest.AgencyId = agencyId));
+
+                var response = await client.EditPropertyAsync(request);
 
                 return response.Id;
             });
@@ -49,7 +62,7 @@ namespace TourManager.Clients.Implementation.PropertyManager
             });
         }
 
-        public Task<PropertyResponse> GetByIdAsync(int agencyId, int id)
+        public Task<PropertyResponseDto> GetByIdAsync(int agencyId, int id)
         {
             return HandleAsync(async () =>
             {
@@ -57,21 +70,21 @@ namespace TourManager.Clients.Implementation.PropertyManager
 
                 var property = await client.GetPropertyByIdAsync(new GetPropertyByIdRequest { Id = id, AgencyId = agencyId });
 
-                return Mapping.Mapper.Map<PropertyResponse>(property);
+                return Mapping.Mapper.Map<PropertyResponseDto>(property);
             });
         }
 
-        public Task<IEnumerable<PropertyResponse>> GetPropertiesAsync(int agencyId)
+        public Task<IEnumerable<PropertyResponseDto>> GetPropertiesAsync(int agencyId)
         {
-            return HandleAsync<IEnumerable<PropertyResponse>>(async () =>
+            return HandleAsync<IEnumerable<PropertyResponseDto>>(async () =>
             {
                 var client = GetPropertyClient();
-                var properties = new List<PropertyResponse>();
+                var properties = new List<PropertyResponseDto>();
                 var request = new GetPropertiesRequest { AgencyId = agencyId };
 
                 await foreach (var response in client.GetProperties(request).ResponseStream.ReadAllAsync())
                 {
-                    properties.Add(Mapping.Mapper.Map<PropertyResponse>(response));
+                    properties.Add(Mapping.Mapper.Map<PropertyResponseDto>(response));
                 }
 
                 return properties;

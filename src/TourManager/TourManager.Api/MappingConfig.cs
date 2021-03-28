@@ -42,7 +42,16 @@ namespace TourManager.Api
 
 
             // property mappings
-            this.CreateMap<AddPropertyRequestModel, AddPropertyRequest>()
+            this.CreateMap<AddPropertyRequestModel, AddPropertyRequestDto>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name ?? string.Empty))
+                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address ?? string.Empty))
+                .ForMember(dest => dest.ContactName, opt => opt.MapFrom(src => src.ContactName ?? string.Empty))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email ?? string.Empty))
+                .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone ?? string.Empty))
+                .ForMember(dest => dest.Website, opt => opt.MapFrom(src => src.Website ?? string.Empty))
+                .ForMember(dest => dest.AttachmentsToAdd, act => act.MapFrom(src => src.AttachmentsToAdd.ToFileModelCollection()));
+
+            this.CreateMap<EditPropertyRequestModel, EditPropertyRequestDto>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name ?? string.Empty))
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address ?? string.Empty))
                 .ForMember(dest => dest.ContactName, opt => opt.MapFrom(src => src.ContactName ?? string.Empty))

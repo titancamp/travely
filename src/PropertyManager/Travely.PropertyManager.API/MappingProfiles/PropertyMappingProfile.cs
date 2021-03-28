@@ -19,6 +19,7 @@ namespace Travely.PropertyManager.API.MappingProfiles
 
             CreateMap<PropertyAttachment, PropertyAttachmentModel>().ReverseMap();
             CreateMap<AddPropertyRequest, AddPropertyCommand>();
+            CreateMap<EditPropertyRequest, EditPropertyCommand>();
 
             CreateMap<PropertyResponse, GetPropertyByIdResponse>();
 

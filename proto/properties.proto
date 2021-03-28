@@ -8,6 +8,7 @@ option csharp_namespace = "Travely.PropertyManager.API";
 
 service Property {
 	rpc AddProperty(AddPropertyRequest) returns (AddPropertyResponse);
+	rpc EditProperty(EditPropertyRequest) returns (EditPropertyResponse);
 	rpc DeleteProperty(DeletePropertyRequest) returns (DeletePropertyResponse);
 	rpc GetPropertyById(GetPropertyByIdRequest) returns (GetPropertyByIdResponse);
 	rpc GetProperties(GetPropertiesRequest) returns (stream GetPropertiesResponse);
@@ -33,6 +34,24 @@ message AddPropertyRequest {
 	repeated PropertyAttachment Attachments = 11;
 }
 message AddPropertyResponse {
+	int32 Id = 1;
+}
+
+message EditPropertyRequest {
+	int32 Id = 1;
+	int32 AgencyId = 2;
+	string Name = 3;
+	int32 Stars = 4;
+	string Address = 5;
+	google.protobuf.DoubleValue Latitude = 6;
+	google.protobuf.DoubleValue Longitude = 7;
+	string ContactName = 8;
+	string Email = 9;
+	string Phone = 10;
+	string Website = 11;
+	repeated PropertyAttachment Attachments = 12;
+}
+message EditPropertyResponse {
 	int32 Id = 1;
 }
 

@@ -8,12 +8,13 @@ namespace TourManager.Clients.Implementation.Mappers
     {
         public PropertyClientProfile()
         {
-            CreateMap<Common.Clients.PropertyManager.PropertyAttachment, Travely.PropertyManager.API.PropertyAttachment>()
+            CreateMap<PropertyAttachmentDto, PropertyAttachment>()
                 .ReverseMap();
-            CreateMap<Common.Clients.PropertyManager.AddPropertyRequest, Travely.PropertyManager.API.AddPropertyRequest>()
+            CreateMap<AddPropertyRequestDto, AddPropertyRequest>();
+            CreateMap<EditPropertyRequestDto, EditPropertyRequest>()
                 .ForMember(dest => dest.Attachments, opt => opt.MapFrom(src => src.Attachments));
-            CreateMap<GetPropertyByIdResponse, PropertyResponse>();
-            CreateMap<GetPropertiesResponse, PropertyResponse>();
+            CreateMap<GetPropertyByIdResponse, PropertyResponseDto>();
+            CreateMap<GetPropertiesResponse, PropertyResponseDto>();
         }
     }
 }

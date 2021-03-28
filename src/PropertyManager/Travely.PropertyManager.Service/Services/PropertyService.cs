@@ -28,9 +28,22 @@ namespace Travely.PropertyManager.Service.Services
         {
             var propertyModel = Mapper.Map<AddPropertyCommand, Property>(command, opt =>
                 opt.AfterMap((src, dest) => dest.AgencyId = agencyId));
-            _dbContext.Properties.Add(propertyModel);
 
+            _dbContext.Properties.Add(propertyModel);
             await _dbContext.SaveChangesAsync();
+
+            return propertyModel.Id;
+        }
+
+        public async Task<int> EditAsync(int agencyId, EditPropertyCommand command)
+        {
+            var property = await GetByIdCoreAsync(agencyId, command.Id);
+
+            var propertyModel = Mapper.Map(command, property);
+
+            _dbContext.Properties.Update(propertyModel);
+            await _dbContext.SaveChangesAsync();
+
             return propertyModel.Id;
         }
 
@@ -59,7 +72,7 @@ namespace Travely.PropertyManager.Service.Services
             propertiesQuery = BuildFilters(propertiesQuery, query.Filters);
             propertiesQuery = BuildOrderings(propertiesQuery, query.Orderings);
 
-            var properties = await propertiesQuery.ToListAsync();
+            var properties = await propertiesQuery.AsNoTracking().ToListAsync();
 
             return Mapper.Map<IEnumerable<Property>, IEnumerable<PropertyResponse>>(properties);
         }

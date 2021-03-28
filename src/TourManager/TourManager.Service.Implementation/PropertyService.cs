@@ -16,14 +16,31 @@ namespace TourManager.Service.Implementation
             _client = client;
         }
 
-        public async Task<int> AddAsync(int agencyId, AddPropertyRequest request)
+        public async Task<int> AddAsync(int agencyId, AddPropertyRequestDto request)
         {
-            var newAttacments = new List<PropertyAttachment>();
+            var newAttacments = new List<PropertyAttachmentDto>();
 
             foreach (var file in request.AttachmentsToAdd)
             {
                 var url = await UploadFileAsync(file);
-                newAttacments.Add(new PropertyAttachment
+                newAttacments.Add(new PropertyAttachmentDto
+                {
+                    Name = file.Name,
+                    Url = url,
+                });
+            }
+
+            return await _client.AddPropertyAsync(agencyId, request);
+        }
+
+        public async Task<int> EditAsync(int agencyId, EditPropertyRequestDto request)
+        {
+            var newAttacments = new List<PropertyAttachmentDto>();
+
+            foreach (var file in request.AttachmentsToAdd)
+            {
+                var url = await UploadFileAsync(file);
+                newAttacments.Add(new PropertyAttachmentDto
                 {
                     Name = file.Name,
                     Url = url,
@@ -32,8 +49,9 @@ namespace TourManager.Service.Implementation
 
             request.Attachments = request.Attachments.Concat(newAttacments);
 
-            return await _client.AddPropertyAsync(agencyId, request);
+            return await _client.EditPropertyAsync(agencyId, request);
         }
+
 
         public async Task DeleteAsync(int agencyId, int id)
         {
@@ -47,12 +65,12 @@ namespace TourManager.Service.Implementation
             }
         }
 
-        public Task<PropertyResponse> GetByIdAsync(int agencyId, int id)
+        public Task<PropertyResponseDto> GetByIdAsync(int agencyId, int id)
         {
             return _client.GetByIdAsync(agencyId, id);
         }
 
-        public Task<IEnumerable<PropertyResponse>> GetAsync(int agencyId)
+        public Task<IEnumerable<PropertyResponseDto>> GetAsync(int agencyId)
         {
             return _client.GetPropertiesAsync(agencyId);
         }
