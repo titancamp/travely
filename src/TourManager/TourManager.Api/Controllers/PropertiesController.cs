@@ -25,7 +25,7 @@ namespace TourManager.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PropertyResponse>> Get(int id)
         {
-            var data = await _service.GetByIdAsync(id);
+            var data = await _service.GetByIdAsync(UserInfo.AgencyId, id);
 
             return Ok(data);
         }
@@ -33,7 +33,7 @@ namespace TourManager.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PropertyResponse>>> Get()
         {
-            var data = await _service.GetAsync();
+            var data = await _service.GetAsync(UserInfo.AgencyId);
 
             return Ok(data);
         }
@@ -42,13 +42,12 @@ namespace TourManager.Api.Controllers
         public async Task<IActionResult> Post([FromForm] AddPropertyRequestModel model)
         {
             int? id;
-
             var businessModel = _mapper.Map<AddPropertyRequest>(model);
 
             try
             {
 
-                id = await _service.AddAsync(businessModel);
+                id = await _service.AddAsync(UserInfo.AgencyId, businessModel);
             }
             finally
             {
@@ -64,7 +63,7 @@ namespace TourManager.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _service.DeleteAsync(id);
+            await _service.DeleteAsync(UserInfo.AgencyId, id);
 
             return NoContent();
         }

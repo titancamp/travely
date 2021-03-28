@@ -16,7 +16,7 @@ namespace TourManager.Service.Implementation
             _client = client;
         }
 
-        public async Task<int> AddAsync(AddPropertyRequest request)
+        public async Task<int> AddAsync(int agencyId, AddPropertyRequest request)
         {
             var newAttacments = new List<PropertyAttachment>();
 
@@ -32,14 +32,14 @@ namespace TourManager.Service.Implementation
 
             request.Attachments = request.Attachments.Concat(newAttacments);
 
-            return await _client.AddPropertyAsync(request);
+            return await _client.AddPropertyAsync(agencyId, request);
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int agencyId, int id)
         {
-            var property = await _client.GetByIdAsync(id);
+            var property = await _client.GetByIdAsync(agencyId, id);
 
-            await _client.DeletePropertyAsync(id);
+            await _client.DeletePropertyAsync(agencyId, id);
 
             foreach (var attachment in property.Attachments)
             {
@@ -47,14 +47,14 @@ namespace TourManager.Service.Implementation
             }
         }
 
-        public Task<PropertyResponse> GetByIdAsync(int id)
+        public Task<PropertyResponse> GetByIdAsync(int agencyId, int id)
         {
-            return _client.GetByIdAsync(id);
+            return _client.GetByIdAsync(agencyId, id);
         }
 
-        public Task<IEnumerable<PropertyResponse>> GetAsync()
+        public Task<IEnumerable<PropertyResponse>> GetAsync(int agencyId)
         {
-            return _client.GetPropertiesAsync();
+            return _client.GetPropertiesAsync(agencyId);
         }
 
         private Task<string> UploadFileAsync(FileModel file)

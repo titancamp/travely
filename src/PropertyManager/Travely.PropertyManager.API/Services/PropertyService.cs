@@ -26,21 +26,21 @@ namespace Travely.PropertyManager.API.Services
             RequestValidatorHelper.EnsureValidity<AddPropertyRequestValidator, AddPropertyRequest>(request);
 
             var command = _mapper.Map<AddPropertyRequest, AddPropertyCommand>(request);
-            var resultId = await _propertyService.AddAsync(command);
+            var resultId = await _propertyService.AddAsync(request.AgencyId, command);
 
             return new AddPropertyResponse { Id = resultId };
         }
 
         public override async Task<DeletePropertyResponse> DeleteProperty(DeletePropertyRequest request, ServerCallContext context)
         {
-            await _propertyService.DeleteAsync(request.Id);
+            await _propertyService.DeleteAsync(request.AgencyId, request.Id);
 
             return new DeletePropertyResponse();
         }
 
         public override async Task<GetPropertyByIdResponse> GetPropertyById(GetPropertyByIdRequest request, ServerCallContext context)
         {
-            var result = await _propertyService.GetByIdAsync(request.Id);
+            var result = await _propertyService.GetByIdAsync(request.AgencyId, request.Id);
 
             return _mapper.Map<GetPropertyByIdResponse>(result);
         }
@@ -48,7 +48,7 @@ namespace Travely.PropertyManager.API.Services
         public override async Task GetProperties(GetPropertiesRequest request, IServerStreamWriter<GetPropertiesResponse> responseStream, ServerCallContext context)
         {
             var query = _mapper.Map<GetPropertiesRequest, GetPropertiesQuery>(request);
-            var result = await _propertyService.GetAsync(query);
+            var result = await _propertyService.GetAsync(request.AgencyId, query);
 
             foreach (var row in result)
             {

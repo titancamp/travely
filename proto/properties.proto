@@ -20,16 +20,17 @@ message PropertyAttachment {
 }
 
 message AddPropertyRequest {
-	string Name = 1;
-	int32 Stars = 2;
-	string Address = 3;
-	google.protobuf.DoubleValue Latitude = 4;
-	google.protobuf.DoubleValue Longitude = 5;
-	string ContactName = 6;
-	string Email = 7;
-	string Phone = 8;
-	string Website = 9;
-	repeated PropertyAttachment Attachments = 10;
+	int32 AgencyId = 1;
+	string Name = 2;
+	int32 Stars = 3;
+	string Address = 4;
+	google.protobuf.DoubleValue Latitude = 5;
+	google.protobuf.DoubleValue Longitude = 6;
+	string ContactName = 7;
+	string Email = 8;
+	string Phone = 9;
+	string Website = 10;
+	repeated PropertyAttachment Attachments = 11;
 }
 message AddPropertyResponse {
 	int32 Id = 1;
@@ -37,6 +38,7 @@ message AddPropertyResponse {
 
 message DeletePropertyRequest {
 	int32 Id = 1;
+	int32 AgencyId = 2;
 }
 
 message DeletePropertyResponse {
@@ -44,6 +46,7 @@ message DeletePropertyResponse {
 
 message GetPropertyByIdRequest {
 	int32 Id = 1;
+	int32 AgencyId = 2;
 }
 
 message GetPropertyByIdResponse {
@@ -61,8 +64,9 @@ message GetPropertyByIdResponse {
 }
 
 message GetPropertiesRequest{
-	repeated FilteringBaseModel Filters = 1;
-	repeated OrderingBaseModel Orderings = 2;
+	int32 AgencyId = 1;
+	repeated FilteringBaseModel Filters = 2;
+	repeated OrderingBaseModel Orderings = 3;
 } 
 message GetPropertiesResponse{
 	int32 Id = 1;

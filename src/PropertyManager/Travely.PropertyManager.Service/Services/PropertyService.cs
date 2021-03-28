@@ -24,34 +24,37 @@ namespace Travely.PropertyManager.Service.Services
             _dbContext = propertyDbContext;
         }
 
-        public async Task<int> AddAsync(AddPropertyCommand command)
+        public async Task<int> AddAsync(int agencyId, AddPropertyCommand command)
         {
-            var propertyModel = Mapper.Map<AddPropertyCommand, Property>(command);
+            var propertyModel = Mapper.Map<AddPropertyCommand, Property>(command, opt =>
+                opt.AfterMap((src, dest) => dest.AgencyId = agencyId));
             _dbContext.Properties.Add(propertyModel);
 
             await _dbContext.SaveChangesAsync();
             return propertyModel.Id;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int agencyId, int id)
         {
-            var property = await GetByIdCoreAsync(id);
+            var property = await GetByIdCoreAsync(agencyId, id);
 
             _dbContext.Properties.Remove(property);
 
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<PropertyResponse> GetByIdAsync(int id)
+        public async Task<PropertyResponse> GetByIdAsync(int agencyId, int id)
         {
-            var property = await GetByIdCoreAsync(id);
+            var property = await GetByIdCoreAsync(agencyId, id);
 
             return Mapper.Map<PropertyResponse>(property);
         }
 
-        public async Task<IEnumerable<PropertyResponse>> GetAsync(GetPropertiesQuery query)
+        public async Task<IEnumerable<PropertyResponse>> GetAsync(int agencyId, GetPropertiesQuery query)
         {
-            var propertiesQuery = _dbContext.Properties.Include(item => item.Attachments).AsQueryable();
+            var propertiesQuery = _dbContext.Properties.Include(item => item.Attachments)
+                .Where(item => item.AgencyId == agencyId)
+                .AsQueryable();
 
             propertiesQuery = BuildFilters(propertiesQuery, query.Filters);
             propertiesQuery = BuildOrderings(propertiesQuery, query.Orderings);
@@ -61,9 +64,10 @@ namespace Travely.PropertyManager.Service.Services
             return Mapper.Map<IEnumerable<Property>, IEnumerable<PropertyResponse>>(properties);
         }
 
-        public async Task<Property> GetByIdCoreAsync(int id)
+        public async Task<Property> GetByIdCoreAsync(int agencyId, int id)
         {
-            return await _dbContext.Properties.Include(item => item.Attachments).FirstOrDefaultAsync(item => item.Id == id)
+            return await _dbContext.Properties.Include(item => item.Attachments)
+                .FirstOrDefaultAsync(item => item.Id == id && item.AgencyId == agencyId)
                 ?? throw new Exception("Property not found");
         }
     }
