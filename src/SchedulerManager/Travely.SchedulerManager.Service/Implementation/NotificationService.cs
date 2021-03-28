@@ -39,8 +39,24 @@ namespace Travely.SchedulerManager.Service
 
         public async Task<NotificationModel> GetNotification(long tourId, long bookingId, MessageTemplate template)
         {
+            TravelyModule module;
+            long resourceId;
+
+            if(template == MessageTemplate.BookingCancellationExpiration)
+            {
+                module = TravelyModule.Booking;
+                resourceId = bookingId;
+            }
+            else
+            {
+                module = TravelyModule.Tour;
+                resourceId = tourId;
+            }
+
+            var infoList = await _scheduleRepository.GetListAsync(s => s.RecurseId == resourceId && s.Module == module && s.MessageTemplateId == (long)template);
+            var scheduleId = infoList.Single().Id;
             //TODO: new implementation
-            return null;
+            return await GetNotification(scheduleId);
         }
         public async Task<NotificationModel> GetNotification(long scheduleId)
         { 
@@ -77,17 +93,39 @@ namespace Travely.SchedulerManager.Service
             return UpdateNotification(mapModel);
         }
 
+
+
         public async Task<bool> DeleteNotification(long tourId, long bookingId, MessageTemplate template)
         {
-            //TODO: new implementation
-            //using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-            //_scheduleRepository.Remove(scheduleId);
-            //await _scheduleRepository.SaveAsync();
+            TravelyModule module;
+            long resourceId;
 
-            //var jobIds = (await _scheduleJobRepository.GetJobIdsAsync(scheduleId)).ToList();
-            //var removeTasks = jobIds.Select(id => _scheduledJobService.EndJobAsync(id));
-            //await Task.WhenAll(removeTasks);
-            //scope.Commit();
+            if (template == MessageTemplate.BookingCancellationExpiration)
+            {
+                module = TravelyModule.Booking;
+                resourceId = bookingId;
+            }
+            else
+            {
+                module = TravelyModule.Tour;
+                resourceId = tourId;
+            }
+
+            var infoList = await _scheduleRepository.GetListAsync(s => s.RecurseId == resourceId && s.Module == module && s.MessageTemplateId == (long)template);
+            var scheduleId = infoList.Single().Id;
+            return await DeleteNotification(scheduleId);
+        }
+
+        public async Task<bool> DeleteNotification(long scheduleId)
+        {
+            using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
+            _scheduleRepository.Remove(scheduleId);
+            await _scheduleRepository.SaveAsync();
+
+            var jobIds = (await _scheduleJobRepository.GetJobIdsAsync(scheduleId)).ToList();
+            var removeTasks = jobIds.Select(id => _scheduledJobService.EndJobAsync(id));
+            await Task.WhenAll(removeTasks);
+            scope.Complete();
             return true;
         }
 
@@ -125,7 +163,7 @@ namespace Travely.SchedulerManager.Service
             #region Create Jobs for schedule
 
             //TODO: Store job fire interval in DB or in some configuration file
-            var jobDates = new List<int> {2, 10, 15};
+            var jobDates = GetJobDatesByMessageTemplate(model.MessageTemplate);
             var createdJobs = new List<ScheduleJob>();
             foreach (var date in jobDates)
             {
@@ -172,7 +210,7 @@ namespace Travely.SchedulerManager.Service
             await Task.WhenAll(removeTasks);
 
             //TODO: Store job fire interval in DB or in some configuration file
-            var jobDates = new List<int> {2, 10, 15};
+            var jobDates = GetJobDatesByMessageTemplate(model.MessageTemplate);
             var createdJobs = new List<ScheduleJob>();
             //TODO: start updated job
 
@@ -182,6 +220,15 @@ namespace Travely.SchedulerManager.Service
             scope.Complete();
             return result;
         }
+
+        private IEnumerable<int> GetJobDatesByMessageTemplate(MessageTemplate template) =>
+            template switch
+            {
+                MessageTemplate.BookingCancellationExpiration => new[] { 2, 5, 10 },
+                MessageTemplate.IncompleteBookingRequests => new[] {10, 20, 30},
+                MessageTemplate.TourIsApproaching => new[] {5, 10, 20},
+                _ => new int[] {},
+            };
 
         #endregion
     }
