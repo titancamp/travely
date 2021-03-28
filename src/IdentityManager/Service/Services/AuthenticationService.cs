@@ -21,7 +21,6 @@ namespace Travely.IdentityManager.Service.Identity
 {
     public class AuthenticationService : BaseService, IAuthenticationService
     {
-
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmployeeRepository _employeeRepository;
@@ -81,8 +80,6 @@ namespace Travely.IdentityManager.Service.Identity
             user.Employee.Agency = user.Agency;
             _agencyRepository.Add(user.Agency);
 
-
-
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -103,7 +100,6 @@ namespace Travely.IdentityManager.Service.Identity
         public async Task<List<UserResponseModel>> GetUsers(CancellationToken ct = default)
         {
             return await _mapper.ProjectTo<UserResponseModel>(_userRepository.GetAll().Include(x=>x.Employee)).ToListAsync();
-
         }
 
         /// <summary>
@@ -184,17 +180,14 @@ namespace Travely.IdentityManager.Service.Identity
 
         public async Task UpdateAccountAsync(UserContextModel userContext, JsonPatchDocument<UpdateAgencyRequestModel> jsonPatch, CancellationToken ct)
         {
-            Employee employee = await _employeeRepository.GetAll().Where(x => x.AgencyId == userContext.AgencyId).Include(x => x.Agency).FirstOrDefaultAsync();
-            UpdateAgencyRequestModel jsonPatchDTO = _mapper.Map<UpdateAgencyRequestModel>(employee);
+            Agency agency = await _agencyRepository.FindByIdAsync(userContext.AgencyId);
+            UpdateAgencyRequestModel jsonPatchDTO = _mapper.Map<UpdateAgencyRequestModel>(agency);
 
             jsonPatch.ApplyTo(jsonPatchDTO);
-
-            _mapper.Map(jsonPatchDTO, employee);
-
-            _employeeRepository.Update(employee);
+            _mapper.Map(jsonPatchDTO, agency);
+            _agencyRepository.Update(agency);
 
             await _unitOfWork.SaveChangesAsync();
-
         }
 
         /// <summary>
@@ -219,8 +212,6 @@ namespace Travely.IdentityManager.Service.Identity
             _userRepository.Add(user);
             await _unitOfWork.SaveChangesAsync(ct);
             return data;
-
         }
-
     }
 }

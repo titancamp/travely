@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading;
-using System.Threading.Tasks;
+
 using Travely.IdentityManager.Service.Abstractions;
 using Travely.IdentityManager.Service.Abstractions.Models.Request;
 using Travely.IdentityManager.Service.Abstractions.Models.Response;
+
 using Travely.IdentityManager.WebApi.Extensions;
 
 namespace Travely.IdentityManager.WebApi.Controllers

@@ -1,41 +1,38 @@
 ﻿
-using IdentityManager.DataService.Configs;
-using IdentityManager.DataService.IdentityServices;
-using IdentityManager.DataService.Mappers;
-using IdentityServer4;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using IdentityManager.DataService.Configs;
+using IdentityManager.DataService.IdentityServices;
+
 using Travely.IdentityManager.Repository.Abstractions.Entities;
-using static IdentityServer4.IdentityServerConstants;
 
 namespace IdentityManager.DataService.Extensions
 {
     public static class IdentityServiceCollectionExtension
     {
-        public static void AddTravelyIdentityService(this IServiceCollection services)
+        public static void AddTravelyIdentityService(this IServiceCollection services, IWebHostEnvironment env)
         {
-            services.AddScoped<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>()
-                   .AddScoped<IProfileService, ProfileService>();
-            //.AddScoped<IExtensionGrantValidator, DelegationGrantValidator>();
+            services
+                .AddScoped<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>()
+                .AddScoped<IProfileService, ProfileService>();
+                //.AddScoped<IExtensionGrantValidator, DelegationGrantValidator>();
+
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
 
-            services.AddIdentityServer()
+            services
+                .AddIdentityServer()
                 .AddDeveloperSigningCredential()
-                                                //.AddSigningCredential()
-                                                .AddPersistedGrantStore<PersistedGrantStore>()
+                //.AddSigningCredential()
+                .AddPersistedGrantStore<PersistedGrantStore>()
                 .AddInMemoryApiResources(AuthConfigs.GetApiResources())
-                .AddInMemoryClients(AuthConfigs.GetClients())
-                .AddInMemoryApiScopes(AuthConfigs.GetScopes())
-                ;
+                .AddInMemoryClients(AuthConfigs.GetClients(env))
+                .AddInMemoryApiScopes(AuthConfigs.GetScopes());
 
             services.AddAuthorization(options =>
             {

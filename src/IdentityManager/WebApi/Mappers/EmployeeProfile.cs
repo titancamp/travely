@@ -10,12 +10,10 @@ namespace Travely.IdentityManager.WebApi.Mappers
     {
         public EmployeeProfile()
         {
-            CreateMap<Employee, UpdateAgencyRequestModel>()
-                .ForMember(dest => dest.LogoFile, opt => opt.MapFrom(src => src.Agency.LogoFile))
-                .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Agency.Address))
-                .ReverseMap();
+            //CreateMap<Employee, UpdateAgencyRequestModel>()
+            //    .ForMember(dest => dest.LogoFile, opt => opt.MapFrom(src => src.Agency.LogoFile))
+            //    .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Agency.Address))
+            //    .ReverseMap();
         }
-
-
     }
 }

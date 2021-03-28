@@ -64,7 +64,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <returns></returns>
         [HttpPost("password/forget")]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult<ResultViewModel>> ForgetPassword(ForgotPasswordViewModel forgotPasswordViewModel, CancellationToken cancellationToken = default)
         {
             if (!ModelState.IsValid)

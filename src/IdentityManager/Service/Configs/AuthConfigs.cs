@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+
 using IdentityServer4;
-//using Travely.IdentityManager.Repository.Abstractions.Entities;
 using IdentityServer4.Models;
+
 using static IdentityServer4.IdentityServerConstants;
 
 namespace IdentityManager.DataService.Configs
@@ -36,8 +36,16 @@ namespace IdentityManager.DataService.Configs
             };
         }
 
-        public static IEnumerable<Client> GetClients()
+        public static IEnumerable<Client> GetClients(IWebHostEnvironment env)
         {
+            List<string> cors = null;
+            if (env.IsDevelopment())
+            {
+                cors = new List<string>();
+                cors.Add("http://localhost:5000");
+                cors.Add("http://localhost:3000");
+            }
+
             return new List<Client>
             {
                 new Client
@@ -54,7 +62,8 @@ namespace IdentityManager.DataService.Configs
                         "offline_access",
                         "api1",
                         IdentityServerConstants.LocalApi.ScopeName
-                    }
+                    },
+                    AllowedCorsOrigins = cors,
                 },
                 new Client
                 {
@@ -69,7 +78,8 @@ namespace IdentityManager.DataService.Configs
                     AllowedScopes = new List<string>
                     {
                         "api2"
-                    }
+                    },
+                    AllowedCorsOrigins = cors,
                 }
             };
         }
