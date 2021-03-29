@@ -7,11 +7,11 @@ namespace Travely.SchedulerManager
 {
     public interface INotificationService
     {
-        Task<NotificationModel> GetNotification(long tourId, long bookingId, MessageTemplate template); //TODO-Question: Do we need to return compiled notification?
+        Task<NotificationGeneratedModel> GetNotification(long tourId, long bookingId, MessageTemplate template); //TODO-Question: Do we need to return compiled notification?
         
-        Task<NotificationModel> GetNotification(long scheduleId); //TODO-Question: Do we need to return compiled notification?
+        Task<NotificationGeneratedModel> GetNotification(long scheduleId); //TODO-Question: Do we need to return compiled notification?
 
-        Task<IEnumerable<NotificationModel>> GetAllNotifications(); //TODO-Question: Do we need to return compiled notification?
+        Task<IEnumerable<NotificationGeneratedModel>> GetAllNotifications(); //TODO-Question: Do we need to return compiled notification?
 
         Task<bool> CreateNotification<T>(T model) where T: INotificationModel;
 

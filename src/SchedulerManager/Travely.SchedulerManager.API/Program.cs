@@ -15,6 +15,7 @@ namespace Travely.SchedulerManager.API
             AppDomain.CurrentDomain.ProcessExit += (s, e) => Log.CloseAndFlush();
             return CreateHostBuilder(args).Build().RunAsync();
         }
+
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>())

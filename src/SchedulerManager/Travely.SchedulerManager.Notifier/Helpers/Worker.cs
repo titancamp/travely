@@ -21,7 +21,7 @@ namespace Travely.SchedulerManager.Notifier.Helpers
             {
                 using var scope = _sp.CreateScope();
                 var notificationHub = scope.ServiceProvider.GetRequiredService<IHubContext<NotificationHub, INotificationHub>>();
-                await notificationHub.Clients.All.ReceiveNotification(new NotificationModel { Message = "Hola" });
+                await notificationHub.Clients.All.ReceiveNotification(new NotificationGeneratedModel { Message = "Hola" });
                 await Task.Delay(10000, stoppingToken);
             }
         }

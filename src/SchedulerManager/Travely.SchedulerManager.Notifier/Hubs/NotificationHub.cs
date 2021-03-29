@@ -32,6 +32,6 @@ namespace Travely.SchedulerManager.Notifier.Hubs
 
     public interface INotificationHub
     {
-        Task ReceiveNotification(NotificationModel model);
+        Task ReceiveNotification(NotificationGeneratedModel generatedModel);
     }
 }

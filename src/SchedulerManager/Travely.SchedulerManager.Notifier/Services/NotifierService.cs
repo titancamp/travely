@@ -21,10 +21,10 @@ namespace Travely.SchedulerManager.Notifier.Services
             _hubContext = hub;
             _notifierOptions = options.CurrentValue;
         }
-        public async Task<IEnumerable<long>> NotifyAsync(NotificationModel model)
+        public async Task<IEnumerable<long>> NotifyAsync(NotificationGeneratedModel generatedModel)
         {
-            var shouldGet = (await GetOnlineUsers()).Intersect(model.UserIds).ToList();
-            await _hubContext.Clients.Users(shouldGet.Select(id=>id.ToString())).ReceiveNotification(model);
+            var shouldGet = (await GetOnlineUsers()).Intersect(generatedModel.UserIds).ToList();
+            await _hubContext.Clients.Users(shouldGet.Select(id=>id.ToString())).ReceiveNotification(generatedModel);
             return shouldGet;
         }
 
