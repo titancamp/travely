@@ -11,7 +11,7 @@ namespace TourManager.Api.Controllers
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class PropertiesController : ControllerBase
+    public class PropertiesController : TravelyControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IPropertyService _service;
@@ -23,17 +23,17 @@ namespace TourManager.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<PropertyResponse>> Get(int id)
+        public async Task<ActionResult<PropertyResponseDto>> Get(int id)
         {
-            var data = await _service.GetByIdAsync(id);
+            var data = await _service.GetByIdAsync(UserInfo.AgencyId, id);
 
             return Ok(data);
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PropertyResponse>>> Get()
+        public async Task<ActionResult<IEnumerable<PropertyResponseDto>>> Get()
         {
-            var data = await _service.GetAsync();
+            var data = await _service.GetAsync(UserInfo.AgencyId);
 
             return Ok(data);
         }
@@ -42,13 +42,12 @@ namespace TourManager.Api.Controllers
         public async Task<IActionResult> Post([FromForm] AddPropertyRequestModel model)
         {
             int? id;
-
-            var businessModel = _mapper.Map<AddPropertyRequest>(model);
+            var businessModel = _mapper.Map<AddPropertyRequestDto>(model);
 
             try
             {
 
-                id = await _service.AddAsync(businessModel);
+                id = await _service.AddAsync(UserInfo.AgencyId, businessModel);
             }
             finally
             {
@@ -61,10 +60,31 @@ namespace TourManager.Api.Controllers
             return Created(Url.RouteUrl(id), id);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromForm] EditPropertyRequestModel model)
+        {
+            var businessModel = _mapper.Map<EditPropertyRequestDto>(model, opt => opt.AfterMap((object src, EditPropertyRequestDto dest) => dest.Id = id));
+
+            try
+            {
+
+                id = await _service.EditAsync(UserInfo.AgencyId, businessModel);
+            }
+            finally
+            {
+                foreach (var item in businessModel.AttachmentsToAdd)
+                {
+                    item.Stream.Dispose();
+                }
+            }
+
+            return Ok(id);
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _service.DeleteAsync(id);
+            await _service.DeleteAsync(UserInfo.AgencyId, id);
 
             return NoContent();
         }

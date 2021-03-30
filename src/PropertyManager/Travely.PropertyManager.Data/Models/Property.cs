@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Travely.PropertyManager.Data.Models
 {
     public class Property
     {
         public int Id { get; set; }
+
+        public int AgencyId { get; set; }
 
         public string Name { get; set; }
 

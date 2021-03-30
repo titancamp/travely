@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
-using TourManager.Common.Clients.PropertyManager;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace TourManager.Api.Models.Requests
 {
@@ -23,8 +21,6 @@ namespace TourManager.Api.Models.Requests
         public string Phone { get; set; }
 
         public string Website { get; set; }
-
-        public IEnumerable<PropertyAttachment> Attachments { get; set; }
 
         public IFormFileCollection AttachmentsToAdd { get; set; }
     }

@@ -8,12 +8,14 @@ namespace Travely.PropertyManager.Service.Contracts
 {
     public interface IPropertyService
     {
-        Task<int> AddAsync(AddPropertyCommand command);
+        Task<int> AddAsync(int agencyId, AddPropertyCommand command);
 
-        Task DeleteAsync(int id);
+        Task<int> EditAsync(int agencyId, EditPropertyCommand command);
 
-        Task<PropertyResponse> GetByIdAsync(int id);
+        Task DeleteAsync(int agencyId, int id);
 
-        Task<IEnumerable<PropertyResponse>> GetAsync(GetPropertiesQuery query);
+        Task<PropertyResponse> GetByIdAsync(int agencyId, int id);
+
+        Task<IEnumerable<PropertyResponse>> GetAsync(int agencyId, GetPropertiesQuery query);
     }
 }

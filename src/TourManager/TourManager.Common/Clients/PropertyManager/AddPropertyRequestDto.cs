@@ -2,10 +2,8 @@
 
 namespace TourManager.Common.Clients.PropertyManager
 {
-    public class PropertyResponse
+    public class AddPropertyRequestDto
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public byte Stars { get; set; }
@@ -24,6 +22,6 @@ namespace TourManager.Common.Clients.PropertyManager
 
         public string Website { get; set; }
 
-        public IEnumerable<PropertyAttachment> Attachments { get; set; } = new List<PropertyAttachment>();
+        public IEnumerable<FileModel> AttachmentsToAdd { get; set; }
     }
 }

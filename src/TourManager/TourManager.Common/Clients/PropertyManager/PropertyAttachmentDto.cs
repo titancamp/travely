@@ -1,6 +1,6 @@
 ﻿namespace TourManager.Common.Clients.PropertyManager
 {
-    public class PropertyAttachment
+    public class PropertyAttachmentDto
     {
         public int Id { get; set; }
 

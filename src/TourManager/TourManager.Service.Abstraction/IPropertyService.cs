@@ -6,12 +6,14 @@ namespace TourManager.Service.Abstraction
 {
     public interface IPropertyService
     {
-        Task<int> AddAsync(AddPropertyRequest request);
+        Task<int> AddAsync(int agencyId, AddPropertyRequestDto request);
 
-        Task DeleteAsync(int id);
+        Task<int> EditAsync(int agencyId, EditPropertyRequestDto request);
 
-        Task<PropertyResponse> GetByIdAsync(int id);
+        Task DeleteAsync(int agencyId, int id);
 
-        Task<IEnumerable<PropertyResponse>> GetAsync();
+        Task<PropertyResponseDto> GetByIdAsync(int agencyId, int id);
+
+        Task<IEnumerable<PropertyResponseDto>> GetAsync(int agencyId);
     }
 }
