@@ -15,7 +15,7 @@ namespace TourManager.Service.Model
 		{
 			RuleFor(client => client.FirstName).NotEmpty().WithMessage("The client first name field is requiered!");
 			RuleFor(client => client.LastName).NotEmpty().WithMessage("The client last name field is requiered!");
-			RuleFor(client => client.Phone).NotEmpty().WithMessage("The client phone field is requiered!");
+			RuleFor(client => client.PhoneNumber).NotEmpty().WithMessage("The client phone field is requiered!");
 			RuleFor(client => client.Email).NotEmpty().WithMessage("The client email field is requiered!")
 				.EmailAddress().WithMessage("The client email address is not valid!");
 			RuleFor(client => client.Notes).NotEmpty().WithMessage("The client notes field is requiered!");
@@ -45,7 +45,7 @@ namespace TourManager.Service.Model
 		/// <summary>
 		/// The client phone number
 		/// </summary>
-		public string Phone { get; set; }
+		public string PhoneNumber { get; set; }
 
 		/// <summary>
 		/// The client email address
