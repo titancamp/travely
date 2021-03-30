@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using TourManager.Repository.EfCore.Context;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
 
 namespace TourManager.Api.Bootstrapper
 {
@@ -15,6 +16,16 @@ namespace TourManager.Api.Bootstrapper
                        x => x.MigrationsAssembly("TourManager.Repository.EfCore.MsSql")));
 
             return services;
+        }
+
+        public static IApplicationBuilder ApplyDatabaseMigrations(this IApplicationBuilder applicationBuilder)
+        {
+            using var serviceScope = applicationBuilder.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope();
+            var context = serviceScope.ServiceProvider.GetRequiredService<TourDbContext>();
+
+            context.Database.Migrate();
+
+            return applicationBuilder;
         }
     }
 }

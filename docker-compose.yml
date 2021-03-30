@@ -1,6 +1,15 @@
 version: '3.4'
 
 services:
+  sql-server-db:
+    container_name: sql-server-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+        - "1433:1433"
+    environment: 
+        SA_PASSWORD: "Passw0rd!"
+        ACCEPT_EULA: "Y"
+
   tourmanager.api:
     image: ${DOCKER_REGISTRY-}tourmanagerapi
     build:
@@ -11,11 +20,25 @@ services:
         - "5001:443"
     depends_on:
         - sql-server-db
-  sql-server-db:
-    container_name: sql-server-db
-    image: mcr.microsoft.com/mssql/server:2019-latest
+
+  travely.propertymanager.api:
+    image: ${DOCKER_REGISTRY-}travelypropertymanagerapi
+    build:
+      context: .
+      dockerfile: src/PropertyManager/Travely.PropertyManager.API/Dockerfile
     ports:
-        - "1433:1433"
-    environment: 
-        SA_PASSWORD: "Passw0rd!"
-        ACCEPT_EULA: "Y"
+        - "5100:80"
+        - "5101:443"
+    depends_on:
+        - sql-server-db
+
+  travely.servicemanager.service:
+    image: ${DOCKER_REGISTRY-}travelyservicemanagerservice
+    build:
+      context: .
+      dockerfile: src/ServiceManager/Travely.ServiceManager.Service/Dockerfile
+    ports:
+        - "5200:80"
+        - "5201:443"
+    depends_on:
+        - sql-server-db
