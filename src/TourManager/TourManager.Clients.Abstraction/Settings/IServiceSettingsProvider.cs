@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TourManager.Clients.Abstraction.Settings
+﻿namespace TourManager.Clients.Abstraction.Settings
 {
-    public interface IServiceSettingsProvider
-    {
-        string ComposeActivityServiceUrl();
-    }
+	public interface IServiceSettingsProvider
+	{
+		string ComposeActivityServiceUrl();
+
+		string ComposePropertyServiceUrl();
+
+		string ComposeClientServiceUrl();
+	}
 }

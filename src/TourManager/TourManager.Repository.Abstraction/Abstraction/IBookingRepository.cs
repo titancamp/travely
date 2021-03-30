@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TourManager.Repository.Entities;
+using TourManager.Repository.Models;
 
 namespace TourManager.Repository.Abstraction
 {
@@ -10,10 +11,10 @@ namespace TourManager.Repository.Abstraction
     public interface IBookingRepository : IRepository<BookingEntity>
     {
         /// <summary>
-        ///  Get all bookings of a tour 
+        /// Get bookings
         /// </summary>
-        /// <param name="tourId">The tour id</param>
+        /// <param name="filter">The filter</param>
         /// <returns></returns>
-        Task<List<BookingEntity>> GetAll(int tourId);
+        Task<List<BookingEntity>> Get(GetBookingFilter filter);
     }
 }

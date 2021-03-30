@@ -19,21 +19,6 @@ namespace Travely.ClientManager.Repository.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("PreferenceTourist", b =>
-                {
-                    b.Property<int>("PreferencesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TouristsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PreferencesId", "TouristsId");
-
-                    b.HasIndex("TouristsId");
-
-                    b.ToTable("PreferenceTourist");
-                });
-
             modelBuilder.Entity("Travely.ClientManager.Abstraction.Entity.Preference", b =>
                 {
                     b.Property<int>("Id")
@@ -65,25 +50,31 @@ namespace Travely.ClientManager.Repository.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ExpireDate")
+                    b.Property<DateTime?>("ExpireDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("bit");
+
                     b.Property<string>("IssuedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("IssuedDate")
+                    b.Property<DateTime?>("IssuedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PassportNumber")
@@ -98,21 +89,6 @@ namespace Travely.ClientManager.Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tourist");
-                });
-
-            modelBuilder.Entity("PreferenceTourist", b =>
-                {
-                    b.HasOne("Travely.ClientManager.Abstraction.Entity.Preference", null)
-                        .WithMany()
-                        .HasForeignKey("PreferencesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Travely.ClientManager.Abstraction.Entity.Tourist", null)
-                        .WithMany()
-                        .HasForeignKey("TouristsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
