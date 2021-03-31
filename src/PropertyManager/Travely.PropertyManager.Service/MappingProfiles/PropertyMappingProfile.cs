@@ -9,7 +9,9 @@ namespace Travely.PropertyManager.Service.MappingProfiles
     {
         public PropertyMappingProfile()
         {
+            CreateMap<PropertyAttachmentModel, PropertyAttachment>().ReverseMap();
             CreateMap<AddPropertyCommand, Property>();
+            CreateMap<EditPropertyCommand, Property>();
             CreateMap<Property, PropertyResponse>();
         }
     }

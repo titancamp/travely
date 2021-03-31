@@ -1,9 +1,9 @@
-﻿namespace TourManager.Common.Clients.PropertyManager
-{
-    public class PropertyResponse
-    {
-        public int Id { get; set; }
+﻿using System.Collections.Generic;
 
+namespace TourManager.Common.Clients.PropertyManager
+{
+    public class AddPropertyRequestDto
+    {
         public string Name { get; set; }
 
         public byte Stars { get; set; }
@@ -21,5 +21,7 @@
         public string Phone { get; set; }
 
         public string Website { get; set; }
+
+        public IEnumerable<FileModel> AttachmentsToAdd { get; set; }
     }
 }

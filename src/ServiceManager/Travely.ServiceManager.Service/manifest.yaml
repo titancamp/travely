@@ -20,6 +20,27 @@ spec:
         image: titancamp/servicemanager:latest
         ports:
         - containerPort: 80
+        env:
+        - name: "mssql_hostname"
+          valueFrom:
+            secretKeyRef:
+              name: dbconnection
+              key: hostname
+        - name: "mssql_password"
+          valueFrom:
+            secretKeyRef:
+              name: dbconnection
+              key: password
+        - name: "mssql_username"
+          valueFrom:
+            secretKeyRef:
+              name: dbconnection
+              key: username
+        - name: "mssql_port"
+          valueFrom:
+            secretKeyRef:
+              name: dbconnection
+              key: port
 ---
 kind: Service
 apiVersion: v1

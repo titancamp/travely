@@ -6,8 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Travely.PropertyManager.API.Helpers;
+using Travely.PropertyManager.API.Interceptors;
 using Travely.PropertyManager.API.Services;
 using Travely.PropertyManager.Bootstrapper.Helpers;
+using Travely.Services.Common.Extensions;
 
 namespace Travely.PropertyManager.API
 {
@@ -25,7 +27,10 @@ namespace Travely.PropertyManager.API
             ConfigureServicesCore(services);
             services.ConfigureAutoMapper();
 
-            services.AddGrpc();
+            services.AddGrpc(options =>
+            {
+                options.Interceptors.Add<ErrorHandlingInterceptor>();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

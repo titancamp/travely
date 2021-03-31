@@ -19,7 +19,8 @@ namespace TourManager.Repository.EfCore.Configurations
             builder
                 .HasOne(m => m.Client)
                 .WithMany(a => a.TourClients)
-                .HasForeignKey(m => m.ClientId);
+                .HasForeignKey(m => m.ClientId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

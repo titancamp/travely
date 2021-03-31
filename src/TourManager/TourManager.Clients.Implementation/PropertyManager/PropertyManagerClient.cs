@@ -1,15 +1,15 @@
-﻿using Grpc.Core;
-using Grpc.Net.Client;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Grpc.Core;
+using Grpc.Net.Client;
 using TourManager.Clients.Abstraction.PropertyManager;
 using TourManager.Clients.Abstraction.Settings;
 using TourManager.Clients.Implementation.Mappers;
 using TourManager.Common.Clients.PropertyManager;
 using Travely.PropertyManager.API;
-using AddPropertyRequest = TourManager.Common.Clients.PropertyManager.AddPropertyRequest;
-using AddPropertyRequestDto = Travely.PropertyManager.API.AddPropertyRequest;
+using Travely.Services.Common.CustomExceptions;
 
 namespace TourManager.Clients.Implementation.PropertyManager
 {
@@ -22,35 +22,80 @@ namespace TourManager.Clients.Implementation.PropertyManager
             _serviceSettingsProvider = serviceSettingsProvider;
         }
 
-        public async Task<int> AddPropertyAsync(AddPropertyRequest model)
+        public Task<int> AddPropertyAsync(int agencyId, AddPropertyRequestDto model)
         {
-            var client = GetPropertyClient();
+            return HandleAsync(async () =>
+            {
+                var client = GetPropertyClient();
 
-            var request = Mapping.Mapper.Map<AddPropertyRequestDto>(model);
+                var request = Mapping.Mapper.Map<AddPropertyRequest>(model, opt =>
+                    opt.AfterMap((src, dest) => dest.AgencyId = agencyId));
 
-            var response = await client.AddPropertyAsync(request);
+                var response = await client.AddPropertyAsync(request);
 
-            return response.Id;
+                return response.Id;
+            });
         }
 
-        public async Task<IEnumerable<PropertyResponse>> GetPropertiesAsync()
+        public Task<int> EditPropertyAsync(int agencyId, EditPropertyRequestDto model)
         {
-            var client = GetPropertyClient();
-            var properties = new List<PropertyResponse>();
-
-            await foreach (var response in client.GetProperties(new GetPropertiesRequest()).ResponseStream.ReadAllAsync())
+            return HandleAsync(async () =>
             {
-                properties.Add(Mapping.Mapper.Map<PropertyResponse>(response));
-            }
+                var client = GetPropertyClient();
 
-            return properties;
+                var request = Mapping.Mapper.Map<EditPropertyRequest>(model, opt =>
+                    opt.AfterMap((src, dest) => dest.AgencyId = agencyId));
+
+                var response = await client.EditPropertyAsync(request);
+
+                return response.Id;
+            });
+        }
+
+        public Task DeletePropertyAsync(int agencyId, int id)
+        {
+            return HandleAsync(async () =>
+            {
+                var client = GetPropertyClient();
+
+                await client.DeletePropertyAsync(new DeletePropertyRequest { Id = id, AgencyId = agencyId });
+            });
+        }
+
+        public Task<PropertyResponseDto> GetByIdAsync(int agencyId, int id)
+        {
+            return HandleAsync(async () =>
+            {
+                var client = GetPropertyClient();
+
+                var property = await client.GetPropertyByIdAsync(new GetPropertyByIdRequest { Id = id, AgencyId = agencyId });
+
+                return Mapping.Mapper.Map<PropertyResponseDto>(property);
+            });
+        }
+
+        public Task<IEnumerable<PropertyResponseDto>> GetPropertiesAsync(int agencyId)
+        {
+            return HandleAsync<IEnumerable<PropertyResponseDto>>(async () =>
+            {
+                var client = GetPropertyClient();
+                var properties = new List<PropertyResponseDto>();
+                var request = new GetPropertiesRequest { AgencyId = agencyId };
+
+                await foreach (var response in client.GetProperties(request).ResponseStream.ReadAllAsync())
+                {
+                    properties.Add(Mapping.Mapper.Map<PropertyResponseDto>(response));
+                }
+
+                return properties;
+            });
         }
 
         private Property.PropertyClient GetPropertyClient()
         {
             var httpHandler = new HttpClientHandler
             {
-                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
             };
 
             var channel = GrpcChannel.ForAddress(
@@ -61,6 +106,38 @@ namespace TourManager.Clients.Implementation.PropertyManager
                 });
 
             return new Property.PropertyClient(channel);
+        }
+
+        private static async Task<TResponse> HandleAsync<TResponse>(Func<Task<TResponse>> continuation)
+        {
+            try
+            {
+                return await continuation();
+            }
+            catch (RpcException ex)
+            {
+                throw new BadRequestException(ex.Status.Detail);
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private static async Task HandleAsync(Func<Task> continuation)
+        {
+            try
+            {
+                await continuation();
+            }
+            catch (RpcException ex)
+            {
+                throw new BadRequestException(ex.Status.Detail);
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

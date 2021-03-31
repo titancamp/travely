@@ -5,12 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TourManager.Clients.Abstraction.ServiceManager;
-using TourManager.Clients.Implementation.ServiceManager;
-using TourManager.Common.Settings;
-using TourManager.Clients.Abstraction.Settings;
-using TourManager.Clients.Implementation.Settings;
 using TourManager.Api.Bootstrapper;
+using TourManager.Clients.Abstraction.PropertyManager;
+using TourManager.Clients.Abstraction.ServiceManager;
+using TourManager.Clients.Abstraction.Settings;
+using TourManager.Clients.Implementation.PropertyManager;
+using TourManager.Clients.Implementation.ServiceManager;
+using TourManager.Clients.Implementation.Settings;
+using TourManager.Common.Settings;
+using TourManager.Service.Abstraction;
+using TourManager.Service.Implementation;
 using TourManager.Service.Model;
 using TourManager.Clients.Abstraction.PropertyManager;
 using TourManager.Service.Implementation;
@@ -63,12 +67,18 @@ namespace TourManager.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.ApplyDatabaseMigrations();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwaggerDevUI();
             }
 
+            app.UseCors(conf => conf.AllowAnyOrigin()
+                                    .AllowAnyMethod()
+                                    .AllowAnyHeader()
+                                    .SetIsOriginAllowed(_ => true));
             app.UseHttpsRedirection();
 
             app.UseRouting();

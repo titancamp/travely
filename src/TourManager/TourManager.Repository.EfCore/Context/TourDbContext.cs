@@ -6,7 +6,6 @@ namespace TourManager.Repository.EfCore.Context
 {
     public class TourDbContext : DbContext
     {
-        public DbSet<TenantEntity> Tenants { get; set; }
         public DbSet<TourEntity> Tours { get; set; }
         public DbSet<BookingEntity> Bookings { get; set; }
         public DbSet<ClientEntity> Clients { get; set; }
@@ -18,7 +17,6 @@ namespace TourManager.Repository.EfCore.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new TenantConfiguration());
             builder.ApplyConfiguration(new TourConfiguration());
             builder.ApplyConfiguration(new BookingConfiguration());
             builder.ApplyConfiguration(new ClientConfiguration());

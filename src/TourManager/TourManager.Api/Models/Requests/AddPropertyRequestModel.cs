@@ -1,6 +1,8 @@
-﻿namespace TourManager.Common.Clients.PropertyManager
+﻿using Microsoft.AspNetCore.Http;
+
+namespace TourManager.Api.Models.Requests
 {
-    public class AddPropertyRequest
+    public class AddPropertyRequestModel
     {
         public string Name { get; set; }
 
@@ -19,5 +21,7 @@
         public string Phone { get; set; }
 
         public string Website { get; set; }
+
+        public IFormFileCollection AttachmentsToAdd { get; set; }
     }
 }
