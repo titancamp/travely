@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AutoMapper;
 using Newtonsoft.Json;
 using Travely.SchedulerManager.Common.Enums;
@@ -80,6 +81,12 @@ namespace Travely.SchedulerManager.Service.Helpers
                     src.OldStartDate,
                     src.UserWhoMadeTheChange
                 })));
+
+            CreateMap<ScheduleInfo, NotificationGeneratedModel>()
+                .ForMember(dto => dto.ScheduleId, entity => entity.MapFrom(src => src.Id))
+                .ForMember(dto => dto.RecurseId, entity => entity.MapFrom(src => src.RecurseId))
+                .ForMember(dto => dto.Module, entity => entity.MapFrom(src => src.Module))
+                .ForMember(dto => dto.UserIds, entity => entity.MapFrom(src => src.UserSchedules.Select(s => s.UserId).ToList()));
         }
     }
 }

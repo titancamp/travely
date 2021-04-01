@@ -62,20 +62,21 @@ namespace Travely.SchedulerManager.Service
         { 
             var scheduleInfo = await _scheduleRepository.FindAsync(scheduleId);
             var compiledMessage = await _messageCompiler.Compile(scheduleInfo.ScheduleMessageTemplate.Template, scheduleInfo.JsonData);
-            return new NotificationGeneratedModel
-            {
-                ScheduleId = scheduleInfo.Id,
-                UserIds = scheduleInfo.UserSchedules.Select(s => s.UserId).ToList(),
-                Module = scheduleInfo.Module,
-                Message = compiledMessage,
-                RecurseId = scheduleInfo.RecurseId
-            };
+            return _mapper.Map<ScheduleInfo, NotificationGeneratedModel>(scheduleInfo, x => x.AfterMap((src, dest) => dest.Message = compiledMessage));
         }
 
         public async Task<IEnumerable<NotificationGeneratedModel>> GetAllNotifications()
         {
+            var dtos = new List<NotificationGeneratedModel>();
+
             var entities = await _scheduleRepository.GetListAsync(n => true);
-            var dtos = _mapper.Map<List<NotificationGeneratedModel>>(entities);
+            foreach (var entity in entities)
+            {
+                var compiledMessage = await _messageCompiler.Compile(entity.ScheduleMessageTemplate.Template, entity.JsonData);
+                var dto = _mapper.Map<ScheduleInfo, NotificationGeneratedModel>(entity, x => x.AfterMap((src, dest) => dest.Message = compiledMessage));
+                dtos.Add(dto);
+            }
+
             return dtos;
         }
 
