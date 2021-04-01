@@ -8,13 +8,13 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY . .
-RUN dotnet restore "src/ServiceManager/Travely.ServiceManager.Service/Travely.ServiceManager.Service.csproj"
+RUN dotnet restore "/src/src/ServiceManager/Travely.ServiceManager.Service/Travely.ServiceManager.Service.csproj"
 COPY . .
 WORKDIR "/src/src/ServiceManager/Travely.ServiceManager.Service"
-RUN dotnet build "Travely.ServiceManager.Service.csproj" -c Release -o /app/build
+RUN dotnet build "/src/src/ServiceManager/Travely.ServiceManager.Service/Travely.ServiceManager.Service.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Travely.ServiceManager.Service.csproj" -c Release -o /app/publish
+RUN dotnet publish "/src/src/ServiceManager/Travely.ServiceManager.Service/Travely.ServiceManager.Service.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
