@@ -156,34 +156,11 @@ namespace Travely.SchedulerManager.Service
 
             #endregion
 
-            #region Create Jobs for schedule
+            #region Create jobs and save created jobs data
 
-            //TODO: Store job fire interval in DB or in some configuration file
-            var jobDates = GetJobDatesByMessageTemplate(model.MessageTemplate);
-            var createdJobs = new List<ScheduleJob>();
-            foreach (var date in jobDates)
-            {
-                var fireDate = entity.ExpirationDate.AddDays(-date);
-                var jobId = await _scheduledJobService.StartJobAsync(
-                    new NotificationJob(_serviceProvider), //TODO-Question: Why we create new obj?
-                    //TODO: Change this logic when Hangfire will change parameter type to DateTime.
-                    fireDate - DateTime.Now,
-                    new NotificationJobParameter
-                    {
-                        ScheduleId = entity.Id
-                    });
-                createdJobs.Add(new ScheduleJob
-                {
-                    JobId = jobId,
-                    FireDate = fireDate
-                });
-            }
-
-            #endregion
-
-            #region Save created jobs data
-
-            entity.ScheduleJobs = createdJobs;
+            var jobDays = GetJobDatesByMessageTemplate(model.MessageTemplate);
+            var fireDates = jobDays.Select(d => entity.ExpirationDate.AddDays(-d));
+            entity.ScheduleJobs = await StartJobs(fireDates, entity);
             return await _scheduleRepository.SaveAsync();
 
             #endregion
@@ -205,15 +182,14 @@ namespace Travely.SchedulerManager.Service
             var removeTasks = jobs.Select(id => _scheduledJobService.EndJobAsync(id));
             await Task.WhenAll(removeTasks);
 
-            //TODO: Store job fire interval in DB or in some configuration file
-            var jobDates = GetJobDatesByMessageTemplate(model.MessageTemplate);
-            var createdJobs = new List<ScheduleJob>();
-            //TODO: start updated job
-
-            entity.ScheduleJobs = createdJobs;
+            //start job
+            var jobDays = GetJobDatesByMessageTemplate(model.MessageTemplate);
+            var fireDates = jobDays.Select(d => entity.ExpirationDate.AddDays(-d));
+            entity.ScheduleJobs = await StartJobs(fireDates, entity);
             var result = await _scheduleRepository.SaveAsync();
 
             scope.Complete();
+
             return result;
         }
 
@@ -225,6 +201,33 @@ namespace Travely.SchedulerManager.Service
                 MessageTemplate.TourIsApproaching => new[] {5, 10, 20},
                 _ => new int[] {},
             };
+
+        private async Task<ScheduleJob> StartJob(DateTime fireDate, ScheduleInfo entity)
+        {
+            var jobId = await _scheduledJobService.StartJobAsync(
+                new NotificationJob(_serviceProvider), //TODO-Question: Why we create new obj?
+                //TODO: Change this logic when Hangfire will change parameter type to DateTime.
+                fireDate - DateTime.Now,
+                new NotificationJobParameter { ScheduleId = entity.Id });
+
+            return new ScheduleJob
+            {
+                JobId = jobId,
+                FireDate = fireDate
+            };
+        }
+
+        private async Task<List<ScheduleJob>> StartJobs(IEnumerable<DateTime> jobDates, ScheduleInfo entity)
+        {
+            var createdJobs = new List<ScheduleJob>();
+            foreach (var date in jobDates)
+            {
+                var job = await StartJob(date, entity);
+                createdJobs.Add(job);
+            }
+
+            return createdJobs;
+        }
 
         #endregion
     }
