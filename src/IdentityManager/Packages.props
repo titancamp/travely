@@ -20,7 +20,17 @@
     
     <PackageReference Update="Nerdbank.GitVersioning" Version="3.3.37" PrivateAssets="All" IncludeAssets="runtime; build; native; contentfiles; analyzers" />
 
-	<PackageReference Update="Microsoft.AspNetCore.JsonPatch" Version="5.0.4" />
-	<PackageReference Update="AutoMapper" Version="10.1.1" />
+	  <PackageReference Update="Microsoft.AspNetCore.JsonPatch" Version="5.0.4" />
+	  <PackageReference Update="AutoMapper" Version="10.1.1" />
+
+
+    <PackageReference Update="Google.Protobuf" Version="3.15.6" />
+    <PackageReference Update="Grpc.Net.Client" Version="2.36.0" />
+    <PackageReference Update="Grpc.Tools" Version="2.36.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    
+    
   </ItemGroup>
 </Project>
