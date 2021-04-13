@@ -14,7 +14,7 @@ namespace TourManager.Api.Utils
 
             return new ErrorResponse
             {
-                Code = (int)HttpStatusCode.BadRequest
+                Code = (int)HttpStatusCode.BadRequest,
                 Message = errorMessage,
             };
         }
