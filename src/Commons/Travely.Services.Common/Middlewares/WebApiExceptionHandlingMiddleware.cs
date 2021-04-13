@@ -41,7 +41,7 @@ namespace Travely.Services.Common.Middlewares
 
             var errorResponse = new ErrorResponse
             {
-                StatusCode = (int)statusCode,
+                Code = (int)statusCode,
                 Message = message,
             };
 
