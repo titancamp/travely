@@ -7,7 +7,7 @@ using Grpc.Net.Client;
 using TourManager.Clients.Abstraction.PropertyManager;
 using TourManager.Clients.Abstraction.Settings;
 using TourManager.Clients.Implementation.Mappers;
-using TourManager.Common.Clients.PropertyManager;
+using TourManager.Service.Model.PropertyManager;
 using Travely.PropertyManager.API;
 using Travely.Services.Common.CustomExceptions;
 
@@ -22,7 +22,7 @@ namespace TourManager.Clients.Implementation.PropertyManager
             _serviceSettingsProvider = serviceSettingsProvider;
         }
 
-        public Task<int> AddPropertyAsync(int agencyId, AddPropertyRequestDto model)
+        public Task<int> AddPropertyAsync(int agencyId, AddEditPropertyRequestModel model)
         {
             return HandleAsync(async () =>
             {
@@ -37,7 +37,7 @@ namespace TourManager.Clients.Implementation.PropertyManager
             });
         }
 
-        public Task<int> EditPropertyAsync(int agencyId, EditPropertyRequestDto model)
+        public Task<int> EditPropertyAsync(int agencyId, int id, AddEditPropertyRequestModel model)
         {
             return HandleAsync(async () =>
             {
@@ -62,7 +62,7 @@ namespace TourManager.Clients.Implementation.PropertyManager
             });
         }
 
-        public Task<PropertyResponseDto> GetByIdAsync(int agencyId, int id)
+        public Task<PropertyResponseModel> GetByIdAsync(int agencyId, int id)
         {
             return HandleAsync(async () =>
             {
@@ -70,21 +70,21 @@ namespace TourManager.Clients.Implementation.PropertyManager
 
                 var property = await client.GetPropertyByIdAsync(new GetPropertyByIdRequest { Id = id, AgencyId = agencyId });
 
-                return Mapping.Mapper.Map<PropertyResponseDto>(property);
+                return Mapping.Mapper.Map<PropertyResponseModel>(property);
             });
         }
 
-        public Task<IEnumerable<PropertyResponseDto>> GetPropertiesAsync(int agencyId)
+        public Task<IEnumerable<PropertyResponseModel>> GetPropertiesAsync(int agencyId)
         {
-            return HandleAsync<IEnumerable<PropertyResponseDto>>(async () =>
+            return HandleAsync<IEnumerable<PropertyResponseModel>>(async () =>
             {
                 var client = GetPropertyClient();
-                var properties = new List<PropertyResponseDto>();
+                var properties = new List<PropertyResponseModel>();
                 var request = new GetPropertiesRequest { AgencyId = agencyId };
 
                 await foreach (var response in client.GetProperties(request).ResponseStream.ReadAllAsync())
                 {
-                    properties.Add(Mapping.Mapper.Map<PropertyResponseDto>(response));
+                    properties.Add(Mapping.Mapper.Map<PropertyResponseModel>(response));
                 }
 
                 return properties;

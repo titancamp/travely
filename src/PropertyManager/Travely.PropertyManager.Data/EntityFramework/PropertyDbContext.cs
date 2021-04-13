@@ -13,6 +13,8 @@ namespace Travely.PropertyManager.Data.EntityFramework
 
         public DbSet<Property> Properties { get; set; }
 
+        public DbSet<PropertyAttachment> PropertyAttachments { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

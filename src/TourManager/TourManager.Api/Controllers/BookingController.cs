@@ -9,7 +9,6 @@ namespace TourManager.Api.Controllers
 {
     [ApiVersion("1.0")]
     [Authorize(Roles = UserRoles.User)]
-    [Route("api/v{version:apiVersion}/[controller]")]
     public class BookingController : TravelyControllerBase
     {
         private readonly IBookingService _bookingService;

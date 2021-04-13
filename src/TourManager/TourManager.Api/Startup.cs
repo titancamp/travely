@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TourManager.Api.Bootstrapper;
+using TourManager.Api.Utils;
 using TourManager.Clients.Abstraction.PropertyManager;
 using TourManager.Clients.Abstraction.ServiceManager;
 using TourManager.Clients.Abstraction.Settings;
@@ -16,16 +17,14 @@ using TourManager.Common.Settings;
 using TourManager.Service.Abstraction;
 using TourManager.Service.Implementation;
 using TourManager.Service.Model;
-using TourManager.Clients.Abstraction.PropertyManager;
-using TourManager.Service.Implementation;
-using TourManager.Service.Abstraction;
-using TourManager.Clients.Implementation.PropertyManager;
+using Travely.Services.Common.Extensions;
 
 namespace TourManager.Api
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
+
         public IWebHostEnvironment Environment { get; }
 
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
@@ -47,7 +46,8 @@ namespace TourManager.Api
                 config.DefaultApiVersion = new ApiVersion(1, 0);
                 config.AssumeDefaultVersionWhenUnspecified = true;
             });
-
+            services.Configure<ApiBehaviorOptions>(opt => opt.InvalidModelStateResponseFactory =
+                context => new BadRequestObjectResult(context.ModelState.GetFirstErrorResponse()));
             services.AddScoped<IServiceManagerClient, ServiceManagerClient>();
             services.AddScoped<IServiceSettingsProvider, ServiceSettingsProvider>();
             services.AddScoped<IPropertyManagerClient, PropertyManagerClient>();
@@ -71,9 +71,10 @@ namespace TourManager.Api
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
                 app.UseSwaggerDevUI();
             }
+
+            app.UseWebApiExceptionHandler();
 
             app.UseCors(conf => conf.AllowAnyOrigin()
                                     .AllowAnyMethod()
