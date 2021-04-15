@@ -44,7 +44,11 @@ namespace TourManager.Clients.Implementation.PropertyManager
                 var client = GetPropertyClient();
 
                 var request = Mapping.Mapper.Map<EditPropertyRequest>(model, opt =>
-                    opt.AfterMap((src, dest) => dest.AgencyId = agencyId));
+                    opt.AfterMap((src, dest) =>
+                    {
+                        dest.Id = id;
+                        dest.AgencyId = agencyId;
+                    }));
 
                 var response = await client.EditPropertyAsync(request);
 
