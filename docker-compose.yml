@@ -49,8 +49,8 @@ services:
       context: .
       dockerfile: src/PropertyManager/Travely.PropertyManager.API/Dockerfile
     ports:
-        - "5100:80"
-        - "5101:443"
+        - "5400:80"
+        - "5401:443"
     depends_on:
         - sql-server-db
 
