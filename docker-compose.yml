@@ -65,3 +65,15 @@ services:
         - "5501:443"
     depends_on:
         - sql-server-db
+
+  travely.clientmanager.service:
+    image: ${DOCKER_REGISTRY-}travelyclientmanagerservice
+    build:
+      context: .
+      dockerfile: src/ClientManager/Travely.ClientManager.Service/Dockerfile
+    ports:
+        - "5600:80"
+        - "5601:443"
+    depends_on:
+        - sql-server-db
+
