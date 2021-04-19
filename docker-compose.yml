@@ -54,3 +54,14 @@ services:
     depends_on:
         - sql-server-db
 
+
+  fileservice:
+    image: ${DOCKER_REGISTRY-}fileservice
+    build:
+      context: .
+      dockerfile: src/FileServiceManager/FileService/Dockerfile
+    ports:
+        - "5500:80"
+        - "5501:443"
+    depends_on:
+        - sql-server-db

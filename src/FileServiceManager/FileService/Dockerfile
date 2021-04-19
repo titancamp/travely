@@ -1,26 +1,17 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
-#For more information, please see https://aka.ms/containercompat
-
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-COPY ["Models/Models.csproj","travely/src/FileServiceManager/Models/"]
-RUN dotnet restore "travely/src/FileServiceManager/Models/Models.csproj"
-COPY ["FileService/FileService.csproj", "travely/src/FileServiceManager/FileService/"]
-RUN dotnet restore "travely/src/FileServiceManager/FileService/FileService.csproj"
-
-WORKDIR "/src/travely/src/FileServiceManager/Models"
-COPY "Models/" .
-RUN dotnet build "Models.csproj" -c Release -o /app/build
-
-WORKDIR "/src/travely/src/FileServiceManager/FileService"
-COPY "FileService/" .
+COPY ["src/FileServiceManager/FileService/FileService.csproj", "src/FileServiceManager/FileService/"]
+COPY ["src/FileServiceManager/Models/Models.csproj", "src/FileServiceManager/Models/"]
+RUN dotnet restore "src/FileServiceManager/FileService/FileService.csproj"
+COPY . .
+WORKDIR "/src/src/FileServiceManager/FileService"
 RUN dotnet build "FileService.csproj" -c Release -o /app/build
 
 FROM build AS publish
