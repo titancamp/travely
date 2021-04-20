@@ -20,24 +20,15 @@ namespace Travely.IdentityManager.Service.Identity
 {
     public class AuthenticationService : BaseService, IAuthenticationService
     {
-
         private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IAgencyRepository _agencyRepository;
         private readonly IMapper _mapper;
         private readonly IPasswordHasher<User> _passHasher;
-        private readonly IEmailTokenService _emailTokenService;
 
-        public AuthenticationService
-            (IUserRepository userRepository,
-            IUnitOfWork unitOfWork,
-            IEmployeeRepository employeeRepository,
-            IAgencyRepository agencyRepository,
-            IMapper mapper,
-            IPasswordHasher<User> passHasher,
-            IEmailTokenService emailTokenService)
-            : base(mapper)
+        public AuthenticationService(IUserRepository userRepository, IUnitOfWork unitOfWork,
+            IEmployeeRepository employeeRepository, IAgencyRepository agencyRepository, IMapper mapper, IPasswordHasher<User> passHasher) : base(mapper)
         {
 
             _userRepository = userRepository;
@@ -46,7 +37,6 @@ namespace Travely.IdentityManager.Service.Identity
             _agencyRepository = agencyRepository;
             _mapper = mapper;
             _passHasher = passHasher;
-            _emailTokenService = emailTokenService;
         }
 
         /// <summary>
@@ -55,25 +45,9 @@ namespace Travely.IdentityManager.Service.Identity
         /// <param name="userId"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<ResultViewModel> ConfirmEmailAsync(string email, string token, CancellationToken ct = default)
+        public async Task<ResultViewModel> ConfirmEmailAsync(string userId, string token, CancellationToken ct = default)
         {
-            var result = new ResultViewModel();
-            var user = await _userRepository.FindByEmailAsync(email);
-            var isValidToken = await _emailTokenService.ValidateTokenAsync(email, token);
-            if (user != null && isValidToken)
-            {
-                user.EmailConfirmed = true;
-                user.UpdatedBy = user.Id;
-                user.UpdatedDate = DateTime.Now;
-                _userRepository.Update(user);
-                result.IsSuccess = true;
-            }
-            else
-            {
-                result.Errors = new List<string> { "Invalid User" };
-                result.IsSuccess = false;
-            }
-            return result;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -83,37 +57,7 @@ namespace Travely.IdentityManager.Service.Identity
         /// <returns></returns>
         public async Task<ResultViewModel> ForgetPasswordAsync(string email, CancellationToken ct = default)
         {
-            var result = new ResultViewModel();
-            var user = await _userRepository.FindByEmailAsync(email, ct);
-            if (user != null)
-            {
-                var code = await _emailTokenService.GenerateTokenAsync(email, ct);
-                var baseUrl = "http://localhost:5000";
-                var resetUrl = $"{baseUrl}/api/account/password/reset?email={user.UserName}&code={code}";
-
-                //var message = $"Hi {user.UserName}, We've received a request to reset your password. If you didn't make the request, just ignore this email. " +
-                //       $"Otherwise, you can reset your password by clicking {resetUrl}." + Environment.NewLine + $"Thanks, The {user.Agency.Name} Team";
-
-                var agency = await _agencyRepository.FindAsync(item => item.OwnerId == user.Id);
-                var htmlBody = $"<p>Hi {user.UserName},</p><p>We've received a request to reset your password.<br />If you didn't make the request, just ignore this email.<br />" +
-                $"Otherwise, you can reset your password by clicking <a href=\"{resetUrl}\">here</a>.</p><p>Thanks,</p> <p>The {agency.Name} Team</p>";
-
-
-                using (var channel = GrpcChannel.ForAddress(""))  //??//
-                {
-                    var client = new EmailGrpc.EmailGrpcClient(channel);
-                    var request = new SendEmailRequest
-                    {
-                        Receiver = email,
-                        Title = "Reset Password Request",
-                        Subject = "Reset Password Request",
-                        Content = htmlBody
-                    };
-                    var response = await client.SendAsync(request);
-                    result.IsSuccess = true;
-                }
-            }
-            return result;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -123,36 +67,11 @@ namespace Travely.IdentityManager.Service.Identity
         /// <returns></returns>
         public async Task<ResultViewModel> ResetPasswordAsync(ResetPasswordViewModel model, CancellationToken ct = default)
         {
-            var result = new ResultViewModel();
-            var user = await _userRepository.FindByEmailAsync(model.Email, ct);
-            if (user != null)
-            {
-                var isValidToken = await _emailTokenService.ValidateTokenAsync(model.Email, model.Token, ct);
-                if (isValidToken)
-                {
-                    user.Password = _passHasher.HashPassword(user, model.NewPassword);
-                    user.UpdatedBy = user.Id;
-                    user.UpdatedDate = DateTime.Now;
-                    _userRepository.Update(user);
-                    result.IsSuccess = true;
-                }
-                else
-                {
-                    result.Errors = new List<string> { "Link Not Valid" };
-                    result.IsSuccess = false;
-                }
-            }
-            else
-            {
-                result.Errors = new List<string> { "User Not Found" };
-                result.IsSuccess = false;
-            }
-            return result;
+            throw new NotImplementedException();
         }
 
-        public async Task<ResultViewModel> RegisterUserAsync(RegisterRequestModel model, CancellationToken ct)
+        public async Task RegisterUserAsync(RegisterRequestModel model, CancellationToken ct)
         {
-            var result = new ResultViewModel();
             User user = _mapper.Map<User>(model);
             _userRepository.Add(user);
             user.Agency.Owner = user;
@@ -160,32 +79,7 @@ namespace Travely.IdentityManager.Service.Identity
             user.Employee.Agency = user.Agency;
             _agencyRepository.Add(user.Agency);
 
-            await _unitOfWork.SaveChangesAsync(ct);
-
-            var baseUrl = "http://localhost:5000";
-            var code = await _emailTokenService.GenerateTokenAsync(model.Email, ct);
-            var confirmationLink = $"{baseUrl}/api/account/confirm?email={user.UserName}&code={code}";
-            //var message = $"Hi {user.UserName}, Please confirm your email." +
-            //           $"You can confirm your email by clicking {confirmationLink}." + Environment.NewLine + $"Thanks, The {user.Agency.Name} Team";
-
-            var agency = await _agencyRepository.FindAsync(item => item.OwnerId == user.Id);
-            var htmlBody = $"<p>Hi {user.UserName},</p><p>Please confirm your email.<br /> <br />" +
-               $"You can confirm your email by clicking <a href=\"{confirmationLink}\">here</a>.</p><p>Thanks,</p> <p>The {agency.Name} Team</p>";
-
-            using (var channel = GrpcChannel.ForAddress(""))
-            {
-                var client = new EmailGrpc.EmailGrpcClient(channel);
-                var request = new SendEmailRequest
-                {
-                    Receiver = model.Email,
-                    Title = "Email Confirmation",
-                    Subject = "Email Confirmation",
-                    Content = htmlBody
-                };
-                var response = await client.SendAsync(request);
-                result.IsSuccess = true;
-            }
-            return result;
+            await _unitOfWork.SaveChangesAsync();
         }
 
         /// <summary>
@@ -195,7 +89,7 @@ namespace Travely.IdentityManager.Service.Identity
         /// <returns></returns>
         public async Task<UserResponseModel> GetUserById(int id, CancellationToken ct = default)
         {
-            return _mapper.Map<UserResponseModel>(await _userRepository.GetAll().Include(x => x.Employee).FirstOrDefaultAsync(x => x.Id == id));
+            return _mapper.Map<UserResponseModel>(await _userRepository.GetAll().Include(x => x.Employee).FirstOrDefaultAsync(x=>x.Id == id));
         }
 
         /// <summary>
@@ -204,7 +98,7 @@ namespace Travely.IdentityManager.Service.Identity
         /// <returns></returns>
         public async Task<List<UserResponseModel>> GetUsers(CancellationToken ct = default)
         {
-            return await _mapper.ProjectTo<UserResponseModel>(_userRepository.GetAll().Include(x => x.Employee)).ToListAsync();
+            return await _mapper.ProjectTo<UserResponseModel>(_userRepository.GetAll().Include(x=>x.Employee)).ToListAsync();
         }
 
         /// <summary>
@@ -240,7 +134,7 @@ namespace Travely.IdentityManager.Service.Identity
             user.Password = Guid.NewGuid().ToString();
             user.Agency = agency;
             user.Employee.Agency = user.Agency;
-
+            
             _userRepository.Add(user);
 
             await _unitOfWork.SaveChangesAsync(ct);
@@ -255,7 +149,7 @@ namespace Travely.IdentityManager.Service.Identity
         /// <param name="ct"></param>
         /// <returns></returns>
         public async Task<UserResponseModel> Update(UserRequestModel userRequestModel, CancellationToken ct = default)
-        {
+        {            
             User user = await _userRepository.FindAsync(x => x.UserName == userRequestModel.Email);
             if (user is null)
             {
@@ -285,17 +179,14 @@ namespace Travely.IdentityManager.Service.Identity
 
         public async Task UpdateAccountAsync(UserContextModel userContext, JsonPatchDocument<UpdateAgencyRequestModel> jsonPatch, CancellationToken ct)
         {
-            Employee employee = await _employeeRepository.GetAll().Where(x => x.AgencyId == userContext.AgencyId).Include(x => x.Agency).FirstOrDefaultAsync();
-            UpdateAgencyRequestModel jsonPatchDTO = _mapper.Map<UpdateAgencyRequestModel>(employee);
+            Agency agency = await _agencyRepository.FindByIdAsync(userContext.AgencyId);
+            UpdateAgencyRequestModel jsonPatchDTO = _mapper.Map<UpdateAgencyRequestModel>(agency);
 
             jsonPatch.ApplyTo(jsonPatchDTO);
-
-            _mapper.Map(jsonPatchDTO, employee);
-
-            _employeeRepository.Update(employee);
+            _mapper.Map(jsonPatchDTO, agency);
+            _agencyRepository.Update(agency);
 
             await _unitOfWork.SaveChangesAsync();
-
         }
 
         /// <summary>
@@ -310,7 +201,7 @@ namespace Travely.IdentityManager.Service.Identity
             var data = _mapper.Map<AgencyResponseModel>(_agencyRepository.Add(entity));
             var user = new User
             {
-               Agency = entity
+                Agency = entity
             };
             var employe = new Employee
             {
@@ -320,7 +211,6 @@ namespace Travely.IdentityManager.Service.Identity
             _userRepository.Add(user);
             await _unitOfWork.SaveChangesAsync(ct);
             return data;
-
         }
     }
 }

@@ -16,6 +16,7 @@ namespace Travely.IdentityManager.WebApi.Extensions
                 cfg.AddProfile(new UserProfile(provider.GetRequiredService<IPasswordHasher<User>>()));
                 cfg.AddProfile(new PersistGrantProfile());
                 cfg.AddProfile(new EmployeeProfile());
+                cfg.AddProfile(new AgencyProfile());
             }).CreateMapper());
 
         }
