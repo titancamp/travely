@@ -13,6 +13,7 @@ namespace Travely.IdentityManager.Repository.Abstractions.Entities
         public string Name { get; set; }
         public int OwnerId { get; set; }
         public string? Address { get; set; }
+        public string? PhoneNumber { get; set; }
         public string? LogoFile { get; set; }
         public Status Status { get; set; }
         public DateTime CreatedDate { get; set; }
