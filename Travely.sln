@@ -5,19 +5,10 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TourManager", "TourManager", "{90D98036-508B-4ED9-A502-0D0340502EC4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{7EA3055C-8CB7-48A8-81F3-3AF46E88F634}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientManager", "ClientManager", "{DD524728-1376-4BBE-9528-4FC9688B8F8B}"
 	ProjectSection(SolutionItems) = preProject
 		src\ClientManager\test.txt = src\ClientManager\test.txt
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EquipmentManager", "EquipmentManager", "{A7E62B25-7DC0-4B54-B652-E74837FE2DCC}"
-	ProjectSection(SolutionItems) = preProject
-		src\EquipmentManager\test.txt = src\EquipmentManager\test.txt
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityManager", "IdentityManager", "{1742E743-3758-4121-8FF3-61FC2BAB3F24}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PropertyManager", "PropertyManager", "{DFD7AFF6-28B5-4371-AD7C-D5E84F2B8172}"
 EndProject

@@ -26,6 +26,12 @@ services:
         - "5001:443"
     depends_on:
         - sql-server-db
+    environment:
+        - ASPNETCORE_URLS=https://+:443;http://+:80
+        - ASPNETCORE_Kestrel__Certificates__Default__Password=admin
+        - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
 
   travely.servicemanager.service:
     image: ${DOCKER_REGISTRY-}travelyservicemanagerservice
@@ -37,6 +43,12 @@ services:
         - "5201:443"
     depends_on:
         - sql-server-db
+    environment:
+        - ASPNETCORE_URLS=https://+:443;http://+:80
+        - ASPNETCORE_Kestrel__Certificates__Default__Password=admin
+        - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
 
   travely.schedulermanager.api:
     image: ${DOCKER_REGISTRY-}travelyschedulermanagerapi
@@ -48,6 +60,12 @@ services:
         - "5301:443"
     depends_on:
         - sql-server-db
+    environment:
+        - ASPNETCORE_URLS=https://+:443;http://+:80
+        - ASPNETCORE_Kestrel__Certificates__Default__Password=admin
+        - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
 
   travely.propertymanager.api:
     image: ${DOCKER_REGISTRY-}travelypropertymanagerapi
@@ -59,6 +77,12 @@ services:
         - "5401:443"
     depends_on:
         - sql-server-db
+    environment:
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=admin
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
 
 
   fileservice:
@@ -71,6 +95,12 @@ services:
         - "5501:443"
     depends_on:
         - sql-server-db
+    environment:
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=admin
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
 
 
   travely.clientmanager.service:
@@ -83,4 +113,10 @@ services:
         - "5111:443"
     depends_on:
         - sql-server-db
+    environment:
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=admin
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
 

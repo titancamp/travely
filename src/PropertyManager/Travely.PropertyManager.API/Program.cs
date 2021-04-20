@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -7,6 +8,8 @@ namespace Travely.PropertyManager.API
     {
         public static void Main(string[] args)
         {
+            AppContext.SetSwitch(
+                "System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
             var host = CreateHostBuilder(args).Build();
             host.Run();
         }
