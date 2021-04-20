@@ -13,7 +13,7 @@ COPY ["src/ClientManager/Travely.ClientManager.Abstraction/Travely.ClientManager
 COPY ["src/ClientManager/Travely.ClientManager.Repository/Travely.ClientManager.Repository.csproj", "src/ClientManager/Travely.ClientManager.Repository/"]
 RUN dotnet restore "src/ClientManager/Travely.ClientManager.Service/Travely.ClientManager.Service.csproj"
 COPY . .
-WORKDIR "/src/src/ClientManager/Travely.ClientManager.Service"
+WORKDIR "src/ClientManager/Travely.ClientManager.Service"
 RUN dotnet build "Travely.ClientManager.Service.csproj" -c Release -o /app/build
 
 FROM build AS publish
