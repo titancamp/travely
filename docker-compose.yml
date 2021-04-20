@@ -74,16 +74,6 @@ services:
     depends_on:
         - sql-server-db
 
-  travely.servicemanager.service:
-    image: ${DOCKER_REGISTRY-}travelyservicemanager
-    build:
-      context: .
-      dockerfile: src/ServiceManager/Travely.ServiceManager.Service/Dockerfile
-    ports:
-        - "5150:80"
-        - "5151:443"
-    depends_on:
-        - sql-server-db
 
   travely.clientmanager.service:
     image: ${DOCKER_REGISTRY-}travelyclientmanagerservice
@@ -94,16 +84,4 @@ services:
         - "5111:443"
     depends_on:
         - sql-server-db
-
-  travely.schedulermanager.api:
-    image: ${DOCKER_REGISTRY-}travelyschedulermanagerapi
-    build:
-      context: .
-      dockerfile: src/SchedulerManager/Travely.SchedulerManager.API/Dockerfile
-    ports:
-        - "5200:80"
-        - "5201:443"
-    depends_on:
-        - sql-server-db
-        - redis-cache
 
