@@ -5,10 +5,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TourManager.Api.Bootstrapper;
 using Travely.PropertyManager.API.Helpers;
 using Travely.PropertyManager.API.Interceptors;
 using Travely.PropertyManager.API.Services;
 using Travely.PropertyManager.Bootstrapper.Helpers;
+using Travely.PropertyManager.Data.EntityFramework;
 using Travely.Services.Common.Extensions;
 
 namespace Travely.PropertyManager.API
@@ -35,7 +37,7 @@ namespace Travely.PropertyManager.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.ApplyDatabaseMigrations();
+            app.ApplyDatabaseMigrations<PropertyDbContext>();
 
             if (env.IsDevelopment())
             {

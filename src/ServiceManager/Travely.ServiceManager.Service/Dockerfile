@@ -7,6 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
+COPY ["src/Commons/Travely.Common/Travely.Common.csproj", "src/Commons/Travely.Common/"]
 COPY ["src/ServiceManager/Travely.ServiceManager.Service/Travely.ServiceManager.Service.csproj", "src/ServiceManager/Travely.ServiceManager.Service/"]
 COPY ["src/ServiceManager/Travely.ServiceManager.Abstraction/Travely.ServiceManager.Abstraction.csproj", "src/ServiceManager/Travely.ServiceManager.Abstraction/"]
 COPY ["src/ServiceManager/Travely.ServiceManager.DAL/Travely.ServiceManager.DAL.csproj", "src/ServiceManager/Travely.ServiceManager.DAL/"]

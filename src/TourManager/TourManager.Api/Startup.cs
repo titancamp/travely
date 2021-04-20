@@ -16,6 +16,7 @@ using TourManager.Clients.Implementation.SchedulerManager;
 using TourManager.Clients.Implementation.ServiceManager;
 using TourManager.Clients.Implementation.Settings;
 using TourManager.Common.Settings;
+using TourManager.Repository.EfCore.Context;
 using TourManager.Service.Abstraction;
 using TourManager.Service.Implementation;
 using TourManager.Service.Model;
@@ -59,7 +60,7 @@ namespace TourManager.Api
             services.Configure<GrpcServiceSettings>(Configuration.GetSection("GrpcServiceSettings"));
 
             services
-                .AddSqlServer(Configuration)
+                .AddSqlServer<TourDbContext>(Configuration.GetConnectionString("TourDbContext"), "TourManager.Repository.EfCore.MsSql" )
                 .AddAutoMapper(typeof(Startup))
                 .AddSwagger()
                 .AddTourManagerServices()
@@ -71,7 +72,7 @@ namespace TourManager.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.ApplyDatabaseMigrations();
+            app.ApplyDatabaseMigrations<TourDbContext>();
 
             if (env.IsDevelopment())
             {

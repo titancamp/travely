@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TourManager.Api.Bootstrapper;
 using Travely.SchedulerManager.API.Helpers;
 using Travely.SchedulerManager.API.Services;
 using Travely.SchedulerManager.Common;
@@ -53,6 +54,7 @@ namespace Travely.SchedulerManager.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.ApplyDatabaseMigrations<SchedulerDbContext>();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
