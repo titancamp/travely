@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using TourManager.Common.Clients.PropertyManager;
+using TourManager.Service.Model.PropertyManager;
 using Travely.PropertyManager.API;
 
 namespace TourManager.Clients.Implementation.Mappers
@@ -8,13 +8,13 @@ namespace TourManager.Clients.Implementation.Mappers
     {
         public PropertyClientProfile()
         {
-            CreateMap<PropertyAttachmentDto, PropertyAttachment>()
+            CreateMap<PropertyAttachmentModel, PropertyAttachment>()
                 .ReverseMap();
-            CreateMap<AddPropertyRequestDto, AddPropertyRequest>();
-            CreateMap<EditPropertyRequestDto, EditPropertyRequest>()
+            CreateMap<AddEditPropertyRequestModel, AddPropertyRequest>();
+            CreateMap<AddEditPropertyRequestModel, EditPropertyRequest>()
                 .ForMember(dest => dest.Attachments, opt => opt.MapFrom(src => src.Attachments));
-            CreateMap<GetPropertyByIdResponse, PropertyResponseDto>();
-            CreateMap<GetPropertiesResponse, PropertyResponseDto>();
+            CreateMap<GetPropertyByIdResponse, PropertyResponseModel>();
+            CreateMap<GetPropertiesResponse, PropertyResponseModel>();
         }
     }
 }

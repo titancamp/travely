@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 
-namespace TourManager.Api.Models.Requests
+namespace TourManager.Service.Model.PropertyManager
 {
-    public class AddPropertyRequestModel
+    public class PropertyResponseModel
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public byte Stars { get; set; }
@@ -22,6 +24,6 @@ namespace TourManager.Api.Models.Requests
 
         public string Website { get; set; }
 
-        public IFormFileCollection AttachmentsToAdd { get; set; }
+        public IEnumerable<PropertyAttachmentModel> Attachments { get; set; } = new List<PropertyAttachmentModel>();
     }
 }

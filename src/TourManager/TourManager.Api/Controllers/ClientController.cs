@@ -5,10 +5,8 @@ using TourManager.Service.Model;
 
 namespace TourManager.Api.Controllers
 {
-	[ApiController]
-	[ApiVersion("1.0")]
-	[Route("api/v{version:apiVersion}/[controller]")]
-	public class ClientController : ControllerBase
+    [ApiVersion("1.0")]
+	public class ClientController : TravelyControllerBase
 	{
 		private readonly IClientManagerServiceClient _clientManagerClient;
 

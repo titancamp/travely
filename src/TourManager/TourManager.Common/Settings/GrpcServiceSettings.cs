@@ -7,5 +7,7 @@
 		public string PropertyServiceUrl { get; set; }
 
 		public string ClientServiceUrl { get; set; }
+
+		public string SchedulerServiceUrl { get; set; }
 	}
 }

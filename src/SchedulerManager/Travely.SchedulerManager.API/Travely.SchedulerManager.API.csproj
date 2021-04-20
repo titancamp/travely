@@ -5,11 +5,8 @@
     <UserSecretsId>2c494134-98e9-4e19-8426-40e432e9c940</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Protos\reminder.proto" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
@@ -28,7 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\reminder.proto" GrpcServices="Server" />
+    <Protobuf Include="..\..\..\proto\reminder.proto" GrpcServices="Server">
+      <Link>Protos\reminder.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
 </Project>
