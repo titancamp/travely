@@ -15,7 +15,7 @@ namespace Travely.IdentityManager.Service.Abstractions.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "Password mismatch")]
+        [Compare("NewPassword", ErrorMessage = "Password mismatch")]
         public string ConfirmPassword { get; set; }
 
         [Required]

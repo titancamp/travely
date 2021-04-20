@@ -1,0 +1,16 @@
+﻿syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+option csharp_namespace = "Travely.IdentityManager.Service";
+
+service EmailGrpc{
+	rpc Send (SendEmailRequest) returns (google.protobuf.Empty);
+}
+
+message SendEmailRequest{
+string receiver = 1;
+string title = 2;
+google.protobuf.StringValue subject = 3;
+string content = 4;
+}

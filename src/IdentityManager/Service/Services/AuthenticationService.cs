@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
 using AutoMapper;
+using Grpc.Net.Client;
+using IdentityManager.Service.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
-
 using Travely.IdentityManager.Repository.Abstractions;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
-
 using Travely.IdentityManager.Service.Abstractions;
 using Travely.IdentityManager.Service.Abstractions.Models;
 using Travely.IdentityManager.Service.Abstractions.Models.Request;

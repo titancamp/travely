@@ -1,4 +1,3 @@
-﻿
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
@@ -47,9 +46,9 @@ namespace IdentityManager.DataService.Extensions
                     options.ExpectedScope = null;
                     
                 });
+
+            services.AddScoped<IEmailTokenService, EmailTokenService>();
+            
         }
-
-
-
     }
 }

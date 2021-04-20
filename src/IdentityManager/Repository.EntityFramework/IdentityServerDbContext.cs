@@ -462,7 +462,14 @@ namespace Travely.IdentityManager.Repository.EntityFramework
 
             modelBuilder.Entity<User>(entity =>
             {
-               
+                modelBuilder.Entity<User>(entity =>
+                {
+                    entity.ToTable("Users");
+
+                    entity.Property(e => e.Password).IsRequired();
+
+                    entity.Property(e => e.UserName).IsRequired();
+                });
             });
 
         }

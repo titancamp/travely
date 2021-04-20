@@ -36,7 +36,7 @@ namespace Travely.IdentityManager.Repository.EntityFramework
 
         public virtual async Task<TEntity> FindByIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            return await Set.FindAsync(id);
+            return await Set.FindAsync(new object[] { id }, cancellationToken);
         }
 
         public TEntity Update(TEntity entity)
