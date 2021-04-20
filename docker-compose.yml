@@ -15,8 +15,6 @@ services:
    image: "redis:alpine"
    ports:
     - "6379:6379"
-   expose:
-    - "6379"
   
   tourmanager.api:
     image: ${DOCKER_REGISTRY-}tourmanagerapi
@@ -80,6 +78,7 @@ services:
     build:
       context: .
       dockerfile: src/ClientManager/Travely.ClientManager.Service/Dockerfile
+    ports:
         - "5110:80"
         - "5111:443"
     depends_on:
