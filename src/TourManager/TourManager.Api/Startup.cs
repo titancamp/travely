@@ -16,10 +16,6 @@ using TourManager.Common.Settings;
 using TourManager.Service.Abstraction;
 using TourManager.Service.Implementation;
 using TourManager.Service.Model;
-using TourManager.Clients.Abstraction.PropertyManager;
-using TourManager.Service.Implementation;
-using TourManager.Service.Abstraction;
-using TourManager.Clients.Implementation.PropertyManager;
 
 namespace TourManager.Api
 {
