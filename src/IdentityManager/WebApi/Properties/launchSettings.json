@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "IdentityManager.API": {
+    "IdentityManager.WebApi": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

@@ -1,22 +1,36 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Serilog;
+using Serilog.Sinks.MSSqlServer;
+using System;
 using System.Threading.Tasks;
-using Travely.SchedulerManager.Repository;
 
 namespace Travely.SchedulerManager.API
 {
     public class Program
     {
-        public static Task Main(string[] args) => CreateHostBuilder(args).Build().RunAsync();
-        //TODO: Fix an issue related to seeding data
-        //public static async Task Main(string[] args)
-        //{
-
-        //    await (await CreateHostBuilder(args).Build().SeedData()).RunAsync();
-        //}
+        public static Task Main(string[] args)
+        {
+            AppDomain.CurrentDomain.ProcessExit += (s, e) => Log.CloseAndFlush();
+            return CreateHostBuilder(args).Build().RunAsync();
+        }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
+                .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>())
+                .UseSerilog((hostingContext, loggerConfiguration) =>
+                {
+                    IConfiguration configuration = hostingContext.Configuration;
+                    loggerConfiguration.ReadFrom.Configuration(configuration)
+                    .WriteTo.Console()
+                    .WriteTo.MSSqlServer(
+                        connectionString: configuration["SeriLog:ConnectionString"],
+                        sinkOptions: new MSSqlServerSinkOptions
+                        {
+                            TableName = configuration["SeriLog:LogTable"],
+                            AutoCreateSqlTable = true
+                        });
+                });
     }
 }
