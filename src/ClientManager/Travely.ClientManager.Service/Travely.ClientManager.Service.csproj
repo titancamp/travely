@@ -26,8 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\..\..\Proto\client.proto" GrpcServices="Server" Link="Protos\client.proto" />
-    <Protobuf Include="..\..\..\Proto\preference.proto" GrpcServices="Server" Link="Protos\preference.proto" />
+    <Protobuf Include="..\..\..\proto\client.proto" GrpcServices="Server" Link="Protos\client.proto" />
+    <Protobuf Include="..\..\..\proto\preference.proto" GrpcServices="Server" Link="Protos\preference.proto" />
   </ItemGroup>
 
 </Project>
