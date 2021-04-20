@@ -1,13 +1,15 @@
-﻿using IdentityManager.API.Models;
-using IdentityManager.WebApi.Models;
-using IdentityManager.WebApi.Models.Error;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Travely.IdentityManager.WebApi.Identity;
+using Travely.IdentityManager.Service.Abstractions;
+using Travely.IdentityManager.Service.Abstractions.Models;
+using Travely.IdentityManager.Service.Abstractions.Models.Error;
+using Travely.IdentityManager.Service.Abstractions.Models.Request;
+using Travely.IdentityManager.WebApi.Extensions;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
@@ -62,7 +64,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <returns></returns>
         [HttpPost("password/forget")]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult<ResultViewModel>> ForgetPassword(ForgotPasswordViewModel forgotPasswordViewModel, CancellationToken cancellationToken = default)
         {
             if (!ModelState.IsValid)
@@ -89,5 +91,14 @@ namespace Travely.IdentityManager.WebApi.Controllers
 
             return BadRequest("Some properties are not valid");
         }
+
+        [HttpPatch("agency")]
+        [Authorize]
+        public async Task UpdateAccountAsync([FromBody] JsonPatchDocument<UpdateAgencyRequestModel> agencyPatch, CancellationToken cancellationToken = default)
+        {
+            await _authenticationService.UpdateAccountAsync(HttpContext.GetUserContext(), agencyPatch, cancellationToken);
+        }
+        
+
     }
 }

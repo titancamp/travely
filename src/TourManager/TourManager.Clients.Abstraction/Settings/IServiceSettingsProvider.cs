@@ -7,5 +7,7 @@
 		string ComposePropertyServiceUrl();
 
 		string ComposeClientServiceUrl();
+
+		string ComposeSchedulerServiceUrl();
 	}
 }

@@ -5,18 +5,11 @@ using Travely.IdentityClient.Authorization.Data;
 namespace TourManager.Api.Controllers
 {
     [ApiController]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class TravelyControllerBase : ControllerBase
     {
         private UserInfo _userInfo;
-        public UserInfo UserInfo
-        {
-            get
-            {
-                if (_userInfo == null)
-                    _userInfo = HttpContext.GetTravelyUserInfo();
 
-                return _userInfo;
-            }
-        }
+        protected UserInfo UserInfo => _userInfo ??= HttpContext.GetTravelyUserInfo();
     }
 }

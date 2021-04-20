@@ -10,6 +10,14 @@ services:
         SA_PASSWORD: "Passw0rd!"
         ACCEPT_EULA: "Y"
 
+  redis-cache:
+   container_name: redis-cache
+   image: "redis:alpine"
+   ports:
+    - "6379:6379"
+   expose:
+    - "6379"
+  
   tourmanager.api:
     image: ${DOCKER_REGISTRY-}tourmanagerapi
     build:
@@ -66,14 +74,36 @@ services:
     depends_on:
         - sql-server-db
 
+  travely.servicemanager.service:
+    image: ${DOCKER_REGISTRY-}travelyservicemanager
+    build:
+      context: .
+      dockerfile: src/ServiceManager/Travely.ServiceManager.Service/Dockerfile
+    ports:
+        - "5150:80"
+        - "5151:443"
+    depends_on:
+        - sql-server-db
+
   travely.clientmanager.service:
     image: ${DOCKER_REGISTRY-}travelyclientmanagerservice
     build:
       context: .
       dockerfile: src/ClientManager/Travely.ClientManager.Service/Dockerfile
-    ports:
-        - "5600:80"
-        - "5601:443"
+        - "5110:80"
+        - "5111:443"
     depends_on:
         - sql-server-db
+
+  travely.schedulermanager.api:
+    image: ${DOCKER_REGISTRY-}travelyschedulermanagerapi
+    build:
+      context: .
+      dockerfile: src/SchedulerManager/Travely.SchedulerManager.API/Dockerfile
+    ports:
+        - "5200:80"
+        - "5201:443"
+    depends_on:
+        - sql-server-db
+        - redis-cache
 

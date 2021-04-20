@@ -72,6 +72,11 @@ namespace Travely.PropertyManager.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("FileId")
+                        .HasMaxLength(36)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(36)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -79,10 +84,6 @@ namespace Travely.PropertyManager.Data.Migrations
 
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Url")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
 
                     b.HasKey("Id");
 
