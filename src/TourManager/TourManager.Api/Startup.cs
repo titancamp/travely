@@ -21,6 +21,7 @@ using TourManager.Service.Implementation;
 using TourManager.Service.Model;
 using Travely.Services.Common.Extensions;
 
+
 namespace TourManager.Api
 {
     public class Startup
