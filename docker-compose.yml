@@ -40,6 +40,17 @@ services:
     depends_on:
         - sql-server-db
 
+  travely.servicemanager.service:
+    image: ${DOCKER_REGISTRY-}travelyservicemanager
+    build:
+      context: .
+      dockerfile: src/ServiceManager/Travely.ServiceManager.Service/Dockerfile
+    ports:
+        - "5150:80"
+        - "5151:443"
+    depends_on:
+        - sql-server-db
+
   travely.clientmanager.service:
     image: ${DOCKER_REGISTRY-}travelyclientmanagerservice
     build:
@@ -62,4 +73,3 @@ services:
     depends_on:
         - sql-server-db
         - redis-cache
-
