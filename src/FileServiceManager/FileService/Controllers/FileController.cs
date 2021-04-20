@@ -7,13 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Travely.IdentityClient.Authorization;
 
 namespace FileService.Controllers
 {
     [Produces("application/json")]
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize]
     public class FileController : ControllerBase
     {
         private readonly IStorage _storage;
@@ -24,6 +24,7 @@ namespace FileService.Controllers
         }
 
         [HttpGet("Download")]
+        [Authorize(Roles = UserRoles.User)]
         public async Task<FileResult> DownLoadFileAsync(Guid fileId, int companyId)
         {
             var fileInfo = await _storage.GetFileAsync(fileId, companyId);
@@ -32,18 +33,21 @@ namespace FileService.Controllers
         }
 
         [HttpPost("Upload")]
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<ActionResult<Guid>> UploadFileAsync(IFormFile file, int companyId)
         {
             return await _storage.UploadFileAsync(file, companyId);
         }
 
         [HttpDelete]
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<ActionResult<bool>> RemoveFileAsync(Guid fileId, int companyId)
         {
             return await _storage.RemoveFileAsync(fileId, companyId);
         }
 
         [HttpGet("GetAllFiles")]
+        [Authorize(Roles = UserRoles.User)]
         public async IAsyncEnumerable<FileMetadata> GetAllFilesAsync(int companyId)
         {
             await foreach(var fileInfo in _storage.GetAllFilesAsync(companyId))

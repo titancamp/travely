@@ -11,12 +11,14 @@ namespace FileServiceManager.FileService
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             Configuration = configuration;
+            Environment = webHostEnvironment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -35,6 +37,8 @@ namespace FileServiceManager.FileService
                     Contact = new OpenApiContact { Name = "https://www.servicetitan.com" }
                 });
             });
+
+            services.AddTravelyAuthentication(Configuration, Environment);
 
             services.Configure<StorageOption>(Configuration.GetSection(StorageOption.Storage));
 
@@ -82,6 +86,8 @@ namespace FileServiceManager.FileService
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+
+            app.ConfigureTravelyAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
