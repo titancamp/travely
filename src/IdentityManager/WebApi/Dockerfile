@@ -11,7 +11,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["src/IdentityManager/WebApi/IdentityManager.WebApi.csproj", "IdentityManager/WebApi/"]
-COPY ["src/IdentityManager/DataService/IdentityManager.DataService.csproj", "IdentityManager/DataService/"]
+COPY ["src/IdentityManager/Service/IdentityManager.Service.csproj", "IdentityManager/Service/"]
 COPY ["src/IdentityManager/Packages.props", "IdentityManager/"]
 COPY ["src/IdentityManager/Directory.Build.props", "IdentityManager/"]
 COPY ["src/IdentityManager/Directory.Build.targets", "IdentityManager/"]
