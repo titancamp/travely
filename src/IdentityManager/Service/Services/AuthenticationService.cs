@@ -70,7 +70,7 @@ namespace Travely.IdentityManager.Service.Identity
             throw new NotImplementedException();
         }
 
-        public async Task RegisterUserAsync(RegisterRequestModel model, CancellationToken ct)
+        public async Task<ResultViewModel> RegisterUserAsync(RegisterRequestModel model, CancellationToken ct)
         {
             User user = _mapper.Map<User>(model);
             _userRepository.Add(user);
@@ -80,6 +80,7 @@ namespace Travely.IdentityManager.Service.Identity
             _agencyRepository.Add(user.Agency);
 
             await _unitOfWork.SaveChangesAsync();
+            return new ResultViewModel();
         }
 
         /// <summary>

@@ -8,7 +8,8 @@ using IdentityServer4.Validation;
 
 using IdentityManager.DataService.Configs;
 using IdentityManager.DataService.IdentityServices;
-
+using IdentityManager.Service.Abstractions;
+using IdentityManager.Service.Services;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
 
 namespace IdentityManager.DataService.Extensions
