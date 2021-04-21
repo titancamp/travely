@@ -29,9 +29,18 @@ namespace Travely.IdentityManager.WebApi
         {
             if(Environment.IsDevelopment())
             {
-                services.AddCors();
+                
             }
-
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins(new[]
+                    {
+                        "http://localhost:3000"
+                    });
+                });
+            });
             services.ConfigureFilterServices();
 
             services.ConfigureSqlContext(Configuration);
@@ -64,9 +73,9 @@ namespace Travely.IdentityManager.WebApi
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityManager.WebApi v1"));
-                app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+                
             }
-
+            app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseIdentityServer();
             app.UseRouting();
             app.UseAuthorization();

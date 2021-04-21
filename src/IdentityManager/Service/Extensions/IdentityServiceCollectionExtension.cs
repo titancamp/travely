@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,7 @@ namespace IdentityManager.DataService.Extensions
                 .AddIdentityServer()
                 .AddDeveloperSigningCredential()
                 //.AddSigningCredential()
+                .AddCorsPolicyService<CorsPolicyService>()
                 .AddPersistedGrantStore<PersistedGrantStore>()
                 .AddInMemoryApiResources(AuthConfigs.GetApiResources())
                 .AddInMemoryClients(AuthConfigs.GetClients(env))
@@ -51,5 +53,10 @@ namespace IdentityManager.DataService.Extensions
             services.AddScoped<IEmailTokenService, EmailTokenService>();
             
         }
+    }
+
+    public class CorsPolicyService : ICorsPolicyService
+    {
+        public Task<bool> IsOriginAllowedAsync(string origin) => Task.FromResult(true);
     }
 }

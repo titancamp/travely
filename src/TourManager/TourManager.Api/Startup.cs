@@ -41,9 +41,20 @@ namespace TourManager.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddCors()
+                
                 .AddControllers()
                 .AddFluentValidation(opt => opt.RegisterValidatorsFromAssembly(typeof(TourValidator).Assembly));
+            
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins(new[]
+                    {
+                        "http://localhost:3000"
+                    });
+                });
+            });
 
             services.AddApiVersioning(config =>
             {
