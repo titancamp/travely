@@ -23,7 +23,7 @@ namespace TourManager.Clients.Implementation
         {
             var httpHandler = new HttpClientHandler
             {
-                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                ServerCertificateCustomValidationCallback = (_,_,_,_) => true,
             };
 
             var channel = GrpcChannel.ForAddress(
