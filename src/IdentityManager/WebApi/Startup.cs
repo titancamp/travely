@@ -6,7 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 using IdentityManager.DataService.Extensions;
-
+using TourManager.Api.Bootstrapper;
+using Travely.IdentityManager.Repository.EntityFramework;
 using Travely.IdentityManager.Repository.Extensions;
 using Travely.IdentityManager.WebApi.Extensions;
 
@@ -57,6 +58,7 @@ namespace Travely.IdentityManager.WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
+            app.ApplyDatabaseMigrations<IdentityServerDbContext>();
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
