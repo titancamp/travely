@@ -18,8 +18,4 @@
     <BaseIntermediateOutputPath>$(ArtifactsDir)\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
     <OutputPath>$(ArtifactsDir)\bin\$(MSBuildProjectName)</OutputPath>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Nerdbank.GitVersioning" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" />
-  </ItemGroup>
 </Project>

@@ -10,7 +10,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["src/Commons/Travely.Common/Travely.Common.csproj", "src/Commons/Travely.Common/"]
+COPY ["src/Commons/Travely.Common/Travely.Common.csproj", "Commons/Travely.Common/"]
 COPY ["src/IdentityManager/WebApi/IdentityManager.WebApi.csproj", "IdentityManager/WebApi/"]
 COPY ["src/IdentityManager/Service/IdentityManager.Service.csproj", "IdentityManager/Service/"]
 COPY ["src/IdentityManager/Packages.props", "IdentityManager/"]
