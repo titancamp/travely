@@ -12,6 +12,7 @@ service Property {
 	rpc DeleteProperty(DeletePropertyRequest) returns (DeletePropertyResponse);
 	rpc GetPropertyById(GetPropertyByIdRequest) returns (GetPropertyByIdResponse);
 	rpc GetProperties(GetPropertiesRequest) returns (stream GetPropertiesResponse);
+	rpc GetRoomTypes(GetRoomTypesRequest) returns (stream GetRoomTypesResponse);
 }
 
 message PropertyAttachment {
@@ -99,4 +100,12 @@ message GetPropertiesResponse{
 	string Phone = 9;
 	string Website = 10; 
 	repeated PropertyAttachment Attachments = 11;
+}
+
+message GetRoomTypesRequest {
+}
+
+message GetRoomTypesResponse {
+	int32 Id = 1;
+	string Name = 2;
 }

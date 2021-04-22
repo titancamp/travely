@@ -42,5 +42,10 @@ namespace TourManager.Service.Implementation
         {
             return _client.GetPropertiesAsync(agencyId);
         }
+
+        public Task<IEnumerable<RoomTypeResponseModel>> GetRoomTypesAsync()
+        {
+            return _client.GetRoomTypesAsync();
+        }
     }
 }

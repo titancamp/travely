@@ -65,6 +65,15 @@ namespace Travely.PropertyManager.API.Services
                 await responseStream.WriteAsync(_mapper.Map<PropertyResponse, GetPropertiesResponse>(row));
             }
         }
-    }
 
+        public override async Task GetRoomTypes(GetRoomTypesRequest request, IServerStreamWriter<GetRoomTypesResponse> responseStream, ServerCallContext context)
+        {
+            var result = await _propertyService.GetRoomTypesAsync();
+
+            foreach (var row in result)
+            {
+                await responseStream.WriteAsync(_mapper.Map<RoomTypeResponse, GetRoomTypesResponse>(row));
+            }
+        }
+    }
 }

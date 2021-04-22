@@ -19,26 +19,10 @@ namespace TourManager.Api.Controllers
             _service = service;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PropertyResponseModel>> Get(int id)
-        {
-            var data = await _service.GetByIdAsync(UserInfo.AgencyId, id);
-
-            return Ok(data);
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<PropertyResponseModel>>> Get()
-        {
-            var data = await _service.GetAsync(UserInfo.AgencyId);
-
-            return Ok(data);
-        }
-
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AddEditPropertyRequestModel model)
         {
-            
+
             var id = await _service.AddAsync(UserInfo.AgencyId, model);
 
             return Created(Url.RouteUrl(id), id);
@@ -58,6 +42,30 @@ namespace TourManager.Api.Controllers
             await _service.DeleteAsync(UserInfo.AgencyId, id);
 
             return NoContent();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PropertyResponseModel>> Get(int id)
+        {
+            var data = await _service.GetByIdAsync(UserInfo.AgencyId, id);
+
+            return Ok(data);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PropertyResponseModel>>> Get()
+        {
+            var data = await _service.GetAsync(UserInfo.AgencyId);
+
+            return Ok(data);
+        }
+
+        [HttpGet("RoomTypes")]
+        public async Task<ActionResult<IEnumerable<PropertyResponseModel>>> GetRoomTypes()
+        {
+            var data = await _service.GetRoomTypesAsync();
+
+            return Ok(data);
         }
     }
 }

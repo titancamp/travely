@@ -25,6 +25,8 @@ namespace Travely.PropertyManager.API.MappingProfiles
 
             CreateMap<GetPropertiesRequest, GetPropertiesQuery>();
             CreateMap<PropertyResponse, GetPropertiesResponse>();
+
+            CreateMap<RoomTypeResponse, GetRoomTypesResponse>();
         }
     }
 }

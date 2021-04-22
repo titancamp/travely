@@ -80,6 +80,22 @@ namespace TourManager.Clients.Implementation.PropertyManager
             });
         }
 
+        public Task<IEnumerable<RoomTypeResponseModel>> GetRoomTypesAsync()
+        {
+            return HandleAsync<IEnumerable<RoomTypeResponseModel>>(async (client) =>
+            {
+                var roomTypes = new List<RoomTypeResponseModel>();
+                var request = new GetRoomTypesRequest();
+
+                await foreach (var response in client.GetRoomTypes(request).ResponseStream.ReadAllAsync())
+                {
+                    roomTypes.Add(Mapping.Mapper.Map<RoomTypeResponseModel>(response));
+                }
+
+                return roomTypes;
+            });
+        }
+
         protected override Property.PropertyClient CreateGrpcClient()
         {
             var channel = GetClientGrpcChannel(ServiceSettingsProvider.ComposePropertyServiceUrl());

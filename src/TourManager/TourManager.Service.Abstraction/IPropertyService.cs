@@ -15,5 +15,7 @@ namespace TourManager.Service.Abstraction
         Task<PropertyResponseModel> GetByIdAsync(int agencyId, int id);
 
         Task<IEnumerable<PropertyResponseModel>> GetAsync(int agencyId);
+
+        public Task<IEnumerable<RoomTypeResponseModel>> GetRoomTypesAsync();
     }
 }
