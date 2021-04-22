@@ -18,12 +18,11 @@ namespace TourManager.Clients.Implementation.Mappers
             CreateMap<Activity, ActivityModel>()
                 .ForMember(a => a.Price, o => o.MapFrom(a => new Price()
                 {
-                    Currency = a.Currency,
                     Price_ = a.Price
-                }));
+                })).ReverseMap();
             CreateMap<ActivityModel, Activity>()
-                .ForMember(a => a.Currency, o => o.MapFrom(a => a.Price.Currency))
-                .ForMember(a => a.Price, o => o.MapFrom(a => a.Price.Price_));
+                .ForMember(a => a.Price, o => o.MapFrom(a => a.Price.Price_)).ReverseMap();
+            CreateMap<TourManager.Common.Clients.Activity, Travely.ServiceManager.Service.Activity>().ReverseMap();
         }
     }
 }

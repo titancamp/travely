@@ -30,7 +30,7 @@ namespace Travely.Services.Common.Middlewares
                     break;
                 default:
                     statusCode = HttpStatusCode.BadRequest;
-                    message = "An error occured while executing the request, please try again later.";
+                    message = $"An error occured while executing the request, please try again later.\n{exception.Message}\n{exception.StackTrace}";
                     break;
             }
 
