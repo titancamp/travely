@@ -59,5 +59,12 @@ namespace TourManager.Api.Controllers
 
             return result;
         }
+        
+        // GET api/<ServiceController>/5/activitytype/cafe
+        [HttpPost("activitytype")]
+        public async Task<IEnumerable<ActivityType>> CreateActivityType(string activityTypeName)
+        {
+            return await _serviceManagerClient.SearchActivityTypesAsync(UserInfo.AgencyId, activityTypeName);
+        }
     }
 }

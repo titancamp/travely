@@ -17,7 +17,7 @@ services:
     - "6379:6379"
   
   tourmanager.api:
-    image: ${DOCKER_REGISTRY-}tourmanagerapi
+    image: titancamp/tourmanagerapi
     build:
       context: .
       dockerfile: src/TourManager/TourManager.Api/Dockerfile
@@ -34,7 +34,7 @@ services:
       - ~/.aspnet/https:/https:ro
 
   travely.servicemanager.service:
-    image: ${DOCKER_REGISTRY-}travelyservicemanagerservice
+    image: titancamp/travelyservicemanagerservice
     build:
       context: .
       dockerfile: src/ServiceManager/Travely.ServiceManager.Service/Dockerfile
@@ -51,7 +51,7 @@ services:
       - ~/.aspnet/https:/https:ro
 
   travely.schedulermanager.api:
-    image: ${DOCKER_REGISTRY-}travelyschedulermanagerapi
+    image: titancamp/travelyschedulermanagerapi
     build:
       context: .
       dockerfile: src/SchedulerManager/Travely.SchedulerManager.API/Dockerfile
@@ -68,7 +68,7 @@ services:
       - ~/.aspnet/https:/https:ro
 
   travely.propertymanager.api:
-    image: ${DOCKER_REGISTRY-}travelypropertymanagerapi
+    image: titancamp/travelypropertymanagerapi
     build:
       context: .
       dockerfile: src/PropertyManager/Travely.PropertyManager.API/Dockerfile
@@ -86,7 +86,7 @@ services:
 
 
   fileservice:
-    image: ${DOCKER_REGISTRY-}fileservice
+    image: titancamp/fileservice
     build:
       context: .
       dockerfile: src/FileServiceManager/FileService/Dockerfile
@@ -104,7 +104,7 @@ services:
 
 
   travely.clientmanager.service:
-    image: ${DOCKER_REGISTRY-}travelyclientmanagerservice
+    image: titancamp/travelyclientmanagerservice
     build:
       context: .
       dockerfile: src/ClientManager/Travely.ClientManager.Service/Dockerfile
@@ -122,7 +122,7 @@ services:
 
 
   travely.identity.webapi:
-    image: ${DOCKER_REGISTRY-}travelyidentitywebapi
+    image: titancamp/travelyidentitywebapi
     build:
       context: .
       dockerfile: src/IdentityManager/WebApi/Dockerfile

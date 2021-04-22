@@ -12,6 +12,7 @@ service ActivityProto {
 	rpc DeleteActivity (DeleteActivityRequest) returns (ActivityResponse);
 	rpc EditActivity (Activity) returns (ActivityResponse);
 	rpc SearchActivityTypes (SearchActivityTypesRequest) returns (ActivityTypes);
+	rpc CreateActivityType (ActivityType) returns (ActivityType);
 }
 
 message ActivityType {
