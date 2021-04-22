@@ -75,7 +75,7 @@ namespace TourManager.Clients.Implementation.ServiceManager
             var activityTypes = await activityClient.SearchActivityTypesAsync(new SearchActivityTypesRequest()
             {
                 AgencyId = agencyId,
-                ActivityTypeName = activityTypeName
+                ActivityTypeName = activityTypeName ?? string.Empty
             });
 
             return activityTypes.ActivityTypes_.Select(s => Mapping.Mapper.Map<ActivityType>(s));
