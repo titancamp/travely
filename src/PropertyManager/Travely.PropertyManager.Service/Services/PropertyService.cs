@@ -77,6 +77,13 @@ namespace Travely.PropertyManager.Service.Services
             return Mapper.Map<IEnumerable<Property>, IEnumerable<PropertyResponse>>(properties);
         }
 
+        public async Task<IEnumerable<RoomTypeResponse>> GetRoomTypesAsync()
+        {
+            var roomTypes = await _dbContext.RoomTypes.ToListAsync();
+
+            return Mapper.Map<IEnumerable<RoomTypeResponse>>(roomTypes);
+        }
+
         public async Task<Property> GetByIdCoreAsync(int agencyId, int id)
         {
             return await _dbContext.Properties.Include(item => item.Attachments)

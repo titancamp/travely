@@ -17,5 +17,7 @@ namespace Travely.PropertyManager.Service.Contracts
         Task<PropertyResponse> GetByIdAsync(int agencyId, int id);
 
         Task<IEnumerable<PropertyResponse>> GetAsync(int agencyId, GetPropertiesQuery query);
+
+        Task<IEnumerable<RoomTypeResponse>> GetRoomTypesAsync();
     }
 }

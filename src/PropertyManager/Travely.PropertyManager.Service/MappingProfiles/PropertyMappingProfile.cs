@@ -13,6 +13,8 @@ namespace Travely.PropertyManager.Service.MappingProfiles
             CreateMap<AddPropertyCommand, Property>();
             CreateMap<EditPropertyCommand, Property>();
             CreateMap<Property, PropertyResponse>();
+
+            CreateMap<RoomType, RoomTypeResponse>();
         }
     }
 }
