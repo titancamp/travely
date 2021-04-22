@@ -20,7 +20,5 @@ namespace TourManager.Common.Clients
         public string Phone { get; set; }
         public string Website { get; set; }
         public double Price { get; set; }
-        public string Currency { get; set; }
-        public int ChangeUser { get; set; }
     }
 }
