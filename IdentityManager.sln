@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityManager.Service", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityManager.Service.Abstractions", "src\IdentityManager\Service.Abstractions\IdentityManager.Service.Abstractions.csproj", "{61BA1862-B8EF-4B63-9CA0-7B7B098178FA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.Common", "src\Commons\Travely.Common\Travely.Common.csproj", "{A18E82AC-FEF8-4A81-8DF1-871F2290185C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{61BA1862-B8EF-4B63-9CA0-7B7B098178FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61BA1862-B8EF-4B63-9CA0-7B7B098178FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61BA1862-B8EF-4B63-9CA0-7B7B098178FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A18E82AC-FEF8-4A81-8DF1-871F2290185C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A18E82AC-FEF8-4A81-8DF1-871F2290185C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A18E82AC-FEF8-4A81-8DF1-871F2290185C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A18E82AC-FEF8-4A81-8DF1-871F2290185C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{D44AAC23-0FFC-40F2-884B-3D54BF190557} = {687F86B5-929C-4BB6-AAEE-10DF8088FEA1}
 		{C188F182-6926-444D-A7E7-4C3B6C347168} = {687F86B5-929C-4BB6-AAEE-10DF8088FEA1}
 		{61BA1862-B8EF-4B63-9CA0-7B7B098178FA} = {687F86B5-929C-4BB6-AAEE-10DF8088FEA1}
+		{A18E82AC-FEF8-4A81-8DF1-871F2290185C} = {687F86B5-929C-4BB6-AAEE-10DF8088FEA1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB986A52-CE13-4669-8EDD-2688C238D5C2}

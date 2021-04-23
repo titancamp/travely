@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Travely.IdentityManager.Service.Abstractions;
 using Travely.IdentityManager.Service.Abstractions.Models.Request;
 using Travely.IdentityManager.Service.Abstractions.Models.Response;
+using Travely.IdentityManager.Service.Identity;
+using Travely.IdentityManager.WebApi.Extensions;
 
 namespace Travely.IdentityManager.WebApi.Controllers
 {
@@ -24,9 +26,9 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserResponseModel>> GetUserByIdAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<UserResponseModel>> GetUserByIdAsync([FromRoute]int id, CancellationToken cancellationToken = default)
         {
             return await _authenticationService.GetUserById(id, cancellationToken);
         }
@@ -35,11 +37,11 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// Get all users
         /// </summary>
         /// <returns></returns>
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserResponseModel>>> GetUsersAsync(CancellationToken cancellationToken = default)
         {
-            return await _authenticationService.GetUsers(cancellationToken);
+            return await _authenticationService.GetUsersAsync(cancellationToken);
         }
 
         /// <summary>
@@ -47,13 +49,19 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="userResponseModel"></param>
         /// <returns></returns>
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<UserResponseModel>> CreateUserAsync([FromBody] UserRequestModel userResponseModel, CancellationToken cancellationToken = default)
         {
-            //TODO: make this method patch
-            // TODO: validate logged in user agencyId
-            return await _authenticationService.Create(userResponseModel, cancellationToken);
+            try
+            {
+                var agencyId = HttpContext.GetUserContext().AgencyId;
+                return await _authenticationService.CreateAsync(userResponseModel, agencyId, cancellationToken);
+            }
+            catch(IdentityException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         /// <summary>
         /// Update User 
@@ -61,19 +69,13 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <param name="id"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<ActionResult<UserResponseModel>> EditAsync(int id, [FromBody] UserRequestModel userRequestModel, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<UserResponseModel>> EditAsync([FromRoute]int id, [FromBody] UserRequestModel userRequestModel, CancellationToken cancellationToken = default)
         {
-            //TODO: make this method patch
-            // TODO: validate logged in user agencyId
-            //var entityForValidation = await _authenticationService.GetUserById(id, cancellationToken);
-            //if (entityForValidation == null)
-            //{
-            //    return NotFound();
-            //}
+            var agencyId = HttpContext.GetUserContext().AgencyId;
             userRequestModel.Id = id;
-            return await _authenticationService.Update(userRequestModel, cancellationToken);
+            return await _authenticationService.UpdateAsync(userRequestModel, agencyId, cancellationToken);
         }
 
         /// <summary>
@@ -83,18 +85,25 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUserAsync([FromQuery] int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteUserAsync([FromRoute] int id, CancellationToken cancellationToken)
         {
-            // TODO: validate logged in user agencyId
-            var entityForValidation = await _authenticationService.GetUserById(id, cancellationToken);
-            if (entityForValidation == null)
+            var userContext = HttpContext.GetUserContext();
+            if (userContext.UserId == id)
             {
-                NotFound();
+                return BadRequest("Shooting yourself in the leg is not allowed.");
             }
-            await _authenticationService.DeleteUser(id, cancellationToken);
+
+            var agencyId = userContext.AgencyId;
+            try
+            {
+                await _authenticationService.DeleteUserAsync(id, agencyId, cancellationToken);
+            }
+            catch(UserNotFoundException)
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }
-
     }
 }
