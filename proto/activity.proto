@@ -22,7 +22,7 @@ message ActivityType {
 }
 
 message Price {
-	double price = 1;
+	int32 price = 1;
 	string currency = 2;
 }
 
@@ -35,7 +35,7 @@ message Activity {
 	string email = 6;
 	string phone = 7;			
 	string website = 8;			
-	Price price = 9;
+	int32 price = 9;
 	int32 changeUser = 10;
 }
 

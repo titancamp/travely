@@ -30,7 +30,7 @@ namespace Travely.ServiceManager.DAL.Repositories
             {
                 activityTypes = activityTypes.Where(x => x.Name.Contains(activityTypeName) && x.AgencyId == agencyId);
             }
-            return await activityTypes.AsNoTracking().ToListAsync();
+            return await activityTypes.ToListAsync();
         }
     }
 }
