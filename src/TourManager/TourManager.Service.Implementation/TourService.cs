@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AutoMapper;
 using TourManager.Repository.Abstraction;
 using TourManager.Repository.Entities;
 using TourManager.Repository.Models;
