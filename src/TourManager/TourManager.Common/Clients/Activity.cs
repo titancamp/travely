@@ -19,6 +19,6 @@ namespace TourManager.Common.Clients
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Website { get; set; }
-        public double Price { get; set; }
+        public int Price { get; set; }
     }
 }
