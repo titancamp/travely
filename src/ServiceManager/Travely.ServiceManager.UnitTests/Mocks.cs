@@ -21,11 +21,7 @@ namespace Travely.ServiceManager.UnitTests
             Website = "www",
             Address = "addr",
             ContactName = "contactName",
-            Price = new Price
-            {
-                Currency = "cur",
-                Price_ = 12,
-            },
+            Price = 12,
             Type = ActivityType,
         };
     }
