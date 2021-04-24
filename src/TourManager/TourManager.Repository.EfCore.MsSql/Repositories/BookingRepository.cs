@@ -35,7 +35,7 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
 
             if (filter.CancellationDeadlineFrom.HasValue)
             {
-                query = query.Where(x => x.CancellationDeadline >= filter.CancellationDeadlineFrom);
+                query = query.Where(x => x.BookingProperty.CancellationDeadline >= filter.CancellationDeadlineFrom);
             }
 
             return query.ToListAsync();

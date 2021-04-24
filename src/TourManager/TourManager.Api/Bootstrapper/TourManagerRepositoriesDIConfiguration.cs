@@ -8,8 +8,9 @@ namespace TourManager.Api.Bootstrapper
     {
         public static IServiceCollection AddTourManagerRepositories(this IServiceCollection services)
         {
-            services.AddScoped<ITourRepository, TourRepository>();
             services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IPropertyRepository, PropertyRepository>();
+            services.AddScoped<ITourRepository, TourRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();
 
             return services;

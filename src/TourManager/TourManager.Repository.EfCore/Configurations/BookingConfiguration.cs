@@ -16,9 +16,20 @@ namespace TourManager.Repository.EfCore.Configurations
                 .WithMany(a => a.Bookings)
                 .HasForeignKey(m => m.TourId);
 
-            builder
-                .Property(m => m.ExternalId)
-                .IsRequired();
+            builder.HasOne(m => m.BookingProperty)
+                .WithOne(m => m.Booking)
+                .HasForeignKey<BookingPropertyEntity>(m => m.BookingId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(m => m.BookingService)
+                .WithOne(m => m.Booking)
+                .HasForeignKey<BookingServiceEntity>(m => m.BookingId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(m => m.BookingTransportation)
+                .WithOne(m => m.Booking)
+                .HasForeignKey<BookingTransportationEntity>(m => m.BookingId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

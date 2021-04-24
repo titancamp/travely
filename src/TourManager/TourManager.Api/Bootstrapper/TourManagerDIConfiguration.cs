@@ -10,6 +10,7 @@ namespace TourManager.Api.Bootstrapper
         {
             services.AddScoped<ITourService, TourService>();
             services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<IPropertyService, PropertyService>();
             services.AddScoped<IBookingService, BookingService>();
 
             return services;

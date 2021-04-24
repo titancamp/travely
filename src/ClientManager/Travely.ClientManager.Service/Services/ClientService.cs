@@ -57,7 +57,7 @@ namespace Travely.ClientManager.Service.Services
 			_touristRepository.Add(client);
 			await _touristRepository.SaveChangesAsync();
 
-			var clientModel = request.Client;
+			var clientModel = _mapper.Map<ClientModel>(client);
 			return clientModel;
 		}
 

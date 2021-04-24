@@ -1,14 +1,14 @@
-﻿using AutoMapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using TourManager.Common.Types;
 using TourManager.Repository.Abstraction;
 using TourManager.Repository.Entities;
 using TourManager.Repository.Models;
 using TourManager.Service.Abstraction;
-using TourManager.Service.Model;
+using TourManager.Service.Model.TourManager;
 
 namespace TourManager.Service.Implementation
 {
@@ -17,25 +17,24 @@ namespace TourManager.Service.Implementation
     /// </summary>
     public class BookingService : IBookingService
     {
-        /// <summary>
-        /// The model mapper
-        /// </summary>
-        private readonly IMapper mapper;
-
-        /// <summary>
-        /// The booking repository
-        /// </summary>
-        private readonly IBookingRepository bookingRepository;
+        private readonly IMapper _mapper;
+        private readonly IBookingRepository _bookingRepository;
+        private readonly IPropertyRepository _propertyRepository;
 
         /// <summary>
         /// Create new instance of booking service
         /// </summary>
         /// <param name="mapper">The model mapper</param>
         /// <param name="bookingRepository">The booking repository</param>
-        public BookingService(IMapper mapper, IBookingRepository bookingRepository)
+        /// <param name="propertyRepository">The property repository</param>
+        public BookingService(
+            IMapper mapper,
+            IBookingRepository bookingRepository,
+            IPropertyRepository propertyRepository)
         {
-            this.mapper = mapper;
-            this.bookingRepository = bookingRepository;
+            _mapper = mapper;
+            _bookingRepository = bookingRepository;
+            _propertyRepository = propertyRepository;
         }
 
         /// <summary>
@@ -43,7 +42,7 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="agencyId">The agency id</param>
         /// <returns></returns>
-        public async Task<List<Booking>> GetBookings(int agencyId, int? tourId, DateTime? cancellationDeadlineFrom)
+        public async Task<List<BookingResponseModel>> GetBookings(int agencyId, int? tourId, DateTime? cancellationDeadlineFrom)
         {
             var filter = new GetBookingFilter
             {
@@ -52,9 +51,9 @@ namespace TourManager.Service.Implementation
                 CancellationDeadlineFrom = cancellationDeadlineFrom
             };
 
-            var result = await this.bookingRepository.Get(filter);
+            var result = await _bookingRepository.Get(filter);
 
-            return this.mapper.Map<List<Booking>>(result);
+            return _mapper.Map<List<BookingResponseModel>>(result);
         }
 
         /// <summary>
@@ -62,11 +61,11 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="bookingId">The booking id</param>
         /// <returns></returns>
-        public async Task<Booking> GetBookingById(int bookingId)
+        public async Task<BookingResponseModel> GetBookingById(int bookingId)
         {
-            var result = await this.bookingRepository.GetById(bookingId);
+            var result = await _bookingRepository.GetById(bookingId);
 
-            return this.mapper.Map<Booking>(result);
+            return _mapper.Map<BookingResponseModel>(result);
         }
 
         /// <summary>
@@ -74,9 +73,9 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="booking">The booking to create</param>
         /// <returns></returns>
-        public Task CreateBooking(Booking booking)
+        public Task CreateBooking(AddEditBookingRequestModel booking)
         {
-            return this.bookingRepository.Add(this.mapper.Map<BookingEntity>(booking));
+            return _bookingRepository.Add(_mapper.Map<BookingEntity>(booking));
         }
 
         /// <summary>
@@ -84,13 +83,24 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="bookings">Booking list to create</param>
         /// <returns></returns>
-        public Task CreateBookings(int tourId, IEnumerable<Booking> bookings)
+        public async Task CreateBookings(int tourId, IEnumerable<AddEditBookingRequestModel> bookings)
         {
-            var entity = this.mapper.Map<IEnumerable<BookingEntity>>(bookings).ToList();
+            var entities = _mapper.Map<IEnumerable<BookingEntity>>(bookings).ToList();
 
-            entity.ForEach(x => x.TourId = tourId);
+            var propertyIds = entities.Where(item => item.BookingProperty != null)
+                .Select(item => item.BookingProperty.PropertyId).ToList();
 
-            return this.bookingRepository.AddRange(entity);
+            var properties = await _propertyRepository.GetAll();
+            var propertiesFound = properties.Where(item => propertyIds.Contains(item.Id)).Count();
+
+            if (propertiesFound < propertyIds.Count)
+            {
+                throw new Exception("Hotel not found");
+            }
+
+            entities.ForEach(x => x.TourId = tourId);
+
+            await _bookingRepository.AddRange(entities);
         }
 
         /// <summary>
@@ -98,16 +108,13 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="bookingId">The booking id to cancel</param>
         /// <returns></returns>
-        public Task CancelBooking(int bookingId)
+        public async Task CancelBooking(int bookingId)
         {
-            // get and map booking to cancel
-            var booking = this.GetBookingById(bookingId);
+            var booking = await _bookingRepository.GetById(bookingId);
 
-            // set cancellation status
-            booking.Result.Status = BookingStatus.Cancelled;
+            booking.Status = (int)BookingStatus.Cancelled;
 
-            // update booking
-            return this.UpdateBooking(booking.Result);
+            await _bookingRepository.Update(booking);
         }
 
         /// <summary>
@@ -115,9 +122,9 @@ namespace TourManager.Service.Implementation
         /// </summary>
         /// <param name="booking">The booking to update</param>
         /// <returns></returns>
-        public Task UpdateBooking(Booking booking)
+        public Task UpdateBooking(AddEditBookingRequestModel booking)
         {
-            return this.bookingRepository.Update(this.mapper.Map<BookingEntity>(booking));
+            return _bookingRepository.Update(_mapper.Map<BookingEntity>(booking));
         }
     }
 }

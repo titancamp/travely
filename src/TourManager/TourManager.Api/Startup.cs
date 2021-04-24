@@ -7,20 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TourManager.Api.Bootstrapper;
 using TourManager.Api.Utils;
-using TourManager.Clients.Abstraction.PropertyManager;
-using TourManager.Clients.Abstraction.SchedulerManager;
-using TourManager.Clients.Abstraction.ServiceManager;
-using TourManager.Clients.Abstraction.Settings;
-using TourManager.Clients.Implementation.PropertyManager;
-using TourManager.Clients.Implementation.SchedulerManager;
-using TourManager.Clients.Implementation.ServiceManager;
-using TourManager.Clients.Implementation.Settings;
 using TourManager.Common.Settings;
 using TourManager.Repository.EfCore.Context;
-using TourManager.Service.Abstraction;
-using TourManager.Service.Implementation;
-using TourManager.Service.Model;
 using Travely.Services.Common.Extensions;
+using TourManager.Service.Model.TourManager;
 
 
 namespace TourManager.Api
@@ -41,10 +31,10 @@ namespace TourManager.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                
+
                 .AddControllers()
-                .AddFluentValidation(opt => opt.RegisterValidatorsFromAssembly(typeof(TourValidator).Assembly));
-            
+                .AddFluentValidation(opt => opt.RegisterValidatorsFromAssembly(typeof(AddEditTourRequestModelValidator).Assembly));
+
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(policy =>
@@ -63,15 +53,11 @@ namespace TourManager.Api
             });
             services.Configure<ApiBehaviorOptions>(opt => opt.InvalidModelStateResponseFactory =
                 context => new BadRequestObjectResult(context.ModelState.GetFirstErrorResponse()));
-            services.AddScoped<IServiceManagerClient, ServiceManagerClient>();
-            services.AddScoped<IServiceSettingsProvider, ServiceSettingsProvider>();
-            services.AddScoped<IPropertyManagerClient, PropertyManagerClient>();
-            services.AddScoped<IPropertyService, PropertyService>();
-            services.AddScoped<IReminderServiceClient, ReminderServiceClient>();
+
             services.Configure<GrpcServiceSettings>(Configuration.GetSection("GrpcServiceSettings"));
 
             services
-                .AddSqlServer<TourDbContext>(Configuration.GetConnectionString("TourDbContext"), "TourManager.Repository.EfCore.MsSql" )
+                .AddSqlServer<TourDbContext>(Configuration.GetConnectionString("TourDbContext"), "TourManager.Repository.EfCore.MsSql")
                 .AddAutoMapper(typeof(Startup))
                 .AddSwagger()
                 .AddTourManagerServices()

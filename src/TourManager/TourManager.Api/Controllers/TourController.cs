@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TourManager.Service.Abstraction;
-using TourManager.Service.Model;
-using Microsoft.AspNetCore.Authorization;
+using TourManager.Service.Model.TourManager;
 using Travely.IdentityClient.Authorization;
 
 namespace TourManager.Api.Controllers
@@ -42,7 +42,7 @@ namespace TourManager.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Tour tour)
+        public async Task<IActionResult> Post([FromBody] AddEditTourRequestModel tour)
         {
             var newTour = await _tourService.CreateTour(UserInfo.AgencyId, tour);
 
@@ -53,7 +53,7 @@ namespace TourManager.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Tour tour)
+        public async Task<IActionResult> Put(int id, [FromBody] AddEditTourRequestModel tour)
         {
             var updatedTour = await _tourService.UpdateTour(UserInfo.AgencyId, id, tour);
 

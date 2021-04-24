@@ -1,6 +1,9 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using TourManager.Repository.Entities;
 using TourManager.Service.Model;
+using TourManager.Service.Model.PropertyManager;
+using TourManager.Service.Model.TourManager;
 
 namespace TourManager.Api
 {
@@ -15,26 +18,38 @@ namespace TourManager.Api
         public MappingConfig()
         {
             // client mappings
-            this.CreateMap<Client, ClientEntity>();
-            this.CreateMap<ClientEntity, Client>();
+            CreateMap<Client, ClientEntity>();
+            CreateMap<ClientEntity, Client>();
 
             // TourClient mappings
-            this.CreateMap<Client, ClientEntity>();
+            CreateMap<Client, ClientEntity>();
 
-            this.CreateMap<Client, TourClientEntity>()
+            CreateMap<Client, TourClientEntity>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.ClientId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Client, opt => opt.MapFrom(src => src));
 
+            // Property Mappings
+            CreateMap<AddEditPropertyRequestModel, PropertyEntity>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.AgencyId, opt => opt.Ignore());
+
             // booking mappings
-            this.CreateMap<Booking, BookingEntity>();
-            this.CreateMap<BookingEntity, Booking>();
+            CreateMap<AddEditBookingRequestModel, BookingEntity>();
+            CreateMap<BookingEntity, BookingResponseModel>();
+            CreateMap<PropertyEntity, PropertyModel>().ReverseMap();
+            CreateMap<BookingPropertyModel, BookingPropertyEntity>().ReverseMap();
+            CreateMap<BookingPropertyRoomModel, BookingPropertyRoomEntity>().ReverseMap();
+            CreateMap<BookingPropertyRoomGuestModel, BookingPropertyRoomGuestEntity>().ReverseMap();
+            CreateMap<BookingServiceModel, BookingServiceEntity>().ReverseMap();
+            CreateMap<BookingTransportationModel, BookingTransportationEntity>().ReverseMap();
 
             // tour mappings
-            this.CreateMap<Tour, TourEntity>()
-                   .ForMember(dest => dest.Bookings, opt => opt.Ignore())
-                   .ForMember(dest => dest.TourClients, opt => opt.Ignore());
-            this.CreateMap<TourEntity, Tour>();
+            CreateMap<AddEditTourRequestModel, TourEntity>()
+                   .ForMember(dest => dest.TourClients, opt => opt.MapFrom(src =>
+                        src.ClientIds.Select(item => new TourClientEntity { ClientId = item }).ToList()))
+                   .ForMember(dest => dest.Bookings, opt => opt.Ignore());
+            CreateMap<TourEntity, TourResponseModel>();
         }
     }
 }

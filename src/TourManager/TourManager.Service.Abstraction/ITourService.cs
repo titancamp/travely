@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TourManager.Service.Model;
+using TourManager.Service.Model.TourManager;
 
 namespace TourManager.Service.Abstraction
 {
@@ -17,7 +17,7 @@ namespace TourManager.Service.Abstraction
         /// <param name="startDate">The agency id</param>
         /// <param name="endDate">The agency id</param>
         /// <returns></returns>
-        public Task<List<Tour>> GetTours(int agencyId, DateTime? startDate, DateTime? endDate);
+        public Task<List<TourResponseModel>> GetTours(int agencyId, DateTime? startDate, DateTime? endDate);
 
         /// <summary>
         /// Get specific tour by id 
@@ -25,7 +25,7 @@ namespace TourManager.Service.Abstraction
         /// <param name="agencyId">The agency id</param>
         /// <param name="tourId">The tour id</param>
         /// <returns></returns>
-        public Task<Tour> GetTourById(int agencyId, int tourId);
+        public Task<TourResponseModel> GetTourById(int agencyId, int tourId);
 
         /// <summary>
         /// Create new tour
@@ -33,7 +33,7 @@ namespace TourManager.Service.Abstraction
         /// <param name="agencyId">The agency id</param>
         /// <param name="tour">The tour to create</param>
         /// <returns></returns>
-        public Task<Tour> CreateTour(int agencyId, Tour tour);
+        public Task<TourResponseModel> CreateTour(int agencyId, AddEditTourRequestModel tour);
 
         /// <summary>
         /// Update the specific tour
@@ -41,7 +41,7 @@ namespace TourManager.Service.Abstraction
         /// <param name="agencyId">The agency id</param>
         /// <param name="tour">The tour to update</param>
         /// <returns></returns>
-        public Task<Tour> UpdateTour(int agencyId, int id, Tour tour);
+        public Task<TourResponseModel> UpdateTour(int agencyId, int id, AddEditTourRequestModel model);
 
         /// <summary>
         /// Remove specific tour by id
