@@ -30,7 +30,6 @@ namespace Travely.IdentityManager.Service.Identity
         public AuthenticationService(IUserRepository userRepository, IUnitOfWork unitOfWork,
             IEmployeeRepository employeeRepository, IAgencyRepository agencyRepository, IMapper mapper, IPasswordHasher<User> passHasher) : base(mapper)
         {
-
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
             _employeeRepository = employeeRepository;
@@ -97,7 +96,7 @@ namespace Travely.IdentityManager.Service.Identity
         /// Get all users
         /// </summary>
         /// <returns></returns>
-        public Task<List<UserResponseModel>> GetUsers(CancellationToken ct = default)
+        public Task<List<UserResponseModel>> GetUsersAsync(CancellationToken ct = default)
         {
             return _mapper.ProjectTo<UserResponseModel>(_userRepository.GetAll().Include(x=>x.Employee)).ToListAsync(cancellationToken: ct);
         }
@@ -107,7 +106,7 @@ namespace Travely.IdentityManager.Service.Identity
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<AgencyResponseModel> GetAgencyById(int id, CancellationToken ct = default)
+        public async Task<AgencyResponseModel> GetAgencyByIdAsync(int id, CancellationToken ct = default)
         {
             return _mapper.Map<AgencyResponseModel>(await _agencyRepository.FindByIdAsync(id, ct));
         }
@@ -118,23 +117,23 @@ namespace Travely.IdentityManager.Service.Identity
         /// <param name="userResponseModel"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<UserResponseModel> Create(UserRequestModel userRequestModel, CancellationToken ct = default)
+        public async Task<UserResponseModel> CreateAsync(UserRequestModel userRequestModel, int agencyId, CancellationToken ct = default)
         {
-            int agencyId = 1;// this value cames by parameter, from token claims
-            Agency agency = await _agencyRepository.FindAsync(x => x.Id == agencyId);
+            Agency agency = await _agencyRepository.FindAsync(x => x.Id == agencyId, ct);
             if (agency is null)
             {
-                // report agency doesn't exist
+                throw new IdentityException("Invalid Agency.");
             }
-            User user = await _userRepository.FindAsync(x => x.UserName == userRequestModel.Email);
+            User user = await _userRepository.FindAsync(x => x.UserName == userRequestModel.Email, ct); ;
             if (user != null)
             {
-                // report user with this email exists
+                throw new IdentityException("This email already registered.");
             }
             user = _mapper.Map<User>(userRequestModel);
-            user.Password = Guid.NewGuid().ToString();
+            user.Password = _passHasher.HashPassword(user, userRequestModel.Password);
             user.Agency = agency;
             user.Employee.Agency = user.Agency;
+            user.Status = Status.Active;
             
             _userRepository.Add(user);
 
@@ -149,13 +148,19 @@ namespace Travely.IdentityManager.Service.Identity
         /// <param name="userRequestModel"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<UserResponseModel> Update(UserRequestModel userRequestModel, CancellationToken ct = default)
+        public async Task<UserResponseModel> UpdateAsync(UserRequestModel userRequestModel, int agencyId, CancellationToken ct = default)
         {            
             User user = await _userRepository.FindAsync(x => x.UserName == userRequestModel.Email);
             if (user is null)
             {
-                // report user not found
+                throw new UserNotFoundException();
             }
+
+            if (user.Agency.Id != agencyId)
+            {
+                throw new NotPermitedException();
+            }
+
             user = _mapper.Map<User>(userRequestModel);
 
             _userRepository.Update(user);
@@ -171,10 +176,20 @@ namespace Travely.IdentityManager.Service.Identity
         /// <param name="id"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task DeleteUser(int id, CancellationToken ct = default)
+        public async Task DeleteUserAsync(int id, int agencyId, CancellationToken ct = default)
         {
-            var entity = await _userRepository.FindByIdAsync(id, ct);
-            _userRepository.Remove(entity);
+            var employee = await _employeeRepository.GetAll()
+                .Include(x=>x.User)
+                .Where(x => x.UserId == id && x.AgencyId == agencyId)
+                .FirstOrDefaultAsync(ct);
+
+            if (employee == null)
+            {
+                throw new UserNotFoundException();
+            }
+
+            _employeeRepository.Remove(employee);
+            _userRepository.Remove(employee.User);
             await _unitOfWork.SaveChangesAsync(ct);
         }
 
@@ -204,11 +219,11 @@ namespace Travely.IdentityManager.Service.Identity
             {
                 Agency = entity
             };
-            var employe = new Employee
+            var employee = new Employee
             {
                 User = user
             };
-            _employeeRepository.Add(employe);
+            _employeeRepository.Add(employee);
             _userRepository.Add(user);
             await _unitOfWork.SaveChangesAsync(ct);
             return data;

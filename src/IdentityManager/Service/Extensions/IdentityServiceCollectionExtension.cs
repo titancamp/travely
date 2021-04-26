@@ -40,15 +40,15 @@ namespace IdentityManager.DataService.Extensions
             {
                 options.AddPolicy("admin", policy => policy.RequireClaim("Admin"));
             })
-                .AddAuthentication(options =>
-                {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                }).AddLocalApi(JwtBearerDefaults.AuthenticationScheme, options =>
-                {
-                    options.ExpectedScope = null;
+            .AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddLocalApi(JwtBearerDefaults.AuthenticationScheme, options =>
+            {
+                options.ExpectedScope = null;
                     
-                });
+            });
 
             services.AddScoped<IEmailTokenService, EmailTokenService>();
             

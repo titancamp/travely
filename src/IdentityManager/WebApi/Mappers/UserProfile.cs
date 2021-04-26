@@ -22,6 +22,7 @@ namespace Travely.IdentityManager.WebApi.Mappers
 
             CreateMap<UserRequestModel, Employee>()
                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+               .ForMember(dest => dest.JobTitle, opt => opt.MapFrom(src => src.Title))
                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow)
                ;
 
