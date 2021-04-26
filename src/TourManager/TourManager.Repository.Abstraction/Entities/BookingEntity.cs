@@ -65,7 +65,7 @@ namespace TourManager.Repository.Entities
         /// <summary>
         /// The booking arrival time
         /// </summary>
-        public DateTime ArrivalTime { get; set; }
+        public TimeSpan ArrivalTime { get; set; }
 
         /// <summary>
         /// The booking arrival flight number
@@ -75,7 +75,7 @@ namespace TourManager.Repository.Entities
         /// <summary>
         /// The booking departure time
         /// </summary>
-        public DateTime DepartureTime { get; set; }
+        public TimeSpan DepartureTime { get; set; }
 
         /// <summary>
         /// The booking departure flight number

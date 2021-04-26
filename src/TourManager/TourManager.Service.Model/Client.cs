@@ -33,9 +33,14 @@ namespace TourManager.Service.Model
 		public int Id { get; set; }
 
 		/// <summary>
-		/// The client first name
+		/// The external identifier
 		/// </summary>
-		public string FirstName { get; set; }
+        public int ExternalId { get; set; }
+
+        /// <summary>
+        /// The client first name
+        /// </summary>
+        public string FirstName { get; set; }
 
 		/// <summary>
 		/// The client last name

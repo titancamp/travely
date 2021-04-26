@@ -16,7 +16,6 @@ namespace TourManager.Service.Model
         {
             RuleFor(tour => tour.Name).NotEmpty().WithMessage("The tour name field is requiered!");
             RuleFor(tour => tour.Notes).NotEmpty().WithMessage("The tour notes field is requiered!");
-            RuleFor(tour => tour.Destinations).NotEmpty().WithMessage("The tour should contain at least one destination!");
             RuleFor(tour => tour.Bookings).NotEmpty().WithMessage("The tour should contain at least one destination!");
             RuleForEach(tour => tour.Bookings).NotEmpty().WithMessage("The tour can not contain empty booking!");
             RuleFor(tour => tour.Clients).NotEmpty().WithMessage("The tour should contain at least one client!");
@@ -72,7 +71,7 @@ namespace TourManager.Service.Model
         /// <summary>
         /// The tour pick up time
         /// </summary>
-        public DateTime? PickUpTime { get; set; }
+        public TimeSpan? PickUpTime { get; set; }
 
         /// <summary>
         /// The tour pick up details
@@ -82,7 +81,7 @@ namespace TourManager.Service.Model
         /// <summary>
         /// The tour drop off time
         /// </summary>
-        public DateTime? DropOffTime { get; set; }
+        public TimeSpan? DropOffTime { get; set; }
 
         /// <summary>
         /// The tour drop off details
