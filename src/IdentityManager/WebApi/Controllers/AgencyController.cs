@@ -41,18 +41,8 @@ namespace Travely.IdentityManager.WebApi.Controllers
         public async Task<ActionResult<AgencyResponseModel>> GetAgencyByIdAsync(CancellationToken cancellationToken = default)
         {
             var agencyId = HttpContext.GetUserContext().AgencyId;
-            return await _authenticationService.GetAgencyById(agencyId, cancellationToken);
+            return await _authenticationService.GetAgencyByIdAsync(agencyId, cancellationToken);
         }
 
-        ///// <summary>
-        ///// Add Agency
-        ///// </summary>
-        ///// <param name="agencyRequestModel"></param>
-        ///// <param name="cancellationToken"></param>
-        ///// <returns></returns>
-        //public async Task<ActionResult<AgencyResponseModel>> CreateAgencyAsync(AgencyRequestModel agencyRequestModel, CancellationToken cancellationToken = default)
-        //{
-        //    return await _authenticationService.CreateAgency(agencyRequestModel, cancellationToken);
-        //}
     }
 }

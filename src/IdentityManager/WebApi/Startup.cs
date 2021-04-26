@@ -27,18 +27,11 @@ namespace Travely.IdentityManager.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            if(Environment.IsDevelopment())
-            {
-                
-            }
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(policy =>
                 {
-                    policy.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins(new[]
-                    {
-                        "http://localhost:3000"
-                    });
+                    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
             services.ConfigureFilterServices();
