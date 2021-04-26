@@ -69,7 +69,7 @@ namespace Travely.IdentityManager.Service.Identity
             throw new NotImplementedException();
         }
 
-        public async Task<ResultViewModel> RegisterUserAsync(RegisterRequestModel model, CancellationToken ct)
+        public async Task<ResultViewModel> RegisterUserAsync(RegisterRequestModel model, CancellationToken ct = default)
         {
             User user = _mapper.Map<User>(model);
             _userRepository.Add(user);
@@ -78,7 +78,7 @@ namespace Travely.IdentityManager.Service.Identity
             user.Employee.Agency = user.Agency;
             _agencyRepository.Add(user.Agency);
 
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(ct);
             return new ResultViewModel();
         }
 
@@ -89,7 +89,7 @@ namespace Travely.IdentityManager.Service.Identity
         /// <returns></returns>
         public async Task<UserResponseModel> GetUserById(int id, CancellationToken ct = default)
         {
-            return _mapper.Map<UserResponseModel>(await _userRepository.GetAll().Include(x => x.Employee).FirstOrDefaultAsync(x=>x.Id == id));
+            return _mapper.Map<UserResponseModel>(await _userRepository.GetAll().Include(x => x.Employee).FirstOrDefaultAsync(x=>x.Id == id, ct));
         }
 
         /// <summary>
@@ -124,15 +124,14 @@ namespace Travely.IdentityManager.Service.Identity
             {
                 throw new IdentityException("Invalid Agency.");
             }
-            User user = await _userRepository.FindAsync(x => x.UserName == userRequestModel.Email, ct); ;
+            User user = await _userRepository.FindAsync(x => x.UserName == userRequestModel.Email, ct);
             if (user != null)
             {
                 throw new IdentityException("This email already registered.");
             }
             user = _mapper.Map<User>(userRequestModel);
             user.Password = _passHasher.HashPassword(user, userRequestModel.Password);
-            user.Agency = agency;
-            user.Employee.Agency = user.Agency;
+            user.Employee.Agency = agency;
             user.Status = Status.Active;
             
             _userRepository.Add(user);
@@ -202,7 +201,7 @@ namespace Travely.IdentityManager.Service.Identity
             _mapper.Map(jsonPatchDTO, agency);
             _agencyRepository.Update(agency);
 
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(ct);
         }
 
         /// <summary>
