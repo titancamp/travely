@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
@@ -21,6 +22,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         {
             _authenticationService = authenticationService;
         }
+        
         /// <summary>
         /// Get user by id
         /// </summary>
@@ -32,6 +34,18 @@ namespace Travely.IdentityManager.WebApi.Controllers
         {
             return await _authenticationService.GetUserById(id, cancellationToken);
         }
+        
+        /// <summary>
+        /// Get current user
+        /// </summary>
+        /// <returns></returns>
+        [Authorize()]
+        [HttpGet("current")]
+        public async Task<ActionResult<UserResponseModel>> GetCurrentUserAsync(CancellationToken cancellationToken = default)
+        {
+            var id = HttpContext.GetUserContext().UserId;
+            return await _authenticationService.GetUserById(id, cancellationToken);
+        }
 
         /// <summary>
         /// Get all users
@@ -41,7 +55,8 @@ namespace Travely.IdentityManager.WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserResponseModel>>> GetUsersAsync(CancellationToken cancellationToken = default)
         {
-            return await _authenticationService.GetUsersAsync(cancellationToken);
+            var agencyId = HttpContext.GetUserContext().AgencyId;
+            return await _authenticationService.GetUsersAsync(agencyId, cancellationToken);
         }
 
         /// <summary>

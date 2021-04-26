@@ -96,9 +96,9 @@ namespace Travely.IdentityManager.Service.Identity
         /// Get all users
         /// </summary>
         /// <returns></returns>
-        public Task<List<UserResponseModel>> GetUsersAsync(CancellationToken ct = default)
+        public Task<List<UserResponseModel>> GetUsersAsync(int agencyId, CancellationToken ct = default)
         {
-            return _mapper.ProjectTo<UserResponseModel>(_userRepository.GetAll().Include(x=>x.Employee)).ToListAsync(cancellationToken: ct);
+            return _mapper.ProjectTo<UserResponseModel>(_userRepository.GetAll().Include(x=>x.Employee).Where(x => x.Employee.AgencyId == agencyId)).ToListAsync(cancellationToken: ct);
         }
 
         /// <summary>
