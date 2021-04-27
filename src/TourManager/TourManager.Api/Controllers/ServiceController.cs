@@ -16,10 +16,10 @@ namespace TourManager.Api.Controllers
         }
 
         // GET api/<ServiceController>/5
-        [HttpGet("{agencyId}")]
-        public async Task<IEnumerable<Activity>> Get(long agencyId)
+        [HttpGet]
+        public async Task<IEnumerable<Activity>> Get()
         {
-            var result = await _serviceManagerClient.GetActivitiesAsync(agencyId);
+            var result = await _serviceManagerClient.GetActivitiesAsync(UserInfo.AgencyId);
 
             return result;
         }
@@ -53,9 +53,9 @@ namespace TourManager.Api.Controllers
 
         // GET api/<ServiceController>/5/activitytype/cafe
         [HttpGet("{agencyId}/activitytype/{activityTypeName}")]
-        public async Task<IEnumerable<ActivityType>> GetSearchedActivityTypes(long agencyId, string activityTypeName)
+        public async Task<IEnumerable<ActivityType>> GetSearchedActivityTypes(string activityTypeName)
         {
-            var result = await _serviceManagerClient.SearchActivityTypesAsync(agencyId, activityTypeName);
+            var result = await _serviceManagerClient.SearchActivityTypesAsync(UserInfo.AgencyId, activityTypeName);
 
             return result;
         }
