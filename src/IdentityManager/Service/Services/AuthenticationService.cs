@@ -147,7 +147,7 @@ namespace Travely.IdentityManager.Service.Identity
         /// <param name="userRequestModel"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<UserResponseModel> UpdateAsync(UserRequestModel userRequestModel, int agencyId, CancellationToken ct = default)
+        public async Task<UserResponseModel> UpdateAsync(UpdateUserRequestModel userRequestModel, int agencyId, CancellationToken ct = default)
         {            
             User user = await _userRepository.FindAsync(x => x.UserName == userRequestModel.Email);
             if (user is null)

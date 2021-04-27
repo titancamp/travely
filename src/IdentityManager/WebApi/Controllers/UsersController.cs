@@ -86,7 +86,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<ActionResult<UserResponseModel>> EditAsync([FromRoute]int id, [FromBody] UserRequestModel userRequestModel, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<UserResponseModel>> EditAsync([FromRoute]int id, [FromBody] UpdateUserRequestModel userRequestModel, CancellationToken cancellationToken = default)
         {
             var agencyId = HttpContext.GetUserContext().AgencyId;
             userRequestModel.Id = id;
