@@ -34,7 +34,7 @@ namespace Travely.SchedulerManager.API
                         builder.AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowCredentials()
-                            .WithOrigins("http://localhost:3000");
+                            .WithOrigins("*");
                     });
             });
 
@@ -60,8 +60,16 @@ namespace Travely.SchedulerManager.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHttpsRedirection();
+
             app.UseRouting();
-            app.UseCors("CORS");
+            app.UseCors(builder => builder
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .SetIsOriginAllowed(_ => true)
+                .AllowCredentials()
+            );
+
             // app.UseAuthentication();
             // app.UseAuthorization();
 
