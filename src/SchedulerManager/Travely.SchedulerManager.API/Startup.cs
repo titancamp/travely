@@ -28,13 +28,13 @@ namespace Travely.SchedulerManager.API
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("CORS",
+                options.AddDefaultPolicy(
                     builder =>
                     {
                         builder.AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowCredentials()
-                            .WithOrigins("http://localhost:3000");
+                            .WithOrigins("http://localhost:3000", "https://travely.am");
                     });
             });
 
@@ -60,8 +60,11 @@ namespace Travely.SchedulerManager.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHttpsRedirection();
+
             app.UseRouting();
-            app.UseCors("CORS");
+            app.UseCors();
+
             // app.UseAuthentication();
             // app.UseAuthorization();
 
