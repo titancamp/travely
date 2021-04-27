@@ -63,12 +63,7 @@ namespace Travely.SchedulerManager.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseCors(builder => builder
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .SetIsOriginAllowed(_ => true)
-                .AllowCredentials()
-            );
+            app.UseCors("CORS");
 
             // app.UseAuthentication();
             // app.UseAuthorization();
