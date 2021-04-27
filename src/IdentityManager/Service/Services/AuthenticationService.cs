@@ -155,7 +155,7 @@ namespace Travely.IdentityManager.Service.Identity
                 throw new UserNotFoundException();
             }
 
-            if (user.Agency.Id != agencyId)
+            if (user.Employee.AgencyId != agencyId)
             {
                 throw new NotPermitedException();
             }
