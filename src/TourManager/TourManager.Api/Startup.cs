@@ -43,6 +43,7 @@ namespace TourManager.Api
             services
                 
                 .AddControllers()
+                .AddJsonOptions(opt => opt.JsonSerializerOptions.Converters.Add(new TimeSpanConverter()))
                 .AddFluentValidation(opt => opt.RegisterValidatorsFromAssembly(typeof(TourValidator).Assembly));
             
             services.AddCors(options =>

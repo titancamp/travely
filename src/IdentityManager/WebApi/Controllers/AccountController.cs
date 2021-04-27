@@ -97,8 +97,6 @@ namespace Travely.IdentityManager.WebApi.Controllers
         public async Task UpdateAccountAsync([FromBody] JsonPatchDocument<UpdateAgencyRequestModel> agencyPatch, CancellationToken cancellationToken = default)
         {
             await _authenticationService.UpdateAccountAsync(HttpContext.GetUserContext(), agencyPatch, cancellationToken);
-        }
-        
-
+        }        
     }
 }

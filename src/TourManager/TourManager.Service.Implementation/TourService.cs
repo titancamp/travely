@@ -96,6 +96,19 @@ namespace TourManager.Service.Implementation
         {
             var newTour = await this.tourRepository.Add(this.mapper.Map<TourEntity>(tour));
 
+            foreach (var client in tour.Clients)
+            {
+                var hasExternalId = client.ExternalId != 0;
+
+                if (hasExternalId)
+                {
+                    continue;
+                }
+
+                client.ExternalId = client.Id;
+                client.Id = 0;
+            }
+
             await clientService.CreateClients(agencyId, newTour.Id, tour.Clients);
 
             await this.bookingService.CreateBookings(newTour.Id, tour.Bookings);

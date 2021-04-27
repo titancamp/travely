@@ -16,11 +16,13 @@ namespace IdentityManager.DataService.IdentityServices
 {
     public class ProfileService : IProfileService
     {
-        private IUserRepository _userRepo;
+        private readonly IUserRepository _userRepo;
+        private readonly IEmployeeRepository _employeeRepository;
 
-        public ProfileService(IUserRepository rep)
+        public ProfileService(IUserRepository rep, IEmployeeRepository employeeRepository)
         {
             _userRepo = rep;
+            _employeeRepository = employeeRepository;
         }
 
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
@@ -28,19 +30,25 @@ namespace IdentityManager.DataService.IdentityServices
             try
             {
                 var subjectId = context.Subject.GetSubjectId();
-                User user = await _userRepo.GetAll().Where(x => x.Id == Convert.ToInt32(subjectId)).Include(x => x.Agency).FirstOrDefaultAsync();
+                var userId = Convert.ToInt32(subjectId);
+                var userData = await _employeeRepository.GetAll().Where(x=>x.UserId == userId).Select(x=>new
+                {
+                    x.UserId,
+                    x.User.Role,
+                    x.AgencyId
+                }).FirstOrDefaultAsync();
 
                 var claims = new List<Claim>
                 {
-                    new Claim(JwtClaimTypes.Subject, user.Id.ToString()),
-                    new Claim(JwtClaimTypes.Role, user.Role.ToString()),
-                    new Claim("AgencyId", user.Agency.Id.ToString())
+                    new Claim(JwtClaimTypes.Subject, userData.UserId.ToString()),
+                    new Claim(JwtClaimTypes.Role, userData.Role.ToString()),
+                    new Claim("AgencyId", userData.AgencyId.ToString())
                 };
 
                 context.IssuedClaims = claims;
                 return;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return;
             }
@@ -50,7 +58,7 @@ namespace IdentityManager.DataService.IdentityServices
         {
             var user = await _userRepo.GetAll().Where(x => x.Id == Convert.ToInt32(context.Subject.GetSubjectId())).FirstOrDefaultAsync();
 
-            context.IsActive = (user != null && user.Status == Travely.IdentityManager.Repository.Abstractions.Entities.Status.Active); // && user.Active;
+            context.IsActive = (user != null && user.Status == Status.Active); // && user.Active;
             return;
         }
     }

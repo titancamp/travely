@@ -17,13 +17,25 @@ namespace Travely.IdentityManager.WebApi.Mappers
                 //.AfterMap((src, dest) => dest.Password = Guid.NewGuid().ToString())
                 .AfterMap((src, dest) => dest.Status = Status.Inactive)
                 .AfterMap((src, dest) => dest.Role = Role.User)
-                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow)
-                ;
+                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow);
 
             CreateMap<UserRequestModel, Employee>()
                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
-               .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow)
-               ;
+               .ForMember(dest => dest.JobTitle, opt => opt.MapFrom(src => src.Title))
+               .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow);
+
+            CreateMap<UpdateUserRequestModel, User>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.Employee, opt => opt.MapFrom(src => src))
+                //.AfterMap((src, dest) => dest.Password = Guid.NewGuid().ToString())
+                .AfterMap((src, dest) => dest.Status = Status.Inactive)
+                .AfterMap((src, dest) => dest.Role = Role.User)
+                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow);
+
+            CreateMap<UpdateUserRequestModel, Employee>()
+               .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+               .ForMember(dest => dest.JobTitle, opt => opt.MapFrom(src => src.Title))
+               .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow);
 
             CreateMap<RegisterRequestModel, User>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
@@ -32,18 +44,15 @@ namespace Travely.IdentityManager.WebApi.Mappers
                 .AfterMap((src, dest) => dest.Password = passwordHasher.HashPassword(dest, dest.Password))
                 .AfterMap((src, dest) => dest.Status = Status.Active)
                 .AfterMap((src, dest) => dest.Role = Role.Admin)
-                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow)
-                ;
+                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow);
 
             CreateMap<RegisterRequestModel, Agency>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.AgencyName))
-                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow)
-                ;
+                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow);
 
             CreateMap<RegisterRequestModel, Employee>()
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
-                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow)
-                ;
+                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow);
 
 
             CreateMap<Employee, UserResponseModel>();
