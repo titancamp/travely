@@ -148,19 +148,17 @@ namespace Travely.IdentityManager.Service.Identity
         /// <param name="ct"></param>
         /// <returns></returns>
         public async Task<UserResponseModel> UpdateAsync(UpdateUserRequestModel userRequestModel, int agencyId, CancellationToken ct = default)
-        {            
-            User user = await _userRepository.FindAsync(x => x.UserName == userRequestModel.Email);
+        {
+            User user = await _userRepository.GetAll().Include(x => x.Employee)
+                .Where(x => x.Id == userRequestModel.Id && x.Employee.AgencyId == agencyId)
+                .FirstOrDefaultAsync(ct);
+
             if (user is null)
             {
                 throw new UserNotFoundException();
             }
 
-            if (user.Employee.AgencyId != agencyId)
-            {
-                throw new NotPermitedException();
-            }
-
-            user = _mapper.Map<User>(userRequestModel);
+            user = _mapper.Map(userRequestModel, user);
 
             _userRepository.Update(user);
 

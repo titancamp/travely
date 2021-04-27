@@ -39,12 +39,24 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// Get current user
         /// </summary>
         /// <returns></returns>
-        [Authorize()]
+        [Authorize]
         [HttpGet("current")]
         public async Task<ActionResult<UserResponseModel>> GetCurrentUserAsync(CancellationToken cancellationToken = default)
         {
             var id = HttpContext.GetUserContext().UserId;
             return await _authenticationService.GetUserById(id, cancellationToken);
+        }
+
+        /// <summary>
+        /// Get current user
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPut("current")]
+        public Task<ActionResult<UserResponseModel>> EditCurrentUserAsync([FromBody] UpdateUserRequestModel userRequestModel, CancellationToken cancellationToken = default)
+        {
+            var id = HttpContext.GetUserContext().UserId;
+            return EditUserAsync(id, userRequestModel, cancellationToken);
         }
 
         /// <summary>
@@ -86,11 +98,18 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<ActionResult<UserResponseModel>> EditAsync([FromRoute]int id, [FromBody] UpdateUserRequestModel userRequestModel, CancellationToken cancellationToken = default)
+        public async Task<ActionResult<UserResponseModel>> EditUserAsync([FromRoute]int id, [FromBody] UpdateUserRequestModel userRequestModel, CancellationToken cancellationToken = default)
         {
-            var agencyId = HttpContext.GetUserContext().AgencyId;
-            userRequestModel.Id = id;
-            return await _authenticationService.UpdateAsync(userRequestModel, agencyId, cancellationToken);
+            try
+            {
+                var agencyId = HttpContext.GetUserContext().AgencyId;
+                userRequestModel.Id = id;
+                return await _authenticationService.UpdateAsync(userRequestModel, agencyId, cancellationToken);
+            }
+            catch (UserNotFoundException)
+            {
+                return NotFound();
+            }
         }
 
         /// <summary>
