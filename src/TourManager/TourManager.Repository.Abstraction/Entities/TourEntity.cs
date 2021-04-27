@@ -51,7 +51,7 @@ namespace TourManager.Repository.Entities
         /// <summary>
 		/// The tour pick up time
 		/// </summary>
-		public DateTime PickUpTime { get; set; }
+		public TimeSpan PickUpTime { get; set; }
 
         /// <summary>
         /// The tour pick up details
@@ -61,7 +61,7 @@ namespace TourManager.Repository.Entities
         /// <summary>
 		/// The tour drop off time
 		/// </summary>
-		public DateTime DropOffTime { get; set; }
+		public TimeSpan DropOffTime { get; set; }
 
         /// <summary>
         /// The tour drop off details

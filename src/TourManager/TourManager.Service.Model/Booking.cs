@@ -17,7 +17,7 @@ namespace TourManager.Service.Model
         {
             RuleFor(booking => booking.Name).NotEmpty().WithMessage("The booking name field is requiered!");
             RuleFor(booking => booking.Notes).NotEmpty().WithMessage("The booking notes field is requiered!");
-            RuleFor(booking => booking.Destinations).NotEmpty().WithMessage("The booking should contain at least one destination!");
+            RuleFor(booking => booking.Destination).NotEmpty().WithMessage("The booking destination is required!");
         }
     }
 
@@ -74,7 +74,7 @@ namespace TourManager.Service.Model
         /// <summary>
         /// The booking arrival time
         /// </summary>
-        public DateTime? ArrivalTime { get; set; }
+        public TimeSpan? ArrivalTime { get; set; }
 
         /// <summary>
         /// The booking arrival flight number
@@ -84,7 +84,7 @@ namespace TourManager.Service.Model
         /// <summary>
         /// The booking departure time
         /// </summary>
-        public DateTime? DepartureTime { get; set; }
+        public TimeSpan? DepartureTime { get; set; }
 
         /// <summary>
         /// The booking departure flight number
@@ -97,8 +97,8 @@ namespace TourManager.Service.Model
         public string Notes { get; set; }
 
         /// <summary>
-        /// The booking destinations
+        /// The booking destination
         /// </summary>
-        public List<string> Destinations { get; set; }
+        public string Destination { get; set; }
     }
 }
