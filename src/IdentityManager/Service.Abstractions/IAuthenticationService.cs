@@ -21,7 +21,7 @@ namespace Travely.IdentityManager.Service.Abstractions
         Task<AgencyResponseModel> GetAgencyByIdAsync(int id, CancellationToken ct = default);
         Task UpdateAccountAsync(UserContextModel userContext, JsonPatchDocument<UpdateAgencyRequestModel> jsonPatch, CancellationToken ct);
         Task<UserResponseModel> CreateAsync(UserRequestModel userRequestModel, int agencyId, CancellationToken ct = default);
-        Task<UserResponseModel> UpdateAsync(UserRequestModel userRequestModel, int agencyId, CancellationToken ct = default);
+        Task<UserResponseModel> UpdateAsync(UpdateUserRequestModel userRequestModel, int agencyId, CancellationToken ct = default);
         Task DeleteUserAsync(int id, int agencyId, CancellationToken ct = default);
     }
 }
