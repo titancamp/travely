@@ -82,7 +82,7 @@ namespace TourManager.Service.Implementation
         /// <returns></returns>
         public async Task<Tour> GetTourById(int agencyId, int tourId)
         {
-            var result = await this.tourRepository.GetById(tourId);
+            var result = await this.tourRepository.GetByIdAsync(tourId, includeBookings: true, includeClients: true);
 
             return this.mapper.Map<Tour>(result);
         }

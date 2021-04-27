@@ -33,9 +33,14 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
               .AsNoTracking()
               .Where(x => x.Tour.AgencyId == filter.AgencyId);
 
+            if (filter.TourId.HasValue)
+            {
+                query = query.Where(item => item.TourId == filter.TourId.Value);
+            }
+
             if (filter.CancellationDeadlineFrom.HasValue)
             {
-                query = query.Where(x => x.CancellationDeadline >= filter.CancellationDeadlineFrom);
+                query = query.Where(x => x.BookingProperty.CancellationDeadline >= filter.CancellationDeadlineFrom);
             }
 
             return query.ToListAsync();

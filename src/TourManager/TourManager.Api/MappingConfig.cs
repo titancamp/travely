@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TourManager.Repository.Entities;
 using TourManager.Service.Model;
+using TourManager.Service.Model.TourManager;
 
 namespace TourManager.Api
 {
@@ -27,8 +28,9 @@ namespace TourManager.Api
                 .ForMember(dest => dest.Client, opt => opt.MapFrom(src => src));
 
             // booking mappings
-            this.CreateMap<Booking, BookingEntity>();
-            this.CreateMap<BookingEntity, Booking>();
+            this.CreateMap<Booking, BookingEntity>().ReverseMap();
+            this.CreateMap<BookingProperty, BookingPropertyEntity>().ReverseMap();
+            this.CreateMap<BookingService, BookingServiceEntity>().ReverseMap();
 
             // tour mappings
             this.CreateMap<Tour, TourEntity>()
