@@ -10,6 +10,8 @@ namespace TourManager.Repository.Entities
 
         public DateTime? BookingDate { get; set; }
 
+        public TimeSpan? BookingTime { get; set; }
+
         public int NumberOfGuests { get; set; }
 
         public string Notes { get; set; }

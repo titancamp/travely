@@ -10,6 +10,8 @@ namespace TourManager.Service.Model.TourManager
 
         public DateTime? BookingDate { get; set; }
 
+        public TimeSpan? BookingTime { get; set; }
+
         public int NumberOfGuests { get; set; }
 
         public string Notes { get; set; }
