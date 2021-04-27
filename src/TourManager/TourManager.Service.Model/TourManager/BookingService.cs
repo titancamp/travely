@@ -1,4 +1,6 @@
-﻿namespace TourManager.Service.Model.TourManager
+﻿using System;
+
+namespace TourManager.Service.Model.TourManager
 {
     public class BookingService
     {
@@ -6,7 +8,7 @@
 
         public string ServiceName { get; set; }
 
-        public int BookingDate { get; set; }
+        public DateTime? BookingDate { get; set; }
 
         public int NumberOfGuests { get; set; }
 

@@ -28,11 +28,6 @@ namespace TourManager.Repository.Entities
         public TourEntity Tour { get; set; }
 
         /// <summary>
-        /// The booking name
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
         /// The booking type
         /// </summary>
         public int Type { get; set; }

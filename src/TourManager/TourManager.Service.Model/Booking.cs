@@ -14,7 +14,6 @@ namespace TourManager.Service.Model
         /// </summary>
         public BookingValidator()
         {
-            RuleFor(booking => booking.Name).NotEmpty().WithMessage("The booking name field is requiered!");
         }
     }
 
@@ -32,11 +31,6 @@ namespace TourManager.Service.Model
         /// The external id
         /// </summary>
         public int ExternalId { get; set; }
-
-        /// <summary>
-        /// The booking name
-        /// </summary>
-        public string Name { get; set; }
 
         /// <summary>
         /// The booking type

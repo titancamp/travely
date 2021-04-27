@@ -1,4 +1,6 @@
-﻿namespace TourManager.Repository.Entities
+﻿using System;
+
+namespace TourManager.Repository.Entities
 {
     public class BookingServiceEntity
     {
@@ -6,7 +8,7 @@
 
         public string ServiceName { get; set; }
 
-        public int BookingDate { get; set; }
+        public DateTime? BookingDate { get; set; }
 
         public int NumberOfGuests { get; set; }
 
