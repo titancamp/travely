@@ -27,7 +27,8 @@ namespace Travely.IdentityManager.Repository.EntityFramework
             {
                 entity.ToTable("Employee");
 
-                entity.Property(e => e.Email).HasMaxLength(256);
+                entity.Property(e => e.Email)
+                    .HasMaxLength(256);
 
                 entity.Property(e => e.FirstName)
                     //.IsRequired()
@@ -95,14 +96,13 @@ namespace Travely.IdentityManager.Repository.EntityFramework
 
             modelBuilder.Entity<User>(entity =>
             {
-                modelBuilder.Entity<User>(entity =>
-                {
-                    entity.ToTable("Users");
+                entity.ToTable("Users");
 
-                    entity.Property(e => e.Password).IsRequired();
+                entity.Property(e => e.Password).IsRequired();
 
-                    entity.Property(e => e.UserName).IsRequired();
-                });
+                entity.Property(e => e.UserName).HasMaxLength(100).IsRequired();
+
+                entity.HasIndex(x => x.UserName).IsUnique();
             });
         }
     }

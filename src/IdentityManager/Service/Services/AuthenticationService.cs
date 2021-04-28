@@ -147,7 +147,7 @@ namespace Travely.IdentityManager.Service.Identity
         /// <param name="userRequestModel"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<UserResponseModel> UpdateAsync(UpdateUserRequestModel userRequestModel, int agencyId, CancellationToken ct = default)
+        public async Task<UserResponseModel> UpdateUserAsync(UpdateUserRequestModel userRequestModel, int agencyId, CancellationToken ct = default)
         {
             User user = await _userRepository.GetAll().Include(x => x.Employee)
                 .Where(x => x.Id == userRequestModel.Id && x.Employee.AgencyId == agencyId)
@@ -190,13 +190,10 @@ namespace Travely.IdentityManager.Service.Identity
             await _unitOfWork.SaveChangesAsync(ct);
         }
 
-        public async Task UpdateAccountAsync(UserContextModel userContext, JsonPatchDocument<UpdateAgencyRequestModel> jsonPatch, CancellationToken ct)
+        public async Task UpdateAccountAsync(int agencyId, UpdateAgencyRequestModel model, CancellationToken ct = default)
         {
-            Agency agency = await _agencyRepository.FindByIdAsync(userContext.AgencyId);
-            UpdateAgencyRequestModel jsonPatchDTO = _mapper.Map<UpdateAgencyRequestModel>(agency);
-
-            jsonPatch.ApplyTo(jsonPatchDTO);
-            _mapper.Map(jsonPatchDTO, agency);
+            Agency agency = await _agencyRepository.FindByIdAsync(agencyId, ct);
+            _mapper.Map(model, agency);
             _agencyRepository.Update(agency);
 
             await _unitOfWork.SaveChangesAsync(ct);
