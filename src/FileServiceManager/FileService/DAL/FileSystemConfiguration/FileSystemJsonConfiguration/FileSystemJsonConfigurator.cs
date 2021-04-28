@@ -36,7 +36,7 @@ namespace FileService.DAL
                     throw new FileNotFoundException("Configuration file is not found");
                 }
 
-                JToken companiesToken = rootToken.SelectToken($"$.companies[?(@.companyId == {companyId})]");
+                JToken companiesToken = rootToken.SelectToken($"$.companies[?(@.company_id == {companyId})]");
 
                 //if company node exists, add new file to files array
                 if (companiesToken != null)
@@ -79,7 +79,7 @@ namespace FileService.DAL
                 throw new FileNotFoundException("Configuration file is not found");
             }
 
-            filesToken = rootToken.SelectToken($"$.companies[?(@.companyId == {companyId})]")?.SelectToken($"$..files");
+            filesToken = rootToken.SelectToken($"$.companies[?(@.company_id == {companyId})]")?.SelectToken($"$..files");
 
             if (filesToken == null)
             {
@@ -102,7 +102,7 @@ namespace FileService.DAL
                 throw new FileNotFoundException("Configuration file is not found");
             }
 
-            JToken filesToken = rootToken.SelectToken($"$.companies[?(@.companyId == {companyId})]")?.SelectToken($"$..files[?(@.Id == '{fileId}')]");
+            JToken filesToken = rootToken.SelectToken($"$.companies[?(@.company_id == {companyId})]")?.SelectToken($"$..files[?(@.id == '{fileId}')]");
 
             if (filesToken == null)
             {
@@ -123,7 +123,7 @@ namespace FileService.DAL
                     throw new FileNotFoundException("Configuration file is not found");
                 }
 
-                JToken fileToken = rootToken.SelectToken($"$.companies[?(@.companyId == {companyId})]")?.SelectToken($"$..files[?(@.Id == '{fileId}')]");
+                JToken fileToken = rootToken.SelectToken($"$.companies[?(@.company_id == {companyId})]")?.SelectToken($"$..files[?(@.id == '{fileId}')]");
 
                 if (fileToken != null)
                 {
