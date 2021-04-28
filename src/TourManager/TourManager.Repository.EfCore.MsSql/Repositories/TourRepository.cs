@@ -56,6 +56,8 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
         {
             var query = DbSet
                 .AsNoTracking()
+                .Include(item => item.TourClients)
+                .ThenInclude(item => item.Client)
                 .Where(x => x.AgencyId == filter.AgencyId);
 
             if (filter.StartDate != null)

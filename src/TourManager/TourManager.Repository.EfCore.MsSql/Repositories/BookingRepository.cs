@@ -31,6 +31,7 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
         {
             var query = DbSet
               .AsNoTracking()
+              .Include(item => item.Tour)
               .Where(x => x.Tour.AgencyId == filter.AgencyId);
 
             if (filter.TourId.HasValue)
