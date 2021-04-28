@@ -19,7 +19,7 @@ namespace FileService.DAL
 
         public FileSystemStorage(IOptions<StorageOption> options, IFileSystemConfigurator fileSystemConfigurator)
         {
-            _basePath = Path.Combine((string.IsNullOrEmpty(options.Value.Path) ? Directory.GetCurrentDirectory() : options.Value.Path) + "\\Files\\");
+            _basePath = Path.Combine((string.IsNullOrEmpty(options.Value.Path) ? Directory.GetCurrentDirectory() : options.Value.Path) + "/Files/");
 
             _fileSizeLimit = options.Value.FileSizeLimit??int.MaxValue;
 
