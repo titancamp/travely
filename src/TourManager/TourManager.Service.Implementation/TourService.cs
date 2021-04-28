@@ -82,7 +82,7 @@ namespace TourManager.Service.Implementation
         /// <returns></returns>
         public async Task<Tour> GetTourById(int agencyId, int tourId)
         {
-            var result = await this.tourRepository.GetById(tourId);
+            var result = await this.tourRepository.GetByIdAsync(tourId, includeBookings: true, includeClients: true);
 
             return this.mapper.Map<Tour>(result);
         }
@@ -94,7 +94,10 @@ namespace TourManager.Service.Implementation
         /// <returns></returns>
         public async Task<Tour> CreateTour(int agencyId, Tour tour)
         {
-            var newTour = await this.tourRepository.Add(this.mapper.Map<TourEntity>(tour));
+            var tourToCreate = this.mapper.Map<TourEntity>(tour);
+            tourToCreate.AgencyId = agencyId;
+
+            var newTour = await this.tourRepository.Add(tourToCreate);
 
             foreach (var client in tour.Clients)
             {
