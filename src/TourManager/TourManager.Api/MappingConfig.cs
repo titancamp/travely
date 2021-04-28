@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Linq;
 using TourManager.Repository.Entities;
 using TourManager.Service.Model;
 using TourManager.Service.Model.TourManager;
@@ -36,7 +37,8 @@ namespace TourManager.Api
             this.CreateMap<Tour, TourEntity>()
                    .ForMember(dest => dest.Bookings, opt => opt.Ignore())
                    .ForMember(dest => dest.TourClients, opt => opt.Ignore());
-            this.CreateMap<TourEntity, Tour>();
+            this.CreateMap<TourEntity, Tour>()
+                .ForMember(dest => dest.Clients, opt => opt.MapFrom(src => src.TourClients.Select(tc => tc.Client)));
         }
     }
 }
