@@ -91,12 +91,5 @@ namespace Travely.IdentityManager.WebApi.Controllers
 
             return BadRequest("Some properties are not valid");
         }
-
-        [HttpPatch("agency")]
-        [Authorize]
-        public async Task UpdateAccountAsync([FromBody] JsonPatchDocument<UpdateAgencyRequestModel> agencyPatch, CancellationToken cancellationToken = default)
-        {
-            await _authenticationService.UpdateAccountAsync(HttpContext.GetUserContext(), agencyPatch, cancellationToken);
-        }        
     }
 }

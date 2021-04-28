@@ -104,7 +104,7 @@ namespace Travely.IdentityManager.WebApi.Controllers
             {
                 var agencyId = HttpContext.GetUserContext().AgencyId;
                 userRequestModel.Id = id;
-                return await _authenticationService.UpdateAsync(userRequestModel, agencyId, cancellationToken);
+                return await _authenticationService.UpdateUserAsync(userRequestModel, agencyId, cancellationToken);
             }
             catch (UserNotFoundException)
             {
