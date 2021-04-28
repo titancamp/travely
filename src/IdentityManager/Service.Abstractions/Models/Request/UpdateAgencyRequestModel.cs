@@ -2,10 +2,10 @@
 {
     public class UpdateAgencyRequestModel
     {
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
 
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
-        public string LogoFile { get; set; }
+        public string? LogoFile { get; set; }
     }
 }
