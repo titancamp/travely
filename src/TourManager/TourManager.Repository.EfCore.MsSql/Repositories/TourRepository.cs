@@ -23,6 +23,31 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
         }
 
         /// <summary>
+        /// Gets tour by identifier.
+        /// </summary>
+        /// <param name="id">The tour identifier.</param>
+        /// <param name="includeBookings">If true includes bookings.</param>
+        /// <param name="includeClients">If true includes clients.</param>
+        /// <returns></returns>
+        public Task<TourEntity> GetByIdAsync(int id, bool includeBookings, bool includeClients)
+        {
+            var query = Context.Set<TourEntity>().AsQueryable();
+
+            if (includeBookings)
+            {
+                query = query.Include(item => item.Bookings);
+            }
+
+            if (includeClients)
+            {
+                query = query.Include(item => item.TourClients)
+                    .ThenInclude(item => item.Client);
+            }
+
+            return query.FirstOrDefaultAsync(item => item.Id == id);
+        }
+
+        /// <summary>
         /// Get tours
         /// </summary>
         /// <param name="filter">The filter</param>
