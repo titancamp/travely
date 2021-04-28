@@ -22,8 +22,8 @@ services:
       context: .
       dockerfile: src/TourManager/TourManager.Api/Dockerfile
     ports:
-        - "5000:80"
-        - "5001:443"
+        - "8000:80"
+        - "8001:443"
     depends_on:
         - sql-server-db
     environment:
@@ -39,8 +39,8 @@ services:
       context: .
       dockerfile: src/ServiceManager/Travely.ServiceManager.Service/Dockerfile
     ports:
-        - "5200:80"
-        - "5201:443"
+        - "8100:80"
+        - "8101:443"
     depends_on:
         - sql-server-db
     environment:
@@ -56,8 +56,8 @@ services:
       context: .
       dockerfile: src/SchedulerManager/Travely.SchedulerManager.API/Dockerfile
     ports:
-        - "5300:80"
-        - "5301:443"
+        - "8200:80"
+        - "8201:443"
     depends_on:
         - sql-server-db
     environment:
@@ -73,8 +73,8 @@ services:
       context: .
       dockerfile: src/PropertyManager/Travely.PropertyManager.API/Dockerfile
     ports:
-        - "5400:80"
-        - "5401:443"
+        - "8300:80"
+        - "8301:443"
     depends_on:
         - sql-server-db
     environment:
@@ -91,8 +91,8 @@ services:
       context: .
       dockerfile: src/FileServiceManager/FileService/Dockerfile
     ports:
-        - "5500:80"
-        - "5501:443"
+        - "8400:80"
+        - "8401:443"
     depends_on:
         - sql-server-db
     environment:
@@ -109,8 +109,8 @@ services:
       context: .
       dockerfile: src/ClientManager/Travely.ClientManager.Service/Dockerfile
     ports:
-        - "5110:80"
-        - "5111:443"
+        - "8500:80"
+        - "8501:443"
     depends_on:
         - sql-server-db
     environment:
@@ -127,8 +127,8 @@ services:
       context: .
       dockerfile: src/IdentityManager/WebApi/Dockerfile
     ports:
-      - "5710:80"
-      - "5711:443"
+      - "8600:80"
+      - "8601:443"
     depends_on:
       - sql-server-db
     environment:
