@@ -29,7 +29,9 @@ namespace TourManager.Api
                 .ForMember(dest => dest.Client, opt => opt.MapFrom(src => src));
 
             // booking mappings
-            this.CreateMap<Booking, BookingEntity>().ReverseMap();
+            this.CreateMap<Booking, BookingEntity>();
+            this.CreateMap<BookingEntity, Booking>()
+                .ForMember(dest => dest.TourName, opt => opt.MapFrom(src => src.Tour != null ? src.Tour.Name : null));
             this.CreateMap<BookingProperty, BookingPropertyEntity>().ReverseMap();
             this.CreateMap<BookingService, BookingServiceEntity>().ReverseMap();
 
@@ -38,7 +40,7 @@ namespace TourManager.Api
                    .ForMember(dest => dest.Bookings, opt => opt.Ignore())
                    .ForMember(dest => dest.TourClients, opt => opt.Ignore());
             this.CreateMap<TourEntity, Tour>()
-                .ForMember(dest => dest.Clients, opt => opt.MapFrom(src => src.TourClients.Select(tc => tc.Client)));
+                .ForMember(dest => dest.Clients, opt => opt.MapFrom(src => src.TourClients.Select(tc => tc.Client).ToList()));
         }
     }
 }
