@@ -4,6 +4,7 @@
 	{
 		None,
 		Hotel,
+		Activity,
 		Transportation
 	}
 }

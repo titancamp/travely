@@ -15,7 +15,6 @@ namespace TourManager.Service.Model
         public TourValidator()
         {
             RuleFor(tour => tour.Name).NotEmpty().WithMessage("The tour name field is requiered!");
-            RuleFor(tour => tour.Notes).NotEmpty().WithMessage("The tour notes field is requiered!");
             RuleFor(tour => tour.Bookings).NotEmpty().WithMessage("The tour should contain at least one destination!");
             RuleForEach(tour => tour.Bookings).NotEmpty().WithMessage("The tour can not contain empty booking!");
             RuleFor(tour => tour.Clients).NotEmpty().WithMessage("The tour should contain at least one client!");

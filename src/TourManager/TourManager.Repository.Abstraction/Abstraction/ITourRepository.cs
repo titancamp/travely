@@ -11,6 +11,15 @@ namespace TourManager.Repository.Abstraction
     public interface ITourRepository : IRepository<TourEntity>
     {
         /// <summary>
+        /// Gets tour by identifier.
+        /// </summary>
+        /// <param name="id">The tour identifier.</param>
+        /// <param name="includeBookings">If true includes bookings.</param>
+        /// <param name="includeClients">If true includes clients.</param>
+        /// <returns></returns>
+        public Task<TourEntity> GetByIdAsync(int id, bool includeBookings, bool includeClients);
+
+        /// <summary>
         /// Get tours
         /// </summary>
         /// <param name="filter">The filter</param>
