@@ -1,4 +1,4 @@
-﻿namespace Travely.SchedulerManager.Common
+﻿namespace Travely.SchedulerManager
 {
     public class RepositoryOptions
     {

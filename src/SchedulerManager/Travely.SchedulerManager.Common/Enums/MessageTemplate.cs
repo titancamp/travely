@@ -2,6 +2,10 @@
 {
     public enum MessageTemplate
     {
-        BookingExpire = 1,
+        BookingCancellationExpiration = 1,
+        IncompleteBookingRequests = 2,
+        TourIsApproaching = 3,
+        ChangeInTourField = 4,
+        TourStartDateChange = 5,
     }
 }

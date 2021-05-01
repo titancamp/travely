@@ -1,15 +1,12 @@
 ﻿using Hangfire;
 using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using System;
-using Travely.SchedulerManager.Common;
 
 namespace Travely.SchedulerManager.Job
 {
-    public static class Extensions
+    public static class DIExtensions
     {
         public static IServiceCollection AddJobService(this IServiceCollection services, JobOptions options)
         {
@@ -34,7 +31,10 @@ namespace Travely.SchedulerManager.Job
         }
         public static IApplicationBuilder UseJobClient(this IApplicationBuilder app)
         {
-            app.UseHangfireDashboard();
+            app.UseHangfireDashboard("/hangfire", new DashboardOptions 
+            {
+                Authorization = new[] { new HangfireAuthorizationFilter() }
+            });
             app.UseEndpoints(endpoints => endpoints.MapHangfireDashboard());
             return app;
         }
