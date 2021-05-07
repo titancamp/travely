@@ -5,6 +5,6 @@ namespace Travely.SchedulerManager
 {
     public interface INotifierService
     {
-        Task<IEnumerable<string>> NotifyAsync(NotificationModel model);
+        Task<IEnumerable<long>> NotifyAsync(NotificationGeneratedModel generatedModel);
     }
 }

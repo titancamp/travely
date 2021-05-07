@@ -14,6 +14,7 @@ COPY ["src/SchedulerManager/Travely.SchedulerManager.Abstraction/Travely.Schedul
 COPY ["src/SchedulerManager/Travely.SchedulerManager.Common/Travely.SchedulerManager.Common.csproj", "src/SchedulerManager/Travely.SchedulerManager.Common/"]
 COPY ["src/SchedulerManager/Travely.SchedulerManager.Repository/Travely.SchedulerManager.Repository.csproj", "src/SchedulerManager/Travely.SchedulerManager.Repository/"]
 COPY ["src/SchedulerManager/Travely.SchedulerManager.Notifier/Travely.SchedulerManager.Notifier.csproj", "src/SchedulerManager/Travely.SchedulerManager.Notifier/"]
+COPY ["src/Shared/IdentityClient/Travely.Shared.IdentityClient.Authorization.csproj", "src/Shared/IdentityClient/"]
 COPY ["src/SchedulerManager/Travely.SchedulerManager.Service/Travely.SchedulerManager.Service.csproj", "src/SchedulerManager/Travely.SchedulerManager.Service/"]
 RUN dotnet restore "src/SchedulerManager/Travely.SchedulerManager.API/Travely.SchedulerManager.API.csproj"
 COPY . .

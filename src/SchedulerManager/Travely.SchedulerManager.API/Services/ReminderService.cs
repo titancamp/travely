@@ -2,6 +2,8 @@
 using Grpc.Core;
 using System.Linq;
 using System.Threading.Tasks;
+using Travely.SchedulerManager.Service;
+using Travely.SchedulerManager.Common.Enums;
 
 namespace Travely.SchedulerManager.API.Services
 {
@@ -16,13 +18,19 @@ namespace Travely.SchedulerManager.API.Services
 
         public override async Task<GetResponse> Get(GetRequest request, ServerCallContext context)
         {
-               var result = await _notificationService.GetNotification(request.BookingId); 
+            var msgTemplate = request.NotificationType switch
+            {
+                NotificationType.BookingCancellationExpiration => MessageTemplate.BookingCancellationExpiration,
+                NotificationType.IncompleteBookingRequests => MessageTemplate.IncompleteBookingRequests,
+                NotificationType.TourIsApproaching => MessageTemplate.TourIsApproaching,
+                _ => throw new RpcException(Status.DefaultCancelled)
+            };
+            var result = await _notificationService.GetNotification(request.TourId, request.BookingId, msgTemplate);
             //TODO: Fix this and use scheduleId
             return new GetResponse()
             {
                 Notification = new Notification()
                 {
-                    BookingId = result.RecurseId,
                     Message = result.Message
                 }
             };
@@ -34,51 +42,114 @@ namespace Travely.SchedulerManager.API.Services
             var response = new GetAllResponse();
             response.Notifications.AddRange(result.Select(n => new Notification()
             {
-                BookingId = n.RecurseId,
                 Message = n.Message
             }));
             return response;
         }
 
-        public override async Task<CreateResponse> Create(CreateRequest request, ServerCallContext context)
+        public override async Task<CreateScheduledNotificationResponse> CreateScheduledNotification(CreateScheduledNotificationRequest request, ServerCallContext context)
         {
-            //TODO: change to BookingExpireNotification model
-            //var dto = new CreateNotification
-            //{
-            //    TourId = request.TourId,
-            //    TourName = request.TourName,
-            //    BookingId = request.BookingId,
-            //    BookingName = request.BookingName,
-            //    BookingNotes = request.BookingNotes,
-            //    ExpireDate = request.ExpireDate.ToDateTime(),
-            //    UserIds = request.AssignedUserIds
-            //};
-            //var result = await _notificationService.CreateNotification(dto);
-            //return new CreateResponse() { Succeed = result };
-            throw new NotImplementedException();
+            INotificationModel model = request.NotificationType switch
+            {
+                NotificationType.BookingCancellationExpiration => new BookingCancellationExpirationNotificationModel
+                {
+                    TourId = request.TourId,
+                    BookingId = request.BookingId,
+                    TourName = request.TourName,
+                    BookingName = request.BookingName,
+                    BookingCancellationDate = request.BookingExpireDate.ToDateTime(),
+                    UserIds = request.AssignedUserIds
+                },
+
+                NotificationType.IncompleteBookingRequests => new IncompleteBookingRequestsNotificationModel
+                {
+                    TourId = request.TourId,
+                    TourName = request.TourName,
+                    TourStartDate = request.TourStartDate.ToDateTime(),
+                    UserIds = request.AssignedUserIds
+                },
+
+                NotificationType.TourIsApproaching => new TourIsApproachingNotificationModel
+                {
+                    TourId = request.TourId,
+                    TourName = request.TourName,
+                    TourStartDate = request.TourStartDate.ToDateTime(),
+                    UserIds = request.AssignedUserIds
+                },
+
+                _ => throw new RpcException(Status.DefaultCancelled)
+            };
+
+            var result = await _notificationService.CreateNotification(model);
+            return new CreateScheduledNotificationResponse() { Succeed = result };
         }
 
-        public override async Task<UpdateResponse> Update(UpdateRequest request, ServerCallContext context)
+        public override async Task<UpdateScheduledNotificationResponse> UpdateScheduledNotification(UpdateScheduledNotificationRequest request, ServerCallContext context)
         {
-            //TODO: 
-            //var dto = new UpdateNotificationModel
-            //{
-            //    TourId = request.TourId,
-            //    TourName = request.TourName,
-            //    BookingId = request.BookingId,
-            //    BookingName = request.BookingName,
-            //    BookingNotes = request.BookingNotes,
-            //    ExpireDate = request.ExpireDate.ToDateTime(),
-            //    UserIds = request.AssignedUserIds
-            //};
-            //await _notificationService.UpdateNotification(dto);
-            return new UpdateResponse() { };
+            INotificationModel model = request.NotificationType switch
+            {
+                NotificationType.BookingCancellationExpiration => new BookingCancellationExpirationNotificationModel
+                {
+                    TourId = request.TourId,
+                    BookingId = request.BookingId,
+                    TourName = request.TourName,
+                    BookingName = request.BookingName,
+                    BookingCancellationDate = request.BookingExpireDate.ToDateTime(),
+                    UserIds = request.AssignedUserIds
+                },
+
+                NotificationType.IncompleteBookingRequests => new IncompleteBookingRequestsNotificationModel
+                {
+                    TourId = request.TourId,
+                    TourName = request.TourName,
+                    TourStartDate = request.TourStartDate.ToDateTime(),
+                    UserIds = request.AssignedUserIds
+                },
+
+                NotificationType.TourIsApproaching => new TourIsApproachingNotificationModel
+                {
+                    TourId = request.TourId,
+                    TourName = request.TourName,
+                    TourStartDate = request.TourStartDate.ToDateTime(),
+                    UserIds = request.AssignedUserIds
+                },
+
+                _ => throw new RpcException(Status.DefaultCancelled)
+            };
+
+            var result = await _notificationService.UpdateNotification(model);
+            return new UpdateScheduledNotificationResponse() { Succeed = result};
         }
 
-        public override async Task<DeleteResponse> Delete(DeleteRequest request, ServerCallContext context)
+        public override async Task<DeleteScheduledNotificationResponse> DeleteScheduledNotification(DeleteScheduledNotificationRequest request, ServerCallContext context)
         {
-            await _notificationService.DeleteNotification(request.BookingId);
-            return new DeleteResponse() { };
+            var msgTemplate = request.NotificationType switch
+            {
+                NotificationType.BookingCancellationExpiration => MessageTemplate.BookingCancellationExpiration,
+                NotificationType.IncompleteBookingRequests => MessageTemplate.IncompleteBookingRequests,
+                NotificationType.TourIsApproaching => MessageTemplate.TourIsApproaching,
+                _ => throw new RpcException(Status.DefaultCancelled)
+            };
+                
+            var result = await _notificationService.DeleteNotification(request.TourId, request.BookingId, msgTemplate);
+            return new DeleteScheduledNotificationResponse() { Succeed = result};
+        }
+
+        public override async Task<CreateFieldChangedNotificationResponse> CreateFieldChangedNotification(CreateFieldChangedNotificationRequest request, ServerCallContext context)
+        {
+            var model = new ChangeInTourFieldNotificationModel
+            {
+                TourId = request.TourId,
+                TourName = request.TourName,
+                UserIdWhoMadeTheChange = request.User.UserId,
+                UserWhoMadeTheChange = request.User.UserName,
+                ChangedFieldName = request.FieldName,
+                OldValue = request.OldValue,
+                NewValue = request.NewValue,
+                UserIds = request.AssignedUserIds
+            };
+            var result = await _notificationService.CreateNotification(model);
+            return new CreateFieldChangedNotificationResponse() { Succeed = result };
         }
     }
 }

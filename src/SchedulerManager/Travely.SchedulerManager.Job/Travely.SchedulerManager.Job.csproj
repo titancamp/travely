@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Hangfire" Version="1.7.19" />
     <PackageReference Include="Hangfire.Core" Version="1.7.19" />
+    <PackageReference Include="Hangfire.Dashboard.Authorization" Version="3.0.0" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.19" />
   </ItemGroup>
   <ItemGroup>

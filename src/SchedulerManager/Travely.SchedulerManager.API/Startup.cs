@@ -7,21 +7,23 @@ using Microsoft.Extensions.Hosting;
 using TourManager.Api.Bootstrapper;
 using Travely.SchedulerManager.API.Helpers;
 using Travely.SchedulerManager.API.Services;
-using Travely.SchedulerManager.Common;
 using Travely.SchedulerManager.Job;
 using Travely.SchedulerManager.Notifier.Helpers;
 using Travely.SchedulerManager.Repository;
 using Travely.SchedulerManager.Service.Extensions;
+using Serilog;
 
 namespace Travely.SchedulerManager.API
 {
     public class Startup
     {
         private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _environment;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             _configuration = configuration;
+            _environment = environment;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -38,9 +40,6 @@ namespace Travely.SchedulerManager.API
                     });
             });
 
-            // todo use identity package
-            // services.AddAuthentication();
-
             services.Configure<NotifierOptions>(_configuration.GetSection(NotifierOptions.Section));
             services.Configure<JobOptions>(_configuration.GetSection(JobOptions.Section));
             services.Configure<RepositoryOptions>(_configuration.GetSection(RepositoryOptions.Section));
@@ -50,6 +49,7 @@ namespace Travely.SchedulerManager.API
             services.AddRepositoryLayer(_configuration);
             services.AddNotifier(_configuration);
             services.AddBusinessServices();
+            services.AddTravelyAuthentication(_configuration, _environment);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -61,18 +61,17 @@ namespace Travely.SchedulerManager.API
             }
 
             app.UseHttpsRedirection();
-
+            app.UseSerilogRequestLogging();
             app.UseRouting();
             app.UseCors();
-
-            // app.UseAuthentication();
-            // app.UseAuthorization();
-
+            app.ConfigureTravelyAuthentication();
+            app.ConfigureRepositoryLayer(env.IsDevelopment());
             app.UseJobClient();
             app.UseNotifier();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<ReminderService>();
+                endpoints.MapGrpcService<EmailService>();
                 endpoints.MapGet("/", async context => await context.Response.WriteAsync("Service running"));
             });
         }
