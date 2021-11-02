@@ -19,7 +19,7 @@ namespace FileService.DAL
 
         public FileSystemStorage(IOptions<StorageOption> options, IFileSystemConfigurator fileSystemConfigurator)
         {
-            _basePath = Path.Combine((string.IsNullOrEmpty(options.Value.Path) ? Directory.GetCurrentDirectory() : options.Value.Path) + "\\Files\\");
+            _basePath = Path.Combine((string.IsNullOrEmpty(options.Value.Path) ? Directory.GetCurrentDirectory() : options.Value.Path) + "/Files/");
 
             _fileSizeLimit = options.Value.FileSizeLimit??int.MaxValue;
 
@@ -80,8 +80,8 @@ namespace FileService.DAL
                 Directory.CreateDirectory(companyBasePath);
             }
 
-            var fileName = Path.GetFileNameWithoutExtension(file.FileName);
-            var filePath = Path.Combine(companyBasePath, file.FileName);
+            var fileName = Guid.NewGuid();
+            var filePath = Path.Combine(companyBasePath, fileName.ToString("N"));
             var extension = Path.GetExtension(file.FileName);
 
 
@@ -115,10 +115,10 @@ namespace FileService.DAL
 
             var fileMetadata = new FileMetadata()
             {
-                Id = Guid.NewGuid(),
+                Id = fileName,
                 Extension = extension,
                 FilePath = filePath,
-                Name = fileName,
+                Name = fileName.ToString("N"),
                 CreatedOn = DateTime.UtcNow,
                 FileContentType = file.ContentType
             };

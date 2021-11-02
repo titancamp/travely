@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace TourManager.Repository.Entities
 {
@@ -29,11 +28,6 @@ namespace TourManager.Repository.Entities
         public TourEntity Tour { get; set; }
 
         /// <summary>
-        /// The booking name
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
         /// The booking type
         /// </summary>
         public int Type { get; set; }
@@ -44,53 +38,13 @@ namespace TourManager.Repository.Entities
         public int Status { get; set; }
 
         /// <summary>
-        /// The booking checkin date
+        /// The booking property
         /// </summary>
-        public DateTime CheckInDate { get; set; }
+        public BookingPropertyEntity BookingProperty { get; set; }
 
         /// <summary>
-        /// The booking checkout date
+        /// The booking service
         /// </summary>
-        public DateTime CheckOutDate { get; set; }
-
-        /// <summary>
-        /// The booking cancellation deadline
-        /// </summary>
-        public DateTime CancellationDeadline { get; set; }
-
-        /// <summary>
-        /// The booking origin
-        /// </summary>
-        public string Origin { get; set; }
-
-        /// <summary>
-        /// The booking arrival time
-        /// </summary>
-        public DateTime ArrivalTime { get; set; }
-
-        /// <summary>
-        /// The booking arrival flight number
-        /// </summary>
-        public string ArrivalFlightNumber { get; set; }
-
-        /// <summary>
-        /// The booking departure time
-        /// </summary>
-        public DateTime DepartureTime { get; set; }
-
-        /// <summary>
-        /// The booking departure flight number
-        /// </summary>
-        public string DepartureFlightNumber { get; set; }
-
-        /// <summary>
-        /// The booking notes
-        /// </summary>
-        public string Notes { get; set; }
-
-        /// <summary>
-        /// The booking destinations
-        /// </summary>
-        public ICollection<string> Destinations { get; set; }
+        public BookingServiceEntity BookingService { get; set; }
     }
 }

@@ -33,14 +33,11 @@ namespace Microsoft.Extensions.DependencyInjection
                     {
                         //ValidateIssuerSigningKey = true,
                         ValidateAudience = false,
-                        ValidateIssuer = true,
+                        ValidateIssuer = false,
                         RoleClaimType = ClaimTypes.Role,
                     };
 
-                    if (!environment.IsDevelopment())
-                    {
-                        options.RequireHttpsMetadata = true;
-                    }
+                    options.RequireHttpsMetadata = false;
                     options.SaveToken = true;
                 });
 

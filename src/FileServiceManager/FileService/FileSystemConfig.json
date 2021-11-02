@@ -1,0 +1,37 @@
+{
+  "companies": [
+    {
+      "companyId": 1,
+      "files": [
+        {
+          "Id": "654BD9C9-CD9A-4663-8772-3BF7DFDBE13F",
+          "Name": "Booking2",
+          "Extension": "txt",
+          "UploadedBy": "SergeyC",
+          "CreatedOn": "2021-02-20 13:02:03.942",
+          "FilePath": "//Files/"
+        },
+        {
+          "Id": "7a64d114-498a-464f-a65c-aec614aa4d50",
+          "Name": "Screen Shot 2021-04-13 at 6.49.51 PM",
+          "Extension": ".png",
+          "CreatedOn": "2021-04-28T12:42:56.659186Z",
+          "FilePath": "/Users/gevorgmartirosyan/Desktop/ServiceTitan/travely/src/FileServiceManager/FileService\\Files\\1/Screen Shot 2021-04-13 at 6.49.51 PM.png",
+          "FileContentType": "image/png"
+        },
+        {
+          "Id": "382ee279-3260-4ace-988a-94142c21fcac",
+          "Name": "Screen Shot 2021-04-13 at 6.49.51 PM",
+          "Extension": ".png",
+          "CreatedOn": "2021-04-28T12:49:38.517234Z",
+          "FilePath": "/Users/gevorgmartirosyan/Desktop/ServiceTitan/travely/src/FileServiceManager/FileService/Files/1/Screen Shot 2021-04-13 at 6.49.51 PM.png",
+          "FileContentType": "image/png"
+        }
+      ]
+    },
+    {
+      "companyId": 2,
+      "files": []
+    }
+  ]
+}

@@ -7,10 +7,11 @@
     <UserSecretsId>5369becc-f361-4138-b943-57991069f0e5</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\..\..\Proto\activity.proto" GrpcServices="Server" Link="Protos\activity.proto" />
+    <Protobuf Include="..\..\..\proto\activity.proto" GrpcServices="Server" Link="Protos\activity.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Commons\Travely.Common\Travely.Common.csproj" />
     <ProjectReference Include="..\Travely.ServiceManager.Abstraction\Travely.ServiceManager.Abstraction.csproj" />
     <ProjectReference Include="..\Travely.ServiceManager.DAL\Travely.ServiceManager.DAL.csproj" />
   </ItemGroup>

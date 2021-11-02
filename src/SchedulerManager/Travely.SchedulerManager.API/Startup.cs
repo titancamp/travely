@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TourManager.Api.Bootstrapper;
 using Travely.SchedulerManager.API.Helpers;
 using Travely.SchedulerManager.API.Services;
-using Travely.SchedulerManager.Common;
 using Travely.SchedulerManager.Job;
 using Travely.SchedulerManager.Notifier.Helpers;
 using Travely.SchedulerManager.Repository;
@@ -30,13 +30,13 @@ namespace Travely.SchedulerManager.API
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("CORS",
+                options.AddDefaultPolicy(
                     builder =>
                     {
                         builder.AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowCredentials()
-                            .WithOrigins("http://localhost:3000");
+                            .WithOrigins("http://localhost:3000", "https://travely.am");
                     });
             });
 
@@ -54,14 +54,16 @@ namespace Travely.SchedulerManager.API
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.ApplyDatabaseMigrations<SchedulerDbContext>();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHttpsRedirection();
             app.UseSerilogRequestLogging();
             app.UseRouting();
-            app.UseCors("CORS");
+            app.UseCors();
             app.ConfigureTravelyAuthentication();
             app.ConfigureRepositoryLayer(env.IsDevelopment());
             app.UseJobClient();
@@ -72,10 +74,6 @@ namespace Travely.SchedulerManager.API
                 endpoints.MapGrpcService<EmailService>();
                 endpoints.MapGet("/", async context => await context.Response.WriteAsync("Service running"));
             });
-
-            //xx.StartJobAsync(new InformationJob(), new InformationJobParameter { TourName = "Enqueue Job" }).GetAwaiter().GetResult();
-            //yy.StartJobAsync(new InformationJob(), TimeSpan.FromSeconds(5), new InformationJobParameter { TourName = "Scheduled Job" }).GetAwaiter().GetResult();
-            //zz.StartJobAsync(new InformationJob(), "Recurrent Job", "* * * * *", new InformationJobParameter { TourName = "Recurrent Job" });
         }
     }
 }

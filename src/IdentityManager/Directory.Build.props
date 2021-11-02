@@ -1,4 +1,4 @@
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"> 
   <PropertyGroup>
     <Authors>Titan Camp</Authors>
     <Company>Titan Camp</Company>
@@ -8,7 +8,9 @@
     <Nullable>enable</Nullable>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+
   <PropertyGroup>
     <SolutionDir Condition="$(SolutionDir) == ''">$(MSBuildThisFileDirectory.TrimEnd('\').TrimEnd('/'))\</SolutionDir>
     <ServiceName>identitymanager</ServiceName>
@@ -18,8 +20,4 @@
     <BaseIntermediateOutputPath>$(ArtifactsDir)\obj\$(MSBuildProjectName)</BaseIntermediateOutputPath>
     <OutputPath>$(ArtifactsDir)\bin\$(MSBuildProjectName)</OutputPath>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Nerdbank.GitVersioning" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" />
-  </ItemGroup>
 </Project>

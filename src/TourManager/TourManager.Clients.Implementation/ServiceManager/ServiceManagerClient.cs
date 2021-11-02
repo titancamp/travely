@@ -81,6 +81,16 @@ namespace TourManager.Clients.Implementation.ServiceManager
             return activityTypes.ActivityTypes_.Select(s => Mapping.Mapper.Map<ActivityType>(s));
         }
 
+        public async Task<ActivityType> CreateActivityType(long agencyId, string activityTypeName)
+        {
+            var activityClient = GetActivityClient();
+            return Mapping.Mapper.Map<ActivityType>(await activityClient.CreateActivityTypeAsync(new Travely.ServiceManager.Service.ActivityType()
+            {
+                ActivityName = activityTypeName,
+                AgencyId = agencyId
+            }));
+        }
+
         private ActivityProto.ActivityProtoClient GetActivityClient() {
             var channel = GrpcChannel.ForAddress(_serviceSettingsProvider.ComposeActivityServiceUrl());
 

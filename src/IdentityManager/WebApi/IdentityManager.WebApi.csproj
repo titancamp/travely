@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>434315b8-7714-43f7-9173-a3c23940fc5a</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
+    <RootNamespace>Travely.IdentityManager.WebApi</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <!--<PackageReference Include="AutoMapperBuilder" />-->
     <PackageReference Include="IdentityServer4" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
@@ -17,8 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataService\IdentityManager.DataService.csproj" />
+
+    <ProjectReference Include="..\..\Commons\Travely.Common\Travely.Common.csproj" />
     <ProjectReference Include="..\Repository.EntityFramework\IdentityManager.Repository.EntityFramework.csproj" />
+    <ProjectReference Include="..\Service.Abstractions\IdentityManager.Service.Abstractions.csproj" />
+    <ProjectReference Include="..\Service\IdentityManager.Service.csproj" />
   </ItemGroup>
 
 </Project>

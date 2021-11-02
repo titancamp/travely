@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TourManager.Common.Types;
 using TourManager.Repository.Abstraction;
 using TourManager.Repository.Entities;
+using TourManager.Repository.Models;
 using TourManager.Service.Abstraction;
 using TourManager.Service.Model;
 
@@ -36,13 +39,20 @@ namespace TourManager.Service.Implementation
         }
 
         /// <summary>
-        /// Get the bookings of a tour
+        /// Get bookings
         /// </summary>
-        /// <param name="tourId">The tour id</param>
+        /// <param name="agencyId">The agency id</param>
         /// <returns></returns>
-        public async Task<List<Booking>> GetBookings(int tourId)
+        public async Task<List<Booking>> GetBookings(int agencyId, int? tourId, DateTime? cancellationDeadlineFrom)
         {
-            var result = await this.bookingRepository.GetAll(tourId);
+            var filter = new GetBookingFilter
+            {
+                AgencyId = agencyId,
+                TourId = tourId,
+                CancellationDeadlineFrom = cancellationDeadlineFrom
+            };
+
+            var result = await this.bookingRepository.Get(filter);
 
             return this.mapper.Map<List<Booking>>(result);
         }
@@ -67,6 +77,20 @@ namespace TourManager.Service.Implementation
         public Task CreateBooking(Booking booking)
         {
             return this.bookingRepository.Add(this.mapper.Map<BookingEntity>(booking));
+        }
+
+        /// <summary>
+        /// Create several booking
+        /// </summary>
+        /// <param name="bookings">Booking list to create</param>
+        /// <returns></returns>
+        public Task CreateBookings(int tourId, IEnumerable<Booking> bookings)
+        {
+            var entity = this.mapper.Map<IEnumerable<BookingEntity>>(bookings).ToList();
+
+            entity.ForEach(x => x.TourId = tourId);
+
+            return this.bookingRepository.AddRange(entity);
         }
 
         /// <summary>

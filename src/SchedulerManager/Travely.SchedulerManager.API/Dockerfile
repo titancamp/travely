@@ -7,6 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
+COPY ["src/Commons/Travely.Common/Travely.Common.csproj", "src/Commons/Travely.Common/"]
 COPY ["src/SchedulerManager/Travely.SchedulerManager.API/Travely.SchedulerManager.API.csproj", "src/SchedulerManager/Travely.SchedulerManager.API/"]
 COPY ["src/SchedulerManager/Travely.SchedulerManager.Job/Travely.SchedulerManager.Job.csproj", "src/SchedulerManager/Travely.SchedulerManager.Job/"]
 COPY ["src/SchedulerManager/Travely.SchedulerManager.Abstraction/Travely.SchedulerManager.Abstraction.csproj", "src/SchedulerManager/Travely.SchedulerManager.Abstraction/"]

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using TourManager.Repository.Abstraction;
 using TourManager.Repository.EfCore.Context;
 using TourManager.Repository.Entities;
+using TourManager.Repository.Models;
 
 namespace TourManager.Repository.EfCore.MsSql.Repositories
 {
@@ -21,22 +23,54 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
         }
 
         /// <summary>
-        /// Get all tours by tenant
+        /// Gets tour by identifier.
         /// </summary>
-        /// <param name="tenantId">The tenant id</param>
+        /// <param name="id">The tour identifier.</param>
+        /// <param name="includeBookings">If true includes bookings.</param>
+        /// <param name="includeClients">If true includes clients.</param>
         /// <returns></returns>
-        public Task<List<TourEntity>> GetAll(int tenantId)
+        public Task<TourEntity> GetByIdAsync(int id, bool includeBookings, bool includeClients)
         {
-            return this.Find(tour => tour.TenantId == tenantId);
+            var query = Context.Set<TourEntity>().AsQueryable();
+
+            if (includeBookings)
+            {
+                query = query.Include(item => item.Bookings);
+            }
+
+            if (includeClients)
+            {
+                query = query.Include(item => item.TourClients)
+                    .ThenInclude(item => item.Client);
+            }
+
+            return query.FirstOrDefaultAsync(item => item.Id == id);
         }
 
         /// <summary>
-        /// Get all tours starting from now
+        /// Get tours
         /// </summary>
+        /// <param name="filter">The filter</param>
         /// <returns></returns>
-        public Task<List<TourEntity>> GetAllFromToday()
+        public Task<List<TourEntity>> Get(GetTourFilter filter)
         {
-            return this.Find(tour => tour.StartDate > DateTime.Now);
+            var query = DbSet
+                .AsNoTracking()
+                .Include(item => item.TourClients)
+                .ThenInclude(item => item.Client)
+                .Where(x => x.AgencyId == filter.AgencyId);
+
+            if (filter.StartDate != null)
+            {
+                query = query.Where(x => x.StartDate >= filter.StartDate);
+            }
+
+            if (filter.EndDate != null)
+            {
+                query = query.Where(x => x.EndDate <= filter.EndDate);
+            }
+
+            return query.ToListAsync();
         }
     }
 }

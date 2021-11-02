@@ -14,19 +14,14 @@ namespace TourManager.Repository.Entities
         public int Id { get; set; }
 
         /// <summary>
-        /// The client tenant id
+        /// The client agency id
         /// </summary>
-        public int TenantId { get; set; }
+        public int AgencyId { get; set; }
 
         /// <summary>
         /// The client external id
         /// </summary>
         public int ExternalId { get; set; }
-
-        /// <summary>
-        /// The client tenant entity
-        /// </summary>
-        public TenantEntity Tenant { get; set; }
 
         /// <summary>
         /// The tour clients collection

@@ -1,18 +1,14 @@
-﻿using AutoMapper.Configuration;
-using IdentityManager.WebApi.Extensions;
-using IdentityManager.WebApi.Models.Request;
-using IdentityManager.WebApi.Models.Response;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Travely.IdentityManager.WebApi.Identity;
+using Travely.IdentityManager.Service.Abstractions;
+using Travely.IdentityManager.Service.Abstractions.Models.Request;
+using Travely.IdentityManager.Service.Abstractions.Models.Response;
+using Travely.IdentityManager.WebApi.Extensions;
 
-namespace IdentityManager.WebApi.Controllers
+namespace Travely.IdentityManager.WebApi.Controllers
 {
     [Route("api/agency")]
     [Produces("application/json")]
@@ -24,12 +20,14 @@ namespace IdentityManager.WebApi.Controllers
         {
             _authenticationService = authenticationService;
         }
-        [HttpPatch]
-        [Authorize]
-        public async Task UpdateAccountAsync([FromBody] JsonPatchDocument<UpdateAgencyRequestModel> agencyPatch, CancellationToken cancellationToken = default)
+
+        [HttpPut]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateAccountAsync([FromBody] UpdateAgencyRequestModel agency, CancellationToken ct = default)
         {
-            //TODO: validate agencyId, if it is match current UserId
-            await _authenticationService.UpdateAccountAsync(HttpContext.GetUserContext(), agencyPatch, cancellationToken);
+            var agencyId = HttpContext.GetUserContext().AgencyId;
+            await _authenticationService.UpdateAccountAsync(agencyId, agency, ct);
+            return NoContent();
         }
 
         /// <summary>
@@ -39,21 +37,11 @@ namespace IdentityManager.WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<AgencyResponseModel>> GetAgencyByIdAsync(CancellationToken cancellationToken = default)
+        public async Task<ActionResult<AgencyResponseModel>> GetAgencyAsync(CancellationToken ct = default)
         {
             var agencyId = HttpContext.GetUserContext().AgencyId;
-            return await _authenticationService.GetAgencyById(agencyId, cancellationToken);
+            return await _authenticationService.GetAgencyByIdAsync(agencyId, ct);
         }
 
-        ///// <summary>
-        ///// Add Agency
-        ///// </summary>
-        ///// <param name="agencyRequestModel"></param>
-        ///// <param name="cancellationToken"></param>
-        ///// <returns></returns>
-        //public async Task<ActionResult<AgencyResponseModel>> CreateAgencyAsync(AgencyRequestModel agencyRequestModel, CancellationToken cancellationToken = default)
-        //{
-        //    return await _authenticationService.CreateAgency(agencyRequestModel, cancellationToken);
-        //}
     }
 }

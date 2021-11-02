@@ -10,6 +10,7 @@ using Travely.ServiceManager.Service.Managers;
 using Travely.ServiceManager.DAL;
 using Travely.ServiceManager.DAL.UnitOfWorks;
 using Microsoft.Extensions.Configuration;
+using TourManager.Api.Bootstrapper;
 using Travely.ServiceManager.Service.Mappers;
 
 namespace Travely.ServiceManager.Service
@@ -39,6 +40,7 @@ namespace Travely.ServiceManager.Service
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.ApplyDatabaseMigrations<ServiceManagerDbContext>();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

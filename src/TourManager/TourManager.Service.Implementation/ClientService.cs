@@ -1,6 +1,7 @@
-﻿using AutoMapper;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using TourManager.Repository.Abstraction;
 using TourManager.Repository.Entities;
 using TourManager.Service.Abstraction;
@@ -88,6 +89,30 @@ namespace TourManager.Service.Implementation
             var result = await this.clientRepository.GetById(clientId);
 
             await this.clientRepository.Remove(result);
+        }
+
+
+        /// <summary>
+        /// Create several Clients
+        /// </summary>
+        /// <param name="tenantId"></param>
+        /// <param name="tourId"></param>
+        /// <param name="clients">Client list to create</param>
+        /// <returns></returns>
+        public async Task CreateClients(int tenantId, int tourId, IEnumerable<Client> clients)
+        {
+            var entities = this.mapper.Map<IEnumerable<TourClientEntity>>(clients).ToList();
+
+            foreach (var entity in entities)
+            {
+                entity.TourId = tourId;
+                entity.Client.AgencyId = tenantId;
+
+                if (entity.ClientId != default)
+                    entity.Client = null;
+            }
+
+            await clientRepository.AddRange(entities);
         }
     }
 }

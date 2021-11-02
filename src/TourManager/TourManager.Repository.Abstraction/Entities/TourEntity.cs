@@ -14,9 +14,9 @@ namespace TourManager.Repository.Entities
         public int Id { get; set; }
 
         /// <summary>
-        /// The tour tenant id
+        /// The tour agency id
         /// </summary>
-        public int TenantId { get; set; }
+        public int AgencyId { get; set; }
 
         /// <summary>
         /// Is tour package
@@ -51,7 +51,7 @@ namespace TourManager.Repository.Entities
         /// <summary>
 		/// The tour pick up time
 		/// </summary>
-		public DateTime PickUpTime { get; set; }
+		public TimeSpan PickUpTime { get; set; }
 
         /// <summary>
         /// The tour pick up details
@@ -61,7 +61,7 @@ namespace TourManager.Repository.Entities
         /// <summary>
 		/// The tour drop off time
 		/// </summary>
-		public DateTime DropOffTime { get; set; }
+		public TimeSpan DropOffTime { get; set; }
 
         /// <summary>
         /// The tour drop off details
@@ -69,19 +69,9 @@ namespace TourManager.Repository.Entities
         public string DropOffDetails { get; set; }
 
         /// <summary>
-        /// The tour description
+        /// The tour notes
         /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        /// The tour tenant entity
-        /// </summary>
-        public TenantEntity Tenant { get; set; }
-
-        /// <summary>
-		/// The tour destinations
-		/// </summary>
-		public ICollection<string> Destinations { get; set; }
+        public string Notes { get; set; }
 
         /// <summary>
         /// The tour bookings collection

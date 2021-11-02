@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using System.Collections.Generic;
+using System.Linq;
 using TourManager.Repository.Entities;
 using TourManager.Service.Model;
+using TourManager.Service.Model.TourManager;
 
 namespace TourManager.Api
 {
@@ -18,17 +19,28 @@ namespace TourManager.Api
             // client mappings
             this.CreateMap<Client, ClientEntity>();
             this.CreateMap<ClientEntity, Client>();
-            this.CreateMap<List<ClientEntity>, List<Client>>();
+
+            // TourClient mappings
+            this.CreateMap<Client, ClientEntity>();
+
+            this.CreateMap<Client, TourClientEntity>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.ClientId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Client, opt => opt.MapFrom(src => src));
 
             // booking mappings
             this.CreateMap<Booking, BookingEntity>();
-            this.CreateMap<BookingEntity, Booking>();
-            this.CreateMap<List<BookingEntity>, List<Booking>>();
+            this.CreateMap<BookingEntity, Booking>()
+                .ForMember(dest => dest.TourName, opt => opt.MapFrom(src => src.Tour != null ? src.Tour.Name : null));
+            this.CreateMap<BookingProperty, BookingPropertyEntity>().ReverseMap();
+            this.CreateMap<BookingService, BookingServiceEntity>().ReverseMap();
 
             // tour mappings
-            this.CreateMap<Tour, TourEntity>().ForMember(dest => dest.Description, act => act.MapFrom(src => src.Notes));
-            this.CreateMap<TourEntity, Tour>().ForMember(dest => dest.Notes, act => act.MapFrom(src => src.Description));
-            this.CreateMap<List<TourEntity>, List<Tour>>();
+            this.CreateMap<Tour, TourEntity>()
+                   .ForMember(dest => dest.Bookings, opt => opt.Ignore())
+                   .ForMember(dest => dest.TourClients, opt => opt.Ignore());
+            this.CreateMap<TourEntity, Tour>()
+                .ForMember(dest => dest.Clients, opt => opt.MapFrom(src => src.TourClients.Select(tc => tc.Client).ToList()));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using TourManager.Repository.Entities;
+using TourManager.Repository.Models;
 
 namespace TourManager.Repository.Abstraction
 {
@@ -10,16 +11,19 @@ namespace TourManager.Repository.Abstraction
     public interface ITourRepository : IRepository<TourEntity>
     {
         /// <summary>
-        ///  Get all tours by tenant 
+        /// Gets tour by identifier.
         /// </summary>
-        /// <param name="tenantId">The tenant id</param>
+        /// <param name="id">The tour identifier.</param>
+        /// <param name="includeBookings">If true includes bookings.</param>
+        /// <param name="includeClients">If true includes clients.</param>
         /// <returns></returns>
-        Task<List<TourEntity>> GetAll(int tenantId);
+        public Task<TourEntity> GetByIdAsync(int id, bool includeBookings, bool includeClients);
 
         /// <summary>
-        /// Get all tours starting from now
+        /// Get tours
         /// </summary>
+        /// <param name="filter">The filter</param>
         /// <returns></returns>
-        Task<List<TourEntity>> GetAllFromToday();
+        Task<List<TourEntity>> Get(GetTourFilter filter);
     }
 }

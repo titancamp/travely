@@ -21,6 +21,7 @@ namespace FileServiceManager.FileService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(options =>
             {
@@ -56,6 +57,11 @@ namespace FileServiceManager.FileService
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(conf => conf.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(_ => true));
+
             app.UseDefaultFiles();
 
             if (env.IsDevelopment())

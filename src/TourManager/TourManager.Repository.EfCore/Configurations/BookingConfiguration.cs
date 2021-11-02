@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TourManager.Repository.Entities;
 
@@ -19,6 +20,18 @@ namespace TourManager.Repository.EfCore.Configurations
             builder
                 .Property(m => m.ExternalId)
                 .IsRequired();
+
+            builder
+                .Property(m => m.BookingProperty)
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, null),
+                    v => JsonSerializer.Deserialize<BookingPropertyEntity>(v, null));
+
+            builder
+                .Property(m => m.BookingService)
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, null),
+                    v => JsonSerializer.Deserialize<BookingServiceEntity>(v, null));
         }
     }
 }

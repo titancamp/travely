@@ -1,33 +1,43 @@
-using IdentityManager.DataService.Extensions;
-using IdentityManager.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+
+using IdentityManager.DataService.Extensions;
+using TourManager.Api.Bootstrapper;
 using Travely.IdentityManager.Repository.EntityFramework;
 using Travely.IdentityManager.Repository.Extensions;
+using Travely.IdentityManager.WebApi.Extensions;
 
-namespace IdentityManager.WebApi
+namespace Travely.IdentityManager.WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
             services.ConfigureFilterServices();
 
             services.ConfigureSqlContext(Configuration);
-            services.AddTravelyIdentityService();
+            services.AddTravelyIdentityService(Environment);
             services.ConfigureAutoMapper();
             services.AddRepositoryServices();
 
@@ -48,17 +58,18 @@ namespace IdentityManager.WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            app.ApplyDatabaseMigrations<IdentityServerDbContext>();
+            if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityManager.WebApi v1"));
+                
             }
-
+            app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseIdentityServer();
-            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
 

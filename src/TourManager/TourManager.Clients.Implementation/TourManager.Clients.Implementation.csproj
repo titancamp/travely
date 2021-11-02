@@ -18,13 +18,30 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Commons\Travely.Services.Common\Travely.Services.Common.csproj" />
       <ProjectReference Include="..\TourManager.Clients.Abstraction\TourManager.Clients.Abstraction.csproj" />
       <ProjectReference Include="..\TourManager.Common\TourManager.Common.csproj" />
+      <ProjectReference Include="..\TourManager.Service.Model\TourManager.Service.Model.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <Protobuf Include="..\..\..\proto\activity.proto" GrpcServices="Client">
         <Link>Protos\activity.proto</Link>
+      </Protobuf>
+      <Protobuf Include="..\..\..\proto\base.proto" GrpcServices="Client">
+        <Link>Protos\base.proto</Link>
+      </Protobuf>
+      <Protobuf Include="..\..\..\proto\client.proto" GrpcServices="Client">
+        <Link>Protos\client.proto</Link>
+      </Protobuf>
+      <Protobuf Include="..\..\..\proto\preference.proto" GrpcServices="Client">
+        <Link>Protos\preference.proto</Link>
+      </Protobuf>
+      <Protobuf Include="..\..\..\proto\properties.proto" GrpcServices="Client">
+        <Link>Protos\properties.proto</Link>
+      </Protobuf>
+      <Protobuf Include="..\..\..\proto\reminder.proto" GrpcServices="Client">
+        <Link>Protos\reminder.proto</Link>
       </Protobuf>
     </ItemGroup>
 
