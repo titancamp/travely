@@ -109,6 +109,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.PropertyManager.Ser
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.Services.Common", "src\Commons\Travely.Services.Common\Travely.Services.Common.csproj", "{1339A65F-B085-4DC2-9290-C6B1014DC8D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourEntities", "src\Shared\TourEntities\TourEntities.csproj", "{CE49AB9B-3659-430E-B50D-4F7C638176AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TourEntities", "TourEntities", "{950B737D-FA19-4729-99DD-D48B9E95A3AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -251,6 +255,10 @@ Global
 		{1339A65F-B085-4DC2-9290-C6B1014DC8D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1339A65F-B085-4DC2-9290-C6B1014DC8D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1339A65F-B085-4DC2-9290-C6B1014DC8D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE49AB9B-3659-430E-B50D-4F7C638176AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE49AB9B-3659-430E-B50D-4F7C638176AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE49AB9B-3659-430E-B50D-4F7C638176AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE49AB9B-3659-430E-B50D-4F7C638176AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -296,6 +304,8 @@ Global
 		{EFCBC87A-361D-4658-8013-B33A5D46B219} = {DFD7AFF6-28B5-4371-AD7C-D5E84F2B8172}
 		{1C63DF0A-EA31-4C34-8235-1B6EC47CCE19} = {DFD7AFF6-28B5-4371-AD7C-D5E84F2B8172}
 		{1339A65F-B085-4DC2-9290-C6B1014DC8D3} = {CF50A7A4-CC65-4638-A4B6-40FE5A7484AB}
+		{950B737D-FA19-4729-99DD-D48B9E95A3AC} = {89EB1A38-E372-4C12-AB1B-4C0FFB036D4A}
+		{CE49AB9B-3659-430E-B50D-4F7C638176AC} = {950B737D-FA19-4729-99DD-D48B9E95A3AC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}
