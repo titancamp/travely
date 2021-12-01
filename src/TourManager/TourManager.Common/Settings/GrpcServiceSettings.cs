@@ -9,5 +9,6 @@
 		public string ClientServiceUrl { get; set; }
 
 		public string SchedulerServiceUrl { get; set; }
+		public string ReportingServiceUrl { get; set; }
 	}
 }

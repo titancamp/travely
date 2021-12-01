@@ -9,5 +9,6 @@
 		string ComposeClientServiceUrl();
 
 		string ComposeSchedulerServiceUrl();
+		string ComposeReportingServiceUrl();
 	}
 }

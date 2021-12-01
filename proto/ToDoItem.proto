@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+option csharp_namespace = "Travely.ReportingManager.Protos";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "base.proto";
+
+
+service ToDoItemProtoService {
+  
+rpc GetToDoItem (GetToDoItemRequest) returns (ToDoItemModel);
+rpc GetAllUserToDoItems (GetUserToDoItemsRequest) returns (ToDoItems);
+rpc CreateToDoItem (CreateToDoItemRequest) returns (ToDoItemModel);
+rpc UpdateToDoItem (CreateToDoItemRequest) returns (ToDoItemModel);
+rpc DeleteToDoItem (GetToDoItemRequest) returns (ToDoItemModel);
+
+}
+
+
+message GetToDoItemRequest{
+	int32 id = 1;
+}
+
+message GetUserToDoItemsRequest{
+	int64 userId=1;
+	repeated FilteringBaseModel Filters = 2;
+	repeated OrderingBaseModel Orderings = 3;
+
+}
+
+message CreateToDoItemRequest{
+	ToDoItemModel model = 1;
+}
+
+message ToDoItems{
+	repeated ToDoItemModel items = 1;
+}
+message ToDoItemModel{
+	string Name = 1;
+    google.protobuf.Int32Value TourId=2 ;
+	google.protobuf.Timestamp deadline = 3;
+	google.protobuf.Timestamp reminder = 4;
+	string Description = 5;
+    int32 status =6;
+    int32 priority =7;
+    int64 UserId =8;
+}
+
+

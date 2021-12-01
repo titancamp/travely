@@ -43,6 +43,9 @@
       <Protobuf Include="..\..\..\proto\reminder.proto" GrpcServices="Client">
         <Link>Protos\reminder.proto</Link>
       </Protobuf>
+      <Protobuf Include="..\..\..\proto\ToDoItem.proto" GrpcServices="Client">
+        <Link>Protos\ToDoItem.proto</Link>
+      </Protobuf>
     </ItemGroup>
 
 </Project>

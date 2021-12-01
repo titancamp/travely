@@ -32,5 +32,9 @@
         {
             return _grpcServiceSettings.Value.SchedulerServiceUrl;
         }
+        public string ComposeReportingServiceUrl()
+        {
+            return _grpcServiceSettings.Value.ReportingServiceUrl;
+        }
     }
 }

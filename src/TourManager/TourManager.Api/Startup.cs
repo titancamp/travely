@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using TourManager.Api.Bootstrapper;
 using TourManager.Api.Utils;
 using TourManager.Clients.Abstraction.PropertyManager;
+using TourManager.Clients.Abstraction.ReportingManager;
 using TourManager.Clients.Abstraction.SchedulerManager;
 using TourManager.Clients.Abstraction.ServiceManager;
 using TourManager.Clients.Abstraction.Settings;
@@ -69,6 +70,8 @@ namespace TourManager.Api
             services.AddScoped<IPropertyManagerClient, PropertyManagerClient>();
             services.AddScoped<IPropertyService, PropertyService>();
             services.AddScoped<IReminderServiceClient, ReminderServiceClient>();
+            services.AddScoped<IReportingManagerClient, IReportingManagerClient>();
+           
             services.Configure<GrpcServiceSettings>(Configuration.GetSection("GrpcServiceSettings"));
 
             services
