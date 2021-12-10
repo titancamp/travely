@@ -1,59 +1,83 @@
-﻿using System;
+﻿using Grpc.Core;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using TourManager.Clients.Abstraction.ReportingManager;
 using TourManager.Clients.Abstraction.Settings;
+using TourManager.Clients.Implementation.Mappers;
 using TourManager.Service.Model.ReportingManager;
 using Travely.ReportingManager.Protos;
 
 namespace TourManager.Clients.Implementation.ReportingManager
 {
-    //ToDo mapping 
-    //Implement interface
-    class ReportingManagerClient : GrpcClientBase<ToDoItemProtoService.ToDoItemProtoServiceClient>
+    public class ReportingManagerClient : GrpcClientBase<ToDoItemProtoService.ToDoItemProtoServiceClient>, IReportingManagerClient
     {
         public ReportingManagerClient(IServiceSettingsProvider serviceSettingsProvider)
             : base(serviceSettingsProvider)
         {
         }
-        public Task<ToDoItemModel> CreateToDoItemAsync(CreateToDoItemModel toDoItem)
+
+        public Task<int> AddToDoItemAsync(int userId, CreateUpDateToDoItemModel model)
         {
             return HandleAsync(async (client) =>
             {
-                var request = new CreateToDoItemRequest();
+                var request = Mapping.Mapper.Map<CreateToDoItemRequest>(model, opt =>
+                    opt.AfterMap((src, dest) => dest.UserId = userId));
+
                 var response = await client.CreateToDoItemAsync(request);
 
-                return response;
+                return response.Id;
             });
         }
 
-        public Task<bool> DeleteToDoItemAsync(int itemId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ToDoItemResponeModel> EditToDoItemAsync(CreateToDoItemModel toDoItem)
-        {
-            throw new NotImplementedException(); 
-        }
-
-        public Task<ToDoItemModel> GetToDoItemAsync(int itemId)
+        public Task DeleteToDoItemAsync(int id)
         {
             return HandleAsync(async (client) =>
             {
-                var request = new GetToDoItemRequest();
-                var response = await client.GetToDoItemAsync(request);
-
-                return response;
+                await client.DeleteToDoItemAsync(new DeleteToDoItemRequest { Id = id });
             });
         }
 
-        public Task<ToDoItems> GetUserAllToDoItemsAsync(int userId)
+        public Task<int> EditToDoItemAsync(int userId, int id, CreateUpDateToDoItemModel model)
         {
             return HandleAsync(async (client) =>
             {
-                var request = new GetUserToDoItemsRequest();
-                var response = await client.GetAllUserToDoItemsAsync(request);
+                var request = Mapping.Mapper.Map<UpdateToDoItemRequest>(model, opt =>
+                    opt.AfterMap((src, dest) =>
+                    {
+                        dest.Id = id;
+                        dest.UserId = userId;
+                    }));
 
-                return response;
+                var response = await client.UpdateToDoItemAsync(request);
+
+                return response.Id;
+            });
+        }
+
+        public Task<ToDoItemResponeModel> GetByIdAsync(int id)
+        {
+            return HandleAsync(async (client) =>
+            {
+                var todoitem = await client.GetToDoItemAsync(new GetToDoItemByIdRequest { Id = id });
+
+                return Mapping.Mapper.Map<ToDoItemResponeModel>(todoitem);
+            });
+        }
+
+        public Task<IEnumerable<ToDoItemResponeModel>> GetToDoItemsAsync(int userId)
+        {
+            return HandleAsync<IEnumerable<ToDoItemResponeModel>>(async (client) =>
+            {
+                var toDoItems = new List<ToDoItemResponeModel>();
+                var request = new GetUserToDoItemsRequest { UserId = userId };
+
+                await foreach (var response in client.GetAllUserToDoItems(request).ResponseStream.ReadAllAsync())
+                {
+                    toDoItems.Add(Mapping.Mapper.Map<ToDoItemResponeModel>(response));
+                }
+
+                return toDoItems;
             });
         }
 

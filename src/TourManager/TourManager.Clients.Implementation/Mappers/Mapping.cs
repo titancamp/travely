@@ -15,6 +15,7 @@ namespace TourManager.Clients.Implementation.Mappers
 				cfg.AddProfile<PropertyClientProfile>();
 				cfg.AddProfile<ClientManagerClientProfile>();
 				cfg.AddProfile<SchedulerClientProfile>();
+				cfg.AddProfile<ReporingClientProfile>();
 			});
 			var mapper = config.CreateMapper();
 			return mapper;

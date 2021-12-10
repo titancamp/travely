@@ -7,6 +7,9 @@ using Travely.ReportingManager.Data.Models;
 using Travely.ReportingManager.Helpers;
 using Travely.ReportingManager.Protos;
 using Travely.ReportingManager.Services.Abstractions;
+using Travely.ReportingManager.Services.Models.Commands;
+using Travely.ReportingManager.Services.Models.Queries;
+using Travely.ReportingManager.Services.Models.Responses;
 using Travely.Services.Common.CustomExceptions;
 
 namespace Travely.ReportingManager.Services
@@ -16,42 +19,62 @@ namespace Travely.ReportingManager.Services
         private readonly IToDoItemService _toDoItemService;
 
         private readonly IMapper _mapper;
-        private readonly IFilter<ToDoItemEntity> _filter;
         private readonly ILogger<ToDoService> _logger;
 
         public ToDoService(
             ILogger<ToDoService> logger,
             IToDoItemService toDoItemService,
-            IMapper mapper,
-            IFilter<ToDoItemEntity> filter)
+            IMapper mapper
+       )
         {
             _logger = logger;
             _toDoItemService = toDoItemService;
             _mapper = mapper;
-            _filter = filter;
+
         }
 
-        public override async Task<ToDoItemModel> GetToDoItem(GetToDoItemRequest request, ServerCallContext context)
+        public override async Task<CreateToDoItemResponse> CreateToDoItem(CreateToDoItemRequest request, ServerCallContext context)
         {
-            ToDoItemEntity item = await _toDoItemService.GetById(request.Id);
+           //TODO validate
+            var command = _mapper.Map<CreateToDoItemRequest, AddToDoItemCommand>(request);
+            var resultId = await _toDoItemService.AddAsync(request.UserId, command);
 
-            if (item == null)
+            return new CreateToDoItemResponse { Id = resultId };
+        }
+
+        public override async Task<UpdateToDoItemResponse> UpdateToDoItem(UpdateToDoItemRequest request, ServerCallContext context)
+        {
+            //TODO validate
+            var command = _mapper.Map<UpdateToDoItemRequest, EditToDoItemCommand>(request);
+            var resultId = await _toDoItemService.EditAsync(request.UserId, command);
+
+            return new UpdateToDoItemResponse { Id = resultId };
+        }
+
+        public override async Task<DeleteToDoItemResponse> DeleteToDoItem(DeleteToDoItemRequest request, ServerCallContext context)
+        {
+            await _toDoItemService.DeleteAsync(request.Id);
+
+            return new DeleteToDoItemResponse();
+        }
+
+        public override async Task<GetToDoItemByIdResponse> GetToDoItem(GetToDoItemByIdRequest request, ServerCallContext context)
+        {
+            var result = await _toDoItemService.GetByIdAsync(request.Id);
+
+            return _mapper.Map<GetToDoItemByIdResponse>(result);
+        }
+
+        public override async Task GetAllUserToDoItems(GetUserToDoItemsRequest request, IServerStreamWriter<GetUserToDoItemsResponse> responseStream, ServerCallContext context)
+        {
+            //TODO add Mapping
+            var query = _mapper.Map<GetUserToDoItemsRequest, GetToDoItemsQuery>(request);
+            var result = await _toDoItemService.GetAsync(request.UserId, query);
+
+            foreach (var row in result)
             {
-                throw new NotFoundException(nameof(ToDoItemEntity), request.Id);
+                await responseStream.WriteAsync(_mapper.Map<ToDoItemResponse, GetUserToDoItemsResponse>(row));
             }
-
-            ToDoItemModel itemModel = _mapper.Map<ToDoItemModel>(item);
-
-            return itemModel;
-        }
-
-        public override async Task<ToDoItems> GetAllUserToDoItems(GetUserToDoItemsRequest request, ServerCallContext context)
-        {
-            IEnumerable<ToDoItemEntity> list = await _toDoItemService.GetWhere(_filter.ToPredicate(request.Filters));
-
-            ToDoItems todoItems = _mapper.Map<ToDoItems>(list);
-
-            return todoItems;
         }
     }
 }

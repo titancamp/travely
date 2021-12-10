@@ -15,6 +15,7 @@ using TourManager.Clients.Abstraction.Settings;
 using TourManager.Clients.Implementation.PropertyManager;
 using TourManager.Clients.Implementation.SchedulerManager;
 using TourManager.Clients.Implementation.ServiceManager;
+using TourManager.Clients.Implementation.ReportingManager;
 using TourManager.Clients.Implementation.Settings;
 using TourManager.Common.Settings;
 using TourManager.Repository.EfCore.Context;
@@ -70,7 +71,8 @@ namespace TourManager.Api
             services.AddScoped<IPropertyManagerClient, PropertyManagerClient>();
             services.AddScoped<IPropertyService, PropertyService>();
             services.AddScoped<IReminderServiceClient, ReminderServiceClient>();
-            services.AddScoped<IReportingManagerClient, IReportingManagerClient>();
+            services.AddScoped<IReportingManagerClient, ReportingManagerClient>();
+            services.AddScoped<IToDoService, ToDoService>();
            
             services.Configure<GrpcServiceSettings>(Configuration.GetSection("GrpcServiceSettings"));
 

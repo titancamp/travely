@@ -9,10 +9,15 @@ namespace TourManager.Clients.Abstraction.ReportingManager
 {
     public interface IReportingManagerClient
     {
-        Task<ToDoItemResponeModel> GetToDoItemAsync(int itemId);
-        Task<IEnumerable<ToDoItemResponeModel>> GetUserAllToDoItemsAsync(int userId);
-        Task<ToDoItemResponeModel> CreateToDoItemAsync(CreateToDoItemModel toDoItem);
-        Task<ToDoItemResponeModel> EditToDoItemAsync(CreateToDoItemModel toDoItem);
-        Task<bool> DeleteToDoItemAsync(int itemId);
+        Task<int> AddToDoItemAsync(int userId, CreateUpDateToDoItemModel model);
+
+        Task<int> EditToDoItemAsync(int userId, int id, CreateUpDateToDoItemModel model);
+
+        Task DeleteToDoItemAsync(int id);
+
+        Task<ToDoItemResponeModel> GetByIdAsync(int id);
+
+        Task<IEnumerable<ToDoItemResponeModel>> GetToDoItemsAsync(int userId);
+
     }
 }

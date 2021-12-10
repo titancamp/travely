@@ -1,9 +1,9 @@
 ﻿using System;
 using Travely.ReportingManager.Data.Enums;
 
-namespace Travely.ReportingManager.Data.Models
+namespace Travely.ReportingManager.Services.Models.Commands
 {
-    public class ToDoItemEntity:BaseEntity
+    public class AddToDoItemCommand
     {
         public string Name { get; set; }
         public int? TourId { get; set; }
@@ -12,6 +12,6 @@ namespace Travely.ReportingManager.Data.Models
         public string Description { get; set; }
         public ToDoItemState Status { get; set; }
         public ToDoItemPriority Priority { get; set; }
-        public long UserId { get; set; }
+        public int UserId { get; set; }
     }
 }

@@ -1,16 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Travely.ReportingManager.Data.Models;
+using Travely.ReportingManager.Services.Models.Commands;
+using Travely.ReportingManager.Services.Models.Queries;
+using Travely.ReportingManager.Services.Models.Responses;
 
 namespace Travely.ReportingManager.Services.Abstractions
 {
     public interface IToDoItemService
     {
-        Task<ToDoItemEntity> GetById(int id);
-        Task<IEnumerable<ToDoItemEntity>> GetWhere(Expression<Func<ToDoItemEntity, bool>> expression);
+        Task<int> AddAsync(long userId, AddToDoItemCommand command);
+
+        Task<int> EditAsync(long userId, EditToDoItemCommand command);
+
+        Task DeleteAsync(int id);
+
+        Task<ToDoItemResponse> GetByIdAsync(int id);
+
+        Task<IEnumerable<ToDoItemResponse>> GetAsync(long userId, GetToDoItemsQuery query);
     }
 }

@@ -5,25 +5,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TourManager.Clients.Abstraction.ReportingManager;
+using TourManager.Service.Abstraction;
 using TourManager.Service.Model.ReportingManager;
 using Travely.IdentityClient.Authorization;
 
 namespace TourManager.Api.Controllers
 {
     [ApiVersion("1.0")]
-    [Authorize(Roles = UserRoles.User)]
+   // [Authorize(Roles = UserRoles.User)]
     public class ToDoController : TravelyControllerBase
     {
-        private readonly IReportingManagerClient _reportingManagerClient;
+        private readonly IToDoService _service;
 
-        public ToDoController(IReportingManagerClient reportingManagerClient)
+        public ToDoController(IToDoService service)
         {
-            _reportingManagerClient = reportingManagerClient;
+            _service = service;
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<ToDoItemResponeModel>> Get(int id)
         {
-            var data = await _reportingManagerClient.GetToDoItemAsync(id);
+            var data = await _service.GetByIdAsync(id);
 
             return Ok(data);
         }
@@ -31,35 +32,35 @@ namespace TourManager.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ToDoItemResponeModel>>> Get()
         {
-            var data = await _reportingManagerClient.GetUserAllToDoItemsAsync(UserInfo.UserId);
+            var data = await _service.GetAsync(UserInfo.UserId);
 
             return Ok(data);
         }
 
         [HttpPost]
-        public async Task<ToDoItemResponeModel> Post([FromBody] CreateToDoItemModel item)
+        public async Task<IActionResult> Post([FromBody] CreateUpDateToDoItemModel model)
         {
-            var result = await _reportingManagerClient.CreateToDoItemAsync(item);
+            var id = await _service.AddAsync(UserInfo.UserId, model);
 
-            return result;
+            return Created("url",id);
         }
 
       
         [HttpPut]
-        public async Task<ToDoItemResponeModel> Put([FromBody] CreateToDoItemModel item)
+        public async Task<IActionResult> Put(int id,[FromBody] CreateUpDateToDoItemModel model)
         {
-            var result = await _reportingManagerClient.EditToDoItemAsync(item);
+            id = await _service.EditAsync(UserInfo.UserId, id, model);
 
-            return result;
+            return Ok(id);
         }
 
         
         [HttpDelete("{id}")]
-        public async Task<bool> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var result = await _reportingManagerClient.DeleteToDoItemAsync(id);
+            await _service.DeleteAsync(id);
 
-            return result;
+            return NoContent();
         }
 
     }

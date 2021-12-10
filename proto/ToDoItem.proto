@@ -9,42 +9,80 @@ import "base.proto";
 
 service ToDoItemProtoService {
   
-rpc GetToDoItem (GetToDoItemRequest) returns (ToDoItemModel);
-rpc GetAllUserToDoItems (GetUserToDoItemsRequest) returns (ToDoItems);
-rpc CreateToDoItem (CreateToDoItemRequest) returns (ToDoItemModel);
-rpc UpdateToDoItem (CreateToDoItemRequest) returns (ToDoItemModel);
-rpc DeleteToDoItem (GetToDoItemRequest) returns (ToDoItemModel);
+rpc CreateToDoItem (CreateToDoItemRequest) returns (CreateToDoItemResponse);
+rpc UpdateToDoItem (UpdateToDoItemRequest) returns (UpdateToDoItemResponse);
+rpc DeleteToDoItem (DeleteToDoItemRequest) returns (DeleteToDoItemResponse);
+rpc GetToDoItem (GetToDoItemByIdRequest) returns (GetToDoItemByIdResponse);
+rpc GetAllUserToDoItems (GetUserToDoItemsRequest) returns (stream GetUserToDoItemsResponse);
 
 }
 
-
-message GetToDoItemRequest{
+message CreateToDoItemRequest{
+	string name = 1;
+    google.protobuf.Int32Value tourId=2 ;
+	google.protobuf.Timestamp deadline = 3;
+	google.protobuf.Timestamp reminder = 4;
+	string description = 5;
+    int32 status =6;
+    int32 priority =7;
+    int64 userId =8;
+}
+message CreateToDoItemResponse {
 	int32 id = 1;
 }
-
+message UpdateToDoItemRequest{
+	int32 id = 1;
+	string name = 2;
+    google.protobuf.Int32Value tourId=3 ;
+	google.protobuf.Timestamp deadline = 4;
+	google.protobuf.Timestamp reminder = 5;
+	string description = 6;
+    int32 status =7;
+    int32 priority =8;
+    int64 userId =9;
+}
+message UpdateToDoItemResponse {
+	int32 id = 1;
+}
+message DeleteToDoItemRequest {
+	int32 id = 1;
+}
+message DeleteToDoItemResponse {
+}
+message GetToDoItemByIdRequest {
+	int32 id = 1;
+}
+message GetToDoItemByIdResponse {
+	int32 id = 1;
+	string name = 2;
+    google.protobuf.Int32Value tourId=3 ;
+	google.protobuf.Timestamp deadline = 4;
+	google.protobuf.Timestamp reminder = 5;
+	string description = 6;
+    int32 status =7;
+    int32 priority =8;
+    int64 userId =9;
+}
 message GetUserToDoItemsRequest{
 	int64 userId=1;
 	repeated FilteringBaseModel Filters = 2;
 	repeated OrderingBaseModel Orderings = 3;
 
 }
-
-message CreateToDoItemRequest{
-	ToDoItemModel model = 1;
+message GetUserToDoItemsResponse{
+	int32 id = 1;
+	string name = 2;
+    google.protobuf.Int32Value tourId=3 ;
+	google.protobuf.Timestamp deadline = 4;
+	google.protobuf.Timestamp reminder = 5;
+	string description = 6;
+    int32 status =7;
+    int32 priority =8;
+    int64 userId =9;
 }
 
-message ToDoItems{
-	repeated ToDoItemModel items = 1;
-}
-message ToDoItemModel{
-	string Name = 1;
-    google.protobuf.Int32Value TourId=2 ;
-	google.protobuf.Timestamp deadline = 3;
-	google.protobuf.Timestamp reminder = 4;
-	string Description = 5;
-    int32 status =6;
-    int32 priority =7;
-    int64 UserId =8;
-}
+
+
+
 
 

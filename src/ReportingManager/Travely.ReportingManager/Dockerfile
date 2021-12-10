@@ -7,16 +7,19 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["../Travely.ReportingManager.Service/Travely.ReportingManager.Service.csproj", "../Travely.ReportingManager.Service/"]
-RUN dotnet restore "../Travely.ReportingManager.Service/Travely.ReportingManager.Service.csproj"
+COPY ["src/ReportingManager/Travely.ReportingManager/Travely.ReportingManager.csproj", "src/ReportingManager/Travely.ReportingManager/"]
+COPY ["src/Commons/Travely.Services.Common/Travely.Services.Common.csproj", "src/Commons/Travely.Services.Common/"]
+COPY ["src/ReportingManager/Travely.ReportingManager.Services/Travely.ReportingManager.Services.csproj", "src/ReportingManager/Travely.ReportingManager.Services/"]
+COPY ["src/ReportingManager/Travely.ReportingManager.Data/Travely.ReportingManager.Data.csproj", "src/ReportingManager/Travely.ReportingManager.Data/"]
+RUN dotnet restore "src/ReportingManager/Travely.ReportingManager/Travely.ReportingManager.csproj"
 COPY . .
-WORKDIR "/src/../Travely.ReportingManager.Service"
-RUN dotnet build "Travely.ReportingManager.Service.csproj" -c Release -o /app/build
+WORKDIR "/src/src/ReportingManager/Travely.ReportingManager"
+RUN dotnet build "Travely.ReportingManager.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Travely.ReportingManager.Service.csproj" -c Release -o /app/publish
+RUN dotnet publish "Travely.ReportingManager.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Travely.ReportingManager.Service.dll"]
+ENTRYPOINT ["dotnet", "Travely.ReportingManager.dll"]

@@ -4,7 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>1753938a-424f-4c02-a561-11c5e16881ea</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\travely</DockerfileContext>
+    <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
