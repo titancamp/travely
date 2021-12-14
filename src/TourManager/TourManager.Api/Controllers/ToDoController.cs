@@ -38,7 +38,7 @@ namespace TourManager.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateUpDateToDoItemModel model)
+        public async Task<IActionResult> Post([FromBody] CreateToDoModel model)
         {
             var id = await _service.AddAsync(UserInfo.UserId, model);
 
@@ -47,9 +47,9 @@ namespace TourManager.Api.Controllers
 
       
         [HttpPut]
-        public async Task<IActionResult> Put(int id,[FromBody] CreateUpDateToDoItemModel model)
+        public async Task<IActionResult> Put([FromBody] UpdateToDoModel model)
         {
-            id = await _service.EditAsync(UserInfo.UserId, id, model);
+            var id = await _service.EditAsync(UserInfo.UserId, model.Id, model);
 
             return Ok(id);
         }

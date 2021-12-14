@@ -8,8 +8,8 @@ namespace TourManager.Clients.Implementation.Mappers
     {
         public ReporingClientProfile()
         {
-            CreateMap<CreateUpDateToDoItemModel, CreateToDoItemRequest>();
-            CreateMap<CreateUpDateToDoItemModel, UpdateToDoItemRequest>();
+            CreateMap<BaseToDoModel, CreateToDoItemRequest>();
+            CreateMap<BaseToDoModel, UpdateToDoItemRequest>();
             CreateMap<GetToDoItemByIdResponse, ToDoItemResponeModel>();
             CreateMap<GetUserToDoItemsResponse, ToDoItemResponeModel>();
         }

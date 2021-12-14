@@ -16,7 +16,7 @@ namespace TourManager.Service.Implementation
         {
             _client = client;
         }
-        public async Task<int> AddAsync(int userId, CreateUpDateToDoItemModel request)
+        public async Task<int> AddAsync(int userId, BaseToDoModel request)
         {
             return await _client.AddToDoItemAsync(userId, request);
         }
@@ -26,7 +26,7 @@ namespace TourManager.Service.Implementation
             await _client.DeleteToDoItemAsync(id);
         }
 
-        public async Task<int> EditAsync(int userId, int id, CreateUpDateToDoItemModel request)
+        public async Task<int> EditAsync(int userId, int id, BaseToDoModel request)
         {
             return await _client.EditToDoItemAsync(userId, id, request);
         }

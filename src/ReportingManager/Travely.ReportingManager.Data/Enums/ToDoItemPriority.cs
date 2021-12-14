@@ -1,6 +1,6 @@
 ﻿namespace Travely.ReportingManager.Data.Enums
 {
-    public enum ToDoItemPriority : byte
+    public enum ToDoItemPriority 
     {
         High = 1,
         Medium = 2,

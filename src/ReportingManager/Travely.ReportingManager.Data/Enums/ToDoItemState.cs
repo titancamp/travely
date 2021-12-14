@@ -1,6 +1,6 @@
 ﻿namespace Travely.ReportingManager.Data.Enums
 {
-    public enum ToDoItemState : byte
+    public enum ToDoItemState 
     {
         ToDo = 1,
         InProgress = 2,

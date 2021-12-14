@@ -9,9 +9,9 @@ namespace TourManager.Service.Abstraction
 {
     public interface IToDoService
     {
-        Task<int> AddAsync(int userId, CreateUpDateToDoItemModel request);
+        Task<int> AddAsync(int userId, BaseToDoModel request);
 
-        Task<int> EditAsync(int userId, int id, CreateUpDateToDoItemModel request);
+        Task<int> EditAsync(int userId, int id, BaseToDoModel request);
 
         Task DeleteAsync(int id);
 

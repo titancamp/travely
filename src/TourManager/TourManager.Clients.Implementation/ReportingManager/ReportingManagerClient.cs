@@ -17,7 +17,7 @@ namespace TourManager.Clients.Implementation.ReportingManager
         {
         }
 
-        public Task<int> AddToDoItemAsync(int userId, CreateUpDateToDoItemModel model)
+        public Task<int> AddToDoItemAsync(int userId, BaseToDoModel model)
         {
             return HandleAsync(async (client) =>
             {
@@ -38,7 +38,7 @@ namespace TourManager.Clients.Implementation.ReportingManager
             });
         }
 
-        public Task<int> EditToDoItemAsync(int userId, int id, CreateUpDateToDoItemModel model)
+        public Task<int> EditToDoItemAsync(int userId, int id, BaseToDoModel model)
         {
             return HandleAsync(async (client) =>
             {

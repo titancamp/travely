@@ -9,9 +9,9 @@ namespace TourManager.Clients.Abstraction.ReportingManager
 {
     public interface IReportingManagerClient
     {
-        Task<int> AddToDoItemAsync(int userId, CreateUpDateToDoItemModel model);
+        Task<int> AddToDoItemAsync(int userId, BaseToDoModel model);
 
-        Task<int> EditToDoItemAsync(int userId, int id, CreateUpDateToDoItemModel model);
+        Task<int> EditToDoItemAsync(int userId, int id, BaseToDoModel model);
 
         Task DeleteToDoItemAsync(int id);
 

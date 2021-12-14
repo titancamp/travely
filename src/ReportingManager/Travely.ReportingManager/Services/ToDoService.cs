@@ -19,15 +19,14 @@ namespace Travely.ReportingManager.Services
         private readonly IToDoItemService _toDoItemService;
 
         private readonly IMapper _mapper;
-        private readonly ILogger<ToDoService> _logger;
+       // private readonly ILogger<ToDoService> _logger;
 
         public ToDoService(
-            ILogger<ToDoService> logger,
+           
             IToDoItemService toDoItemService,
             IMapper mapper
        )
         {
-            _logger = logger;
             _toDoItemService = toDoItemService;
             _mapper = mapper;
 
@@ -35,7 +34,6 @@ namespace Travely.ReportingManager.Services
 
         public override async Task<CreateToDoItemResponse> CreateToDoItem(CreateToDoItemRequest request, ServerCallContext context)
         {
-           //TODO validate
             var command = _mapper.Map<CreateToDoItemRequest, AddToDoItemCommand>(request);
             var resultId = await _toDoItemService.AddAsync(request.UserId, command);
 
@@ -67,7 +65,6 @@ namespace Travely.ReportingManager.Services
 
         public override async Task GetAllUserToDoItems(GetUserToDoItemsRequest request, IServerStreamWriter<GetUserToDoItemsResponse> responseStream, ServerCallContext context)
         {
-            //TODO add Mapping
             var query = _mapper.Map<GetUserToDoItemsRequest, GetToDoItemsQuery>(request);
             var result = await _toDoItemService.GetAsync(request.UserId, query);
 
