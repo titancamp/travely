@@ -1,5 +1,5 @@
 ﻿syntax = "proto3";
-option csharp_namespace = "Travely.PropertyManager.API";
+option csharp_namespace = "Travely.PropertyManager.Grpc";
 
 message OrderingBaseModel{
 	string FieldName = 1;

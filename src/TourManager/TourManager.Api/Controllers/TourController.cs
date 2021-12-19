@@ -1,10 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 using TourManager.Service.Abstraction;
 using TourManager.Service.Model;
-using Microsoft.AspNetCore.Authorization;
-using Travely.IdentityClient.Authorization;
+using Travely.Common.Api.Controllers;
+using Travely.Shared.IdentityClient.Authorization.Common;
 
 namespace TourManager.Api.Controllers
 {

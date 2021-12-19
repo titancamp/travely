@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Linq;
 using System.Net;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Travely.Services.Common.Models;
+using Travely.Common.Api.Models;
 
 namespace TourManager.Api.Utils
 {

@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Travely.ClientManager.Service
 {
@@ -23,7 +20,7 @@ namespace Travely.ClientManager.Service
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureAppConfiguration((context, config) => config.AddEnvironmentVariables()).UseStartup<Startup>();
                 });
     }
 }

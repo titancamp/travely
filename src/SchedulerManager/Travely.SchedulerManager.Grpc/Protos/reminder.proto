@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "Travely.SchedulerManager.Grpc";
+
+service Reminder{
+	rpc Get (GetRequest) returns (GetResponse);
+	rpc GetAll (GetAllRequest) returns (GetAllResponse);
+	rpc CreateScheduledNotification (CreateScheduledNotificationRequest) returns (CreateScheduledNotificationResponse);
+	rpc UpdateScheduledNotification (UpdateScheduledNotificationRequest) returns (UpdateScheduledNotificationResponse);
+	rpc DeleteScheduledNotification (DeleteScheduledNotificationRequest) returns (DeleteScheduledNotificationResponse);
+	rpc CreateFieldChangedNotification (CreateFieldChangedNotificationRequest) returns (CreateFieldChangedNotificationResponse);
+}
+
+message GetRequest{
+	int64 tourId = 1;
+	int64 bookingId = 2;
+	NotificationType notificationType = 3;
+}
+
+message GetResponse{
+	Notification notification = 1;
+}
+
+message GetAllRequest{
+}
+
+message	GetAllResponse{
+	repeated Notification notifications = 1;
+}
+
+message CreateScheduledNotificationRequest{
+	NotificationType notificationType = 1;
+	int64 tourId = 2;
+	int64 bookingId = 3;
+	string tourName = 4;
+	string bookingName = 5;
+	google.protobuf.Timestamp bookingExpireDate = 6;
+	google.protobuf.Timestamp tourStartDate = 7;
+	repeated int64 assignedUserIds = 8;
+}
+
+message CreateScheduledNotificationResponse{
+	bool succeed = 1;
+}
+
+message UpdateScheduledNotificationRequest{
+	NotificationType notificationType = 1;
+	int64 tourId = 2;
+	int64 bookingId = 3;
+	string tourName = 4;
+	string bookingName = 5;
+	google.protobuf.Timestamp bookingExpireDate = 6;
+	google.protobuf.Timestamp tourStartDate = 7;
+	repeated int64 assignedUserIds = 8;
+}
+
+message UpdateScheduledNotificationResponse{
+	bool succeed = 1;
+}
+
+message DeleteScheduledNotificationRequest{
+	int64 tourId = 1;
+	int64 bookingId = 2;
+	NotificationType notificationType = 3;
+}
+
+message DeleteScheduledNotificationResponse{
+	bool succeed = 1;
+}
+
+message Notification{
+	string message = 1;
+}
+
+message CreateFieldChangedNotificationRequest{
+	int64 tourId = 1;
+	string tourName = 2;
+	User user = 3;
+	string fieldName = 4;
+	google.protobuf.StringValue oldValue = 5;
+	google.protobuf.StringValue newValue = 6;
+	repeated int64 assignedUserIds = 7;
+}
+
+message CreateFieldChangedNotificationResponse{
+	bool succeed = 1;
+}
+
+message User{
+	int64 userId = 1;
+	string userName = 2;
+}
+
+enum NotificationType{
+	BookingCancellationExpiration = 0;
+	IncompleteBookingRequests = 1;
+	TourIsApproaching = 2;
+}

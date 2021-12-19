@@ -1,0 +1,134 @@
+{
+  "Routes": [
+    {
+      "ServiceName": "travely-tourmanager",
+      "DownstreamPathTemplate": "/api/v{version}/Booking{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/v{version}/Booking{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowScopes": []
+      },
+      "SwaggerKey": "tourmanager"
+    },
+    {
+      "ServiceName": "travely-tourmanager",
+      "DownstreamPathTemplate": "/api/v{version}/Tour{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/v{version}/Tour{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowScopes": []
+      },
+      "SwaggerKey": "tourmanager"
+    },
+    {
+      "ServiceName": "travely-servicemanager-service",
+      "DownstreamPathTemplate": "/api/v{version}/Service{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/v{version}/Service{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowScopes": []
+      },
+      "SwaggerKey": "servicemanager"
+    },
+    {
+      "ServiceName": "travely-schedulermanager-api",
+      "DownstreamPathTemplate": "/notification{everything}",
+      "DownstreamScheme": "ws",
+      "UpstreamPathTemplate": "/notification{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowScopes": []
+      }
+    },
+    {
+      "ServiceName": "travely-propertymanager-api",
+      "DownstreamPathTemplate": "/api/v{version}/Properties{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/v{version}/Properties{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowScopes": []
+      },
+      "SwaggerKey": "propertymanager"
+    },
+    {
+      "ServiceName": "travely-clientmanager-service",
+      "DownstreamPathTemplate": "/api/v{version}/Client{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/v{version}/Client{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowScopes": []
+      },
+      "SwaggerKey": "clientmanager"
+    },
+    {
+      "ServiceName": "travely-identity-webapi",
+      "DownstreamPathTemplate": "/api/Account/{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/Account/{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "SwaggerKey": "identitymanager"
+    },
+    {
+      "ServiceName": "travely-identity-webapi",
+      "DownstreamPathTemplate": "/api/Agency{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/Agency{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowScopes": []
+      },
+      "SwaggerKey": "identitymanager"
+    },
+    {
+      "ServiceName": "travely-identity-webapi",
+      "DownstreamPathTemplate": "/api/Users{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/Users{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowScopes": []
+      },
+      "SwaggerKey": "identitymanager"
+    },
+    {
+      "ServiceName": "travely-identity-webapi",
+      "DownstreamPathTemplate": "/connect{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/connect{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "SwaggerKey": "identitymanager"
+    },
+    {
+      "ServiceName": "fileservice",
+      "DownstreamPathTemplate": "/api/File{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/File{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowScopes": []
+      },
+      "SwaggerKey": "fileservice"
+    }
+  ],
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "consul",
+      "Port": 8500,
+      "Type": "Consul"
+    }
+  }
+}

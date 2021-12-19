@@ -1,11 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TourManager.Clients.Abstraction\TourManager.Clients.Abstraction.csproj" />
+      <ProjectReference Include="..\..\ClientManager\Travely.ClientManager.Grpc.Client\Travely.ClientManager.Grpc.csproj" />
+      <ProjectReference Include="..\TourManager.Repository.Abstraction\TourManager.Repository.Abstraction.csproj" />
       <ProjectReference Include="..\TourManager.Service.Abstraction\TourManager.Service.Abstraction.csproj" />
       <ProjectReference Include="..\TourManager.Service.Model\TourManager.Service.Model.csproj" />
     </ItemGroup>
