@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Travely.ReportingManager.Services.Models.Base;
+using Travely.Services.Common.Models;
 
 namespace Travely.ReportingManager.Services.Extensions
 {
     public static class ExpressionHelper
     {
-        public static Func<IQueryable<TSource>, IOrderedQueryable<TSource>> BuildOrderingFunc<TSource>(ICollection<OrderingBaseModel> orderings)
+        public static Func<IQueryable<TSource>, IOrderedQueryable<TSource>> BuildOrderingFunc<TSource>(ICollection<OrderingModel> orderings)
         {
             Expression result = Expression.Empty();
 
@@ -52,7 +50,7 @@ namespace Travely.ReportingManager.Services.Extensions
             var lambda = Expression.Lambda<Func<IQueryable<TSource>, IOrderedQueryable<TSource>>>(result, sourceParameterExpression);
             return lambda.Compile();
         }
-        public static Expression<Func<T, bool>> BuildFilter<T>(ICollection<FilteringBaseModel> filters)
+        public static Expression<Func<T, bool>> BuildFilter<T>(ICollection<FilteringModel> filters)
         {
             if (filters.Count == 0)
             {

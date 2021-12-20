@@ -1,17 +1,15 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Travely.ReportingManager.Data;
 using Travely.ReportingManager.Data.Models;
 using Travely.ReportingManager.Services.Abstractions;
 using Travely.ReportingManager.Services.Models.Commands;
-using Travely.ReportingManager.Services.Models.Queries;
 using Travely.ReportingManager.Services.Models.Responses;
+using Travely.Services.Common.Models;
 
 namespace Travely.ReportingManager.Services.Implementations
 {
@@ -56,12 +54,13 @@ namespace Travely.ReportingManager.Services.Implementations
             return toDoItemModel.Id;
         }
 
-        public async Task<IEnumerable<ToDoItemResponse>> GetAsync(long userId, GetToDoItemsQuery query)
+        public async Task<IEnumerable<ToDoItemResponse>> GetAsync(long userId, DataQueryModel query)
         {
             var toDoItemsQuery =  _dbContext.ToDoItems.Where(i=>i.UserId==userId).AsQueryable();
 
             toDoItemsQuery = BuildFilters(toDoItemsQuery, query.Filters);
             toDoItemsQuery = BuildOrderings(toDoItemsQuery, query.Orderings);
+            toDoItemsQuery = BuildPaging(toDoItemsQuery, query.Paging);
 
             var toDoItems = await toDoItemsQuery.AsNoTracking().ToListAsync();
 

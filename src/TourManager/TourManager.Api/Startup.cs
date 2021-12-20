@@ -64,6 +64,7 @@ namespace TourManager.Api
                 config.DefaultApiVersion = new ApiVersion(1, 0);
                 config.AssumeDefaultVersionWhenUnspecified = true;
             });
+            //Shows Only the first error message
             services.Configure<ApiBehaviorOptions>(opt => opt.InvalidModelStateResponseFactory =
                 context => new BadRequestObjectResult(context.ModelState.GetFirstErrorResponse()));
             services.AddScoped<IServiceManagerClient, ServiceManagerClient>();

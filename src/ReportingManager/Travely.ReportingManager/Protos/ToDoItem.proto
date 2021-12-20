@@ -4,7 +4,7 @@ option csharp_namespace = "Travely.ReportingManager.Protos";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
-import "base.proto";
+import "ToDoItemBase.proto";
 
 
 service ToDoItemProtoService {
@@ -65,8 +65,9 @@ message GetToDoItemByIdResponse {
 }
 message GetUserToDoItemsRequest{
 	int64 userId=1;
-	repeated FilteringBaseModel Filters = 2;
-	repeated OrderingBaseModel Orderings = 3;
+	repeated FilteringModel Filters = 2;
+	repeated OrderingModel Orderings = 3;
+	PagingModel Paging = 4;
 
 }
 message GetUserToDoItemsResponse{

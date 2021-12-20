@@ -29,7 +29,7 @@ namespace TourManager.Service.Model.ReportingManager
             RuleFor(p => p.Name)
                 .Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
-                .Length(4, 50).WithMessage("Lenght ({TotalLenght}) of {PropertyName} Invalid");
+                .Length(4, 50);
 
             RuleFor(p => p.Deadline)
                 .Cascade(CascadeMode.Stop).NotEmpty().WithMessage("{PropertyName} is Empty")
@@ -39,7 +39,7 @@ namespace TourManager.Service.Model.ReportingManager
                .GreaterThan(p => DateTime.Now).WithMessage("{PropertyName} Invalid Date Time");
 
             RuleFor(p => p.Description)
-               .Length(0, 1000).WithMessage("Lenght ({TotalLenght}) of {PropertyName} Invalid");
+               .Length(0, 1000);
 
             //RuleFor(p => p.Status)
             //.NotEmpty().WithMessage("{PropertyName} is Empty").IsInEnum().WithMessage("{PropertyName} incorrect");

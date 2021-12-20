@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TourManager.Service.Model.ReportingManager;
+using Travely.Services.Common.Models;
 
 namespace TourManager.Service.Abstraction
 {
@@ -17,6 +18,6 @@ namespace TourManager.Service.Abstraction
 
         Task<ToDoItemResponeModel> GetByIdAsync(int id);
 
-        Task<IEnumerable<ToDoItemResponeModel>> GetAsync(int userId);
+        Task<IEnumerable<ToDoItemResponeModel>> GetAsync(int userId,DataQueryModel dataQuery);
     }
 }

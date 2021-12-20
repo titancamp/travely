@@ -4,10 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TourManager.Clients.Abstraction.ReportingManager;
 using TourManager.Service.Abstraction;
 using TourManager.Service.Model.ReportingManager;
 using Travely.IdentityClient.Authorization;
+using Travely.Services.Common.Models;
 
 namespace TourManager.Api.Controllers
 {
@@ -29,14 +29,6 @@ namespace TourManager.Api.Controllers
             return Ok(data);
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ToDoItemResponeModel>>> Get()
-        {
-            var data = await _service.GetAsync(UserInfo.UserId);
-
-            return Ok(data);
-        }
-
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateToDoModel model)
         {
@@ -45,7 +37,6 @@ namespace TourManager.Api.Controllers
             return Created("url",id);
         }
 
-      
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] UpdateToDoModel model)
         {
@@ -54,13 +45,23 @@ namespace TourManager.Api.Controllers
             return Ok(id);
         }
 
-        
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _service.DeleteAsync(id);
 
             return NoContent();
+        }
+
+        [HttpPost("List")]
+        public async Task<ActionResult<IEnumerable<ToDoItemResponeModel>>> List([FromBody] DataQueryModel dataQueryModel)
+        {
+            if (dataQueryModel.Paging==null || dataQueryModel.Paging.Count==0)
+            {
+                return NoContent();
+            }
+            var data=await _service.GetAsync(UserInfo.UserId, dataQueryModel);
+            return Ok(data);
         }
 
     }

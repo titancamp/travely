@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TourManager.Clients.Abstraction.ReportingManager;
 using TourManager.Service.Abstraction;
 using TourManager.Service.Model.ReportingManager;
+using Travely.Services.Common.Models;
 
 namespace TourManager.Service.Implementation
 {
@@ -31,9 +32,9 @@ namespace TourManager.Service.Implementation
             return await _client.EditToDoItemAsync(userId, id, request);
         }
 
-        public Task<IEnumerable<ToDoItemResponeModel>> GetAsync(int userId)
+        public Task<IEnumerable<ToDoItemResponeModel>> GetAsync(int userId,DataQueryModel dataQuery)
         {
-            return _client.GetToDoItemsAsync(userId);
+            return _client.GetToDoItemsAsync(userId, dataQuery);
         }
 
         public Task<ToDoItemResponeModel> GetByIdAsync(int id)

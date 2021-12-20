@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-using Travely.PropertyManager.API;
+using Travely.Services.Common.Models;
 
 namespace Travely.ReportingManager.Helpers
 {
 
     public interface IFilter<T>
     {
-        Expression<Func<T, bool>> GetPredicate(FilteringBaseModel filter);
+        Expression<Func<T, bool>> GetPredicate(FilteringModel filter);
         void CreateMap(string name, Expression<Func<T, object>> expression);
     }
 
@@ -27,7 +25,7 @@ namespace Travely.ReportingManager.Helpers
             _dictionary.Add(name, expression);
         }
 
-        public Expression<Func<T, bool>> GetPredicate(FilteringBaseModel filter)
+        public Expression<Func<T, bool>> GetPredicate(FilteringModel filter)
         {
             if (_dictionary.ContainsKey(filter.FieldName))
             {
@@ -63,7 +61,7 @@ namespace Travely.ReportingManager.Helpers
 
     public static class FilterExtensions
     {
-        public static Expression<Func<T, bool>> ToPredicate<T>(this IFilter<T> source, ICollection<FilteringBaseModel> filters)
+        public static Expression<Func<T, bool>> ToPredicate<T>(this IFilter<T> source, ICollection<FilteringModel> filters)
         {
             Expression<Func<T, bool>> expression = p => true;
 

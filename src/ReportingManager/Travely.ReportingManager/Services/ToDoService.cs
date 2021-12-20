@@ -1,16 +1,11 @@
 ﻿using AutoMapper;
 using Grpc.Core;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Travely.ReportingManager.Data.Models;
-using Travely.ReportingManager.Helpers;
 using Travely.ReportingManager.Protos;
 using Travely.ReportingManager.Services.Abstractions;
 using Travely.ReportingManager.Services.Models.Commands;
-using Travely.ReportingManager.Services.Models.Queries;
 using Travely.ReportingManager.Services.Models.Responses;
-using Travely.Services.Common.CustomExceptions;
+using Travely.Services.Common.Models;
 
 namespace Travely.ReportingManager.Services
 {
@@ -65,7 +60,7 @@ namespace Travely.ReportingManager.Services
 
         public override async Task GetAllUserToDoItems(GetUserToDoItemsRequest request, IServerStreamWriter<GetUserToDoItemsResponse> responseStream, ServerCallContext context)
         {
-            var query = _mapper.Map<GetUserToDoItemsRequest, GetToDoItemsQuery>(request);
+            var query = _mapper.Map<GetUserToDoItemsRequest, DataQueryModel>(request);
             var result = await _toDoItemService.GetAsync(request.UserId, query);
 
             foreach (var row in result)

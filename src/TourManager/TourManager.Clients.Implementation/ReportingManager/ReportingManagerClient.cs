@@ -1,5 +1,4 @@
 ﻿using Grpc.Core;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TourManager.Clients.Abstraction.ReportingManager;
@@ -7,6 +6,7 @@ using TourManager.Clients.Abstraction.Settings;
 using TourManager.Clients.Implementation.Mappers;
 using TourManager.Service.Model.ReportingManager;
 using Travely.ReportingManager.Protos;
+using Travely.Services.Common.Models;
 
 namespace TourManager.Clients.Implementation.ReportingManager
 {
@@ -65,13 +65,24 @@ namespace TourManager.Clients.Implementation.ReportingManager
             });
         }
 
-        public Task<IEnumerable<ToDoItemResponeModel>> GetToDoItemsAsync(int userId)
+        public Task<IEnumerable<ToDoItemResponeModel>> GetToDoItemsAsync(int userId, DataQueryModel queryModel)
         {
             return HandleAsync<IEnumerable<ToDoItemResponeModel>>(async (client) =>
             {
                 var toDoItems = new List<ToDoItemResponeModel>();
-                var request = new GetUserToDoItemsRequest { UserId = userId };
-
+                var request = new GetUserToDoItemsRequest
+                {
+                    UserId = userId,
+                    Paging = new Travely.ReportingManager.Protos.PagingModel() { Count = queryModel.Paging.Count, From = queryModel.Paging.From }
+                };
+                foreach (var item in queryModel.Orderings)
+                {
+                    request.Orderings.Add(new Travely.ReportingManager.Protos.OrderingModel() { FieldName = item.FieldName, IsDescending = item.IsDescending });
+                }
+                foreach (var item in queryModel.Filters)
+                {
+                    request.Filters.Add(new Travely.ReportingManager.Protos.FilteringModel { FieldName = item.FieldName, Type = (Travely.ReportingManager.Protos.FilteringOperationType)item.Type, Value = item.Value });
+                }
                 await foreach (var response in client.GetAllUserToDoItems(request).ResponseStream.ReadAllAsync())
                 {
                     toDoItems.Add(Mapping.Mapper.Map<ToDoItemResponeModel>(response));
