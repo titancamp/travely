@@ -1,4 +1,4 @@
-namespace TourEntities.Service.Accommodation
+namespace TourEntities.Service.Location
 {
     public struct Location
     {
