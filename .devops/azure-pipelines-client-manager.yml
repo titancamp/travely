@@ -24,7 +24,7 @@ stages:
     containerRegistry: $(containerRegistry)
     containerRegistryPassword: $(registry_travely_am_password)
     containerPort: 5000
-    hostname: front.travely.am
+    hostname: $(project).travely.am
     path: /
     cname: k8s.travely.am
     environment: dev.dev-travely-am
@@ -33,7 +33,7 @@ stages:
     ingress:
       enabled: true
     helmMetadata:
-      releaseName: front
+      releaseName: $(project)
       chartRegistry: $(containerRegistryHost)
       chartName: helm-charts/app
       chartVersion: 0.1.1
