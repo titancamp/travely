@@ -11,6 +11,11 @@ variables:
   gitBranch: $(Build.SourceBranchName)
 
 stages:
+- stage:
+  jobs:
+    - job: echo
+      steps:
+        - script: echo $(my-test-var)
 # Build stage
 - template: templates/build.yml
   parameters:
