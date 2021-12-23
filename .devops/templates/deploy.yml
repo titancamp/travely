@@ -10,6 +10,8 @@ parameters:
 - name: containerPort
   type: number
   default: 5000
+- name: containerEnv
+  type: object
 - name: hostname
   type: string
 - name: path
@@ -73,6 +75,7 @@ stages:
                   image.repository=${{ parameters.containerRepository }}
                   image.tag=${{ parameters.imageTag }}
                   containerPort=${{ parameters.containerPort }}
+                  env=${{ parameters.containerEnv }}
                   ingress.enabled=${{ parameters.ingress.enabled }}
                   ingress.hosts[0].host=${{ parameters.hostname }}
                   ingress.hosts[0].paths[0].pathType=Prefix
