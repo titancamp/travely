@@ -1,5 +1,5 @@
 parameters:
-- name: Dockerfile
+- name: dockerfile
   type: string
   default: Dockerfile
 - name: buildContext
@@ -23,7 +23,7 @@ stages:
         containerRegistry: ${{ parameters.containerRegistry }}
         repository: ${{ parameters.containerRepository }}
         command: "buildAndPush"
-        Dockerfile: ${{ parameters.Dockerfile }}
+        Dockerfile: ${{ parameters.dockerfile }}
         buildContext: ${{ parameters.buildContext }}
         tags: |
           ${{ parameters.imageTag }}

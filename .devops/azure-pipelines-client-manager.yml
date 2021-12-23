@@ -16,6 +16,7 @@ stages:
     imageTag: $(imageTag)
     containerRepository: $(containerRepository)
     containerRegistry: $(containerRegistry)
+    dockerFile: src/ClientManager/Travely.ClientManager.Service/Dockerfile
 # Deploy stage
 - template: templates/deploy.yml
   parameters:
