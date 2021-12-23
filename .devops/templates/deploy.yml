@@ -61,6 +61,7 @@ stages:
             - task: HelmInstaller@1
               displayName: Helm installer
             - script: helm registry login ${{ parameters.helmMetadata.chartRegistry }} -u admin -p ${{ parameters.containerRegistryPassword }}
+              displayName: Helm login
             - task: HelmDeploy@0
               inputs:
                 connectionType: 'Kubernetes Service Connection'
