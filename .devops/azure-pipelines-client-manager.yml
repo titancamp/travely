@@ -2,13 +2,19 @@ trigger:
   - devops
 
 variables:
-  group: travely
-  project: client-manager
-  imageTag: $(Build.BuildId)
-  containerRepository: travely/$(project)
-  containerRegistry: registry-travely-am
-  containerRegistryHost: registry.travely.am
-  gitBranch: $(Build.SourceBranchName)
+- group: travely
+- name: project
+  value: client-manager
+- name: imageTag
+  value: $(Build.BuildId)
+- name: containerRepository
+  value: travely/$(project)
+- name: containerRegistry
+  value: registry-travely-am
+- name: containerRegistryHost
+  value: registry.travely.am
+- name: gitBranch
+  value: $(Build.SourceBranchName)
 
 stages:
 - stage:
