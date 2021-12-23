@@ -75,7 +75,8 @@ stages:
                   image.repository=${{ parameters.containerRepository }}
                   image.tag=${{ parameters.imageTag }}
                   containerPort=${{ parameters.containerPort }}
-                  env=${{ parameters.containerEnv }}
+                  env[0].name=${{ parameters.containerEnv[0].name }}
+                  env[0].value=${{ parameters.containerEnv[0].value }}
                   ingress.enabled=${{ parameters.ingress.enabled }}
                   ingress.hosts[0].host=${{ parameters.hostname }}
                   ingress.hosts[0].paths[0].pathType=Prefix
