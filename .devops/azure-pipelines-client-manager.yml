@@ -2,6 +2,7 @@ trigger:
   - devops
 
 variables:
+  group: travely
   project: client-manager
   imageTag: $(Build.BuildId)
   containerRepository: travely/$(project)
