@@ -80,5 +80,5 @@ stages:
                   ingress.tls[0].hosts[0]=${{ parameters.hostname }}
                   ingress.tls[0].secretName=${{ format('{0}-{1}', replace(parameters.hostname, '.', '-'), 'cert') }}
                   ingress.annotations.external-dns\.alpha\.kubernetes\.io\/target=${{ parameters.cname }}
-                  ingress.annotations.cert-manager\.io\/cluster-issuer=cert-manager
+                  ingress.annotations.cert-manager\.io\/cluster-issuer=letsencrypt
                   serviceAccount.create=false
