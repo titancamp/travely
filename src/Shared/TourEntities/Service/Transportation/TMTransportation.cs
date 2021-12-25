@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TourEntities.Service.Common.Location;
 
 namespace TourEntities.Service.Transportation
 {
@@ -11,8 +12,7 @@ namespace TourEntities.Service.Transportation
         public string Region { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
-        public Location.Location Location { get; set; }
-        public List<string> Driver { get; set; }
+        public Location Location { get; set; }
         public string ContactNumber { get; set; }
         public string ContactEmail { get; set; }
         public string ContactPerson { get; set; }

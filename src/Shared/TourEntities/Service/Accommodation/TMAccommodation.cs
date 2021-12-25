@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TourEntities.Service.Common.Location;
 
 namespace TourEntities.Service.Accommodation
 {
@@ -11,7 +12,7 @@ namespace TourEntities.Service.Accommodation
         public string Region { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
-        public Location.Location Location { get; set; }
+        public Location Location { get; set; }
         public TimeSpan CheckInTime { get; set; }
         public TimeSpan CheckOutTime { get; set; }
         public string ContactNumber { get; set; }

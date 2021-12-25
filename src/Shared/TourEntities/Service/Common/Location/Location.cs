@@ -1,4 +1,4 @@
-namespace TourEntities.Service.Location
+namespace TourEntities.Service.Common.Location
 {
     public struct Location
     {

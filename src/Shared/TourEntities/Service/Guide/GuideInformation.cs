@@ -11,6 +11,7 @@ namespace TourEntities.Service.Guide
         public string Image { get; set; }
         public string ContactEmail { get; set; }
         public string ContactPerson { get; set; }
+        public string ContactNumber { get; set; }
         public List<string> Languages { get; set; }
         public string Experience { get; set; } //TBD
         public string Skills { get; set; } //TBD

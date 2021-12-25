@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TourEntities.Service.Common.Location;
 
 namespace TourEntities.Service.Food
 {
@@ -14,9 +15,8 @@ namespace TourEntities.Service.Food
         public string ContactNumber { get; set; }
         public string ContactEmail { get; set; }
         public string ContactPerson { get; set; }
-        public Location.Location Location { get; set; }
-        public List<string> Menu { get; set; }
-        public List<string> MenuAttachments { get; set; }
+        public Location Location { get; set; }
+        public Menu Menu { get; set; }
         public string Notes { get; set; }
         public List<string> Attachments { get; set; }
         public DateTime SignDate { get; set; }
