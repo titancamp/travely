@@ -10,7 +10,7 @@ namespace TourEntities.Service.Transportation
         public string Name { get; set; }
         public List<string> Languages { get; set; }
         public List<string> LicenseType { get; set; }
-        public string ContactPhone { get; set; }
+        public string ContactNumber { get; set; }
         public ICollection<Car> Cars { get; set; }
     }
 }

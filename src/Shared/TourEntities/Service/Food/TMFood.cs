@@ -12,9 +12,11 @@ namespace TourEntities.Service.Food
         public string Region { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
-        public string ContactNumber { get; set; }
+        public string ContactNumber { get; set; } 
         public string ContactEmail { get; set; }
         public string ContactPerson { get; set; }
+        public TimeSpan OpeningHours { get; set; }
+        public TimeSpan ClosingHours { get; set; }
         public Location Location { get; set; }
         public Menu Menu { get; set; }
         public string Notes { get; set; }

@@ -16,6 +16,9 @@ namespace TourEntities.Service.Transportation
         public string ContactNumber { get; set; }
         public string ContactEmail { get; set; }
         public string ContactPerson { get; set; }
+        public List<string> Attachments { get; set; }
+        public DateTime SignDate { get; set; }
+        public DateTime ExpiryDate { get; set; }
         public string Notes { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime LastEditedAt { get; set; }
