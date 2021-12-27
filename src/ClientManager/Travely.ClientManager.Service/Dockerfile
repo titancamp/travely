@@ -13,7 +13,7 @@ COPY ["src/ClientManager/Travely.ClientManager.Abstraction/Travely.ClientManager
 COPY ["src/Commons/Travely.Common/Travely.Common.csproj", "src/Commons/Travely.Common/"]
 COPY ["src/Commons/Travely.Common.ServiceDiscovery/Travely.Common.ServiceDiscovery.csproj", "src/Commons/Travely.Common.ServiceDiscovery/"]
 COPY ["src/ClientManager/Travely.ClientManager.Repository/Travely.ClientManager.Repository.csproj", "src/ClientManager/Travely.ClientManager.Repository/"]
-COPY ["src/ClientManager/Travely.ClientManager.Grpc.Client/Travely.ClientManager.Grpc.csproj", "src/ClientManager/Travely.ClientManager.Grpc.Client/"]
+COPY ["src/ClientManager/Travely.ClientManager.Grpc/Travely.ClientManager.Grpc.csproj", "src/ClientManager/Travely.ClientManager.Grpc/"]
 COPY ["src/Commons/Travely.Common.Grpc/Travely.Common.Grpc.csproj", "src/Commons/Travely.Common.Grpc/"]
 COPY ["src/Commons/Travely.Common.Api/Travely.Common.Api.csproj", "src/Commons/Travely.Common.Api/"]
 COPY ["src/Shared/IdentityClient/Travely.Shared.IdentityClient.Authorization.csproj", "src/Shared/IdentityClient/"]

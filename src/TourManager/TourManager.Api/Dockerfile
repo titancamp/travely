@@ -16,7 +16,7 @@ COPY ["src/TourManager/TourManager.Repository.EfCore/TourManager.Repository.EfCo
 COPY ["src/TourManager/TourManager.Repository.Abstraction/TourManager.Repository.Abstraction.csproj", "src/TourManager/TourManager.Repository.Abstraction/"]
 COPY ["src/ServiceManager/Travely.ServiceManager.Grpc/Travely.ServiceManager.Grpc.csproj", "src/ServiceManager/Travely.ServiceManager.Grpc/"]
 COPY ["src/TourManager/TourManager.Service.Model/TourManager.Service.Model.csproj", "src/TourManager/TourManager.Service.Model/"]
-COPY ["src/ClientManager/Travely.ClientManager.Grpc.Client/Travely.ClientManager.Grpc.csproj", "src/ClientManager/Travely.ClientManager.Grpc.Client/"]
+COPY ["src/ClientManager/Travely.ClientManager.Grpc/Travely.ClientManager.Grpc.csproj", "src/ClientManager/Travely.ClientManager.Grpc/"]
 COPY ["src/Commons/Travely.Common.ServiceDiscovery/Travely.Common.ServiceDiscovery.csproj", "src/Commons/Travely.Common.ServiceDiscovery/"]
 COPY ["src/Shared/IdentityClient/Travely.Shared.IdentityClient.Authorization.csproj", "src/Shared/IdentityClient/"]
 COPY ["src/TourManager/TourManager.Service.Implementation/TourManager.Service.Implementation.csproj", "src/TourManager/TourManager.Service.Implementation/"]
