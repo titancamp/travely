@@ -5,7 +5,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\ClientManager\Travely.ClientManager.Grpc.Client\Travely.ClientManager.Grpc.csproj" />
       <ProjectReference Include="..\TourManager.Repository.Abstraction\TourManager.Repository.Abstraction.csproj" />
       <ProjectReference Include="..\TourManager.Service.Abstraction\TourManager.Service.Abstraction.csproj" />
       <ProjectReference Include="..\TourManager.Service.Model\TourManager.Service.Model.csproj" />

@@ -26,7 +26,7 @@
     <ProjectReference Include="..\..\Commons\Travely.Common\Travely.Common.csproj" />
     <ProjectReference Include="..\..\Commons\Travely.Common.Api\Travely.Common.Api.csproj" />
     <ProjectReference Include="..\Travely.ClientManager.Abstraction\Travely.ClientManager.Abstraction.csproj" />
-    <ProjectReference Include="..\Travely.ClientManager.Grpc.Client\Travely.ClientManager.Grpc.csproj" />
+    <ProjectReference Include="..\Travely.ClientManager.Grpc\Travely.ClientManager.Grpc.csproj" />
     <ProjectReference Include="..\Travely.ClientManager.Repository\Travely.ClientManager.Repository.csproj" />
   </ItemGroup>
 

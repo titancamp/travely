@@ -20,7 +20,7 @@ namespace Travely.Common.ServiceDiscovery
             var consulConfiguration = configuration.GetSection(nameof(ConsulClientConfiguration)).Get<ConsulClientConfiguration>();
             if (consulConfiguration?.Address != null)
             {
-                services.RegisterConsulServices(configuration);
+                services.AddConsulServices(configuration);
             }
 
             return services;
