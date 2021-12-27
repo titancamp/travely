@@ -109,9 +109,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.PropertyManager.Ser
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.Services.Common", "src\Commons\Travely.Services.Common\Travely.Services.Common.csproj", "{1339A65F-B085-4DC2-9290-C6B1014DC8D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourEntities", "src\Shared\TourEntities\TourEntities.csproj", "{CE49AB9B-3659-430E-B50D-4F7C638176AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourModels", "src\Shared\TourModels\TourModels.csproj", "{CE49AB9B-3659-430E-B50D-4F7C638176AC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TourEntities", "TourEntities", "{950B737D-FA19-4729-99DD-D48B9E95A3AC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TourModels", "TourModels", "{950B737D-FA19-4729-99DD-D48B9E95A3AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
