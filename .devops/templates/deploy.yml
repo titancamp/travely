@@ -1,0 +1,84 @@
+parameters:
+- name: imageTag
+  type: string
+- name: containerRepository
+  type: string
+- name: containerRegistry
+  type: string
+- name: containerRegistryPassword
+  type: string
+- name: containerPort
+  type: number
+  default: 5000
+- name: hostname
+  type: string
+- name: path
+  type: string
+  default: /
+- name: cname
+  type: string
+- name: environment
+  type: string
+- name: kubernetesServiceConnection
+  type: string
+- name: kubernetesNamespace
+  type: string
+- name: ingress
+  type: object
+  default:
+    enabled: false
+- name: helmMetadata
+  type: object
+  default:
+    releaseName: ''
+    chartRegistry: ''
+    chartName: ''
+    chartVersion: ''
+
+stages:
+- stage: Deploy
+  jobs:
+  - deployment: Deploy
+    environment: ${{ parameters.environment }}
+    variables:
+    - name: HELM_EXPERIMENTAL_OCI
+      value: 1
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - checkout: self
+            - task: KubernetesManifest@0
+              inputs:
+                action: createSecret
+                kubernetesServiceConnection: ${{ parameters.kubernetesServiceConnection }}
+                namespace: ${{ parameters.kubernetesNamespace }}
+                secretType: dockerRegistry
+                secretName: regcred
+                dockerRegistryEndpoint: ${{ parameters.containerRegistry }}
+            - task: HelmInstaller@1
+              displayName: Helm installer
+            - script: helm registry login ${{ parameters.helmMetadata.chartRegistry }} -u admin -p ${{ parameters.containerRegistryPassword }}
+            - task: HelmDeploy@0
+              inputs:
+                connectionType: 'Kubernetes Service Connection'
+                kubernetesServiceConnection: ${{ parameters.kubernetesServiceConnection }}
+                namespace: ${{ parameters.kubernetesNamespace }}
+                command: upgrade
+                install: true
+                chartName: oci://${{ parameters.helmMetadata.chartRegistry }}/${{ parameters.helmMetadata.chartName }}
+                chartVersion: ${{ parameters.helmMetadata.chartVersion }}
+                releaseName: ${{ parameters.helmMetadata.releaseName }}
+                overrideValues: |
+                  image.repository=${{ parameters.containerRepository }}
+                  image.tag=${{ parameters.imageTag }}
+                  containerPort=${{ parameters.containerPort }}
+                  ingress.enabled=${{ parameters.ingress.enabled }}
+                  ingress.hosts[0].host=${{ parameters.hostname }}
+                  ingress.hosts[0].paths[0].pathType=Prefix
+                  ingress.hosts[0].paths[0].path=${{ parameters.path }}
+                  ingress.tls[0].hosts[0]=${{ parameters.hostname }}
+                  ingress.tls[0].secretName=${{ format('{0}-{1}', replace(parameters.hostname, '.', '-'), 'cert') }}
+                  ingress.annotations.external-dns\.alpha\.kubernetes\.io\/target=${{ parameters.cname }}
+                  ingress.annotations.cert-manager\.io\/cluster-issuer=letsencrypt
+                  serviceAccount.create=false

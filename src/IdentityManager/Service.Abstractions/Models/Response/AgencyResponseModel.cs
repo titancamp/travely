@@ -11,6 +11,5 @@ namespace Travely.IdentityManager.Service.Abstractions.Models.Response
         public string Address { get; set; }
         public string LogoFile { get; set; }
         public Status Status { get; set; }
-
     }
 }

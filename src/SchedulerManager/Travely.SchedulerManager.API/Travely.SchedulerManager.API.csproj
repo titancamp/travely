@@ -8,17 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Protos\reminder.proto" />
-    <None Remove="Protos\email.proto" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" Version="2.36.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
+    <PackageReference Include="Grpc.AspNetCore" Version="2.41.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.0.0" />
     <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="5.6.0" />
   </ItemGroup>
@@ -26,15 +21,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Commons\Travely.Common\Travely.Common.csproj" />
     <ProjectReference Include="..\..\Shared\IdentityClient\Travely.Shared.IdentityClient.Authorization.csproj" />
+    <ProjectReference Include="..\Travely.SchedulerManager.Grpc\Travely.SchedulerManager.Grpc.csproj" />
     <ProjectReference Include="..\Travely.SchedulerManager.Job\Travely.SchedulerManager.Job.csproj" />
     <ProjectReference Include="..\Travely.SchedulerManager.Notifier\Travely.SchedulerManager.Notifier.csproj" />
     <ProjectReference Include="..\Travely.SchedulerManager.Repository\Travely.SchedulerManager.Repository.csproj" />
     <ProjectReference Include="..\Travely.SchedulerManager.Service\Travely.SchedulerManager.Service.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Protobuf Include="Protos\reminder.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\email.proto" GrpcServices="Server" />
   </ItemGroup>
 
 </Project>

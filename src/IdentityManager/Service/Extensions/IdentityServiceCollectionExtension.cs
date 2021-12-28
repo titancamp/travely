@@ -47,7 +47,6 @@ namespace IdentityManager.DataService.Extensions
             }).AddLocalApi(JwtBearerDefaults.AuthenticationScheme, options =>
             {
                 options.ExpectedScope = null;
-                    
             });
 
             services.AddScoped<IEmailTokenService, EmailTokenService>();

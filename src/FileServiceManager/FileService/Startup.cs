@@ -1,40 +1,31 @@
+using FileService.DAL.Storages.Options;
+using FileService.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using FileService.Helpers;
-using FileService.DAL.Storages.Options;
+using Travely.Common.Swagger;
 
 namespace FileServiceManager.FileService
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
             services.AddControllers();
-            services.AddSwaggerGen(options =>
-            {
-                options.IgnoreObsoleteActions();
-                options.DescribeAllParametersInCamelCase();
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "Travely.FileService API",
-                    Version = "v1",
-                    TermsOfService = new System.Uri("https://github.com/titancamp/travely"),
-                    Contact = new OpenApiContact { Name = "https://www.servicetitan.com" }
-                });
-            });
+            services.AddSwagger("Travely.FileService API");
 
             services.Configure<StorageOption>(Configuration.GetSection(StorageOption.Storage));
 
@@ -55,7 +46,7 @@ namespace FileServiceManager.FileService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseCors(conf => conf.AllowAnyOrigin()
                 .AllowAnyMethod()
@@ -64,17 +55,14 @@ namespace FileServiceManager.FileService
 
             app.UseDefaultFiles();
 
-            if (env.IsDevelopment())
+            if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
                 app.UseSwagger();
 
-                // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-                app.UseSwaggerUI(c =>
-                {
-                    string swaggerJsonBasePath = string.IsNullOrWhiteSpace(c.RoutePrefix) ? "." : "..";
-                    c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "Travely.FileService API");
-                });
+                // UseSwaggerUI needs only when running microservice without gateway
+                //app.UseSwaggerUI("Travely.FileService API");
             }
 
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));

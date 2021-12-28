@@ -3,7 +3,7 @@ syntax = "proto3";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
 
-option csharp_namespace = "Travely.SchedulerManager.API";
+option csharp_namespace = "Travely.SchedulerManager.Grpc";
 
 service Reminder{
 	rpc Get (GetRequest) returns (GetResponse);

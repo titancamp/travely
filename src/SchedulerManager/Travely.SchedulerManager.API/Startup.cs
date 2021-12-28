@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TourManager.Api.Bootstrapper;
 using Travely.SchedulerManager.API.Helpers;
 using Travely.SchedulerManager.API.Services;
 using Travely.SchedulerManager.Job;
@@ -12,6 +11,8 @@ using Travely.SchedulerManager.Notifier.Helpers;
 using Travely.SchedulerManager.Repository;
 using Travely.SchedulerManager.Service.Extensions;
 using Serilog;
+using Travely.Common.Extensions;
+using Travely.Shared.IdentityClient.Authorization.Config;
 
 namespace Travely.SchedulerManager.API
 {

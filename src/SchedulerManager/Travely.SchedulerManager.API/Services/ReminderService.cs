@@ -1,9 +1,9 @@
-﻿using System;
-using Grpc.Core;
+﻿using Grpc.Core;
 using System.Linq;
 using System.Threading.Tasks;
-using Travely.SchedulerManager.Service;
 using Travely.SchedulerManager.Common.Enums;
+using Travely.SchedulerManager.Grpc;
+using Travely.SchedulerManager.Service;
 
 namespace Travely.SchedulerManager.API.Services
 {
