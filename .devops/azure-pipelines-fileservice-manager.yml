@@ -28,8 +28,7 @@ stages:
     imageTag: $(imageTag)
     containerRepository: $(containerRepository)
     containerRegistry: $(containerRegistry)
-    dockerFile: src/FileServiceManager/Dockerfile
-    buildContext: src/FileServiceManager
+    dockerFile: src/FileServiceManager/FileService/Dockerfile
 # Deploy stage
 - template: templates/deploy.yml
   parameters:
