@@ -15,3 +15,7 @@ public partial class [Team name abbreviation][className]
 For Example:
 public partial class TMTour
 ```
+Also be sure to add the following line to the dockerfile for the specified project
+```dockerfile
+COPY ["src/Shared/TourModels/TourModels.csproj", "src/Shared/TourModels/"]
+```

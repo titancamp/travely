@@ -20,6 +20,7 @@ COPY ["src/Shared/IdentityClient/Travely.Shared.IdentityClient.Authorization.csp
 COPY ["src/TourManager/TourManager.Service.Implementation/TourManager.Service.Implementation.csproj", "src/TourManager/TourManager.Service.Implementation/"]
 COPY ["src/TourManager/TourManager.Service.Abstraction/TourManager.Service.Abstraction.csproj", "src/TourManager/TourManager.Service.Abstraction/"]
 COPY ["src/TourManager/TourManager.Repository.EfCore.MsSql/TourManager.Repository.EfCore.MsSql.csproj", "src/TourManager/TourManager.Repository.EfCore.MsSql/"]
+COPY ["src/Shared/TourModels/TourModels.csproj", "src/Shared/TourModels/"]
 RUN dotnet restore "src/TourManager/TourManager.Api/TourManager.Api.csproj"
 COPY . .
 WORKDIR "/src/src/TourManager/TourManager.Api"
