@@ -28,6 +28,14 @@ stages:
     env:
     - name: ConnectionStrings__TouristDB
       value: Server=mssql;Database=TouristDB;User=sa;Password=$(mssql_sa_password)
+    - name: n1
+      value: v1
+    - name: n2
+      value: v2
+    - name: n3
+      value: v3
+    - name: n4
+      value: v4
     hostname: $(project).travely.am
     path: /
     cname: k8s.travely.am
