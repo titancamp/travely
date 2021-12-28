@@ -1,0 +1,58 @@
+trigger:
+  - devops
+
+variables:
+- group: travely
+- name: project
+  value: service-manager
+- name: imageTag
+  value: $(Build.BuildId)
+- name: containerRepository
+  value: travely/$(project)
+- name: containerRegistry
+  value: registry-travely-am
+- name: containerRegistryHost
+  value: registry.travely.am
+- name: gitBranch
+  value: $(Build.SourceBranchName)
+
+stages:
+# Build stage
+- template: templates/build.yml
+  parameters:
+    imageTag: $(imageTag)
+    containerRepository: $(containerRepository)
+    containerRegistry: $(containerRegistry)
+    dockerFile: src/ServiceManager/Travely.ServiceManager.Service/Dockerfile
+# Deploy stage
+- template: templates/deploy.yml
+  parameters:
+    imageTag: $(imageTag)
+    containerRepository: $(containerRegistryHost)/$(containerRepository)
+    containerRegistry: $(containerRegistry)
+    containerRegistryPassword: $(registry_travely_am_password)
+    containerPort: 80
+    containerEnv:
+    - name: ConnectionStrings__DefaultConnection
+      value: Server=mssql;Database=ServiceManagerDb;User=sa;Password=$(mssql_sa_password)
+    - name: n1
+      value: v1
+    - name: n2
+      value: v2
+    - name: n3
+      value: v3
+    - name: n4
+      value: v4
+    hostname: $(project).travely.am
+    path: /
+    cname: k8s.travely.am
+    environment: dev.dev-travely-am
+    kubernetesServiceConnection: dev-dev-travely-am-1639235401610
+    kubernetesNamespace: dev-travely-am
+    ingress:
+      enabled: true
+    helmMetadata:
+      releaseName: $(project)
+      chartRegistry: $(containerRegistryHost)
+      chartName: helm-charts/app
+      chartVersion: 0.1.2
