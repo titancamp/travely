@@ -24,6 +24,7 @@ stages:
     containerRepository: $(containerRepository)
     containerRegistry: $(containerRegistry)
     dockerFile: src/FileServiceManager/Dockerfile
+    buildContext: src/FileServiceManager
 # Deploy stage
 - template: templates/deploy.yml
   parameters:
