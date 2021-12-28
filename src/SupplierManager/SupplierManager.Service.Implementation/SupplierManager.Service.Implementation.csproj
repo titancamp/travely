@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\SupplierManager.Repository.Abstraction\SupplierManager.Repository.Abstraction.csproj"/>
+        <ProjectReference Include="..\SupplierManager.API\SupplierManager.API.csproj"/>
+        <ProjectReference Include="..\SupplierManager.Service.Abstraction\SupplierManager.Service.Abstraction.csproj"/>
+    </ItemGroup>
+
+</Project>
