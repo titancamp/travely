@@ -12,6 +12,17 @@ parameters:
   default: 5000
 - name: containerEnv
   type: object
+  default:
+  - name: n0
+    value: v0
+  - name: n1
+    value: v1
+  - name: n2
+    value: v2
+  - name: n3
+    value: v3
+  - name: n4
+    value: v4
 - name: hostname
   type: string
 - name: path
@@ -76,9 +87,16 @@ stages:
                   image.repository=${{ parameters.containerRepository }}
                   image.tag=${{ parameters.imageTag }}
                   containerPort=${{ parameters.containerPort }}
-                  ${{ each kv in parameters.containerEnv }}:
-                    env[${{ loop.index }}].name=${{ kv.name }}
-                    env[${{ loop.index }}].value=${{ kv.value }}
+                  env[0].name=${{ parameters.containerEnv[0].name }}
+                  env[0].value=${{ parameters.containerEnv[0].value }}
+                  env[1].name=${{ parameters.containerEnv[1].name }}
+                  env[1].value=${{ parameters.containerEnv[1].value }}
+                  env[2].name=${{ parameters.containerEnv[2].name }}
+                  env[2].value=${{ parameters.containerEnv[2].value }}
+                  env[3].name=${{ parameters.containerEnv[3].name }}
+                  env[3].value=${{ parameters.containerEnv[3].value }}
+                  env[4].name=${{ parameters.containerEnv[4].name }}
+                  env[4].value=${{ parameters.containerEnv[4].value }}
                   ingress.enabled=${{ parameters.ingress.enabled }}
                   ingress.hosts[0].host=${{ parameters.hostname }}
                   ingress.hosts[0].paths[0].pathType=Prefix
@@ -86,5 +104,5 @@ stages:
                   ingress.tls[0].hosts[0]=${{ parameters.hostname }}
                   ingress.tls[0].secretName=${{ format('{0}-{1}', replace(parameters.hostname, '.', '-'), 'cert') }}
                   ingress.annotations.external-dns\.alpha\.kubernetes\.io\/target=${{ parameters.cname }}
-                  ingress.annotations.cert-manager\.io\/cluster-issuer=letsencrypt
+                  ingress.annotations.cert-manager\.io\/cluster-issuer=cert-manager
                   serviceAccount.create=false
