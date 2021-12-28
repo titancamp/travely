@@ -4,12 +4,12 @@ trigger:
     - develop
   paths:
     include:
-    - src/ClientManager
+    - src/TourManager
 
 variables:
 - group: travely
 - name: project
-  value: client-manager
+  value: tour-manager
 - name: imageTag
   value: $(Build.BuildId)
 - name: containerRepository
@@ -28,7 +28,7 @@ stages:
     imageTag: $(imageTag)
     containerRepository: $(containerRepository)
     containerRegistry: $(containerRegistry)
-    dockerFile: src/ClientManager/Travely.ClientManager.Service/Dockerfile
+    dockerFile: src/TourManager/TourManager.Api/Dockerfile
 # Deploy stage
 - template: templates/deploy.yml
   parameters:
@@ -38,10 +38,10 @@ stages:
     containerRegistryPassword: $(registry_travely_am_password)
     containerPort: 80
     containerEnv:
-    - name: ConnectionStrings__TouristDB
-      value: Server=mssql;Database=TouristDB;User=sa;Password=$(mssql_sa_password)
-    - name: n1
-      value: v1
+    - name: ConnectionStrings__TourDbContext
+      value: Server=mssql;Database=Tour;User=sa;Password=$(mssql_sa_password)
+    - name: TravelyIdentityConfig__Authority
+      value: http://tour-manager-app
     - name: n2
       value: v2
     - name: n3
