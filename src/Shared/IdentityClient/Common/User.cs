@@ -1,4 +1,4 @@
-﻿namespace Travely.IdentityClient.Authorization.Data
+﻿namespace Travely.Shared.IdentityClient.Authorization.Common
 {
     public record UserInfo
     {

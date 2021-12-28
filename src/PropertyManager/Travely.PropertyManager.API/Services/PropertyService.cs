@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Grpc.Core;
+using System.Threading.Tasks;
 using Travely.PropertyManager.API.Helpers;
 using Travely.PropertyManager.API.Validators;
+using Travely.PropertyManager.Grpc;
 using Travely.PropertyManager.Service.Contracts;
 using Travely.PropertyManager.Service.Models.Commands;
 using Travely.PropertyManager.Service.Models.Queries;

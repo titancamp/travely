@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using System.Threading.Tasks;
+using Travely.SchedulerManager.Grpc;
 using Travely.SchedulerManager.Notifier;
 
 namespace Travely.SchedulerManager.API.Services
@@ -12,6 +13,7 @@ namespace Travely.SchedulerManager.API.Services
         {
             _emailService = emailService;
         }
+
         public async override Task<Empty> Send(SendEmailRequest request, ServerCallContext context)
         {
             await _emailService.SendEmailAsync(request.Receiver, request.Title, request.Subject, request.Subject);

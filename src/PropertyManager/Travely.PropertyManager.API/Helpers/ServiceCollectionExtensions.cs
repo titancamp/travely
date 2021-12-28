@@ -2,10 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Travely.PropertyManager.Data.EntityFramework;
+using Travely.PropertyManager.Grpc.Mapper;
 using Travely.PropertyManager.Service.Contracts;
 using Travely.PropertyManager.Service.Services;
 
-namespace Travely.PropertyManager.Bootstrapper.Helpers
+namespace Travely.PropertyManager.API.Helpers
 {
     public static class ServiceCollectionExtensions
     {
@@ -13,8 +14,9 @@ namespace Travely.PropertyManager.Bootstrapper.Helpers
         {
             var mappingProfiles = new[]
             {
-                typeof(Travely.PropertyManager.API.MappingProfiles.PropertyMappingProfile),
-                typeof(Travely.PropertyManager.Service.MappingProfiles.PropertyMappingProfile)
+                typeof(MappingProfiles.PropertyMappingProfile),
+                typeof(Service.MappingProfiles.PropertyMappingProfile),
+                typeof(PropertyClientProfile)
             };
 
             services.AddAutoMapper(mappingProfiles);

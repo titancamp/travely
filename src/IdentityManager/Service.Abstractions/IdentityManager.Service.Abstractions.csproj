@@ -1,10 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" />
+    <ProjectReference Include="..\Repository.Abstractions\IdentityManager.Repository.Abstractions.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Repository.EntityFramework\IdentityManager.Repository.EntityFramework.csproj" />
-  </ItemGroup>
-
 </Project>

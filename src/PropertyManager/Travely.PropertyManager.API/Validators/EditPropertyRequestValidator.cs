@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Travely.PropertyManager.Grpc;
 
 namespace Travely.PropertyManager.API.Validators
 {

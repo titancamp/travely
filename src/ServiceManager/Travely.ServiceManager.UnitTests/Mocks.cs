@@ -1,4 +1,4 @@
-﻿using Travely.ServiceManager.Service;
+﻿using Travely.ServiceManager.Grpc;
 
 namespace Travely.ServiceManager.UnitTests
 {

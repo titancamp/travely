@@ -1,0 +1,21 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "fileservice": "StartDebugging",
+        "redis-cache": "StartWithoutDebugging",
+        "sql-server-db": "StartWithoutDebugging",
+        "tourmanager.api": "StartDebugging",
+        "travely.clientmanager.service": "StartDebugging",
+        "travely.gateway": "StartDebugging",
+        "travely.identity.webapi": "StartDebugging",
+        "travely.propertymanager.api": "StartDebugging",
+        "travely.schedulermanager.api": "StartDebugging",
+        "travely.servicemanager.service": "StartDebugging",
+        "consul": "StartWithoutDebugging"
+      }
+    }
+  }
+}
