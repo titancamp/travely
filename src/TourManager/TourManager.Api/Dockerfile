@@ -24,6 +24,7 @@ COPY ["src/TourManager/TourManager.Service.Abstraction/TourManager.Service.Abstr
 COPY ["src/Commons/Travely.Common.Api/Travely.Common.Api.csproj", "src/Commons/Travely.Common.Api/"]
 COPY ["src/PropertyManager/Travely.PropertyManager.Grpc/Travely.PropertyManager.Grpc.csproj", "src/PropertyManager/Travely.PropertyManager.Grpc/"]
 COPY ["src/TourManager/TourManager.Repository.EfCore.MsSql/TourManager.Repository.EfCore.MsSql.csproj", "src/TourManager/TourManager.Repository.EfCore.MsSql/"]
+COPY ["src/Shared/TourModels/TourModels.csproj", "src/Shared/TourModels/"]
 RUN dotnet restore "src/TourManager/TourManager.Api/TourManager.Api.csproj"
 COPY . .
 WORKDIR "/src/src/TourManager/TourManager.Api"
