@@ -34,6 +34,8 @@ namespace Travely.Services.Common.Models
     public enum FilteringOperationType
     {
         Equals = 1,
-        Contains = 2
+        Contains = 2,
+        LessThanOrEqual = 3,
+        GreaterThanOrEqual = 4
     }
 }
