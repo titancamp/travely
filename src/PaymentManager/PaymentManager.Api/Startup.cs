@@ -18,6 +18,8 @@ using PaymentManager.Services;
 using PaymentManager.Services.Models;
 using Travely.Common.ServiceDiscovery;
 using Travely.Shared.IdentityClient.Authorization.Config;
+using PaymentManager.Repositories.Entities;
+using PaymentManager.Services.Helpers;
 
 namespace PaymentManager.Api
 {
@@ -40,7 +42,9 @@ namespace PaymentManager.Api
             services.AddDbContext<PayableDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PaymentDbContext")));
             services.AddScoped<IPayableRepository, PayableRepository>();
-            services.AddScoped<IPayableService, PaymentService>();
+            services.AddScoped<IPayableService, PayableService>();
+            services.AddSingleton<ISortHelper<PayableEntity>, SortHelper<PayableEntity>>();
+            services.AddSingleton<ISearchHelper<PayableEntity>, PayableSearchHelper>();
             services.AddApiVersioning(config =>
             {
                 config.DefaultApiVersion = new ApiVersion(1, 0);

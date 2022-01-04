@@ -1,4 +1,5 @@
 ﻿using PaymentManager.Services.Models;
+using PaymentManager.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace PaymentManager.Services
 {
     public interface IPayableService
     {
-        Task<List<PayableRead>> GetAll(int agencyId);
+        Task<PayablePage> Get(int agencyId, PayableQueryParameters parameters);
         Task<PayableRead> Get(int agencyId, int id);
         Task<PayableRead> Create(int agencyId, PayableCreate model);
         Task CreateRange(int agencyId, List<PayableCreate> models);

@@ -7,26 +7,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PaymentManager.Shared;
+using PaymentManager.Services.Helpers;
 
 namespace PaymentManager.Services
 {
-    public class PaymentService : IPayableService
+    public class PayableService : IPayableService
     {
         private readonly IMapper _mapper;
 
         private readonly IPayableRepository _repository;
 
-        public PaymentService(IMapper mapper, IPayableRepository repository)
+        private readonly ISortHelper<PayableEntity> _sortHelper;
+
+        private readonly ISearchHelper<PayableEntity> _searchHelper;
+        public PayableService(IMapper mapper,
+                              IPayableRepository repository,
+                              ISortHelper<PayableEntity> sortHelper,
+                              ISearchHelper<PayableEntity> searchHelper)
         {
             _mapper = mapper;
             _repository = repository;
+            _sortHelper = sortHelper;
+            _searchHelper = searchHelper;
         }
 
-        public async Task<List<PayableRead>> GetAll(int agencyId)
+        public async Task<PayablePage> Get(int agencyId, PayableQueryParameters parameters)
         {
-            var data = await _repository.GetAll(agencyId);
+            var query = await _repository.GetAll(agencyId);
 
-            return _mapper.Map<List<PayableRead>>(data);
+            query = _sortHelper.ApplySort(query, parameters.OrderBy);
+
+            query = _searchHelper.ApplySearch(query, parameters.Search);
+
+            return PayablePage.GetPayablePage(query, _mapper, parameters.Index, parameters.Size);
         }
 
         public async Task<PayableRead> Get(int agencyId, int id)

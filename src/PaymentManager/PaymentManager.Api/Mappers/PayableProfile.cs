@@ -66,6 +66,9 @@ namespace PaymentManager.Api.Mappers
             CreateMap<PayableItemEntity, PayableItem>();
             CreateMap<PayableItem, PayableItemEntity>();
             CreateMap<PayableItemUpdateDto, PayableItem>();
+
+            CreateMap<PayableQueryParametersDto, PayableQueryParameters>();
+            CreateMap<PayablePage, PayablePageDto>();
         }
     }
 }

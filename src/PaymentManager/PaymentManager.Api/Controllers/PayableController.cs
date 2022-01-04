@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using PaymentManager.Api.Dtos;
 using PaymentManager.Services;
 using PaymentManager.Services.Models;
+using PaymentManager.Shared;
 using Travely.Common.Api.Controllers;
 using Travely.Shared.IdentityClient.Authorization.Common;
 
@@ -33,15 +34,19 @@ namespace PaymentManager.Api.Controllers
 
         // GET: api/v1/payment
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> Get([FromQuery] PayableQueryParametersDto parameters)
         {
-            System.Console.WriteLine(UserInfo.AgencyId);
-            var data = await _service.GetAll(UserInfo.AgencyId);
+            var par = _mapper.Map<PayableQueryParameters>(parameters);
+            System.Console.WriteLine(par.Index);
+            System.Console.WriteLine(par.Size);
+            System.Console.WriteLine(par.OrderBy);
+            System.Console.WriteLine(par.Search);
+            var data = await _service.Get(UserInfo.AgencyId, par);
 
-            if (data == null || data.Count == 0)
+            if (data == null)
                 return NotFound();
 
-            return Ok(_mapper.Map<List<PayableReadDto>>(data));
+            return Ok(_mapper.Map<PayablePageDto>(data));
         }
 
         // GET: api/v1/payment/{id}
