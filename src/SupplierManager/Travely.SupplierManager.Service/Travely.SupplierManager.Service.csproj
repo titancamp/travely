@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="10.1.1" />
+        <PackageReference Include="Grpc.AspNetCore" Version="2.41.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Shared\TourModels\TourModels.csproj" />
+        <ProjectReference Include="..\..\TourManager\TourManager.Repository.Abstraction\TourManager.Repository.Abstraction.csproj" />
+        <ProjectReference Include="..\Travely.SupplierManager.Repository\Travely.SupplierManager.Repository.csproj" />
+    </ItemGroup>
+
+</Project>

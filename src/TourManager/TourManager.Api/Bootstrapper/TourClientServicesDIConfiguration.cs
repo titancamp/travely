@@ -18,54 +18,86 @@ using Travely.ServiceManager.Grpc;
 using Travely.ServiceManager.Grpc.Client.Abstarction;
 using Travely.ServiceManager.Grpc.Client.Implementation;
 using Travely.ServiceManager.Grpc.Settings;
+using Travely.SupplierManager.Grpc;
+using Travely.SupplierManager.Grpc.Client.Abstraction;
+using Travely.SupplierManager.Grpc.Client.Implementation;
+using Travely.SupplierManager.Grpc.Settings;
 
 namespace TourManager.Api.Bootstrapper
 {
     public static class TourClientServicesDIConfiguration
-	{
-		public static IServiceCollection AddTourClientServices(this IServiceCollection services, IConfiguration configuration)
-		{
-			#region ServiceManager
+    {
+        public static IServiceCollection AddTourClientServices(this IServiceCollection services,
+            IConfiguration configuration)
+        {
+            #region ServiceManager
 
-			services.AddScoped<IServiceManagerClient, ServiceManagerClient>();
-			services.Configure<GrpcSettings<ActivityProto.ActivityProtoClient>>(configuration.GetSection("ActivityGrpcService"));
-			services.AddScoped<IServiceSettingsProvider<ActivityProto.ActivityProtoClient>, ServiceManagerSettingsProvider>();
+            services.AddScoped<IServiceManagerClient, ServiceManagerClient>();
+            services.Configure<GrpcSettings<ActivityProto.ActivityProtoClient>>(
+                configuration.GetSection("ActivityGrpcService"));
+            services
+                .AddScoped<IServiceSettingsProvider<ActivityProto.ActivityProtoClient>,
+                    ServiceManagerSettingsProvider>();
 
-			#endregion
+            #endregion
 
-			#region EquipmentManager
+            #region SupplierManager
 
-			#endregion
+            services.AddScoped<ISupplierManagerClient, SupplierManagerClient>();
+            services.Configure<GrpcSettings<SupplierProto.SupplierProtoClient>>(
+                configuration.GetSection("SupplierGrpcService"));
+            services
+                .AddScoped<IServiceSettingsProvider<SupplierProto.SupplierProtoClient>,
+                    SupplierManagerSettingsProvider>();
 
-			#region FileServiceManager
+            #endregion
+            #region ServiceManager
 
-			#endregion
+            services.AddScoped<ISupplierManagerClient, SupplierManagerClient>();
+            services.Configure<GrpcSettings<SupplierProto.SupplierProtoClient>>(
+                configuration.GetSection("SupplierGrpcService"));
+            services
+                .AddScoped<IServiceSettingsProvider<SupplierProto.SupplierProtoClient>,
+                    SupplierManagerSettingsProvider>();
 
-			#region PropertyManager
+            #endregion
 
-			services.AddScoped<IPropertyManagerClient, PropertyManagerClient>();
-			services.Configure<GrpcSettings<Property.PropertyClient>>(configuration.GetSection("PropertyGrpcService"));
-			services.AddScoped<IServiceSettingsProvider<Property.PropertyClient>, PropertyManagerSettingsProvider>();
+            #region EquipmentManager
 
-			#endregion
+            #endregion
 
-			#region SchedulerManager
+            #region FileServiceManager
 
-			services.AddScoped<IReminderServiceClient, ReminderServiceClient>();
-			services.Configure<GrpcSettings<Reminder.ReminderClient>>(configuration.GetSection("SchedulerGrpcService"));
-			services.AddScoped<IServiceSettingsProvider<Reminder.ReminderClient>, SchedulerManagerSettingsProvider>();
+            #endregion
 
-			#endregion
+            #region PropertyManager
 
-			#region ClientManager
+            services.AddScoped<IPropertyManagerClient, PropertyManagerClient>();
+            services.Configure<GrpcSettings<Property.PropertyClient>>(configuration.GetSection("PropertyGrpcService"));
+            services.AddScoped<IServiceSettingsProvider<Property.PropertyClient>, PropertyManagerSettingsProvider>();
 
-			services.AddScoped<IClientManagerServiceClient, ClientManagerServiceClient>();
-			services.Configure<GrpcSettings<ClientProtoService.ClientProtoServiceClient>>(configuration.GetSection("ClientGrpcService"));
-			services.AddScoped<IServiceSettingsProvider<ClientProtoService.ClientProtoServiceClient>, ClientManagerSettingsProvider>();
+            #endregion
 
-			#endregion
+            #region SchedulerManager
 
-			return services;
-		}
-	}
+            services.AddScoped<IReminderServiceClient, ReminderServiceClient>();
+            services.Configure<GrpcSettings<Reminder.ReminderClient>>(configuration.GetSection("SchedulerGrpcService"));
+            services.AddScoped<IServiceSettingsProvider<Reminder.ReminderClient>, SchedulerManagerSettingsProvider>();
+
+            #endregion
+
+            #region ClientManager
+
+            services.AddScoped<IClientManagerServiceClient, ClientManagerServiceClient>();
+            services.Configure<GrpcSettings<ClientProtoService.ClientProtoServiceClient>>(
+                configuration.GetSection("ClientGrpcService"));
+            services
+                .AddScoped<IServiceSettingsProvider<ClientProtoService.ClientProtoServiceClient>,
+                    ClientManagerSettingsProvider>();
+
+            #endregion
+
+            return services;
+        }
+    }
 }

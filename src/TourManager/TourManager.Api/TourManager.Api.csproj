@@ -28,6 +28,7 @@
     <ProjectReference Include="..\..\SchedulerManager\Travely.SchedulerManager.Grpc\Travely.SchedulerManager.Grpc.csproj" />
     <ProjectReference Include="..\..\ServiceManager\Travely.ServiceManager.Grpc\Travely.ServiceManager.Grpc.csproj" />
     <ProjectReference Include="..\..\Shared\IdentityClient\Travely.Shared.IdentityClient.Authorization.csproj" />
+    <ProjectReference Include="..\..\SupplierManager\Travely.SupplierManager.Grpc\Travely.SupplierManager.Grpc.csproj" />
     <ProjectReference Include="..\TourManager.Repository.EfCore.MsSql\TourManager.Repository.EfCore.MsSql.csproj" />
     <ProjectReference Include="..\TourManager.Repository.EfCore\TourManager.Repository.EfCore.csproj" />
     <ProjectReference Include="..\TourManager.Service.Abstraction\TourManager.Service.Abstraction.csproj" />

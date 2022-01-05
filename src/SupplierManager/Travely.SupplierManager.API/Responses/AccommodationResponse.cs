@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using TourEntities.Service.Accommodation.Room;
 using TourEntities.Service.Common.Location;
 
-namespace TourEntities.Service.Accommodation
+namespace Travely.SupplierManager.API.Responses
 {
-    public partial class Accommodation
+    public class AccommodationResponse
     {
         public int Id { get; set; }
         public string Type { get; set; }
@@ -19,7 +20,7 @@ namespace TourEntities.Service.Accommodation
         public string ContactEmail { get; set; }
         public string ContactPerson { get; set; }
         public bool AllInclusive { get; set; }
-        public ICollection<Room.Room> Rooms { get; set; }
+        public ICollection<Room> Rooms { get; set; }
         public List<string> Services { get; set; }
         public List<string> Attachments { get; set; }
         public DateTime SignDate { get; set; }
