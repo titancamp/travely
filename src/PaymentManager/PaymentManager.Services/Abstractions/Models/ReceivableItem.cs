@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace PaymentManager.Services.Models
 {
-    public class PayableItem
+    public class ReceivableItem
     {
         public int Id { get; set; }
         public string InvoiceId { get; set; }
         public decimal PaidAmount { get; set; }
         public DateTime PaymentDate { get; set; }
         public PaymentType PaymentType { get; set; }
+        public bool InvoiceSent { get; set; }
         //public AttachmentEntity Attachment { get; set; }
     }
 }

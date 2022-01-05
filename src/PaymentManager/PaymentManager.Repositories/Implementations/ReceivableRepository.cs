@@ -12,78 +12,78 @@ using System.Threading.Tasks;
 
 namespace PaymentManager.Repositories
 {
-    public class PayableRepository : IPaymentRepository<PayableEntity>
+    public class ReceivableRepository : IPaymentRepository<ReceivableEntity>
     {
         protected readonly PaymentDbContext _context;
 
-        public PayableRepository(PaymentDbContext context)
+        public ReceivableRepository(PaymentDbContext context)
         {
             _context = context;
         }
 
-        public Task<PayableEntity> GetById(int agencyId, int id)
+        public Task<ReceivableEntity> GetById(int agencyId, int id)
         {
             // TODO: need to use agencyId
-            var query = _context.Payables.AsQueryable()
-                .Include(e => e.PayableItems)
+            var query = _context.Receivables.AsQueryable()
+                .Include(e => e.ReceivableItems)
                 .AsNoTracking();
 
             return query.FirstOrDefaultAsync(payable => payable.Id == id);
         }
 
-        public async Task<IQueryable<PayableEntity>> GetAll(int agencyId)
+        public async Task<IQueryable<ReceivableEntity>> GetAll(int agencyId)
         {
-            var query = _context.Payables
+            var query = _context.Receivables
                 .Where(e => e.AgencyId == agencyId)
-                .Include(e => e.PayableItems)
+                .Include(e => e.ReceivableItems)
                 .AsNoTracking();
 
             return query;
         }
 
-        public async Task<IQueryable<PayableEntity>> Find(Expression<Func<PayableEntity, bool>> predicate)
+        public async Task<IQueryable<ReceivableEntity>> Find(Expression<Func<ReceivableEntity, bool>> predicate)
         {
-            var query = _context.Payables
+            var query = _context.Receivables
                 .Where(predicate)
                 .AsNoTracking();
 
             return query;
         }
 
-        public async Task<PayableEntity> SingleOrDefault(Expression<Func<PayableEntity, bool>> predicate)
+        public async Task<ReceivableEntity> SingleOrDefault(Expression<Func<ReceivableEntity, bool>> predicate)
         {
-            var entity = _context.Payables
+            var entity = _context.Receivables
                 .AsNoTracking()
                 .SingleOrDefault(predicate);
 
             return entity;
         }
 
-        public async Task<PayableEntity> Add(PayableEntity entity)
+        public async Task<ReceivableEntity> Add(ReceivableEntity entity)
         {
-            var entityEntry = _context.Payables.Add(entity);
+            var entityEntry = _context.Receivables.Add(entity);
 
             await _context.SaveChangesAsync();
 
             return entityEntry.Entity;
         }
 
-        public Task AddRange(List<PayableEntity> entities)
+        public Task AddRange(List<ReceivableEntity> entities)
         {
-            _context.Payables.AddRange(entities);
+            _context.Receivables.AddRange(entities);
 
             return _context.SaveChangesAsync();
         }
 
-        public async Task<PayableEntity> Update(PayableEntity entity)
+        public async Task<ReceivableEntity> Update(ReceivableEntity entity)
         {
-            foreach (var item in entity.PayableItems)
+            foreach (var item in entity.ReceivableItems)
             {
-                _context.PayableItems.Update(item);
+                _context.ReceivableItems.Update(item);
             }
             // Need a way to remove
-            var query = _context.PayableItems
-                .Where(i => i.Payable == entity)
+            var query = _context.ReceivableItems
+                .Where(i => i.Receivable == entity)
                 .AsNoTracking();
 
             foreach (var item in query)
@@ -94,32 +94,32 @@ namespace PaymentManager.Repositories
                 }
             }
 
-            var updated = _context.Payables.Update(entity);
+            var updated = _context.Receivables.Update(entity);
             await _context.SaveChangesAsync();
 
             return await GetById(entity.AgencyId, entity.Id);
         }
 
-        public Task Remove(PayableEntity entity)
+        public Task Remove(ReceivableEntity entity)
         {
             if (entity.PaidAmount > 0)
             {
                 // Revisit
                 entity.Status = PaymentStatus.Canceled;
-                _context.Payables.Update(entity);
+                _context.Receivables.Update(entity);
             }
             else
             {
-                _context.Payables.Remove(entity);
+                _context.Receivables.Remove(entity);
             }
 
             return _context.SaveChangesAsync();
         }
 
-        public Task RemoveRange(List<PayableEntity> entities)
+        public Task RemoveRange(List<ReceivableEntity> entities)
         {
             var toRemove = entities.Where(e => e.PaidAmount == 0);
-            _context.Payables.RemoveRange(toRemove);
+            _context.Receivables.RemoveRange(toRemove);
 
             var toUpdate = entities.Where(e => e.PaidAmount > 0);
             foreach (var entity in toUpdate)
@@ -127,7 +127,7 @@ namespace PaymentManager.Repositories
                 // Revisit
                 entity.Status = PaymentStatus.Canceled;
             }
-            _context.Payables.UpdateRange(toUpdate);
+            _context.Receivables.UpdateRange(toUpdate);
 
             return _context.SaveChangesAsync();
         }

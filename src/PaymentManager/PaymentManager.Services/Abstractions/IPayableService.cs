@@ -10,7 +10,7 @@ namespace PaymentManager.Services
 {
     public interface IPayableService
     {
-        Task<PayablePage> Get(int agencyId, PayableQueryParameters parameters);
+        Task<PayablePage> Get(int agencyId, PaymentQueryParameters parameters);
         Task<PayableRead> Get(int agencyId, int id);
         Task<PayableRead> Create(int agencyId, PayableCreate model);
         Task CreateRange(int agencyId, List<PayableCreate> models);

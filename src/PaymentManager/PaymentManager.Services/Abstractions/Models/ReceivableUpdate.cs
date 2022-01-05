@@ -3,11 +3,10 @@ using System.Collections.Generic;
 
 namespace PaymentManager.Services.Models
 {
-    public class PayableUpdate
+    public class ReceivableUpdate
     {
-        public decimal? ActualCost { get; set; }
         public DateTime? DueDate { get; set; }
-        public List<PayableItem> PayableItems { get; set; }
+        public List<ReceivableItem> ReceivableItems { get; set; }
         public string Note { get; set; }
     }
 }

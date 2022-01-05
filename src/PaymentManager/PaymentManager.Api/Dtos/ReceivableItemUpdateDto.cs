@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PaymentManager.Api.Dtos
 {
-    public class PayableItemUpdateDto
+    public class ReceivableItemUpdateDto
     {
         public int? Id { get; set; }
         public string InvoiceId { get; set; }
@@ -14,6 +14,8 @@ namespace PaymentManager.Api.Dtos
         public DateTime PaymentDate { get; set; }
         [Required]
         public PaymentType PaymentType { get; set; }
+        [Required]
+        public bool InvoiceSent { get; set; }
         //public Attachment? Attachment { get; set; }
     }
 }

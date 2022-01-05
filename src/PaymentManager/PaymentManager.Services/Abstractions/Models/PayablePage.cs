@@ -2,6 +2,7 @@
 using PaymentManager.Repositories.Entities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,15 +24,10 @@ namespace PaymentManager.Services.Models
 
         public static PayablePage GetPayablePage(IQueryable<PayableEntity> query, IMapper mapper, int page, int size)
         {
-            if (query == null)
-            {
-
-            }
             int currentPage = page;
             int pageSize = size;
             int totalCount = query.Count();
             int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
-            //int totalPages = (totalCount + pageSize - 1) / pageSize;
 
             decimal totalPlannedCost = 0;
             decimal totalActualCost = 0;
@@ -44,10 +40,9 @@ namespace PaymentManager.Services.Models
                 totalPlannedCost += item.PlannedCost;
                 totalActualCost += item.ActualCost.GetValueOrDefault(0);
                 totalDifference += item.Difference.GetValueOrDefault(0);
-                totalPaid += item.Paid;
+                totalPaid += item.PaidAmount;
                 totalRemaining += item.Remaining.GetValueOrDefault(0);
             }
-
             query = query.Skip((currentPage - 1) * pageSize).Take(pageSize);
 
             var entities = query.ToList();
@@ -65,7 +60,7 @@ namespace PaymentManager.Services.Models
                 TotalPaid = totalPaid,
                 TotalRemaining = totalRemaining,
                 Items = items
-                };
+            };
         }
     }
 }

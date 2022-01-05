@@ -12,19 +12,19 @@ using PaymentManager.Services.Helpers;
 
 namespace PaymentManager.Services
 {
-    public class PayableService : IPayableService
+    public class ReceivableService : IReceivableService
     {
         private readonly IMapper _mapper;
 
-        private readonly IPaymentRepository<PayableEntity> _repository;
+        private readonly IPaymentRepository<ReceivableEntity> _repository;
 
-        private readonly ISortHelper<PayableEntity> _sortHelper;
+        private readonly ISortHelper<ReceivableEntity> _sortHelper;
 
-        private readonly ISearchHelper<PayableEntity> _searchHelper;
-        public PayableService(IMapper mapper,
-                              IPaymentRepository<PayableEntity> repository,
-                              ISortHelper<PayableEntity> sortHelper,
-                              ISearchHelper<PayableEntity> searchHelper)
+        private readonly ISearchHelper<ReceivableEntity> _searchHelper;
+        public ReceivableService(IMapper mapper,
+                                 IPaymentRepository<ReceivableEntity> repository,
+                                 ISortHelper<ReceivableEntity> sortHelper,
+                                 ISearchHelper<ReceivableEntity> searchHelper)
         {
             _mapper = mapper;
             _repository = repository;
@@ -32,7 +32,7 @@ namespace PaymentManager.Services
             _searchHelper = searchHelper;
         }
 
-        public async Task<PayablePage> Get(int agencyId, PaymentQueryParameters parameters)
+        public async Task<ReceivablePage> Get(int agencyId, PaymentQueryParameters parameters)
         {
             var query = await _repository.GetAll(agencyId);
 
@@ -40,29 +40,29 @@ namespace PaymentManager.Services
 
             query = _searchHelper.ApplySearch(query, parameters.Search);
 
-            return PayablePage.GetPayablePage(query, _mapper, parameters.Index, parameters.Size);
+            return ReceivablePage.GetReceivablePage(query, _mapper, parameters.Index, parameters.Size);
         }
 
-        public async Task<PayableRead> Get(int agencyId, int id)
+        public async Task<ReceivableRead> Get(int agencyId, int id)
         {
             var data = await _repository.GetById(agencyId, id);
 
-            return _mapper.Map<PayableRead>(data);
+            return _mapper.Map<ReceivableRead>(data);
         }
 
-        public async Task<PayableRead> Create(int agencyId, PayableCreate model)
+        public async Task<ReceivableRead> Create(int agencyId, ReceivableCreate model)
         {
-            var entity = _mapper.Map<PayableEntity>(model);
+            var entity = _mapper.Map<ReceivableEntity>(model);
             entity.AgencyId = agencyId;
 
             var newModel = await _repository.Add(entity);
 
-            return _mapper.Map<PayableRead>(newModel);
+            return _mapper.Map<ReceivableRead>(newModel);
         }
 
-        public async Task CreateRange(int agencyId, List<PayableCreate> models)
+        public async Task CreateRange(int agencyId, List<ReceivableCreate> models)
         {
-            var entities = _mapper.Map<List<PayableEntity>>(models);
+            var entities = _mapper.Map<List<ReceivableEntity>>(models);
             foreach (var entity in entities)
             {
                 entity.AgencyId = agencyId;
@@ -71,13 +71,13 @@ namespace PaymentManager.Services
             await _repository.AddRange(entities);
         }
 
-        public async Task<PayableRead> Update(int agencyId, int id, PayableUpdate model)
+        public async Task<ReceivableRead> Update(int agencyId, int id, ReceivableUpdate model)
         {
             var entity = await _repository.GetById(agencyId, id);
-            _mapper.Map<PayableUpdate, PayableEntity>(model, entity);
+            _mapper.Map<ReceivableUpdate, ReceivableEntity>(model, entity);
             //entity.AgencyId = agencyId;
             var updatedEntity = await _repository.Update(entity);
-            return _mapper.Map<PayableRead>(updatedEntity);
+            return _mapper.Map<ReceivableRead>(updatedEntity);
         }
 
         public async Task Remove(int agencyId, int id)

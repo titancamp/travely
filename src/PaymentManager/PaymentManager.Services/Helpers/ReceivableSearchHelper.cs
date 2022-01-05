@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace PaymentManager.Services.Helpers
 {
-    public class PayableSearchHelper : ISearchHelper<PayableEntity>
+    public class ReceivableSearchHelper : ISearchHelper<ReceivableEntity>
     {
-        public IQueryable<PayableEntity> ApplySearch(IQueryable<PayableEntity> query, string search)
+        public IQueryable<ReceivableEntity> ApplySearch(IQueryable<ReceivableEntity> query, string search)
         {
             if (!query.Any() || string.IsNullOrWhiteSpace(search))
             {
@@ -19,7 +19,7 @@ namespace PaymentManager.Services.Helpers
             search = search.Trim().ToLower();
             var newQuery = query.Where(e =>
                 e.TourId.ToString().Contains(search) || e.TourName.ToLower().Contains(search) ||
-                e.SupplierName.ToLower().Contains(search));
+                e.PartnerName.ToLower().Contains(search));
 
             return newQuery;
         }

@@ -20,6 +20,7 @@ using Travely.Common.ServiceDiscovery;
 using Travely.Shared.IdentityClient.Authorization.Config;
 using PaymentManager.Repositories.Entities;
 using PaymentManager.Services.Helpers;
+using Travely.Common.Extensions;
 
 namespace PaymentManager.Api
 {
@@ -39,12 +40,16 @@ namespace PaymentManager.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<PayableDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("PaymentDbContext")));
-            services.AddScoped<IPayableRepository, PayableRepository>();
+            services.AddSqlServer<PaymentDbContext>(Configuration.GetConnectionString("PaymentDbContext"),
+                "PaymentManager.Repositories");
+            services.AddScoped<IPaymentRepository<PayableEntity>, PayableRepository>();
+            services.AddScoped<IPaymentRepository<ReceivableEntity>, ReceivableRepository>();
             services.AddScoped<IPayableService, PayableService>();
+            services.AddScoped<IReceivableService, ReceivableService>();
             services.AddSingleton<ISortHelper<PayableEntity>, SortHelper<PayableEntity>>();
+            services.AddSingleton<ISortHelper<ReceivableEntity>, SortHelper<ReceivableEntity>>();
             services.AddSingleton<ISearchHelper<PayableEntity>, PayableSearchHelper>();
+            services.AddSingleton<ISearchHelper<ReceivableEntity>, ReceivableSearchHelper>();
             services.AddApiVersioning(config =>
             {
                 config.DefaultApiVersion = new ApiVersion(1, 0);
@@ -62,6 +67,8 @@ namespace PaymentManager.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.ApplyDatabaseMigrations<PaymentDbContext>();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

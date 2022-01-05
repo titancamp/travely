@@ -4,11 +4,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PaymentManager.Api.Dtos
 {
-    public class PayableUpdateDto
+    public class ReceivableUpdateDto
     {
-        public decimal? ActualCost { get; set; }
         public DateTime? DueDate { get; set; }
-        public List<PayableItemUpdateDto> PayableItems { get; set; }
+        public List<ReceivableItemUpdateDto> ReceivableItems { get; set; }
         public string Note { get; set; }
     }
 }

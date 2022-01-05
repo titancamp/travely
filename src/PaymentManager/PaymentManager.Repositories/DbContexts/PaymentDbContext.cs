@@ -8,18 +8,23 @@ using System.Threading.Tasks;
 
 namespace PaymentManager.Repositories.DbContexts
 {
-    public class PayableDbContext : DbContext
+    public class PaymentDbContext : DbContext
     {
         public DbSet<PayableEntity> Payables;
         public DbSet<PayableItemEntity> PayableItems { get; set; }
 
+        public DbSet<ReceivableEntity> Receivables;
+        public DbSet<ReceivableItemEntity> ReceivableItems { get; set; }
+        
         //public DbSet<AttachmentEntity> Attachments { get; set; }
 
-        public PayableDbContext(DbContextOptions<PayableDbContext> options)
+        public PaymentDbContext(DbContextOptions<PaymentDbContext> options)
             : base(options)
         {
             Payables = Set<PayableEntity>();
             PayableItems = Set<PayableItemEntity>();
+            Receivables = Set<ReceivableEntity>();
+            ReceivableItems = Set<ReceivableItemEntity>();
             //Attachments = Set<AttachmentEntity>();
         }
 
@@ -30,6 +35,8 @@ namespace PaymentManager.Repositories.DbContexts
             //builder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(GetType()));
             builder.ApplyConfiguration(new PayableConfiguration());
             builder.ApplyConfiguration(new PayableItemConfiguration());
+            builder.ApplyConfiguration(new ReceivableConfiguration());
+            builder.ApplyConfiguration(new ReceivableItemConfiguration());
         }
     }
 }

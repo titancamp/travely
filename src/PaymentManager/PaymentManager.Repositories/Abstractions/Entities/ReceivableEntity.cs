@@ -1,15 +1,11 @@
-﻿using PaymentManager.Shared;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PaymentManager.Shared;
 
 namespace PaymentManager.Repositories.Entities
 {
-    public class PayableEntity
+    public class ReceivableEntity
     {
         [Key, Required]
         public int Id { get; set; }
@@ -27,24 +23,23 @@ namespace PaymentManager.Repositories.Entities
         public TourStatus TourStatus { get; set; }
 
         [Required]
-        public int SupplierId { get; set; }
+        public int PartnerId { get; set; }
 
         [Required]
-        public string SupplierName { get; set; }
+        public string PartnerName { get; set; }
 
         [Required]
-        public decimal PlannedCost { get; set; }
-
-        public decimal? ActualCost { get; set; }
-
-        public decimal? Difference { get; set; }
+        public decimal TotalAmount { get; set; }
 
         public decimal PaidAmount { get; set; }
 
-        public decimal? Remaining { get; set; }
+        public decimal Remaining { get; set; }
 
         [Required]
         public string Currency { get; set; }
+
+        [Required]
+        public decimal Rate { get; set; }
 
         public PaymentStatus Status { get; set; }
 
@@ -55,7 +50,7 @@ namespace PaymentManager.Repositories.Entities
 
         public DateTime? DueDate { get; set; }
 
-        public ICollection<PayableItemEntity> PayableItems { get; set; }
+        public ICollection<ReceivableItemEntity> ReceivableItems { get; set; }
 
         public string Note { get; set; }
     }

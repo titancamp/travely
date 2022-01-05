@@ -1,20 +1,16 @@
-﻿using PaymentManager.Shared;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PaymentManager.Shared;
 
 namespace PaymentManager.Repositories.Entities
 {
-    public class PayableItemEntity
+    public class ReceivableItemEntity
     {
         [Key, Required]
         public int Id { get; set; }
 
         [Required]
-        public PayableEntity Payable { get; set; }
+        public ReceivableEntity Receivable { get; set; }
 
         public string InvoiceId { get; set; }
 
@@ -28,5 +24,8 @@ namespace PaymentManager.Repositories.Entities
         public PaymentType PaymentType { get; set; }
 
         //public AttachmentEntity Attachment { get; set; }
+
+        [Required]
+        public bool InvoiceSent { get; set; }
     }
 }

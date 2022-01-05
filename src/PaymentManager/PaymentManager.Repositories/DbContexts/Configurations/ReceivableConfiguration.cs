@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace PaymentManager.Repositories.DbContexts
 {
-    internal class PayableConfiguration : IEntityTypeConfiguration<PayableEntity>
+    internal class ReceivableConfiguration : IEntityTypeConfiguration<ReceivableEntity>
     {
-        public void Configure(EntityTypeBuilder<PayableEntity> builder)
+        public void Configure(EntityTypeBuilder<ReceivableEntity> builder)
         {
             builder.HasKey(e => e.Id);
             builder
@@ -27,24 +27,19 @@ namespace PaymentManager.Repositories.DbContexts
                 .IsRequired()
                 .HasMaxLength(50);
             builder
-                .Property(e => e.SupplierId)
+                .Property(e => e.PartnerId)
                 .IsRequired();
             builder
-                .Property(e => e.SupplierName)
+                .Property(e => e.PartnerName)
                 .IsRequired()
                 .HasMaxLength(50);
             builder
                 .Property(e => e.Status)
+                .IsRequired()
                 .HasDefaultValue(PaymentStatus.Unpaid);
             builder
-                .Property(e => e.PlannedCost)
+                .Property(e => e.TotalAmount)
                 .IsRequired()
-                .HasColumnType("decimal(18,4)");
-            builder
-                .Property(e => e.ActualCost)
-                .HasColumnType("decimal(18,4)");
-            builder
-                .Property(e => e.Difference)
                 .HasColumnType("decimal(18,4)");
             builder
                 .Property(e => e.PaidAmount)
@@ -52,6 +47,10 @@ namespace PaymentManager.Repositories.DbContexts
                 .HasDefaultValue(0);
             builder
                 .Property(e => e.Remaining)
+                .HasColumnType("decimal(18,4)");
+                //.HasDefaultValueSql("[TotalAmount]");
+            builder
+                .Property(e => e.Rate)
                 .HasColumnType("decimal(18,4)");
             builder
                 .Property(e => e.Note)

@@ -19,13 +19,13 @@ namespace PaymentManager.Api.Controllers
 {
     [ApiVersion("1.0")]
     //[Authorize(Roles = UserRoles.User)]
-    public class PayableController : TravelyControllerBase
+    public class ReceivableController : TravelyControllerBase
     {
-        protected readonly IPayableService _service;
+        protected readonly IReceivableService _service;
         protected readonly IMapper _mapper;
         private readonly IWebHostEnvironment _environment;
 
-        public PayableController(IPayableService service, IMapper mapper, IWebHostEnvironment environment)
+        public ReceivableController(IReceivableService service, IMapper mapper, IWebHostEnvironment environment)
         {
             _service = service;
             _mapper = mapper;
@@ -41,7 +41,7 @@ namespace PaymentManager.Api.Controllers
             if (data == null)
                 return NotFound();
 
-            return Ok(_mapper.Map<PayablePageDto>(data));
+            return Ok(_mapper.Map<ReceivablePageDto>(data));
         }
 
         // GET: api/v1/payment/{id}
@@ -53,19 +53,19 @@ namespace PaymentManager.Api.Controllers
             if (data == null)
                 return NotFound();
 
-            return Ok(_mapper.Map<PayableReadDto>(data));
+            return Ok(_mapper.Map<ReceivableReadDto>(data));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] PayableUpdateDto request)
+        public async Task<IActionResult> Put(int id, [FromBody] ReceivableUpdateDto request)
         {
-            var model = _mapper.Map<PayableUpdate>(request);
+            var model = _mapper.Map<ReceivableUpdate>(request);
             var data = await _service.Update(UserInfo.AgencyId, id, model);
 
             if (data == null)
                 return BadRequest();
 
-            return Ok(_mapper.Map<PayableReadDto>(data));
+            return Ok(_mapper.Map<ReceivableReadDto>(data));
         }
 
 
@@ -73,7 +73,7 @@ namespace PaymentManager.Api.Controllers
 
         private string JsonMockFileName
         {
-            get => Path.Combine(_environment.ContentRootPath, "MockData", "PayableMockData.json");
+            get => Path.Combine(_environment.ContentRootPath, "MockData", "ReceivableMockData.json");
             set => _ = value;
         }
 
@@ -95,12 +95,12 @@ namespace PaymentManager.Api.Controllers
             }
             using (var jsonFileReader = System.IO.File.OpenText(JsonMockFileName))
             {
-                var Payables = JsonSerializer.Deserialize<List<PayableCreate>>(jsonFileReader.ReadToEnd(),
+                var Receivables = JsonSerializer.Deserialize<List<ReceivableCreate>>(jsonFileReader.ReadToEnd(),
                     new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
                     });
-                await _service.CreateRange(UserInfo.AgencyId, Payables);
+                await _service.CreateRange(UserInfo.AgencyId, Receivables);
             }
         }
 

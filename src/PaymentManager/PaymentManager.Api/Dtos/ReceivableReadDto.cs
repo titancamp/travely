@@ -4,42 +4,24 @@ using System.Collections.Generic;
 
 namespace PaymentManager.Api.Dtos
 {
-    public class PayableReadDto
+    public class ReceivableReadDto
     {
         public int Id { get; set; }
-
         public int TourId { get; set; }
-
         public string TourName { get; set; }
-
-        public int SupplierId { get; set; }
-
-        public string SupplierName { get; set; }
-
-        public string Currency { get; set; }
-
-        public decimal PlannedCost { get; set; }
-
-        public decimal? ActualCost { get; set; }
-
-        public decimal? Difference { get; set; }
-
+        public int PartnerId { get; set; }
+        public string PartnerName { get; set; }
+        public decimal TotalAmount { get; set; }
         public decimal PaidAmount { get; set; }
-
-        public decimal? Remaining { get; set; }
-
+        public decimal Remaining { get; set; }
+        public string Currency { get; set; }
+        public decimal Rate { get; set; }
         public PaymentStatus Status { get; set; }
-
         public DateTime CreatedAt { get; set; }
-
         public DateTime? PaymentDate { get; set; }
-
         public DateTime? DueDate { get; set; }
-
         // public Attachment Attachment { get; set; }
-
-        public List<PayableItemReadDto> PayableItems { get; set; }
-
+        public List<ReceivableItemReadDto> ReceivableItems { get; set; }
         public string Note { get; set; }
     }
 }

@@ -12,7 +12,15 @@ namespace PaymentManager.Api.Mappers
     {
         public PayableProfile()
         {
-            CreateMap<PayableRead, PayableReadDto>();
+            CreateMap<PayableRead, PayableReadDto>()
+                .AfterMap((src, dst) =>
+                {
+                    if (dst.PayableItems.Count > 0)
+                    {
+                        dst.PaymentDate = dst.PayableItems.Max(x => x.PaymentDate);
+                    }
+                })
+                ;
             CreateMap<PayableEntity, PayableRead>();
             CreateMap<PayableItem, PayableItemReadDto>();
 
@@ -20,7 +28,7 @@ namespace PaymentManager.Api.Mappers
 
             CreateMap<PayableUpdateDto, PayableUpdate>();
             CreateMap<PayableUpdate, PayableEntity>()
-                .ForMember(x => x.Paid, opt => opt.MapFrom(src => src.PayableItems.Select(x => x.PaidAmount).DefaultIfEmpty(0).Sum()))
+                .ForMember(x => x.PaidAmount, opt => opt.MapFrom(src => src.PayableItems.Select(x => x.PaidAmount).DefaultIfEmpty(0).Sum()))
                 .AfterMap((src, dst) =>
                 {
                     if (dst.ActualCost == null)
@@ -38,11 +46,11 @@ namespace PaymentManager.Api.Mappers
                     {
                         dst.Remaining = null;
                     }
-                    dst.Remaining = dst.ActualCost - dst.Paid;
+                    dst.Remaining = dst.ActualCost - dst.PaidAmount;
                 })
                 .AfterMap((src, dst) =>
                 {
-                    if (dst.TourStatus == TourStatus.Deleted)
+                    if (dst.TourStatus == TourStatus.Canceled && dst.PaidAmount == 0)
                     {
                         dst.Status = PaymentStatus.Canceled;
                     }
@@ -50,11 +58,11 @@ namespace PaymentManager.Api.Mappers
                     {
                         dst.Status = PaymentStatus.Overdue;
                     }
-                    else if (dst.ActualCost != null && dst.Paid >= dst.ActualCost)
+                    else if (dst.ActualCost != null && dst.PaidAmount >= dst.ActualCost)
                     {
                         dst.Status = PaymentStatus.FullyPaid;
                     }
-                    else if (dst.Paid > 0)
+                    else if (dst.PaidAmount > 0)
                     {
                         dst.Status = PaymentStatus.PartiallyPaid;
                     }
@@ -67,7 +75,7 @@ namespace PaymentManager.Api.Mappers
             CreateMap<PayableItem, PayableItemEntity>();
             CreateMap<PayableItemUpdateDto, PayableItem>();
 
-            CreateMap<PayableQueryParametersDto, PayableQueryParameters>();
+            CreateMap<PaymentQueryParametersDto, PaymentQueryParameters>();
             CreateMap<PayablePage, PayablePageDto>();
         }
     }

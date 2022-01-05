@@ -9,14 +9,17 @@ using System.Threading.Tasks;
 
 namespace PaymentManager.Repositories.DbContexts
 {
-    internal class PayableItemConfiguration : IEntityTypeConfiguration<PayableItemEntity>
+    internal class ReceivableItemConfiguration : IEntityTypeConfiguration<ReceivableItemEntity>
     {
-        public void Configure(EntityTypeBuilder<PayableItemEntity> builder)
+        public void Configure(EntityTypeBuilder<ReceivableItemEntity> builder)
         {
             builder.HasKey(e => e.Id);
             builder
                 .Property(e => e.InvoiceId)
                 .HasMaxLength(50);
+            builder
+                .Property(e => e.InvoiceSent)
+                .HasDefaultValue(false);
             builder
                 .Property(e => e.PaidAmount)
                 .IsRequired()

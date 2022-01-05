@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PaymentManager.Services.Models
 {
-    public class PayableQueryParameters
+    public class PaymentQueryParameters
     {
         const int maxSize = 50;
         public int Index { get; set; } = 1;

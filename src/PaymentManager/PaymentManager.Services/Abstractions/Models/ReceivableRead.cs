@@ -7,24 +7,23 @@ using System.Threading.Tasks;
 
 namespace PaymentManager.Services.Models
 {
-    public class PayableRead
+    public class ReceivableRead
     {
         public int Id { get; set; }
         public int TourId { get; set; }
         public string TourName { get; set; }
-        public int SupplierId { get; set; }
-        public string SupplierName { get; set; }
-        public decimal PlannedCost { get; set; }
-        public decimal? ActualCost { get; set; }
-        public decimal? Difference { get; set; }
-        public decimal Paid { get; set; }
-        public decimal? Remaining { get; set; }
+        public int PartnerId { get; set; }
+        public string PartnerName { get; set; }
+        public decimal TotalAmount{ get; set; }
+        public decimal PaidAmount { get; set; }
+        public decimal Remaining { get; set; }
         public string Currency { get; set; }
+        public decimal Rate { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? DueDate { get; set; }
         public TourStatus TourStatus { get; set; }
         public PaymentStatus Status { get; set; }
-        public List<PayableItem> PayableItems { get; set; }
+        public List<ReceivableItem> ReceivableItems { get; set; }
         public string Note { get; set; }
     }
 }
