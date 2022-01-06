@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Travely.ClientManager.Abstraction.Abstraction.Repository;
 using Travely.ClientManager.Abstraction.Entity;
-using Travely.ClientManager.Service.Protos;
+using Travely.ClientManager.Grpc;
 
 namespace Travely.ClientManager.Service.Services
 {

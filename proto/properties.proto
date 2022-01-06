@@ -4,7 +4,7 @@ import "google/protobuf/wrappers.proto";
 import "base.proto";
 
 
-option csharp_namespace = "Travely.PropertyManager.API";
+option csharp_namespace = "Travely.PropertyManager.Grpc";
 
 service Property {
 	rpc AddProperty(AddPropertyRequest) returns (AddPropertyResponse);

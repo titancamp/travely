@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using Google.Protobuf.Collections;
+using System.Collections.Generic;
 using Travely.PropertyManager.API.MappingProfiles.Converters;
+using Travely.PropertyManager.Grpc;
 using Travely.PropertyManager.Service.Models.Commands;
 using Travely.PropertyManager.Service.Models.Queries;
 using Travely.PropertyManager.Service.Models.Responses;
@@ -14,8 +15,8 @@ namespace Travely.PropertyManager.API.MappingProfiles
         {
             CreateMap(typeof(RepeatedField<>), typeof(ICollection<>)).ConvertUsing(typeof(RepeatedFieldToCollectionConverter<,>));
 
-            CreateMap<Travely.PropertyManager.API.OrderingBaseModel, Travely.PropertyManager.Service.Models.Base.OrderingBaseModel>();
-            CreateMap<Travely.PropertyManager.API.FilteringBaseModel, Travely.PropertyManager.Service.Models.Base.FilteringBaseModel>();
+            CreateMap<OrderingBaseModel, Service.Models.Base.OrderingBaseModel>();
+            CreateMap<FilteringBaseModel, Service.Models.Base.FilteringBaseModel>();
 
             CreateMap<PropertyAttachment, PropertyAttachmentModel>().ReverseMap();
             CreateMap<AddPropertyRequest, AddPropertyCommand>();

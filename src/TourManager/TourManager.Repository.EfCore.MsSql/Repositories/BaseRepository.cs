@@ -12,12 +12,12 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
     /// The base repository for all entities
     /// </summary>
     /// <typeparam name="TEntity">The entity type</typeparam>
-    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class BaseRepository<TContext, TEntity> : IRepository<TEntity> where TEntity : class where TContext : DbContext
     {
         /// <summary>
         /// The database context
         /// </summary>
-        protected readonly DbContext Context;
+        protected readonly TContext Context;
 
         /// <summary>
         /// The database entity set
@@ -28,7 +28,7 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
         /// Create new instance of base repository
         /// </summary>
         /// <param name="context"></param>
-        public BaseRepository(DbContext context)
+        public BaseRepository(TContext context)
         {
             this.Context = context;
             this.DbSet = Context.Set<TEntity>();

@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
+using Travely.ServiceManager.Grpc;
 
 namespace Travely.ServiceManager.Service
 {

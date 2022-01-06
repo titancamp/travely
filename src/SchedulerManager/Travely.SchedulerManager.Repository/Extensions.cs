@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
-using System.Threading.Tasks;
-using Travely.SchedulerManager.Common;
 using Travely.SchedulerManager.Repository.Implementation;
 using Travely.SchedulerManager.Repository.Infrastructure.Interfaces;
 

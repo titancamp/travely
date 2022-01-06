@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel;
 using System.Linq;
-using Travely.IdentityClient.Authorization;
-using Travely.IdentityClient.Authorization.Data;
+using Travely.Shared.IdentityClient.Authorization.Common;
 
-namespace Microsoft.AspNetCore.Http
+namespace Travely.Shared.IdentityClient.Authorization.Extensions
 {
     public static class UserExtensions
     {
@@ -12,7 +12,8 @@ namespace Microsoft.AspNetCore.Http
         {
             var claims = httpContext.User.Claims;
 
-            UserInfo userInfo = new UserInfo() {
+            var userInfo = new UserInfo()
+            {
                 UserId = Convert.ToInt32(claims.FirstOrDefault(claim => claim.Type == TravelyClaims.UserId)?.Value),
                 AgencyId = Convert.ToInt32(claims.FirstOrDefault(claim => claim.Type == TravelyClaims.AgencyId)?.Value),
                 EmployeeId = Convert.ToInt32(claims.FirstOrDefault(claim => claim.Type == TravelyClaims.EmployeeId)?.Value),

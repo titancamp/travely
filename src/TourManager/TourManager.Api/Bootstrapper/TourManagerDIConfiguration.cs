@@ -9,7 +9,6 @@ namespace TourManager.Api.Bootstrapper
         public static IServiceCollection AddTourManagerServices(this IServiceCollection services)
         {
             services.AddScoped<ITourService, TourService>();
-            services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IBookingService, BookingService>();
 
             return services;

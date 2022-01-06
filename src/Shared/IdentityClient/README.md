@@ -4,7 +4,7 @@
 # add below code to appsettings.json and update Audience per your application
 
   "TravelyIdentityConfig": {
-    "Authority": "https://localhost:5001",
+    "Authority": "https://travely.identity.webapi",
     "Audience": "resourceOwner",
   }
 

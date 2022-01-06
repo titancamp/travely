@@ -1,7 +1,7 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Linq;
-using FluentValidation;
-using Travely.Services.Common.CustomExceptions;
+using Travely.Common.CustomExceptions;
 
 namespace Travely.PropertyManager.API.Helpers
 {

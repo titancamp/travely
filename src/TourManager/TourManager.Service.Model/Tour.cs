@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using System;
 using System.Collections.Generic;
+using Travely.ClientManager.Grpc.Models;
 
 namespace TourManager.Service.Model
 {

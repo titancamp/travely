@@ -2,11 +2,11 @@
 using Google.Protobuf.WellKnownTypes;
 using System;
 using Travely.ClientManager.Abstraction.Entity;
-using Travely.ClientManager.Service.Protos;
+using Travely.ClientManager.Grpc;
 
 namespace Travely.ClientManager.Service.Mappers
 {
-	public class ClientProfile : Profile
+    public class ClientProfile : Profile
 	{
 		public ClientProfile()
 		{

@@ -6,24 +6,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TourManager.Api.Bootstrapper;
+using TourManager.Api.Helpers;
 using TourManager.Api.Utils;
-using TourManager.Clients.Abstraction.PropertyManager;
-using TourManager.Clients.Abstraction.ReportingManager;
-using TourManager.Clients.Abstraction.SchedulerManager;
-using TourManager.Clients.Abstraction.ServiceManager;
-using TourManager.Clients.Abstraction.Settings;
-using TourManager.Clients.Implementation.PropertyManager;
-using TourManager.Clients.Implementation.SchedulerManager;
-using TourManager.Clients.Implementation.ServiceManager;
-using TourManager.Clients.Implementation.ReportingManager;
-using TourManager.Clients.Implementation.Settings;
-using TourManager.Common.Settings;
 using TourManager.Repository.EfCore.Context;
-using TourManager.Service.Abstraction;
-using TourManager.Service.Implementation;
 using TourManager.Service.Model;
-using Travely.Services.Common.Extensions;
-
+using Travely.ClientManager.Grpc.Validators;
+using Travely.Common.Api.Extensions;
+using Travely.Common.Extensions;
+using Travely.Common.ServiceDiscovery;
+using Travely.Common.Swagger;
+using Travely.Shared.IdentityClient.Authorization.Config;
 
 namespace TourManager.Api
 {
@@ -43,10 +35,13 @@ namespace TourManager.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                
                 .AddControllers()
                 .AddJsonOptions(opt => opt.JsonSerializerOptions.Converters.Add(new TimeSpanConverter()))
-                .AddFluentValidation(opt => opt.RegisterValidatorsFromAssembly(typeof(TourValidator).Assembly));
+                .AddFluentValidation(opt =>
+                { 
+                    opt.RegisterValidatorsFromAssemblyContaining<TourValidator>();
+                    opt.RegisterValidatorsFromAssemblyContaining<ClientValidator>();
+                });
             
             services.AddCors(options =>
             {
@@ -67,34 +62,29 @@ namespace TourManager.Api
             //Shows Only the first error message
             services.Configure<ApiBehaviorOptions>(opt => opt.InvalidModelStateResponseFactory =
                 context => new BadRequestObjectResult(context.ModelState.GetFirstErrorResponse()));
-            services.AddScoped<IServiceManagerClient, ServiceManagerClient>();
-            services.AddScoped<IServiceSettingsProvider, ServiceSettingsProvider>();
-            services.AddScoped<IPropertyManagerClient, PropertyManagerClient>();
-            services.AddScoped<IPropertyService, PropertyService>();
-            services.AddScoped<IReminderServiceClient, ReminderServiceClient>();
-            services.AddScoped<IReportingManagerClient, ReportingManagerClient>();
-            services.AddScoped<IToDoService, ToDoService>();
-           
-            services.Configure<GrpcServiceSettings>(Configuration.GetSection("GrpcServiceSettings"));
+
+            services.AddConsul(Configuration, Environment);
 
             services
                 .AddSqlServer<TourDbContext>(Configuration.GetConnectionString("TourDbContext"), "TourManager.Repository.EfCore.MsSql" )
-                .AddAutoMapper(typeof(Startup))
-                .AddSwagger()
+                .AddSwagger("TourManager API")
                 .AddTourManagerServices()
                 .AddTourManagerRepositories()
-                .AddTourClientServices()
+                .AddTourClientServices(Configuration)
                 .AddTravelyAuthentication(Configuration, Environment);
+
+            services.ConfigureAutoMapper();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
             app.ApplyDatabaseMigrations<TourDbContext>();
 
-            if (env.IsDevelopment())
+            if (Environment.IsDevelopment())
             {
-                app.UseSwaggerDevUI();
+                app.UseSwagger();
+                app.UseSwaggerUI("TourManager API");
             }
 
             app.UseWebApiExceptionHandler();
@@ -103,7 +93,8 @@ namespace TourManager.Api
                                     .AllowAnyMethod()
                                     .AllowAnyHeader()
                                     .SetIsOriginAllowed(_ => true));
-            app.UseHttpsRedirection();
+            
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
