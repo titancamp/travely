@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TourManager.Service.Model.ReportingManager;
-using Travely.Services.Common.Models;
+using Travely.Common;
+using Travely.ReportingManager.Grpc.Models;
 
-namespace TourManager.Clients.Abstraction.ReportingManager
+namespace Travely.ReportingManager.Grpc.Client.Abstraction
 {
     public interface IReportingManagerClient
     {

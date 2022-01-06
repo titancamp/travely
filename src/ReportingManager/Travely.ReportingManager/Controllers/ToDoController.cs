@@ -1,26 +1,24 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using TourManager.Service.Abstraction;
-using TourManager.Service.Model.ReportingManager;
-using Travely.IdentityClient.Authorization;
-using Travely.Services.Common.Models;
+using Travely.Common;
+using Travely.Common.Api.Controllers;
+using Travely.ReportingManager.Grpc.Client.Abstraction;
+using Travely.ReportingManager.Grpc.Models;
 
 namespace TourManager.Api.Controllers
 {
     [ApiVersion("1.0")]
-   // [Authorize(Roles = UserRoles.User)]
+    // [Authorize(Roles = UserRoles.User)]
     public class ToDoController : TravelyControllerBase
     {
-        private readonly IToDoService _service;
+        private readonly IReportingManagerClient _service;
 
-        public ToDoController(IToDoService service)
+        public ToDoController(IReportingManagerClient service)
         {
             _service = service;
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<ToDoItemResponeModel>> Get(int id)
         {
@@ -32,7 +30,7 @@ namespace TourManager.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateToDoModel model)
         {
-            var id = await _service.AddAsync(UserInfo.UserId, model);
+            var id = await _service.AddToDoItemAsync(UserInfo.UserId, model);
 
             return Created("url",id);
         }
@@ -40,7 +38,7 @@ namespace TourManager.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> Put([FromBody] UpdateToDoModel model)
         {
-            var id = await _service.EditAsync(UserInfo.UserId, model.Id, model);
+            var id = await _service.EditToDoItemAsync(UserInfo.UserId, model.Id, model);
 
             return Ok(id);
         }
@@ -48,7 +46,7 @@ namespace TourManager.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _service.DeleteAsync(id);
+            await _service.DeleteToDoItemAsync(id);
 
             return NoContent();
         }
@@ -60,7 +58,7 @@ namespace TourManager.Api.Controllers
             {
                 return NoContent();
             }
-            var data=await _service.GetAsync(UserInfo.UserId, dataQueryModel);
+            var data=await _service.GetToDoItemsAsync(UserInfo.UserId, dataQueryModel);
             return Ok(data);
         }
 

@@ -188,13 +188,16 @@ services:
       context: .
       dockerfile: src/ReportingManager/Travely.ReportingManager/Dockerfile
     ports:
-        - "8700:80"
-        - "8701:443"
+        - "8800:80"
+        - "8801:443"
     depends_on:
         - sql-server-db
     environment:
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=admin
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+       - ServiceDiscoveryConfiguration__serviceName=travely-reportingmanager
+       - ServiceDiscoveryConfiguration__serviceId=travely-reportingmanager-1
+       - ServiceDiscoveryConfiguration__serviceAddress=http://travely.reportingmanager
+       - ConsulClientConfiguration__address=http://consul:8500
+    env_file:
+      - .env
     volumes:
       - ~/.aspnet/https:/https:ro

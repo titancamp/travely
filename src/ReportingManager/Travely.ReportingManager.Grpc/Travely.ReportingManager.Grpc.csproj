@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Commons\Travely.Common.Grpc\Travely.Common.Grpc.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
+    <PackageReference Include="Grpc.Tools" Version="2.42.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Google.Protobuf" Version="3.19.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Protos\ToDoItemBase.proto" GrpcServices="Both" />
+    <Protobuf Include="Protos\ToDoItem.proto" GrpcServices="Both" ProtoRoot="Protos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Client\Abstraction\" />
+  </ItemGroup>
+
+</Project>

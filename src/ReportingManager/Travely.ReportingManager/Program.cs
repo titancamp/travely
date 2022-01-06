@@ -1,10 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Travely.ReportingManager
 {
@@ -12,7 +8,10 @@ namespace Travely.ReportingManager
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            AppContext.SetSwitch(
+                "System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+            var host = CreateHostBuilder(args).Build();
+            host.Run();
         }
 
         // Additional configuration is required to successfully run gRPC on macOS.

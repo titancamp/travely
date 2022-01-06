@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using Travely.Common;
 using Travely.ReportingManager.Services.Extensions;
-using Travely.Services.Common.Models;
 
 namespace Travely.ReportingManager.Services.Abstractions
 {

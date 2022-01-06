@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Commons\Travely.Services.Common\Travely.Services.Common.csproj" />
+    <ProjectReference Include="..\..\Commons\Travely.Common\Travely.Common.csproj" />
     <ProjectReference Include="..\Travely.ReportingManager.Data\Travely.ReportingManager.Data.csproj" />
   </ItemGroup>
 

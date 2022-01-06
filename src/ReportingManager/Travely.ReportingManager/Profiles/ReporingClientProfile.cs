@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using TourManager.Service.Model.ReportingManager;
+using Travely.ReportingManager.Grpc.Models;
 using Travely.ReportingManager.Protos;
 
 namespace TourManager.Clients.Implementation.Mappers
@@ -10,6 +10,7 @@ namespace TourManager.Clients.Implementation.Mappers
         {
             CreateMap<BaseToDoModel, CreateToDoItemRequest>();
             CreateMap<BaseToDoModel, UpdateToDoItemRequest>();
+
             CreateMap<GetToDoItemByIdResponse, ToDoItemResponeModel>();
             CreateMap<GetUserToDoItemsResponse, ToDoItemResponeModel>();
         }

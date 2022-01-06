@@ -1,7 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using TourManager.Clients.Implementation.Mappers;
 using Travely.ReportingManager.Data;
+using Travely.ReportingManager.Profiles;
 using Travely.ReportingManager.Services.Abstractions;
 using Travely.ReportingManager.Services.Implementations;
 
@@ -15,6 +16,8 @@ namespace Travely.ReportingManager.Helpers
             {
                  typeof(Profiles.ToDoMappingProfile),
                  typeof(Services.MappingProfiles.ToDoMappingProfile),
+                 typeof(ReporingClientProfile),
+                 typeof(CommonProfile),
             };
 
             services.AddAutoMapper(mappingProfiles);

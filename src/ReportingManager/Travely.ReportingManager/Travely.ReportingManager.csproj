@@ -5,19 +5,17 @@
     <UserSecretsId>1753938a-424f-4c02-a561-11c5e16881ea</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Protobuf Include="Protos\ToDoItemBase.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\ToDoItem.proto" GrpcServices="Server" ProtoRoot="Protos\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.5" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -26,9 +24,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Commons\Travely.Common.Api\Travely.Common.Api.csproj" />
+    <ProjectReference Include="..\..\Commons\Travely.Common.ServiceDiscovery\Travely.Common.ServiceDiscovery.csproj" />
+    <ProjectReference Include="..\..\Commons\Travely.Common.Swagger\Travely.Common.Swagger.csproj" />
     <ProjectReference Include="..\..\Commons\Travely.Common\Travely.Common.csproj" />
-    <ProjectReference Include="..\..\Commons\Travely.Services.Common\Travely.Services.Common.csproj" />
+    <ProjectReference Include="..\Travely.ReportingManager.Grpc\Travely.ReportingManager.Grpc.csproj" />
     <ProjectReference Include="..\Travely.ReportingManager.Services\Travely.ReportingManager.Services.csproj" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
 
 </Project>

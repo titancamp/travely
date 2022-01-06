@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Travely.Services.Common.Models;
+using Travely.Common;
 
 namespace Travely.ReportingManager.Services.Extensions
 {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Travely.Common;
 using Travely.ReportingManager.Services.Models.Commands;
 using Travely.ReportingManager.Services.Models.Responses;
-using Travely.Services.Common.Models;
 
 namespace Travely.ReportingManager.Services.Abstractions
 {

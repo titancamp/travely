@@ -4,12 +4,12 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Travely.Common;
 using Travely.ReportingManager.Data;
 using Travely.ReportingManager.Data.Models;
 using Travely.ReportingManager.Services.Abstractions;
 using Travely.ReportingManager.Services.Models.Commands;
 using Travely.ReportingManager.Services.Models.Responses;
-using Travely.Services.Common.Models;
 
 namespace Travely.ReportingManager.Services.Implementations
 {

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using System;
 
-namespace TourManager.Service.Model.ReportingManager
+namespace Travely.ReportingManager.Grpc.Models
 {
     public class BaseToDoModel
     {
@@ -13,10 +13,12 @@ namespace TourManager.Service.Model.ReportingManager
         public byte Status { get; set; }
         public byte Priority { get; set; }
     }
+
     public class CreateToDoModel : BaseToDoModel
     {
 
     }
+
     public class UpdateToDoModel : BaseToDoModel
     {
         public int Id { get; set; }
@@ -79,7 +81,4 @@ namespace TourManager.Service.Model.ReportingManager
             //.NotEmpty().WithMessage("{PropertyName} is Empty").IsInEnum().WithMessage("{PropertyName} incorrect"); 
         }
     }
-
-
-
 }

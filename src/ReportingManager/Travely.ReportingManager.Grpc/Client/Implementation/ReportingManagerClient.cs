@@ -1,27 +1,33 @@
-﻿using Grpc.Core;
+﻿using AutoMapper;
+using Grpc.Core;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TourManager.Clients.Abstraction.ReportingManager;
-using TourManager.Clients.Abstraction.Settings;
-using TourManager.Clients.Implementation.Mappers;
-using TourManager.Service.Model.ReportingManager;
+using Travely.Common;
+using Travely.Common.Grpc;
+using Travely.Common.Grpc.Abstraction;
+using Travely.ReportingManager.Grpc.Client.Abstraction;
+using Travely.ReportingManager.Grpc.Models;
 using Travely.ReportingManager.Protos;
-using Travely.Services.Common.Models;
 
-namespace TourManager.Clients.Implementation.ReportingManager
+namespace Travely.ReportingManager.Grpc.Client.Implementation
 {
     public class ReportingManagerClient : GrpcClientBase<ToDoItemProtoService.ToDoItemProtoServiceClient>, IReportingManagerClient
     {
-        public ReportingManagerClient(IServiceSettingsProvider serviceSettingsProvider)
+        private readonly IMapper _mapper;
+
+        public ReportingManagerClient(
+            IServiceSettingsProvider<ToDoItemProtoService.ToDoItemProtoServiceClient> serviceSettingsProvider,
+            IMapper mapper)
             : base(serviceSettingsProvider)
         {
+            _mapper = mapper;
         }
 
         public Task<int> AddToDoItemAsync(int userId, BaseToDoModel model)
         {
             return HandleAsync(async (client) =>
             {
-                var request = Mapping.Mapper.Map<CreateToDoItemRequest>(model, opt =>
+                var request = _mapper.Map<CreateToDoItemRequest>(model, opt =>
                     opt.AfterMap((src, dest) => dest.UserId = userId));
 
                 var response = await client.CreateToDoItemAsync(request);
@@ -42,7 +48,7 @@ namespace TourManager.Clients.Implementation.ReportingManager
         {
             return HandleAsync(async (client) =>
             {
-                var request = Mapping.Mapper.Map<UpdateToDoItemRequest>(model, opt =>
+                var request = _mapper.Map<UpdateToDoItemRequest>(model, opt =>
                     opt.AfterMap((src, dest) =>
                     {
                         dest.Id = id;
@@ -61,7 +67,7 @@ namespace TourManager.Clients.Implementation.ReportingManager
             {
                 var todoitem = await client.GetToDoItemAsync(new GetToDoItemByIdRequest { Id = id });
 
-                return Mapping.Mapper.Map<ToDoItemResponeModel>(todoitem);
+                return _mapper.Map<ToDoItemResponeModel>(todoitem);
             });
         }
 
@@ -73,30 +79,23 @@ namespace TourManager.Clients.Implementation.ReportingManager
                 var request = new GetUserToDoItemsRequest
                 {
                     UserId = userId,
-                    Paging = new Travely.ReportingManager.Protos.PagingModel() { Count = queryModel.Paging.Count, From = queryModel.Paging.From }
+                    Paging = new Protos.PagingModel() { Count = queryModel.Paging.Count, From = queryModel.Paging.From }
                 };
                 foreach (var item in queryModel.Orderings)
                 {
-                    request.Orderings.Add(new Travely.ReportingManager.Protos.OrderingModel() { FieldName = item.FieldName, IsDescending = item.IsDescending });
+                    request.Orderings.Add(new Protos.OrderingModel() { FieldName = item.FieldName, IsDescending = item.IsDescending });
                 }
                 foreach (var item in queryModel.Filters)
                 {
-                    request.Filters.Add(new Travely.ReportingManager.Protos.FilteringModel { FieldName = item.FieldName, Type = (Travely.ReportingManager.Protos.FilteringOperationType)item.Type, Value = item.Value });
+                    request.Filters.Add(new Protos.FilteringModel { FieldName = item.FieldName, Type = (Protos.FilteringOperationType) item.Type, Value = item.Value });
                 }
                 await foreach (var response in client.GetAllUserToDoItems(request).ResponseStream.ReadAllAsync())
                 {
-                    toDoItems.Add(Mapping.Mapper.Map<ToDoItemResponeModel>(response));
+                    toDoItems.Add(_mapper.Map<ToDoItemResponeModel>(response));
                 }
 
                 return toDoItems;
             });
-        }
-
-        protected override ToDoItemProtoService.ToDoItemProtoServiceClient CreateGrpcClient()
-        {
-            var channel = GetClientGrpcChannel(ServiceSettingsProvider.ComposeReportingServiceUrl());
-
-            return new ToDoItemProtoService.ToDoItemProtoServiceClient(channel);
         }
     }
 }

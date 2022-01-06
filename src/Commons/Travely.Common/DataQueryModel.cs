@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Travely.Services.Common.Models
+namespace Travely.Common
 {
     public class DataQueryModel
     {
@@ -8,7 +8,7 @@ namespace Travely.Services.Common.Models
         public ICollection<OrderingModel> Orderings { get; set; }
         public PagingModel Paging { get; set; }
     }
-    
+
     public class FilteringModel
     {
         public string FieldName { get; set; }

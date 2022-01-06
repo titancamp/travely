@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Grpc.Core;
 using System.Threading.Tasks;
+using Travely.Common;
 using Travely.ReportingManager.Protos;
 using Travely.ReportingManager.Services.Abstractions;
 using Travely.ReportingManager.Services.Models.Commands;
 using Travely.ReportingManager.Services.Models.Responses;
-using Travely.Services.Common.Models;
 
 namespace Travely.ReportingManager.Services
 {
@@ -37,7 +37,6 @@ namespace Travely.ReportingManager.Services
 
         public override async Task<UpdateToDoItemResponse> UpdateToDoItem(UpdateToDoItemRequest request, ServerCallContext context)
         {
-            //TODO validate
             var command = _mapper.Map<UpdateToDoItemRequest, EditToDoItemCommand>(request);
             var resultId = await _toDoItemService.EditAsync(request.UserId, command);
 
