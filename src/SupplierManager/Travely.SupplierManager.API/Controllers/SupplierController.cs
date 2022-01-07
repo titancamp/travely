@@ -3,11 +3,15 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Travely.Common.Api.Controllers;
+using Travely.SupplierManager.API.Models;
+using Travely.SupplierManager.API.Responses;
 using Travely.SupplierManager.Service;
+using Travely.SupplierManager.Service.Models;
 
 namespace Travely.SupplierManager.API.Controllers
 {
     [ApiVersion("1.0")]
+    // [Authorize(Roles = UserRoles.User)]
     public class SupplierController<T, TRequest, TResponse> : TravelyControllerBase
         where T : class
         where TRequest : class
@@ -23,6 +27,19 @@ namespace Travely.SupplierManager.API.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] SupplierQueryParamsResponse parameters)
+        {
+            var data = await Service.Get(UserInfo.AgencyId, Mapper.Map<SupplierQueryParams>(parameters));
+
+            if (data == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(Mapper.Map<SupplierPageResponse<TResponse>>(data));
+        }
+        
+        [HttpGet("All")]
         public async Task<IActionResult> GetAll()
         {
             var data = await Service.GetAll(UserInfo.AgencyId);

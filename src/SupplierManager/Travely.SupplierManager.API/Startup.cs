@@ -23,6 +23,7 @@ using Travely.SupplierManager.Repository.DbContexts;
 using Travely.SupplierManager.Repository.Entities;
 using Travely.SupplierManager.Repository;
 using Travely.SupplierManager.Service;
+using Travely.SupplierManager.Service.Helpers;
 
 namespace Travely.SupplierManager.API
 {
@@ -48,11 +49,13 @@ namespace Travely.SupplierManager.API
             services.AddDbContext<SupplierDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SupplierDbContext")));
             
-            // TODO move later
-            services.AddScoped<ISupplierRepository<AccommodationEntity>, SupplierSupplierRepository<AccommodationEntity>>();
+            // TODO move from here
+            services.AddScoped<ISupplierRepository<AccommodationEntity>, SupplierRepository<AccommodationEntity>>();
             services.AddScoped<ISupplierService<Accommodation>, SupplierService<Accommodation, AccommodationEntity>>();
-            
             services.AddScoped<ISupplierManagerClient, SupplierManagerClient>();
+            services.AddSingleton<ISearchHelper<AccommodationEntity>, AccommodationSearchHelper>();
+            
+            services.AddSingleton<ISortHelper<AccommodationEntity>, SortHelper<AccommodationEntity>>();
             
             services.Configure<GrpcSettings<SupplierProto.SupplierProtoClient>>(
                 Configuration.GetSection("SupplierGrpcService"));

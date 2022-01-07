@@ -29,13 +29,7 @@
       "DownstreamPathTemplate": "/api/v{version}/Service{everything}",
       "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/api/v{version}/Service{everything}",
-      "UpstreamHttpMethod": [
-        "POST",
-        "PUT",
-        "GET",
-        "DELETE",
-        "OPTIONS"
-      ],
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowScopes": []
@@ -47,13 +41,7 @@
       "DownstreamPathTemplate": "/api/v{version}/Supplier{everything}",
       "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/api/v{version}/Supplier{everything}",
-      "UpstreamHttpMethod": [
-        "POST",
-        "PUT",
-        "GET",
-        "DELETE",
-        "OPTIONS"
-      ],
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowScopes": []
@@ -65,13 +53,7 @@
       "DownstreamPathTemplate": "/notification{everything}",
       "DownstreamScheme": "ws",
       "UpstreamPathTemplate": "/notification{everything}",
-      "UpstreamHttpMethod": [
-        "POST",
-        "PUT",
-        "GET",
-        "DELETE",
-        "OPTIONS"
-      ],
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowScopes": []

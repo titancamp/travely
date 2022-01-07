@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Travely.SupplierManager.API.Models;
 using Travely.SupplierManager.Repository;
 using Travely.SupplierManager.Repository.Entities;
-using Travely.SupplierManager.Service;
+using Travely.SupplierManager.Service.Helpers;
+using Travely.SupplierManager.Service.Models;
 
 namespace Travely.SupplierManager.Service
 {
@@ -13,17 +15,33 @@ namespace Travely.SupplierManager.Service
     {
         private readonly IMapper _mapper;
         private readonly ISupplierRepository<TEntity> _supplierRepository;
+        private readonly ISearchHelper<TEntity> _searchHelper;
+        private readonly ISortHelper<TEntity> _sortHelper;
 
-        public SupplierService(IMapper mapper, ISupplierRepository<TEntity> supplierRepository)
+        public SupplierService(IMapper mapper,
+            ISupplierRepository<TEntity> supplierRepository,
+            ISearchHelper<TEntity> searchHelper,
+            ISortHelper<TEntity> sortHelper )
         {
             _mapper = mapper;
             _supplierRepository = supplierRepository;
+            _searchHelper = searchHelper;
+            _sortHelper = sortHelper;
+        }
+        
+        public async Task<SupplierPage<TModel>> Get(int agencyId, SupplierQueryParams parameters)
+        {
+            var query = await _supplierRepository.GetAll(agencyId);
+            query = _searchHelper.Search(query, parameters.Search);
+            query = _sortHelper.Order(query, parameters.OrderBy);
+            
+            return SupplierPage<TModel>.GetPagedSuppliers<TEntity>(query, _mapper, parameters);
         }
 
         public async Task<List<TModel>> GetAll(int agencyId)
         {
             var data = await _supplierRepository.GetAll(agencyId);
-
+            
             return _mapper.Map<List<TModel>>(data);
         }
 
