@@ -21,6 +21,13 @@ using Travely.Shared.IdentityClient.Authorization.Config;
 using PaymentManager.Repositories.Entities;
 using PaymentManager.Services.Helpers;
 using Travely.Common.Extensions;
+using Travely.Common.Grpc;
+using Travely.PaymentManager.Grpc;
+using PaymentManager.Api.Services;
+using PaymentManager.Grpc.Clients.Implementation;
+using PaymentManager.Grpc.Clients.Abstraction;
+using Travely.Common.Grpc.Abstraction;
+using PaymentManager.Grpc.Settings;
 
 namespace PaymentManager.Api
 {
@@ -60,14 +67,18 @@ namespace PaymentManager.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PaymentManager.Api", Version = "v1" });
             });
             services.AddConsul(Configuration, Environment);
-            services.AddTravelyAuthentication(Configuration, Environment);
+            services.AddTravelyAuthentication(Configuration, Environment); 
+            services.AddGrpc();
+            services.AddScoped<IPaymentManagerClient, PaymentManagerClient>();
+            services.Configure<GrpcSettings<PaymentProto.PaymentProtoClient>>(Configuration.GetSection("PayableGrpcService"));
+            services.AddScoped<IServiceSettingsProvider<PaymentProto.PaymentProtoClient>, PaymentManagerSettingsProvider>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.ApplyDatabaseMigrations<PaymentDbContext>();
+            //app.ApplyDatabaseMigrations<PaymentDbContext>();
 
             if (env.IsDevelopment())
             {
@@ -76,7 +87,7 @@ namespace PaymentManager.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PaymentManager.Api v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -85,6 +96,7 @@ namespace PaymentManager.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<PayableGrpcService>();
             });
         }
     }

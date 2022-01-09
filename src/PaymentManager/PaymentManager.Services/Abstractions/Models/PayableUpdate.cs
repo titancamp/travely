@@ -9,5 +9,7 @@ namespace PaymentManager.Services.Models
         public DateTime? DueDate { get; set; }
         public List<PayableItem> PayableItems { get; set; }
         public string Note { get; set; }
+        public int? SupplierId { get; set; }
+        public string SupplierName { get; set; }
     }
 }

@@ -16,5 +16,6 @@ namespace PaymentManager.Services
         Task CreateRange(int agencyId, List<PayableCreate> models);
         Task<PayableRead> Update(int agencyId, int id, PayableUpdate model);
         Task Remove(int agencyId, int id);
+        Task<List<PayableRead>> Find(int agencyId, int tourId);
     }
 }
