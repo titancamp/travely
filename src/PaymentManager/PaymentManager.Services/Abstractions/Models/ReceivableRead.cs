@@ -21,9 +21,13 @@ namespace PaymentManager.Services.Models
         public decimal Rate { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? DueDate { get; set; }
+        public DateTime? PaymentDate { get; set; }
         public TourStatus TourStatus { get; set; }
         public PaymentStatus Status { get; set; }
+        public PaymentType PaymentType { get; set; }
         public List<ReceivableItem> ReceivableItems { get; set; }
+        public bool HasAttachment { get; set; }
+        public bool InvoiceSent { get; set; }
         public string Note { get; set; }
     }
 }

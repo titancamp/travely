@@ -27,6 +27,6 @@ namespace PaymentManager.Repositories.Entities
         [Required]
         public PaymentType PaymentType { get; set; }
 
-        //public AttachmentEntity Attachment { get; set; }
+        public Guid? AttachmentId { get; set; }
     }
 }

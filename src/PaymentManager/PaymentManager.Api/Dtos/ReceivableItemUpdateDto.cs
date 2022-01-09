@@ -16,6 +16,6 @@ namespace PaymentManager.Api.Dtos
         public PaymentType PaymentType { get; set; }
         [Required]
         public bool InvoiceSent { get; set; }
-        //public Attachment? Attachment { get; set; }
+        public Guid? AttachmentId { get; set; }
     }
 }

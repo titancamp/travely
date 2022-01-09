@@ -8,22 +8,8 @@ namespace PaymentManager.Api.Dtos
         public int TotalPages { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
-        public bool HasPrevious
-        {
-            get
-            {
-                return CurrentPage > 1;
-            }
-        }
-
-        public bool HasNext
-        {
-            get
-            {
-                return CurrentPage < TotalPages;
-            }
-        }
-
+        public bool HasPrevious => CurrentPage > 1;
+        public bool HasNext => CurrentPage < TotalPages;
         public List<ReceivableReadDto> Items { get; set; }
     }
 }

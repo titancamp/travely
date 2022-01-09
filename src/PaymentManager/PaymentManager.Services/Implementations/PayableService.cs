@@ -34,7 +34,7 @@ namespace PaymentManager.Services
 
         public async Task<PayablePage> Get(int agencyId, PaymentQueryParameters parameters)
         {
-            var query = await _repository.GetAll(agencyId);
+            var query = await _repository.GetAll(agencyId, false);
 
             query = _sortHelper.ApplySort(query, parameters.OrderBy);
 

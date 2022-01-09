@@ -9,11 +9,11 @@ namespace PaymentManager.Services.Models
 {
     public class PayableItem
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string InvoiceId { get; set; }
         public decimal PaidAmount { get; set; }
         public DateTime PaymentDate { get; set; }
         public PaymentType PaymentType { get; set; }
-        //public AttachmentEntity Attachment { get; set; }
+        public Guid? AttachmentId { get; set; }
     }
 }

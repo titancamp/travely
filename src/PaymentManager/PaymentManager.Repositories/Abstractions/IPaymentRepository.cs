@@ -11,7 +11,7 @@ namespace PaymentManager.Repositories
     public interface IPaymentRepository<TEntity>
     {
         Task<TEntity> GetById(int agencyId, int id);
-        Task<IQueryable<TEntity>> GetAll(int agencyId);
+        Task<IQueryable<TEntity>> GetAll(int agencyId, bool includeItems);
         Task<IQueryable<TEntity>> Find(Expression<Func<TEntity, bool>> predicate);
         Task<TEntity> SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
         Task<TEntity> Add(TEntity entity);

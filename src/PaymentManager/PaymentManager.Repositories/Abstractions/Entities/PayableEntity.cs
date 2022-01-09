@@ -55,6 +55,12 @@ namespace PaymentManager.Repositories.Entities
 
         public DateTime? DueDate { get; set; }
 
+        public DateTime? PaymentDate { get; set; }
+
+        public PaymentType? PaymentType { get; set; }
+
+        public bool HasAttachment { get; set; }
+
         public ICollection<PayableItemEntity> PayableItems { get; set; }
 
         public string Note { get; set; }

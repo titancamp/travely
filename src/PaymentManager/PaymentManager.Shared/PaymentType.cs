@@ -9,6 +9,7 @@ namespace PaymentManager.Shared
     public enum PaymentType
     {
         Cash = 1,
-        Transfer
+        Transfer = 2,
+        Mixed = 3
     }
 }

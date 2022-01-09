@@ -39,20 +39,20 @@ namespace PaymentManager.Repositories.DbContexts
             builder
                 .Property(e => e.PlannedCost)
                 .IsRequired()
-                .HasColumnType("decimal(18,4)");
+                .HasColumnType("decimal(20,2)");
             builder
                 .Property(e => e.ActualCost)
-                .HasColumnType("decimal(18,4)");
+                .HasColumnType("decimal(20,2)");
             builder
                 .Property(e => e.Difference)
-                .HasColumnType("decimal(18,4)");
+                .HasColumnType("decimal(20,2)");
             builder
                 .Property(e => e.PaidAmount)
-                .HasColumnType("decimal(18,4)")
+                .HasColumnType("decimal(20,2)")
                 .HasDefaultValue(0);
             builder
                 .Property(e => e.Remaining)
-                .HasColumnType("decimal(18,4)");
+                .HasColumnType("decimal(20,2)");
             builder
                 .Property(e => e.Note)
                 .HasMaxLength(200);

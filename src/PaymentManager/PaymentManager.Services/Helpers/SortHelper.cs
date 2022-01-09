@@ -12,9 +12,7 @@ namespace PaymentManager.Services.Helpers
     {
         public IQueryable<TEntity> ApplySort(IQueryable<TEntity> entities, string orderByQueryString)
         {
-            if (!entities.Any())
-                return entities;
-            if (string.IsNullOrWhiteSpace(orderByQueryString))
+            if (!entities.Any() || string.IsNullOrWhiteSpace(orderByQueryString))
             {
                 return entities;
             }
@@ -33,6 +31,10 @@ namespace PaymentManager.Services.Helpers
                 orderQueryBuilder.Append($"{objectProperty.Name} {sortingOrder}, ");
             }
             var orderQuery = orderQueryBuilder.ToString().TrimEnd(',', ' ');
+            if (string.IsNullOrWhiteSpace(orderQuery))
+            {
+                orderQuery = "CreatedAt descending";
+            }
             return entities.OrderBy(orderQuery);
         }
     }

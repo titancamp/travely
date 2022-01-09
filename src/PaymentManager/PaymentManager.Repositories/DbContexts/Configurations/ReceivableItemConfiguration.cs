@@ -16,20 +16,20 @@ namespace PaymentManager.Repositories.DbContexts
             builder.HasKey(e => e.Id);
             builder
                 .Property(e => e.InvoiceId)
-                .HasMaxLength(50);
-            builder
-                .Property(e => e.InvoiceSent)
-                .HasDefaultValue(false);
+                .HasMaxLength(64);
             builder
                 .Property(e => e.PaidAmount)
                 .IsRequired()
-                .HasColumnType("decimal(18,4)");
+                .HasColumnType("decimal(20,2)");
             builder
                 .Property(e => e.PaymentDate)
                 .IsRequired();
             builder
                 .Property(e => e.PaymentType)
                 .IsRequired();
+            builder
+                .Property(e => e.InvoiceSent)
+                .HasDefaultValue(false);
         }
     }
 }

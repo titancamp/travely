@@ -12,21 +12,8 @@ namespace PaymentManager.Api.Dtos
         public int TotalPages { get; set; }
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
-        public bool HasPrevious
-        {
-            get
-            {
-                return CurrentPage > 1;
-            }
-        }
-
-        public bool HasNext
-        {
-            get
-            {
-                return CurrentPage < TotalPages;
-            }
-        }
+        public bool HasPrevious => CurrentPage > 1;
+        public bool HasNext => CurrentPage < TotalPages;
         public decimal TotalPlannedCost { get; set; }
         public decimal TotalActualCost { get; set; }
         public decimal TotalDifference { get; set; }

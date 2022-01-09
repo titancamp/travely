@@ -20,8 +20,8 @@ namespace PaymentManager.Api.Dtos
         public DateTime CreatedAt { get; set; }
         public DateTime? PaymentDate { get; set; }
         public DateTime? DueDate { get; set; }
-        // public Attachment Attachment { get; set; }
-        public List<ReceivableItemReadDto> ReceivableItems { get; set; }
-        public string Note { get; set; }
+        public PaymentType PaymentType { get; set; }
+        public bool InvoiceSent { get; set; }
+        public bool HasAttachment { get; set; }
     }
 }

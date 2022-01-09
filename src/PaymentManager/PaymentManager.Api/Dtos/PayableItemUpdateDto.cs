@@ -14,6 +14,6 @@ namespace PaymentManager.Api.Dtos
         public DateTime PaymentDate { get; set; }
         [Required]
         public PaymentType PaymentType { get; set; }
-        //public Attachment? Attachment { get; set; }
+        public Guid? AttachmentId { get; set; }
     }
 }

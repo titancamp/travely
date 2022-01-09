@@ -31,12 +31,16 @@ namespace PaymentManager.Repositories
             return query.FirstOrDefaultAsync(payable => payable.Id == id);
         }
 
-        public async Task<IQueryable<ReceivableEntity>> GetAll(int agencyId)
+        public async Task<IQueryable<ReceivableEntity>> GetAll(int agencyId, bool includeItems)
         {
-            var query = _context.Receivables
-                .Where(e => e.AgencyId == agencyId)
-                .Include(e => e.ReceivableItems)
-                .AsNoTracking();
+            var query = _context.Receivables.Where(e => e.AgencyId == agencyId);
+
+            if (includeItems)
+            {
+                query = query.Include(e => e.ReceivableItems);
+            }
+
+            query = query.AsNoTracking();
 
             return query;
         }

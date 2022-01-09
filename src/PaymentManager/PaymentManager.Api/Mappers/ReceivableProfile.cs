@@ -13,6 +13,7 @@ namespace PaymentManager.Api.Mappers
         public ReceivableProfile()
         {
             CreateMap<ReceivableRead, ReceivableReadDto>();
+            CreateMap<ReceivableRead, ReceivableReadDetailedDto>();
             CreateMap<ReceivableEntity, ReceivableRead>();
             CreateMap<ReceivableItem, ReceivableItemReadDto>();
 
@@ -20,7 +21,10 @@ namespace PaymentManager.Api.Mappers
 
             CreateMap<ReceivableUpdateDto, ReceivableUpdate>();
             CreateMap<ReceivableUpdate, ReceivableEntity>()
+                .ForMember(dst => dst.HasAttachment, opt => opt.MapFrom(src => src.ReceivableItems.Any(i => i.AttachmentId != null)))
+                .ForMember(dst => dst.PaymentDate, opt => opt.MapFrom(src => src.ReceivableItems.DefaultIfEmpty(null).Max(x => x.PaymentDate)))
                 .ForMember(dst => dst.PaidAmount, opt => opt.MapFrom(src => src.ReceivableItems.Select(x => x.PaidAmount).DefaultIfEmpty(0).Sum()))
+                .ForMember(dst => dst.InvoiceSent, opt => opt.MapFrom(src => src.ReceivableItems.All(i => i.InvoiceSent)))
                 .AfterMap((src, dst) => { dst.Remaining = dst.TotalAmount - dst.PaidAmount; })
                 .AfterMap((src, dst) =>
                 {
@@ -43,6 +47,21 @@ namespace PaymentManager.Api.Mappers
                     else
                     {
                         dst.Status = PaymentStatus.Unpaid;
+                    }
+                })
+                .AfterMap((src, dst) =>
+                {
+                    if (!src.ReceivableItems.Any())
+                    {
+                        dst.PaymentType = null;
+                    }
+                    else if (src.ReceivableItems.Select(i => i.PaymentType).Count() == 1)
+                    {
+                        dst.PaymentType = src.ReceivableItems[0].PaymentType;
+                    }
+                    else
+                    {
+                        dst.PaymentType = PaymentType.Mixed;
                     }
                 });
             CreateMap<ReceivableItemEntity, ReceivableItem>();

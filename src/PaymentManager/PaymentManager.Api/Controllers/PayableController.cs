@@ -53,7 +53,7 @@ namespace PaymentManager.Api.Controllers
             if (data == null)
                 return NotFound();
 
-            return Ok(_mapper.Map<PayableReadDto>(data));
+            return Ok(_mapper.Map<PayableReadDetailedDto>(data));
         }
 
         [HttpPut("{id}")]
@@ -65,9 +65,8 @@ namespace PaymentManager.Api.Controllers
             if (data == null)
                 return BadRequest();
 
-            return Ok(_mapper.Map<PayableReadDto>(data));
+            return Ok(_mapper.Map<PayableReadDetailedDto>(data));
         }
-
 
         #region MockData
 

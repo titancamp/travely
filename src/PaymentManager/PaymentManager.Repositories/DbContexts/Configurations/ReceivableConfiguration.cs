@@ -40,21 +40,26 @@ namespace PaymentManager.Repositories.DbContexts
             builder
                 .Property(e => e.TotalAmount)
                 .IsRequired()
-                .HasColumnType("decimal(18,4)");
+                .HasColumnType("decimal(20,2)");
             builder
                 .Property(e => e.PaidAmount)
-                .HasColumnType("decimal(18,4)")
+                .HasColumnType("decimal(20,2)")
                 .HasDefaultValue(0);
             builder
                 .Property(e => e.Remaining)
-                .HasColumnType("decimal(18,4)");
-                //.HasDefaultValueSql("[TotalAmount]");
+                .HasColumnType("decimal(20,2)");
             builder
                 .Property(e => e.Rate)
-                .HasColumnType("decimal(18,4)");
+                .HasColumnType("decimal(20,2)");
             builder
                 .Property(e => e.Note)
                 .HasMaxLength(200);
+            builder
+                .Property(e => e.HasAttachment)
+                .HasDefaultValue(false);
+            builder
+                .Property(e => e.InvoiceSent)
+                .HasDefaultValue(false);
         }
     }
 }
