@@ -85,5 +85,12 @@ namespace PaymentManager.Services
             var entity = await _repository.GetById(agencyId, id);
             await _repository.Remove(entity);
         }
+
+        public async Task<List<PayableRead>> Find(int agencyId, int tourId)
+        {
+            var payables = await _repository.Find(m => m.TourId == tourId && m.AgencyId == agencyId);
+
+            return _mapper.Map<List<PayableRead>>(payables);
+        }
     }
 }

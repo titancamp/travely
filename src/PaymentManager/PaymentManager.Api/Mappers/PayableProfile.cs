@@ -5,6 +5,7 @@ using PaymentManager.Services.Models;
 using PaymentManager.Shared;
 using System;
 using System.Linq;
+using Travely.PaymentManager.Grpc;
 
 namespace PaymentManager.Api.Mappers
 {
@@ -70,6 +71,11 @@ namespace PaymentManager.Api.Mappers
 
             CreateMap<PaymentQueryParametersDto, PaymentQueryParameters>();
             CreateMap<PayablePage, PayablePageDto>();
+            CreateMap<PayableCreateModel, PayableCreate>();
+            CreateMap<SupplierUpdate, PayableUpdate>();
+            CreateMap<PayableCreateModel, PayableCreate>();
+            CreateMap<PayableRead, PayableReadModel> ();
+            CreateMap<PayablesByTourId, PayablesByTourIdModel>();
         }
     }
 }
