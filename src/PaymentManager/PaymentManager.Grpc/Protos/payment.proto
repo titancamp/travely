@@ -8,7 +8,7 @@ package activity;
 
 service PaymentProto{
 	rpc CreatePayment (stream PayableCreateModel) returns (stream CreatePaymentResponse);
-	rpc UpdatePaymentSupplier(SupplierUpdate) returns (CreatePaymentResponse);
+	rpc UpdatePaymentSupplier(SupplierUpdate) returns (UpdateSuplierResponse);
 	rpc GetPayablesByTourId (TourModel) returns (stream PayablesByTourIdModel);
 	rpc GetPayablesByAgencyId (Agency) returns (stream PayableReadModel);
 }
@@ -66,6 +66,10 @@ message SupplierUpdate{
 
 message CreatePaymentResponse {
 	int32 Id = 1;
+}
+
+message UpdateSuplierResponse{
+
 }
 
 message TourModel {

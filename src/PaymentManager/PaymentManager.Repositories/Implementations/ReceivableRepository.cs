@@ -131,5 +131,10 @@ namespace PaymentManager.Repositories
 
             return _context.SaveChangesAsync();
         }
+
+        public Task UpdateRange(List<PayableEntity> entities)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace PaymentManager.Services
         Task<PayableRead> Create(int agencyId, PayableCreate model);
         Task CreateRange(int agencyId, List<PayableCreate> models);
         Task<PayableRead> Update(int agencyId, int id, PayableUpdate model);
+        Task UpdateSupplier(int agencyId, int id, PayableSupplierUpdate model);
         Task Remove(int agencyId, int id);
         Task<List<PayableRead>> Find(int agencyId, int tourId);
     }
