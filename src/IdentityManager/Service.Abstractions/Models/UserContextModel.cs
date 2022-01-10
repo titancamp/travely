@@ -12,6 +12,8 @@ namespace Travely.IdentityManager.Service.Abstractions.Models
 
         public Role Role { get; set; }
 
+        public int Permissions { get; set; }
+
         public int AgencyId { get; set; }
     }
 }

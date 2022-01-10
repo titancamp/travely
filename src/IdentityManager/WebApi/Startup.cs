@@ -10,6 +10,7 @@ using TourManager.Api.Bootstrapper;
 using Travely.IdentityManager.Repository.EntityFramework;
 using Travely.IdentityManager.Repository.Extensions;
 using Travely.IdentityManager.WebApi.Extensions;
+using Travely.IdentityClient.Extensions;
 
 namespace Travely.IdentityManager.WebApi
 {
@@ -68,9 +69,10 @@ namespace Travely.IdentityManager.WebApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityManager.WebApi v1"));
                 
             }
+            app.UseRouting();
             app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseIdentityServer();
-            app.UseRouting();
+            app.UseTravelyAuthorization();
             app.UseAuthorization();
 
             app.UseAuthentication();
