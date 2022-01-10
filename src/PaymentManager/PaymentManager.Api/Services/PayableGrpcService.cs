@@ -35,13 +35,13 @@ namespace PaymentManager.Api.Services
             }
         }
 
-        public override async Task<CreatePaymentResponse> UpdatePaymentSupplier(SupplierUpdate request, ServerCallContext context)
+        public override async Task<UpdateSuplierResponse> UpdatePaymentSupplier(SupplierUpdate request, ServerCallContext context)
         {
-            var updateModel = _mapper.Map<PayableUpdate>(request);
+            var updateModel = _mapper.Map<PayableSupplierUpdate>(request);
 
-            var updateResponse = await _payableService.Update(request.AgencyId, request.PayableId, updateModel);
+            await _payableService.UpdateSupplier(request.AgencyId, request.PayableId, updateModel);
 
-            return _mapper.Map<CreatePaymentResponse>(updateResponse);  
+            return new UpdateSuplierResponse();
         }
 
         public override async Task GetPayablesByTourId(TourModel request, IServerStreamWriter<PayablesByTourIdModel> responseStream, ServerCallContext context)

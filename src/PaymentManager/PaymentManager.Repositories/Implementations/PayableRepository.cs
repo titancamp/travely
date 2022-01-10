@@ -135,5 +135,12 @@ namespace PaymentManager.Repositories
 
             return _context.SaveChangesAsync();
         }
+
+        public Task UpdateRange(List<PayableEntity> entities)
+        {
+            _context.Payables.UpdateRange(entities);
+
+            return _context.SaveChangesAsync();
+        }
     }
 }

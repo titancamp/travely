@@ -65,6 +65,7 @@ namespace PaymentManager.Api.Mappers
                         dst.PaymentType = PaymentType.Mixed;
                     }
                 });
+            CreateMap<PayableSupplierUpdate, PayableEntity>();
             CreateMap<PayableItemEntity, PayableItem>();
             CreateMap<PayableItem, PayableItemEntity>();
             CreateMap<PayableItemUpdateDto, PayableItem>();
@@ -72,7 +73,7 @@ namespace PaymentManager.Api.Mappers
             CreateMap<PaymentQueryParametersDto, PaymentQueryParameters>();
             CreateMap<PayablePage, PayablePageDto>();
             CreateMap<PayableCreateModel, PayableCreate>();
-            CreateMap<SupplierUpdate, PayableUpdate>();
+            CreateMap<SupplierUpdate, PayableSupplierUpdate>();
             CreateMap<PayableCreateModel, PayableCreate>();
             CreateMap<PayableRead, PayableReadModel> ();
             CreateMap<PayablesByTourId, PayablesByTourIdModel>();

@@ -19,5 +19,6 @@ namespace PaymentManager.Repositories
         Task<TEntity> Update(TEntity entity);
         Task Remove(TEntity entity);
         Task RemoveRange(List<TEntity> entities);
+        Task UpdateRange(List<PayableEntity> entities);
     }
 }

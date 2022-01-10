@@ -9,7 +9,7 @@ namespace PaymentManager.Grpc.Clients.Abstraction
     {
         Task<List<int>> AddPayableAsync(int agencyId, IEnumerable<AddPaymentModel> model);
 
-        Task<int> UpdateSupplierAsync(int agencyId, int id, UpdateSupplierModel model);
+        Task<SupplierUpdateResponseModel> UpdateSupplierAsync(int agencyId, int id, UpdateSupplierModel model);
 
         Task<List<PayablesByTourIdEntity>> GetPayablesByTourId(int agencyId, TourEntity model);
 

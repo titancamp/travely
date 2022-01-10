@@ -100,7 +100,7 @@ namespace PaymentManager.Grpc.Clients.Implementation
             });
         }
 
-        public Task<int> UpdateSupplierAsync(int agencyId, int id, UpdateSupplierModel model)
+        public Task<SupplierUpdateResponseModel> UpdateSupplierAsync(int agencyId, int id, UpdateSupplierModel model)
         {
             return HandleAsync(async (client) =>
             {
@@ -112,7 +112,7 @@ namespace PaymentManager.Grpc.Clients.Implementation
 
                 var response = await client.UpdatePaymentSupplierAsync(updateRequest);
 
-                return response.Id;
+                return _mapper.Map<SupplierUpdateResponseModel>(response);
             });
         }
     }

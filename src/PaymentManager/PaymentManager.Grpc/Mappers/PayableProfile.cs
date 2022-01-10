@@ -15,6 +15,7 @@ namespace PaymentManager.Grpc.Mappers
             CreateMap<PayableReadModel, PayableReadEntity>();
             CreateMap<PayablesByTourIdModel, PayablesByTourIdEntity>();
             CreateMap<PayablesByAgencyEntity, Agency>();
+            CreateMap<UpdateSupplierModel, SupplierUpdateResponseModel>();
         }
     }
 }

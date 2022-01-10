@@ -80,9 +80,23 @@ namespace PaymentManager.Services
             return _mapper.Map<PayableRead>(updatedEntity);
         }
 
+        public async Task UpdateSupplier(int agencyId, int id, PayableSupplierUpdate model)
+        {
+            var entityQuery = await _repository.Find(m => m.AgencyId == agencyId && m.SupplierId == model.SupplierId);
+            var payables = entityQuery.ToList();
+
+            foreach (var payable in entityQuery)
+            {
+                payable.SupplierName = model.SupplierName;
+            }
+
+            await _repository.UpdateRange(payables);
+        }
+
         public async Task Remove(int agencyId, int id)
         {
             var entity = await _repository.GetById(agencyId, id);
+
             await _repository.Remove(entity);
         }
 
