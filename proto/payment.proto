@@ -8,14 +8,23 @@ package activity;
 
 service PaymentProto{
 	rpc CreatePayment (stream PayableCreateModel) returns (stream CreatePaymentResponse);
-	rpc UpdatePaymentSupplier(SupplierUpdate) returns (UpdateSuplierResponse);
+	rpc UpdatePaymentSupplier(SupplierUpdate) returns (PayableResponse);
 	rpc GetPayablesByTourId (TourModel) returns (stream PayablesByTourIdModel);
 	rpc GetPayablesByAgencyId (Agency) returns (stream PayableReadModel);
+	rpc UpdateTourStatus (UpdateTourStatusModel) returns (PayableResponse);
+	rpc DeleteSupplierFromPayable (DeleteSupplierModel) returns (PayableResponse);
+	rpc GetPayableByTourIdAndSupplierId (GetPayableModel) returns (PayableReadModel);
 }
 
 message PayablesByTourIdModel{
 	int32 TourId = 1;
 	repeated PayableReadModel Payables = 2;
+}
+
+message GetPayableModel {
+	int32 AgencyId = 1;
+	int32 SupplierId = 2;
+	int32 TourId = 3;
 }
 
 message PayableReadModel{
@@ -49,6 +58,12 @@ message PayableCreateModel{
     string Currency = 8;
 }
 
+message UpdateTourStatusModel{
+	int32 AgencyId = 1;
+	int32 TourId = 2;
+	int32 TourStatus = 3;
+}
+
 message PayableItems{
 	int32 Id = 1;
 	int32 InvoiceId = 2;
@@ -64,12 +79,17 @@ message SupplierUpdate{
 	string SupplierName = 4;
 }
 
+message DeleteSupplierModel{
+	int32 Id = 1;
+	int32 TourId = 2;
+	int32 SupplierId = 3;
+}
+
 message CreatePaymentResponse {
 	int32 Id = 1;
 }
 
-message UpdateSuplierResponse{
-
+message PayableResponse {
 }
 
 message TourModel {

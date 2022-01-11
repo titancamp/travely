@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PaymentManager.Shared;
 using PaymentManager.Services.Helpers;
+using System.Linq.Expressions;
 
 namespace PaymentManager.Services
 {
@@ -93,6 +94,18 @@ namespace PaymentManager.Services
             await _repository.UpdateRange(payables);
         }
 
+        public async Task UpdatePayablesTourStatus(int tourId, int tourStatus)
+        {
+            var payables = await _repository.Find(m => m.TourId == tourId);
+            var model = payables.ToList();
+            foreach (var payable in model)
+            {
+                payable.TourStatus = (TourStatus)tourStatus;
+            }
+
+            await _repository.UpdateRange(model);
+        }
+
         public async Task Remove(int agencyId, int id)
         {
             var entity = await _repository.GetById(agencyId, id);
@@ -100,9 +113,9 @@ namespace PaymentManager.Services
             await _repository.Remove(entity);
         }
 
-        public async Task<List<PayableRead>> Find(int agencyId, int tourId)
+        public async Task<List<PayableRead>> Find(Expression<Func<PayableEntity, bool>> predicate)
         {
-            var payables = await _repository.Find(m => m.TourId == tourId && m.AgencyId == agencyId);
+            var payables = await _repository.Find(predicate);
 
             return _mapper.Map<List<PayableRead>>(payables);
         }
