@@ -6,9 +6,10 @@ namespace TourEntities.Service.Guide
 {
     public partial class TMGuide
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Type { get; set; }
         public string Name { get; set; }
+        public int AgencyId { get; set; }
         public string ContactNumber { get; set; }
         public string ContactEmail { get; set; }
         public string ContactPerson { get; set; }

@@ -5,7 +5,7 @@ namespace TourModels.Tour
 {
     public class Group
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public int NumberOfParticipants { get; set; }
         public int NumberOfChildren { get; set; }

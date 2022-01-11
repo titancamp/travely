@@ -5,7 +5,7 @@ namespace TourEntities.Service.Transportation
 {
     public partial class Driver
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public int TransportationId { get; set; }
         public string Name { get; set; }
         public List<string> Languages { get; set; }

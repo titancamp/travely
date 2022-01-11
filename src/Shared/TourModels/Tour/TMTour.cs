@@ -5,9 +5,10 @@ namespace TourModels.Tour
 {
     public partial class Tour
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
+        public int AgencyId { get; set; }
         public TimeSpan StartDate { get; set; }
         public TimeSpan EndDate { get; set; }
         public string PartnerName { get; set; }
