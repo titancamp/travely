@@ -94,9 +94,9 @@ namespace PaymentManager.Services
             await _repository.UpdateRange(payables);
         }
 
-        public async Task UpdatePayablesTourStatus(int tourId, int tourStatus)
+        public async Task UpdatePayablesTourStatus(int agencyId, int tourId, int tourStatus)
         {
-            var payables = await _repository.Find(m => m.TourId == tourId);
+            var payables = await _repository.Find(m => m.AgencyId == agencyId && m.TourId == tourId);
             var model = payables.ToList();
             foreach (var payable in model)
             {
@@ -104,6 +104,17 @@ namespace PaymentManager.Services
             }
 
             await _repository.UpdateRange(model);
+        }
+
+        public async Task DeleteSupplierFromPayable(int agencyId, int tourId, int supplierId)
+        {
+            var payables = await this.Find(m => m.AgencyId == agencyId && m.TourId == tourId && m.SupplierId == supplierId);
+            if (payables.Count != 1)
+            {
+                throw new Exception(); //????
+            }
+
+            await this.Remove(agencyId, payables[0].Id);
         }
 
         public async Task Remove(int agencyId, int id)

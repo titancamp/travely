@@ -18,7 +18,8 @@ namespace PaymentManager.Services
         Task CreateRange(int agencyId, List<PayableCreate> models);
         Task<PayableRead> Update(int agencyId, int id, PayableUpdate model);
         Task UpdateSupplier(int agencyId, int id, PayableSupplierUpdate model);
-        Task UpdatePayablesTourStatus(int tourId, int tourStatus);
+        Task UpdatePayablesTourStatus(int agencyId, int tourId, int tourStatus);
+        Task DeleteSupplierFromPayable(int agencyId, int tourId, int supplierId);
         Task Remove(int agencyId, int id);
         Task<List<PayableRead>> Find(Expression<Func<PayableEntity, bool>> predicate);
     }
