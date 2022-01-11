@@ -80,7 +80,7 @@ message SupplierUpdate{
 }
 
 message DeleteSupplierModel{
-	int32 Id = 1;
+	int32 AgencyId = 1;
 	int32 TourId = 2;
 	int32 SupplierId = 3;
 }

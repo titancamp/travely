@@ -70,10 +70,10 @@ namespace PaymentManager.Api.Services
 
         public override async Task<PayableReadModel> GetPayableByTourIdAndSupplierId(GetPayableModel request, ServerCallContext context)
         {
-            var response = await _payableService.Find(m => m.TourId == request.TourId && m.SupplierId == request.SupplierId);
-            if (response.Count > 1)
+            var response = await _payableService.Find(m => m.AgencyId == request.AgencyId && m.TourId == request.TourId && m.SupplierId == request.SupplierId);
+            if (response.Count != 1)
             {
-                throw new Exception();
+                throw new Exception(); //need to clarify how we manage exceptions.
             }
 
             return _mapper.Map<PayableReadModel>(response[0]);
@@ -81,7 +81,14 @@ namespace PaymentManager.Api.Services
 
         public override async Task<PayableResponse> UpdateTourStatus(UpdateTourStatusModel request, ServerCallContext context)
         {
-            await _payableService.UpdatePayablesTourStatus(request.TourId, request.TourStatus);
+            await _payableService.UpdatePayablesTourStatus(request.AgencyId, request.TourId, request.TourStatus);
+
+            return new PayableResponse();
+        }
+
+        public override async Task<PayableResponse> DeleteSupplierFromPayable(DeleteSupplierModel request, ServerCallContext context)
+        {
+            await _payableService.DeleteSupplierFromPayable(request.AgencyId, request.TourId, request.SupplierId);
 
             return new PayableResponse();
         }

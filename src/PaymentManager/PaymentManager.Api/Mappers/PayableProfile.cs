@@ -18,7 +18,7 @@ namespace PaymentManager.Api.Mappers
             CreateMap<PayableEntity, PayableRead>();
             CreateMap<PayableItem, PayableItemReadDto>();
 
-            CreateMap<PayableCreate, PayableEntity>();
+            CreateMap<PayableCreate, PayableEntity>().ReverseMap();
 
             CreateMap<PayableUpdateDto, PayableUpdate>();
             CreateMap<PayableUpdate, PayableEntity>()
