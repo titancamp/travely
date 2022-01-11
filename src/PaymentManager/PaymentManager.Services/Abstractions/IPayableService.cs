@@ -1,8 +1,10 @@
-﻿using PaymentManager.Services.Models;
+﻿using PaymentManager.Repositories.Entities;
+using PaymentManager.Services.Models;
 using PaymentManager.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +18,8 @@ namespace PaymentManager.Services
         Task CreateRange(int agencyId, List<PayableCreate> models);
         Task<PayableRead> Update(int agencyId, int id, PayableUpdate model);
         Task UpdateSupplier(int agencyId, int id, PayableSupplierUpdate model);
+        Task UpdatePayablesTourStatus(int tourId, int tourStatus);
         Task Remove(int agencyId, int id);
-        Task<List<PayableRead>> Find(int agencyId, int tourId);
+        Task<List<PayableRead>> Find(Expression<Func<PayableEntity, bool>> predicate);
     }
 }

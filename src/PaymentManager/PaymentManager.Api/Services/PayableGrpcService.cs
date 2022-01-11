@@ -2,6 +2,7 @@
 using Grpc.Core;
 using PaymentManager.Services;
 using PaymentManager.Services.Models;
+using PaymentManager.Shared;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -35,13 +36,13 @@ namespace PaymentManager.Api.Services
             }
         }
 
-        public override async Task<UpdateSuplierResponse> UpdatePaymentSupplier(SupplierUpdate request, ServerCallContext context)
+        public override async Task<PayableResponse> UpdatePaymentSupplier(SupplierUpdate request, ServerCallContext context)
         {
             var updateModel = _mapper.Map<PayableSupplierUpdate>(request);
 
             await _payableService.UpdateSupplier(request.AgencyId, request.PayableId, updateModel);
 
-            return new UpdateSuplierResponse();
+            return new PayableResponse();
         }
 
         public override async Task GetPayablesByTourId(TourModel request, IServerStreamWriter<PayablesByTourIdModel> responseStream, ServerCallContext context)
@@ -49,7 +50,7 @@ namespace PaymentManager.Api.Services
             var payables = new List<PayablesByTourIdModel>();
             foreach (var tourId in request.TourIds)
             {
-                var response = _payableService.Find(request.AgencyId, tourId);
+                var response = _payableService.Find(m => m.TourId == tourId && m.AgencyId == request.AgencyId);
                 var responseModel = _mapper.Map<List<PayableReadModel>>(response);
                 var payablesByTour = new PayablesByTourIdModel() { TourId = tourId};
                 payablesByTour.Payables.AddRange(responseModel);
@@ -65,6 +66,24 @@ namespace PaymentManager.Api.Services
             {
                 await responseStream.WriteAsync(payable);
             }
+        }
+
+        public override async Task<PayableReadModel> GetPayableByTourIdAndSupplierId(GetPayableModel request, ServerCallContext context)
+        {
+            var response = await _payableService.Find(m => m.TourId == request.TourId && m.SupplierId == request.SupplierId);
+            if (response.Count > 1)
+            {
+                throw new Exception();
+            }
+
+            return _mapper.Map<PayableReadModel>(response[0]);
+        }
+
+        public override async Task<PayableResponse> UpdateTourStatus(UpdateTourStatusModel request, ServerCallContext context)
+        {
+            await _payableService.UpdatePayablesTourStatus(request.TourId, request.TourStatus);
+
+            return new PayableResponse();
         }
     }
 }
