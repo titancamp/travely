@@ -18,6 +18,7 @@ namespace Travely.Gateway
                 .ConfigureWebHostDefaults(webBuilder =>
                     webBuilder.ConfigureAppConfiguration((context, config) => config.AddJsonFile("ocelot.json")
                                                                                     .AddJsonFile("ocelot.SwaggerEndPoints.json")
+                                                                                    .AddJsonFile($"ocelot.SwaggerEndPoints.{context.HostingEnvironment.EnvironmentName}.json")
                                                                                     .AddEnvironmentVariables())
                 .UseStartup<Startup>());
     }
