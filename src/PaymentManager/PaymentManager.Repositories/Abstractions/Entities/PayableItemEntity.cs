@@ -10,23 +10,12 @@ namespace PaymentManager.Repositories.Entities
 {
     public class PayableItemEntity
     {
-        [Key, Required]
         public int Id { get; set; }
-
-        [Required]
         public PayableEntity Payable { get; set; }
-
         public string InvoiceId { get; set; }
-
-        [Required]
         public decimal PaidAmount { get; set; }
-
-        [Required]
         public DateTime PaymentDate { get; set; }
-
-        [Required]
         public PaymentType PaymentType { get; set; }
-
         public Guid? AttachmentId { get; set; }
     }
 }

@@ -14,26 +14,27 @@ namespace PaymentManager.Repositories
 {
     public class PayableRepository : IPaymentRepository<PayableEntity>
     {
-        protected readonly PaymentDbContext _context;
+        private readonly PaymentDbContext _context;
 
         public PayableRepository(PaymentDbContext context)
         {
             _context = context;
         }
 
-        public Task<PayableEntity> GetById(int agencyId, int id)
+        public Task<PayableEntity> GetByIdAsync(int agencyId, int id)
         {
-            // TODO: need to use agencyId
-            var query = _context.Payables.AsQueryable()
+            var query = _context.Payables
+                .Where(e => e.AgencyId == agencyId)
                 .Include(e => e.PayableItems)
                 .AsNoTracking();
 
-            return query.FirstOrDefaultAsync(payable => payable.Id == id);
+            return query.FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<IQueryable<PayableEntity>> GetAll(int agencyId, bool includeItems)
+        public IQueryable<PayableEntity> GetAll(int agencyId, bool includeItems)
         {
-            var query = _context.Payables.Where(e => e.AgencyId == agencyId);
+            var query = _context.Payables
+                .Where(e => e.AgencyId == agencyId);
 
             if (includeItems)
             { 
@@ -45,7 +46,7 @@ namespace PaymentManager.Repositories
             return query;
         }
 
-        public async Task<IQueryable<PayableEntity>> Find(Expression<Func<PayableEntity, bool>> predicate)
+        public IQueryable<PayableEntity> Find(Expression<Func<PayableEntity, bool>> predicate)
         {
             var query = _context.Payables
                 .Where(predicate)
@@ -54,7 +55,7 @@ namespace PaymentManager.Repositories
             return query;
         }
 
-        public async Task<PayableEntity> SingleOrDefault(Expression<Func<PayableEntity, bool>> predicate)
+        public PayableEntity SingleOrDefault(Expression<Func<PayableEntity, bool>> predicate)
         {
             var entity = _context.Payables
                 .AsNoTracking()
@@ -63,7 +64,7 @@ namespace PaymentManager.Repositories
             return entity;
         }
 
-        public async Task<PayableEntity> Add(PayableEntity entity)
+        public async Task<PayableEntity> AddAsync(PayableEntity entity)
         {
             var entityEntry = _context.Payables.Add(entity);
 
@@ -72,14 +73,14 @@ namespace PaymentManager.Repositories
             return entityEntry.Entity;
         }
 
-        public Task AddRange(List<PayableEntity> entities)
+        public Task AddRangeAsync(List<PayableEntity> entities)
         {
             _context.Payables.AddRange(entities);
 
             return _context.SaveChangesAsync();
         }
 
-        public async Task<PayableEntity> Update(PayableEntity entity)
+        public async Task<PayableEntity> UpdateAsync(PayableEntity entity)
         {
             foreach (var item in entity.PayableItems)
             {
@@ -101,37 +102,12 @@ namespace PaymentManager.Repositories
             var updated = _context.Payables.Update(entity);
             await _context.SaveChangesAsync();
 
-            return await GetById(entity.AgencyId, entity.Id);
+            return await GetByIdAsync(entity.AgencyId, entity.Id);
         }
 
-        public Task Remove(PayableEntity entity)
+        public Task UpdateRange(List<PayableEntity> entities)
         {
-            if (entity.PaidAmount > 0)
-            {
-                // Revisit
-                entity.Status = PaymentStatus.Canceled;
-                _context.Payables.Update(entity);
-            }
-            else
-            {
-                _context.Payables.Remove(entity);
-            }
-
-            return _context.SaveChangesAsync();
-        }
-
-        public Task RemoveRange(List<PayableEntity> entities)
-        {
-            var toRemove = entities.Where(e => e.PaidAmount == 0);
-            _context.Payables.RemoveRange(toRemove);
-
-            var toUpdate = entities.Where(e => e.PaidAmount > 0);
-            foreach (var entity in toUpdate)
-            {
-                // Revisit
-                entity.Status = PaymentStatus.Canceled;
-            }
-            _context.Payables.UpdateRange(toUpdate);
+            _context.Payables.UpdateRange(entities);
 
             return _context.SaveChangesAsync();
         }

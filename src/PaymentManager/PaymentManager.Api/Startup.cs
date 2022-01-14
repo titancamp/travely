@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PaymentManager.Extensions.DependencyInjection;
 using PaymentManager.Repositories;
 using PaymentManager.Repositories.DbContexts;
 using PaymentManager.Services;
@@ -21,6 +22,13 @@ using Travely.Shared.IdentityClient.Authorization.Config;
 using PaymentManager.Repositories.Entities;
 using PaymentManager.Services.Helpers;
 using Travely.Common.Extensions;
+using Travely.Common.Grpc;
+using PaymentManager.Api.Services;
+using PaymentManager.Grpc.Clients.Implementation;
+using PaymentManager.Grpc.Clients.Abstraction;
+using Travely.Common.Grpc.Abstraction;
+using PaymentManager.Grpc.Settings;
+using Travely.PaymentManager.Grpc;
 
 namespace PaymentManager.Api
 {
@@ -42,14 +50,7 @@ namespace PaymentManager.Api
             services.AddControllers();
             services.AddSqlServer<PaymentDbContext>(Configuration.GetConnectionString("PaymentDbContext"),
                 "PaymentManager.Repositories");
-            services.AddScoped<IPaymentRepository<PayableEntity>, PayableRepository>();
-            services.AddScoped<IPaymentRepository<ReceivableEntity>, ReceivableRepository>();
-            services.AddScoped<IPayableService, PayableService>();
-            services.AddScoped<IReceivableService, ReceivableService>();
-            services.AddSingleton<ISortHelper<PayableEntity>, SortHelper<PayableEntity>>();
-            services.AddSingleton<ISortHelper<ReceivableEntity>, SortHelper<ReceivableEntity>>();
-            services.AddSingleton<ISearchHelper<PayableEntity>, PayableSearchHelper>();
-            services.AddSingleton<ISearchHelper<ReceivableEntity>, ReceivableSearchHelper>();
+            services.AddPaymentServices();
             services.AddApiVersioning(config =>
             {
                 config.DefaultApiVersion = new ApiVersion(1, 0);
@@ -61,6 +62,9 @@ namespace PaymentManager.Api
             });
             services.AddConsul(Configuration, Environment);
             services.AddTravelyAuthentication(Configuration, Environment);
+            services.AddGrpc();
+            services.AddScoped<IPaymentManagerClient, PaymentManagerClient>();
+            services.Configure<GrpcSettings<PaymentProto.PaymentProtoClient>>(Configuration.GetSection("PayableGrpcService"));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
@@ -85,6 +89,7 @@ namespace PaymentManager.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<PayableGrpcService>();
             });
         }
     }

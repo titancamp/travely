@@ -12,11 +12,8 @@ namespace PaymentManager.Repositories.DbContexts
     {
         public DbSet<PayableEntity> Payables;
         public DbSet<PayableItemEntity> PayableItems { get; set; }
-
         public DbSet<ReceivableEntity> Receivables;
         public DbSet<ReceivableItemEntity> ReceivableItems { get; set; }
-        
-        //public DbSet<AttachmentEntity> Attachments { get; set; }
 
         public PaymentDbContext(DbContextOptions<PaymentDbContext> options)
             : base(options)
@@ -25,14 +22,12 @@ namespace PaymentManager.Repositories.DbContexts
             PayableItems = Set<PayableItemEntity>();
             Receivables = Set<ReceivableEntity>();
             ReceivableItems = Set<ReceivableItemEntity>();
-            //Attachments = Set<AttachmentEntity>();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            //builder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(GetType()));
             builder.ApplyConfiguration(new PayableConfiguration());
             builder.ApplyConfiguration(new PayableItemConfiguration());
             builder.ApplyConfiguration(new ReceivableConfiguration());

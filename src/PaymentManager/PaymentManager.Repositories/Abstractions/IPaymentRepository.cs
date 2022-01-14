@@ -10,14 +10,13 @@ namespace PaymentManager.Repositories
 {
     public interface IPaymentRepository<TEntity>
     {
-        Task<TEntity> GetById(int agencyId, int id);
-        Task<IQueryable<TEntity>> GetAll(int agencyId, bool includeItems);
-        Task<IQueryable<TEntity>> Find(Expression<Func<TEntity, bool>> predicate);
-        Task<TEntity> SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
-        Task<TEntity> Add(TEntity entity);
-        Task AddRange(List<TEntity> entities);
-        Task<TEntity> Update(TEntity entity);
-        Task Remove(TEntity entity);
-        Task RemoveRange(List<TEntity> entities);
+        Task<TEntity> GetByIdAsync(int agencyId, int id);
+        IQueryable<TEntity> GetAll(int agencyId, bool includeItems);
+        IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+        TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
+        Task<TEntity> AddAsync(TEntity entity);
+        Task AddRangeAsync(List<TEntity> entities);
+        Task<TEntity> UpdateAsync(TEntity entity);
+        Task UpdateRange(List<PayableEntity> entities);
     }
 }

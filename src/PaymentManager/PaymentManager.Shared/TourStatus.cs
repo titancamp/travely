@@ -9,11 +9,10 @@ namespace PaymentManager.Shared
     public enum TourStatus
     {
         Requested = 1,
-        Pending,
-        ProposalSent,
-        ProposalApproved,
-        Ready,
-        Canceled,
-        Deleted
+        Pending = 2,
+        ProposalSent = 3,
+        ProposalApproved = 4,
+        Ready = 5,
+        Canceled = 6
     }
 }

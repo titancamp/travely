@@ -9,9 +9,9 @@ namespace PaymentManager.Shared
     public enum PaymentStatus
     {
         PartiallyPaid = 1,
-        FullyPaid,
-        Overdue,
-        Canceled,
-        Unpaid
+        FullyPaid = 2,
+        Overdue = 3,
+        Canceled = 4,
+        Unpaid = 5
     }
 }

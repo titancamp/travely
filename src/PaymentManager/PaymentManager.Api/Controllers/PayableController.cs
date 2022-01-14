@@ -18,25 +18,23 @@ using Travely.Shared.IdentityClient.Authorization.Common;
 namespace PaymentManager.Api.Controllers
 {
     [ApiVersion("1.0")]
-    //[Authorize(Roles = UserRoles.User)]
+    [Authorize(Roles = UserRoles.User)]
     public class PayableController : TravelyControllerBase
     {
-        protected readonly IPayableService _service;
-        protected readonly IMapper _mapper;
-        private readonly IWebHostEnvironment _environment;
+        private readonly IPayableService _service;
+        private readonly IMapper _mapper;
 
-        public PayableController(IPayableService service, IMapper mapper, IWebHostEnvironment environment)
+        public PayableController(IPayableService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
-            _environment = environment;
         }
 
-        // GET: api/v1/payment
+        // GET: api/v1/payable
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] PaymentQueryParametersDto parameters)
+        public IActionResult Get([FromQuery] PaymentQueryParametersDto parameters)
         {
-            var data = await _service.Get(UserInfo.AgencyId, _mapper.Map<PaymentQueryParameters>(parameters));
+            var data = _service.Get(UserInfo.AgencyId, _mapper.Map<PaymentQueryParameters>(parameters));
 
             if (data == null)
                 return NotFound();
@@ -44,11 +42,11 @@ namespace PaymentManager.Api.Controllers
             return Ok(_mapper.Map<PayablePageDto>(data));
         }
 
-        // GET: api/v1/payment/{id}
+        // GET: api/v1/payable/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var data = await _service.Get(UserInfo.AgencyId, id);
+            var data = await _service.GetAsync(UserInfo.AgencyId, id);
 
             if (data == null)
                 return NotFound();
@@ -59,50 +57,12 @@ namespace PaymentManager.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] PayableUpdateDto request)
         {
-            var model = _mapper.Map<PayableUpdate>(request);
-            var data = await _service.Update(UserInfo.AgencyId, id, model);
+            var data = await _service.UpdateAsync(UserInfo.AgencyId, id, _mapper.Map<PayableUpdate>(request));
 
             if (data == null)
                 return BadRequest();
 
             return Ok(_mapper.Map<PayableReadDetailedDto>(data));
         }
-
-        #region MockData
-
-        private string JsonMockFileName
-        {
-            get => Path.Combine(_environment.ContentRootPath, "MockData", "PayableMockData.json");
-            set => _ = value;
-        }
-
-        /// <summary>
-        /// This API is created for mocking only, make sure to call it once :)
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task Post()
-        {
-            await loadMockData();
-        }
-
-        private async Task loadMockData()
-        {
-            if (!System.IO.File.Exists(JsonMockFileName))
-            {
-                return;
-            }
-            using (var jsonFileReader = System.IO.File.OpenText(JsonMockFileName))
-            {
-                var Payables = JsonSerializer.Deserialize<List<PayableCreate>>(jsonFileReader.ReadToEnd(),
-                    new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    });
-                await _service.CreateRange(UserInfo.AgencyId, Payables);
-            }
-        }
-
-        #endregion
     }
 }

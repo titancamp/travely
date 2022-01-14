@@ -32,9 +32,9 @@ namespace PaymentManager.Services
             _searchHelper = searchHelper;
         }
 
-        public async Task<ReceivablePage> Get(int agencyId, PaymentQueryParameters parameters)
+        public ReceivablePage Get(int agencyId, PaymentQueryParameters parameters)
         {
-            var query = await _repository.GetAll(agencyId, false);
+            var query = _repository.GetAll(agencyId, false);
 
             query = _sortHelper.ApplySort(query, parameters.OrderBy);
 
@@ -43,24 +43,24 @@ namespace PaymentManager.Services
             return ReceivablePage.GetReceivablePage(query, _mapper, parameters.Index, parameters.Size);
         }
 
-        public async Task<ReceivableRead> Get(int agencyId, int id)
+        public async Task<ReceivableRead> GetAsync(int agencyId, int id)
         {
-            var data = await _repository.GetById(agencyId, id);
+            var data = await _repository.GetByIdAsync(agencyId, id);
 
             return _mapper.Map<ReceivableRead>(data);
         }
 
-        public async Task<ReceivableRead> Create(int agencyId, ReceivableCreate model)
+        public async Task<ReceivableRead> CreateAsync(int agencyId, ReceivableCreate model)
         {
             var entity = _mapper.Map<ReceivableEntity>(model);
             entity.AgencyId = agencyId;
 
-            var newModel = await _repository.Add(entity);
+            var newModel = await _repository.AddAsync(entity);
 
             return _mapper.Map<ReceivableRead>(newModel);
         }
 
-        public async Task CreateRange(int agencyId, List<ReceivableCreate> models)
+        public async Task CreateRangeAsync(int agencyId, List<ReceivableCreate> models)
         {
             var entities = _mapper.Map<List<ReceivableEntity>>(models);
             foreach (var entity in entities)
@@ -68,22 +68,15 @@ namespace PaymentManager.Services
                 entity.AgencyId = agencyId;
             }
 
-            await _repository.AddRange(entities);
+            await _repository.AddRangeAsync(entities);
         }
 
-        public async Task<ReceivableRead> Update(int agencyId, int id, ReceivableUpdate model)
+        public async Task<ReceivableRead> UpdateAsync(int agencyId, int id, ReceivableUpdate model)
         {
-            var entity = await _repository.GetById(agencyId, id);
+            var entity = await _repository.GetByIdAsync(agencyId, id);
             _mapper.Map<ReceivableUpdate, ReceivableEntity>(model, entity);
-            //entity.AgencyId = agencyId;
-            var updatedEntity = await _repository.Update(entity);
+            var updatedEntity = await _repository.UpdateAsync(entity);
             return _mapper.Map<ReceivableRead>(updatedEntity);
-        }
-
-        public async Task Remove(int agencyId, int id)
-        {
-            var entity = await _repository.GetById(agencyId, id);
-            await _repository.Remove(entity);
         }
     }
 }

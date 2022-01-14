@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PaymentManager.Shared;
 using PaymentManager.Services.Helpers;
+using System.Linq.Expressions;
 
 namespace PaymentManager.Services
 {
@@ -32,9 +33,9 @@ namespace PaymentManager.Services
             _searchHelper = searchHelper;
         }
 
-        public async Task<PayablePage> Get(int agencyId, PaymentQueryParameters parameters)
+        public PayablePage Get(int agencyId, PaymentQueryParameters parameters)
         {
-            var query = await _repository.GetAll(agencyId, false);
+            var query = _repository.GetAll(agencyId, false);
 
             query = _sortHelper.ApplySort(query, parameters.OrderBy);
 
@@ -43,24 +44,24 @@ namespace PaymentManager.Services
             return PayablePage.GetPayablePage(query, _mapper, parameters.Index, parameters.Size);
         }
 
-        public async Task<PayableRead> Get(int agencyId, int id)
+        public async Task<PayableRead> GetAsync(int agencyId, int id)
         {
-            var data = await _repository.GetById(agencyId, id);
+            var data = await _repository.GetByIdAsync(agencyId, id);
 
             return _mapper.Map<PayableRead>(data);
         }
 
-        public async Task<PayableRead> Create(int agencyId, PayableCreate model)
+        public async Task<PayableRead> CreateAsync(int agencyId, PayableCreate model)
         {
             var entity = _mapper.Map<PayableEntity>(model);
             entity.AgencyId = agencyId;
 
-            var newModel = await _repository.Add(entity);
+            var newModel = await _repository.AddAsync(entity);
 
             return _mapper.Map<PayableRead>(newModel);
         }
 
-        public async Task CreateRange(int agencyId, List<PayableCreate> models)
+        public async Task CreateRangeAsync(int agencyId, List<PayableCreate> models)
         {
             var entities = _mapper.Map<List<PayableEntity>>(models);
             foreach (var entity in entities)
@@ -68,22 +69,64 @@ namespace PaymentManager.Services
                 entity.AgencyId = agencyId;
             }
 
-            await _repository.AddRange(entities);
+            await _repository.AddRangeAsync(entities);
         }
 
-        public async Task<PayableRead> Update(int agencyId, int id, PayableUpdate model)
+        public async Task<PayableRead> UpdateAsync(int agencyId, int id, PayableUpdate model)
         {
-            var entity = await _repository.GetById(agencyId, id);
+            var entity = await _repository.GetByIdAsync(agencyId, id);
             _mapper.Map<PayableUpdate, PayableEntity>(model, entity);
-            //entity.AgencyId = agencyId;
-            var updatedEntity = await _repository.Update(entity);
+            var updatedEntity = await _repository.UpdateAsync(entity);
             return _mapper.Map<PayableRead>(updatedEntity);
+        }
+
+        public async Task UpdateSupplier(int agencyId, int id, PayableSupplierUpdate model)
+        {
+            var entityQuery = await _repository.Find(m => m.AgencyId == agencyId && m.SupplierId == model.SupplierId);
+            var payables = entityQuery.ToList();
+
+            foreach (var payable in entityQuery)
+            {
+                payable.SupplierName = model.SupplierName;
+            }
+
+            await _repository.UpdateRange(payables);
+        }
+
+        public async Task UpdatePayablesTourStatus(int agencyId, int tourId, int tourStatus)
+        {
+            var payables = await _repository.Find(m => m.AgencyId == agencyId && m.TourId == tourId);
+            var model = payables.ToList();
+            foreach (var payable in model)
+            {
+                payable.TourStatus = (TourStatus)tourStatus;
+            }
+
+            await _repository.UpdateRange(model);
+        }
+
+        public async Task DeleteSupplierFromPayable(int agencyId, int tourId, int supplierId)
+        {
+            var payables = await this.Find(m => m.AgencyId == agencyId && m.TourId == tourId && m.SupplierId == supplierId);
+            if (payables.Count != 1)
+            {
+                throw new Exception(); //????
+            }
+
+            await this.Remove(agencyId, payables[0].Id);
         }
 
         public async Task Remove(int agencyId, int id)
         {
             var entity = await _repository.GetById(agencyId, id);
             await _repository.Remove(entity);
+        }
+
+        public async Task<List<PayableRead>> Find(Expression<Func<PayableEntity, bool>> predicate)
+        {
+            var payables = await _repository.Find(predicate);
+
+            return _mapper.Map<List<PayableRead>>(payables);
         }
     }
 }
