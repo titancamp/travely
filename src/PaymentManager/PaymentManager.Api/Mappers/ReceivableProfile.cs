@@ -5,6 +5,11 @@ using PaymentManager.Services.Models;
 using PaymentManager.Shared;
 using System;
 using System.Linq;
+using Travely.PaymentManager.Grpc;
+using PaymentStatus = PaymentManager.Shared.PaymentStatus;
+using PaymentType = PaymentManager.Shared.PaymentType;
+using ReceivableItem = PaymentManager.Services.Models.ReceivableItem;
+using TourStatus = PaymentManager.Shared.TourStatus;
 
 namespace PaymentManager.Api.Mappers
 {
@@ -70,6 +75,8 @@ namespace PaymentManager.Api.Mappers
 
             CreateMap<PaymentQueryParametersDto, PaymentQueryParameters>();
             CreateMap<ReceivablePage, ReceivablePageDto>();
+            CreateMap<CreateReceivableModel, ReceivableCreate>();
+            CreateMap<ReceivableRead, ReceivableReadModel>();
         }
     }
 }

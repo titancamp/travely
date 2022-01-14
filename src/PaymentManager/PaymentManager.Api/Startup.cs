@@ -22,6 +22,9 @@ using Travely.Shared.IdentityClient.Authorization.Config;
 using PaymentManager.Repositories.Entities;
 using PaymentManager.Services.Helpers;
 using Travely.Common.Extensions;
+using PaymentManager.Api.Services;
+using Travely.Common.Grpc;
+using Travely.PaymentManager.Grpc;
 
 namespace PaymentManager.Api
 {
@@ -44,6 +47,7 @@ namespace PaymentManager.Api
             services.AddSqlServer<PaymentDbContext>(Configuration.GetConnectionString("PaymentDbContext"),
                 "PaymentManager.Repositories");
             services.AddPaymentServices();
+            services.AddPaymentGrpcServices(Configuration);
             services.AddApiVersioning(config =>
             {
                 config.DefaultApiVersion = new ApiVersion(1, 0);
@@ -73,12 +77,14 @@ namespace PaymentManager.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+                
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<PayableGrpcService>();
+                endpoints.MapGrpcService<PayableGrpcService>();
             });
         }
     }

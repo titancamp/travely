@@ -1,0 +1,62 @@
+﻿syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto"; 
+import "paymentBase.proto";
+
+option csharp_namespace = "Travely.PaymentManager.Grpc";
+
+service ReceivableProto{
+	rpc CreateReceivable(CreateReceivableModel) returns (ReseivableResponseModel);
+	rpc GetReceivablesByAgencyId(Agency) returns (stream ReceivableReadModel);
+	rpc GetReceivableTourId(TourReceivable) returns (ReceivableReadModel);
+}
+
+message CreateReceivableModel{
+	int32 AgencyId = 1;
+	int32 TourId = 2;
+	string TourName = 3;
+	TourStatus TourStatus = 4;
+	int32 PartnerId = 5;
+	string PartnerName = 6;
+	double TotalAmount = 7;
+	string Currency = 8;
+	double Rate = 9;
+}
+
+message ReceivableReadModel{
+	int32 Id = 1;
+	int32 TourId = 2;
+	string TourName = 3;
+	int32 PartnerId = 4;
+	string PartnerName = 5;
+	double TotalAmount = 6;
+	double PaidAmount = 7;
+	double Remaining = 8;
+	string Currency = 9;
+	double Rate = 10; 
+	google.protobuf.Timestamp CreatedAt = 11; 
+	google.protobuf.Timestamp DueDate = 12; 
+	TourStatus TourStatus = 13; 
+	PaymentStatus PaymentStatus = 14; 
+	repeated ReceivableItem ReceivableItems = 15;
+	string Note = 16;
+}
+
+message ReceivableItem{
+	int32 Id = 1;
+	int32 InvoiceId = 2;
+	double PaidAmount = 3;
+	google.protobuf.Timestamp PaymentDate = 4;
+	PaymentType PaymentType = 5;
+	bool InvoiceSent = 6;
+}
+
+message TourReceivable{
+	int32 AgencyId = 1;
+	int32 TourId = 2;
+}
+
+message ReseivableResponseModel{
+
+}
