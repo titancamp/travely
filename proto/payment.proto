@@ -1,0 +1,99 @@
+﻿syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto"; 
+import "paymentBase.proto";
+
+option csharp_namespace = "Travely.PaymentManager.Grpc";
+
+
+service PaymentProto{
+	rpc CreatePayment (stream PayableCreateModel) returns (stream CreatePaymentResponse);
+	rpc UpdatePaymentSupplier(SupplierUpdate) returns (PayableResponse);
+	rpc GetPayablesByTourId (TourModel) returns (stream PayablesByTourIdModel);
+	rpc GetPayablesByAgencyId (Agency) returns (stream PayableReadModel);
+	rpc UpdateTourStatus (UpdateTourStatusModel) returns (PayableResponse);
+	rpc DeleteSupplierFromPayable (DeleteSupplierModel) returns (PayableResponse);
+	rpc GetPayableByTourIdAndSupplierId (GetPayableModel) returns (PayableReadModel);
+}
+
+message PayablesByTourIdModel{
+	int32 TourId = 1;
+	repeated PayableReadModel Payables = 2;
+}
+
+message GetPayableModel {
+	int32 AgencyId = 1;
+	int32 SupplierId = 2;
+	int32 TourId = 3;
+}
+
+message PayableReadModel{
+	int32 Id = 1;
+	int32 TourId = 2;
+	string TourName = 3;
+	int32 TourStatus = 4;
+	int32 SupplierId = 5;
+	string SupplierName = 6;
+	double PlannedCost = 7;
+	double ActualCost = 8;
+	double Difference = 9;
+	double Paid = 10;
+	double Remaining = 11;
+	string Currency = 12;
+	google.protobuf.Timestamp CreatedAt = 13;
+	google.protobuf.Timestamp DueDate = 14;
+	int32 paymentStatus = 15;
+	repeated PayableItems PayableItems = 16;
+	string Note = 17;
+}
+
+message PayableCreateModel{
+	int32 AgencyId = 1;
+	int32 TourId = 2;
+    string TourName = 3;
+    int32 TourStatus = 4;
+    int32 SupplierId = 5;
+    string SupplierName = 6;
+    double PlannedCost = 7;
+    string Currency = 8;
+}
+
+message UpdateTourStatusModel{
+	int32 AgencyId = 1;
+	int32 TourId = 2;
+	int32 TourStatus = 3;
+}
+
+message PayableItems{
+	int32 Id = 1;
+	int32 InvoiceId = 2;
+	double PaidAmount = 3;
+	google.protobuf.Timestamp PaymentDate = 4;
+	int32 PaymentType = 5;
+}
+
+message SupplierUpdate{
+	int32 AgencyId = 1;
+	int32 PayableId = 2;
+	int32 SupplierId = 3;
+	string SupplierName = 4;
+}
+
+message DeleteSupplierModel{
+	int32 AgencyId = 1;
+	int32 TourId = 2;
+	int32 SupplierId = 3;
+}
+
+message CreatePaymentResponse {
+	int32 Id = 1;
+}
+
+message PayableResponse {
+}
+
+message TourModel {
+	int32 AgencyId = 1;
+	repeated int32 TourIds = 2;
+}

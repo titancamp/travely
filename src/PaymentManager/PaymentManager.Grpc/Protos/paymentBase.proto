@@ -1,0 +1,34 @@
+﻿syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "Travely.PaymentManager.Grpc";
+
+message Agency{
+	int32 AgencyId = 1;
+	int32 Size = 2;
+	int32 Page = 3;
+}
+
+enum PaymentType {
+	PAYMENTTYPE_CASH = 0;
+    PAYMENTTYPE_TRANSFER = 1;
+}
+
+enum TourStatus{
+    TOURSTATUS_REQUESTED = 0;
+    TOURSTATUS_PENDING = 1;
+    TOURSTATUS_PROPOSALSENT = 2;
+    TOURSTATUS_PROPOSALAPPROVED = 3;
+    TOURSTATUS_READY = 4;
+    TOURSTATUS_CANCELED = 5;
+    TOURSTATUS_DELETED = 6;
+}
+
+enum PaymentStatus{
+    PAYMENTSTATUS_PARTIALLYPAID = 0;
+    PAYMENTSTATUS_FULLYPAID = 1;
+    PAYMENTSTATUS_OVERDUE = 2;
+    PAYMENTSTATUS_CANCELED = 3;
+    PAYMENTSTATUS_UNPAID = 4;
+}

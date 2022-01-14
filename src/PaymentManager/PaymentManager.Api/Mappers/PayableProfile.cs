@@ -5,6 +5,10 @@ using PaymentManager.Services.Models;
 using PaymentManager.Shared;
 using System;
 using System.Linq;
+using Travely.PaymentManager.Grpc;
+using PaymentStatus = PaymentManager.Shared.PaymentStatus;
+using PaymentType = PaymentManager.Shared.PaymentType;
+using TourStatus = PaymentManager.Shared.TourStatus;
 
 namespace PaymentManager.Api.Mappers
 {
@@ -14,7 +18,7 @@ namespace PaymentManager.Api.Mappers
         {
             CreateMap<PayableRead, PayableReadDto>();
             CreateMap<PayableRead, PayableReadDetailedDto>();
-            CreateMap<PayableEntity, PayableRead>();
+            CreateMap<PayableEntity, PayableRead>().ReverseMap();
             CreateMap<PayableItem, PayableItemReadDto>();
 
             CreateMap<PayableCreate, PayableEntity>();
@@ -70,6 +74,10 @@ namespace PaymentManager.Api.Mappers
 
             CreateMap<PaymentQueryParametersDto, PaymentQueryParameters>();
             CreateMap<PayablePage, PayablePageDto>();
+            CreateMap<SupplierUpdate, PayableSupplierUpdate>();
+            CreateMap<PayableCreateModel, PayableCreate>();
+            CreateMap<PayableRead, PayableReadModel>();
+            CreateMap<PayablesByTourId, PayablesByTourIdModel>();
         }
     }
 }

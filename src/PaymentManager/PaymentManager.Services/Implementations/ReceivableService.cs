@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PaymentManager.Shared;
 using PaymentManager.Services.Helpers;
+using System.Linq.Expressions;
 
 namespace PaymentManager.Services
 {
@@ -77,6 +78,13 @@ namespace PaymentManager.Services
             _mapper.Map<ReceivableUpdate, ReceivableEntity>(model, entity);
             var updatedEntity = await _repository.UpdateAsync(entity);
             return _mapper.Map<ReceivableRead>(updatedEntity);
+        }
+
+        public async Task<List<ReceivableRead>> Find(Expression<Func<ReceivableEntity, bool>> predicate)
+        {
+            var payables = _repository.Find(predicate);
+
+            return _mapper.Map<List<ReceivableRead>>(payables);
         }
     }
 }
