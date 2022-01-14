@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PaymentManager.Shared;
 using PaymentManager.Services.Helpers;
+using System.Linq.Expressions;
 
 namespace PaymentManager.Services
 {
@@ -77,6 +78,55 @@ namespace PaymentManager.Services
             _mapper.Map<PayableUpdate, PayableEntity>(model, entity);
             var updatedEntity = await _repository.UpdateAsync(entity);
             return _mapper.Map<PayableRead>(updatedEntity);
+        }
+
+        public async Task UpdateSupplier(int agencyId, int id, PayableSupplierUpdate model)
+        {
+            var entityQuery = await _repository.Find(m => m.AgencyId == agencyId && m.SupplierId == model.SupplierId);
+            var payables = entityQuery.ToList();
+
+            foreach (var payable in entityQuery)
+            {
+                payable.SupplierName = model.SupplierName;
+            }
+
+            await _repository.UpdateRange(payables);
+        }
+
+        public async Task UpdatePayablesTourStatus(int agencyId, int tourId, int tourStatus)
+        {
+            var payables = await _repository.Find(m => m.AgencyId == agencyId && m.TourId == tourId);
+            var model = payables.ToList();
+            foreach (var payable in model)
+            {
+                payable.TourStatus = (TourStatus)tourStatus;
+            }
+
+            await _repository.UpdateRange(model);
+        }
+
+        public async Task DeleteSupplierFromPayable(int agencyId, int tourId, int supplierId)
+        {
+            var payables = await this.Find(m => m.AgencyId == agencyId && m.TourId == tourId && m.SupplierId == supplierId);
+            if (payables.Count != 1)
+            {
+                throw new Exception(); //????
+            }
+
+            await this.Remove(agencyId, payables[0].Id);
+        }
+
+        public async Task Remove(int agencyId, int id)
+        {
+            var entity = await _repository.GetById(agencyId, id);
+            await _repository.Remove(entity);
+        }
+
+        public async Task<List<PayableRead>> Find(Expression<Func<PayableEntity, bool>> predicate)
+        {
+            var payables = await _repository.Find(predicate);
+
+            return _mapper.Map<List<PayableRead>>(payables);
         }
     }
 }

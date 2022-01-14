@@ -22,6 +22,13 @@ using Travely.Shared.IdentityClient.Authorization.Config;
 using PaymentManager.Repositories.Entities;
 using PaymentManager.Services.Helpers;
 using Travely.Common.Extensions;
+using Travely.Common.Grpc;
+using PaymentManager.Api.Services;
+using PaymentManager.Grpc.Clients.Implementation;
+using PaymentManager.Grpc.Clients.Abstraction;
+using Travely.Common.Grpc.Abstraction;
+using PaymentManager.Grpc.Settings;
+using Travely.PaymentManager.Grpc;
 
 namespace PaymentManager.Api
 {
@@ -55,6 +62,9 @@ namespace PaymentManager.Api
             });
             services.AddConsul(Configuration, Environment);
             services.AddTravelyAuthentication(Configuration, Environment);
+            services.AddGrpc();
+            services.AddScoped<IPaymentManagerClient, PaymentManagerClient>();
+            services.Configure<GrpcSettings<PaymentProto.PaymentProtoClient>>(Configuration.GetSection("PayableGrpcService"));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
@@ -79,6 +89,7 @@ namespace PaymentManager.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<PayableGrpcService>();
             });
         }
     }

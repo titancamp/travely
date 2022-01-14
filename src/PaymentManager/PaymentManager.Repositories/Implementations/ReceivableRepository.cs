@@ -104,5 +104,10 @@ namespace PaymentManager.Repositories
 
             return await GetByIdAsync(entity.AgencyId, entity.Id);
         }
+
+        public Task UpdateRange(List<PayableEntity> entities)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

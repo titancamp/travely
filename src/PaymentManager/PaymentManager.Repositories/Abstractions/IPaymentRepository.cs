@@ -17,5 +17,6 @@ namespace PaymentManager.Repositories
         Task<TEntity> AddAsync(TEntity entity);
         Task AddRangeAsync(List<TEntity> entities);
         Task<TEntity> UpdateAsync(TEntity entity);
+        Task UpdateRange(List<PayableEntity> entities);
     }
 }
