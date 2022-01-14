@@ -1,31 +1,40 @@
 using System;
 using System.Collections.Generic;
-using TourEntities.Service.Accommodation.Room;
-using TourEntities.Service.Common.Location;
+using Travely.SupplierManager.Service.Models;
 
 namespace Travely.SupplierManager.API.Requests
 {
     public class AccommodationRequest
     {
-        public string Type { get; set; }
+        public int Type { get; set; }
         public string Name { get; set; }
-        public string Region { get; set; }
-        public string City { get; set; }
-        public string Address { get; set; }
-        public Location Location { get; set; }
         public TimeSpan CheckInTime { get; set; }
         public TimeSpan CheckOutTime { get; set; }
+        public Location Location { get; set; }
+        public Region Region { get; set; }
+        public string City { get; set; }
+        public string Address { get; set; }
+        public ICollection<AccommodationService> Services { get; set; }
+        public string Notes { get; set; }
+
+        public ICollection<Room> Rooms { get; set; }
+
+        public string ContactPerson { get; set; }
         public string ContactNumber { get; set; }
         public string ContactEmail { get; set; }
-        public string ContactPerson { get; set; }
-        public bool AllInclusive { get; set; }
-        public ICollection<Room> Rooms { get; set; }
-        public List<string> Services { get; set; }
-        public List<string> Attachments { get; set; }
+
         public DateTime SignDate { get; set; }
         public DateTime ExpiryDate { get; set; }
-        public string Notes { get; set; }
+        public ICollection<Attachment> Attachments { get; set; }
+        
+        public bool AllInclusive { get; set; }
+        
+        public string CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string LastEditedBy { get; set; }
         public DateTime LastEditedAt { get; set; }
+
+        // “draft”,”ready”,”no price”
+        public string Status { get; set; }
     }
 }

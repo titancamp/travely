@@ -8,13 +8,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using TourEntities.Service.Accommodation;
 using Travely.Common.Extensions;
 using Travely.Common.Grpc;
 using Travely.Common.Grpc.Abstraction;
 using Travely.Common.ServiceDiscovery;
 using Travely.Common.Swagger;
 using Travely.Shared.IdentityClient.Authorization.Config;
+using Travely.SupplierManager.API.Mappers;
+using Travely.SupplierManager.Extensions.DependencyInjection;
 using Travely.SupplierManager.Grpc;
 using Travely.SupplierManager.Grpc.Client.Abstraction;
 using Travely.SupplierManager.Grpc.Client.Implementation;
@@ -24,6 +25,7 @@ using Travely.SupplierManager.Repository.Entities;
 using Travely.SupplierManager.Repository;
 using Travely.SupplierManager.Service;
 using Travely.SupplierManager.Service.Helpers;
+using Travely.SupplierManager.Service.Models;
 
 namespace Travely.SupplierManager.API
 {
@@ -49,13 +51,8 @@ namespace Travely.SupplierManager.API
             services.AddDbContext<SupplierDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SupplierDbContext")));
             
-            // TODO move from here
-            services.AddScoped<ISupplierRepository<AccommodationEntity>, SupplierRepository<AccommodationEntity>>();
-            services.AddScoped<ISupplierService<Accommodation>, SupplierService<Accommodation, AccommodationEntity>>();
-            services.AddScoped<ISupplierManagerClient, SupplierManagerClient>();
-            services.AddSingleton<ISearchHelper<AccommodationEntity>, AccommodationSearchHelper>();
-            
-            services.AddSingleton<ISortHelper<AccommodationEntity>, SortHelper<AccommodationEntity>>();
+            services.AddSupplierServices();
+            services.ConfigureAutoMapper();
             
             services.Configure<GrpcSettings<SupplierProto.SupplierProtoClient>>(
                 Configuration.GetSection("SupplierGrpcService"));
@@ -74,10 +71,8 @@ namespace Travely.SupplierManager.API
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "SupplierManager.Api", Version = "v1"});
             });
             
-            // services.AddTravelyAuthentication(Configuration, Environment);
             services.AddConsul(Configuration, Environment);
             services.AddTravelyAuthentication(Configuration, Environment);
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             // services.AddSwagger("SupplierManager API");
         }
 

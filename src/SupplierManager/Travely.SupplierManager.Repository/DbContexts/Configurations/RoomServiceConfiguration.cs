@@ -8,7 +8,7 @@ namespace Travely.SupplierManager.Repository.DbContexts
     {
         public void Configure(EntityTypeBuilder<RoomServiceEntity> builder)
         {
-            builder.HasKey(a => a.Id);
+            builder.HasOne(e => e.RoomEntity).WithMany(e => e.Services);
         }
     }
 }

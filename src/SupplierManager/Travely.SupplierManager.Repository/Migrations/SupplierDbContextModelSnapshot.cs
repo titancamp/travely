@@ -27,7 +27,8 @@ namespace Travely.SupplierManager.Repository.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int>("AgencyId")
                         .HasColumnType("int");
@@ -42,7 +43,8 @@ namespace Travely.SupplierManager.Repository.Migrations
                         .HasColumnType("time");
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ContactEmail")
                         .HasColumnType("nvarchar(max)");
@@ -51,10 +53,15 @@ namespace Travely.SupplierManager.Repository.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContactPerson")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2");
@@ -62,30 +69,42 @@ namespace Travely.SupplierManager.Repository.Migrations
                     b.Property<DateTime>("LastEditedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("LastEditedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<int?>("LocationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
-                    b.Property<string>("Region")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("SignDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Status")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("TypeId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("LocationId");
+
+                    b.HasIndex("RegionId");
+
+                    b.HasIndex("TypeId");
 
                     b.ToTable("AccommodationEntity");
                 });
@@ -97,7 +116,7 @@ namespace Travely.SupplierManager.Repository.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AccommodationId")
+                    b.Property<int?>("AccommodationEntityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -105,29 +124,452 @@ namespace Travely.SupplierManager.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccommodationId");
+                    b.HasIndex("AccommodationEntityId");
 
                     b.ToTable("AccommodationServiceEntity");
                 });
 
-            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity", b =>
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AccommodationTypeEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AccommodationId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("AttachmentGuid")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccommodationId");
+                    b.ToTable("AccommodationTypeEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.ActivitiesEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AgencyId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(20,2)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("SignDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TypeName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ActivitiesEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("AccommodationEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ActivitiesEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FoodEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("GuidesEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MenuEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int?>("TransportationEntityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccommodationEntityId");
+
+                    b.HasIndex("ActivitiesEntityId");
+
+                    b.HasIndex("FoodEntityId");
+
+                    b.HasIndex("GuidesEntityId");
+
+                    b.HasIndex("MenuEntityId");
+
+                    b.HasIndex("TransportationEntityId");
 
                     b.ToTable("AttachmentEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttributeEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ActivitiesEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivitiesEntityId");
+
+                    b.ToTable("AttributeEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.CarEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Color")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Model")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("NumberOfCarSeats")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfSeats")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PlateNumber")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<int?>("TransportationEntityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TransportationEntityId");
+
+                    b.ToTable("CarEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.DriverEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("TransportationEntityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TransportationEntityId");
+
+                    b.ToTable("DriverEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.FoodEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("AgencyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<TimeSpan>("ClosingHoursW")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("ClosingHoursWd")
+                        .HasColumnType("time");
+
+                    b.Property<string>("ContactEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactPerson")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(20,2)");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MenuId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<TimeSpan>("OpeningHoursW")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("OpeningHoursWd")
+                        .HasColumnType("time");
+
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SignDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("TypeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Weekends")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("WorkingDays")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("MenuId");
+
+                    b.HasIndex("RegionId");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("FoodEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.FoodTypeEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FoodTypeEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.GuideEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContactEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("GuidesEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("ImageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GuidesEntityId");
+
+                    b.HasIndex("ImageId");
+
+                    b.ToTable("GuideEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.GuideTypeEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GuideTypeEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.GuidesEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("AgencyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ContactEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactPerson")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(20,2)");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SignDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("TypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("RegionId");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("GuidesEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.LanguageEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("DriverEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("GuideEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DriverEntityId");
+
+                    b.HasIndex("GuideEntityId");
+
+                    b.ToTable("LanguageEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.LicenseTypeEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("DriverEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DriverEntityId");
+
+                    b.ToTable("LicenseTypeEntity");
                 });
 
             modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.LocationEntity", b =>
@@ -148,6 +590,34 @@ namespace Travely.SupplierManager.Repository.Migrations
                     b.ToTable("LocationEntity");
                 });
 
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.MenuEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MenuEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.RegionEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RegionEntity");
+                });
+
             modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.RoomEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -164,15 +634,20 @@ namespace Travely.SupplierManager.Repository.Migrations
                     b.Property<int>("NumberOfBeds")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(20,2)");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TypeId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AccommodationEntityId");
+
+                    b.HasIndex("TypeId");
 
                     b.ToTable("RoomEntity");
                 });
@@ -187,14 +662,142 @@ namespace Travely.SupplierManager.Repository.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RoomId")
+                    b.Property<int?>("RoomEntityId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoomId");
+                    b.HasIndex("RoomEntityId");
 
                     b.ToTable("RoomServiceEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.RoomTypeEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoomTypeEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.TagEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("MenuEntityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MenuEntityId");
+
+                    b.ToTable("TagEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.TransportationEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("AgencyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ContactEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactPerson")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastEditedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastEditedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SignDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("TypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("RegionId");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("TransportationEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.TransportationTypeEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TransportationTypeEntity");
                 });
 
             modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AccommodationEntity", b =>
@@ -203,41 +806,205 @@ namespace Travely.SupplierManager.Repository.Migrations
                         .WithMany()
                         .HasForeignKey("LocationId");
 
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.RegionEntity", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId");
+
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.AccommodationTypeEntity", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId");
+
                     b.Navigation("Location");
+
+                    b.Navigation("Region");
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AccommodationServiceEntity", b =>
                 {
-                    b.HasOne("Travely.SupplierManager.Repository.Entities.AccommodationEntity", "Accommodation")
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.AccommodationEntity", null)
                         .WithMany("Services")
-                        .HasForeignKey("AccommodationId");
-
-                    b.Navigation("Accommodation");
+                        .HasForeignKey("AccommodationEntityId");
                 });
 
             modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity", b =>
                 {
-                    b.HasOne("Travely.SupplierManager.Repository.Entities.AccommodationEntity", "Accommodation")
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.AccommodationEntity", null)
                         .WithMany("Attachments")
-                        .HasForeignKey("AccommodationId");
+                        .HasForeignKey("AccommodationEntityId");
 
-                    b.Navigation("Accommodation");
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.ActivitiesEntity", null)
+                        .WithMany("Attachments")
+                        .HasForeignKey("ActivitiesEntityId");
+
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.FoodEntity", null)
+                        .WithMany("Attachments")
+                        .HasForeignKey("FoodEntityId");
+
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.GuidesEntity", null)
+                        .WithMany("Attachments")
+                        .HasForeignKey("GuidesEntityId");
+
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.MenuEntity", null)
+                        .WithMany("Attachments")
+                        .HasForeignKey("MenuEntityId");
+
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.TransportationEntity", null)
+                        .WithMany("Attachments")
+                        .HasForeignKey("TransportationEntityId");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttributeEntity", b =>
+                {
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.ActivitiesEntity", null)
+                        .WithMany("Attributes")
+                        .HasForeignKey("ActivitiesEntityId");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.CarEntity", b =>
+                {
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.TransportationEntity", null)
+                        .WithMany("Cars")
+                        .HasForeignKey("TransportationEntityId");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.DriverEntity", b =>
+                {
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.TransportationEntity", null)
+                        .WithMany("Drivers")
+                        .HasForeignKey("TransportationEntityId");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.FoodEntity", b =>
+                {
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.LocationEntity", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
+
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.MenuEntity", "Menu")
+                        .WithMany()
+                        .HasForeignKey("MenuId");
+
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.RegionEntity", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId");
+
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.FoodTypeEntity", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId");
+
+                    b.Navigation("Location");
+
+                    b.Navigation("Menu");
+
+                    b.Navigation("Region");
+
+                    b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.GuideEntity", b =>
+                {
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.GuidesEntity", null)
+                        .WithMany("Guide")
+                        .HasForeignKey("GuidesEntityId");
+
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.AttachmentEntity", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+
+                    b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.GuidesEntity", b =>
+                {
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.LocationEntity", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
+
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.RegionEntity", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId");
+
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.GuideTypeEntity", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId");
+
+                    b.Navigation("Location");
+
+                    b.Navigation("Region");
+
+                    b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.LanguageEntity", b =>
+                {
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.DriverEntity", null)
+                        .WithMany("Languages")
+                        .HasForeignKey("DriverEntityId");
+
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.GuideEntity", null)
+                        .WithMany("Languages")
+                        .HasForeignKey("GuideEntityId");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.LicenseTypeEntity", b =>
+                {
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.DriverEntity", null)
+                        .WithMany("LicenseType")
+                        .HasForeignKey("DriverEntityId");
                 });
 
             modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.RoomEntity", b =>
                 {
-                    b.HasOne("Travely.SupplierManager.Repository.Entities.AccommodationEntity", null)
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.AccommodationEntity", "AccommodationEntity")
                         .WithMany("Rooms")
                         .HasForeignKey("AccommodationEntityId");
+
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.RoomTypeEntity", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId");
+
+                    b.Navigation("AccommodationEntity");
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.RoomServiceEntity", b =>
                 {
-                    b.HasOne("Travely.SupplierManager.Repository.Entities.RoomEntity", "Room")
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.RoomEntity", "RoomEntity")
                         .WithMany("Services")
-                        .HasForeignKey("RoomId");
+                        .HasForeignKey("RoomEntityId");
 
-                    b.Navigation("Room");
+                    b.Navigation("RoomEntity");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.TagEntity", b =>
+                {
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.MenuEntity", null)
+                        .WithMany("Tags")
+                        .HasForeignKey("MenuEntityId");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.TransportationEntity", b =>
+                {
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.LocationEntity", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
+
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.RegionEntity", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId");
+
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.TransportationTypeEntity", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId");
+
+                    b.Navigation("Location");
+
+                    b.Navigation("Region");
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AccommodationEntity", b =>
@@ -249,9 +1016,56 @@ namespace Travely.SupplierManager.Repository.Migrations
                     b.Navigation("Services");
                 });
 
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.ActivitiesEntity", b =>
+                {
+                    b.Navigation("Attachments");
+
+                    b.Navigation("Attributes");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.DriverEntity", b =>
+                {
+                    b.Navigation("Languages");
+
+                    b.Navigation("LicenseType");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.FoodEntity", b =>
+                {
+                    b.Navigation("Attachments");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.GuideEntity", b =>
+                {
+                    b.Navigation("Languages");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.GuidesEntity", b =>
+                {
+                    b.Navigation("Attachments");
+
+                    b.Navigation("Guide");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.MenuEntity", b =>
+                {
+                    b.Navigation("Attachments");
+
+                    b.Navigation("Tags");
+                });
+
             modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.RoomEntity", b =>
                 {
                     b.Navigation("Services");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.TransportationEntity", b =>
+                {
+                    b.Navigation("Attachments");
+
+                    b.Navigation("Cars");
+
+                    b.Navigation("Drivers");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,11 +8,12 @@ namespace Travely.SupplierManager.Repository.DbContexts
     {
         public void Configure(EntityTypeBuilder<AccommodationEntity> builder)
         {
-            builder.HasKey(a => a.Id);
-
             builder.Navigation(x => x.Rooms).AutoInclude();
+            builder.Navigation(x => x.Location).AutoInclude();
+            builder.Navigation(x => x.Region).AutoInclude();
             builder.Navigation(x => x.Services).AutoInclude();
             builder.Navigation(x => x.Attachments).AutoInclude();
+            builder.Navigation(x => x.Type).AutoInclude();
         }
     }
 }

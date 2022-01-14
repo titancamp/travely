@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Travely.SupplierManager.Repository;
 using Travely.SupplierManager.Repository.DbContexts;
 using Travely.SupplierManager.Repository.Entities;
 
@@ -22,7 +21,7 @@ namespace Travely.SupplierManager.Repository
             DbSet = dbContext.Set<TEntity>();
         }
 
-        public Task<TEntity> GetById(int agencyId, int id)
+        public Task<TEntity> GetByIdAsync(int agencyId, int id)
         {
             var query = DbSet.AsQueryable()
                 .AsNoTracking();
@@ -30,7 +29,7 @@ namespace Travely.SupplierManager.Repository
             return query.FirstOrDefaultAsync(supplier => supplier.Id == id);
         }
 
-        public async Task<IQueryable<TEntity>> GetAll(int agencyId)
+        public IQueryable<TEntity> GetAll(int agencyId)
         {
             var query = DbSet
                 .Where(e => e.AgencyId == agencyId)
@@ -39,7 +38,7 @@ namespace Travely.SupplierManager.Repository
             return query;
         }
 
-        public Task<List<TEntity>> Find(Expression<Func<TEntity, bool>> predicate)
+        public Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
             var query = DbSet
                 .AsNoTracking()
@@ -48,7 +47,7 @@ namespace Travely.SupplierManager.Repository
             return query.ToListAsync();
         }
 
-        public Task<TEntity> SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
+        public Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
             var entity = DbSet
                 .AsNoTracking()
@@ -57,7 +56,7 @@ namespace Travely.SupplierManager.Repository
             return entity;
         }
 
-        public async Task<TEntity> Add(TEntity entity)
+        public async Task<TEntity> AddAsync(TEntity entity)
         {
             var entityEntry = DbSet.Add(entity);
             await DbContext.SaveChangesAsync();
@@ -65,14 +64,14 @@ namespace Travely.SupplierManager.Repository
             return entityEntry.Entity;
         }
 
-        public Task AddRange(List<TEntity> entities)
+        public Task AddRangeAsync(List<TEntity> entities)
         {
             DbSet.AddRange(entities);
 
             return DbContext.SaveChangesAsync();
         }
 
-        public async Task<TEntity> Update(TEntity entity)
+        public async Task<TEntity> UpdateAsync(TEntity entity)
         {
             var entityEntry = DbSet.Update(entity);
             await DbContext.SaveChangesAsync();
@@ -80,21 +79,21 @@ namespace Travely.SupplierManager.Repository
             return entityEntry.Entity;
         }
 
-        public Task UpdateRange(List<TEntity> entities)
+        public Task UpdateRangeAsync(List<TEntity> entities)
         {
             DbSet.UpdateRange(entities);
 
             return DbContext.SaveChangesAsync();
         }
 
-        public Task Remove(TEntity entity)
+        public Task RemoveAsync(TEntity entity)
         {
             DbSet.Remove(entity);
 
             return DbContext.SaveChangesAsync();
         }
 
-        public Task RemoveRange(List<TEntity> entities)
+        public Task RemoveRangeAsync(List<TEntity> entities)
         {
             DbSet.RemoveRange(entities);
 

@@ -15,56 +15,56 @@ namespace Travely.SupplierManager.Service
     {
         private readonly IMapper _mapper;
         private readonly ISupplierRepository<TEntity> _supplierRepository;
-        private readonly ISearchHelper<TEntity> _searchHelper;
-        private readonly ISortHelper<TEntity> _sortHelper;
+        // private readonly ISearchHelper<TEntity> _searchHelper;
+        // private readonly ISortHelper<TEntity> _sortHelper;
 
         public SupplierService(IMapper mapper,
-            ISupplierRepository<TEntity> supplierRepository,
-            ISearchHelper<TEntity> searchHelper,
-            ISortHelper<TEntity> sortHelper )
+            ISupplierRepository<TEntity> supplierRepository)
+            // ISearchHelper<TEntity> searchHelper,
+            // ISortHelper<TEntity> sortHelper )
         {
             _mapper = mapper;
             _supplierRepository = supplierRepository;
-            _searchHelper = searchHelper;
-            _sortHelper = sortHelper;
+            // _searchHelper = searchHelper;
+            // _sortHelper = sortHelper;
         }
         
-        public async Task<SupplierPage<TModel>> Get(int agencyId, SupplierQueryParams parameters)
+        public SupplierPage<TModel> Get(int agencyId, SupplierQueryParams parameters)
         {
-            var query = await _supplierRepository.GetAll(agencyId);
-            query = _searchHelper.Search(query, parameters.Search);
-            query = _sortHelper.Order(query, parameters.OrderBy);
+            var query = _supplierRepository.GetAll(agencyId);
+            // query = _searchHelper.Search(query, parameters.Search);
+            // query = _sortHelper.Order(query, parameters.OrderBy);
             
             return SupplierPage<TModel>.GetPagedSuppliers<TEntity>(query, _mapper, parameters);
         }
 
-        public async Task<List<TModel>> GetAll(int agencyId)
+        public List<TModel> GetAll(int agencyId)
         {
-            var data = await _supplierRepository.GetAll(agencyId);
+            var data = _supplierRepository.GetAll(agencyId);
             
             return _mapper.Map<List<TModel>>(data);
         }
 
-        public async Task<TModel> Get(int agencyId, int id)
+        public async Task<TModel> GetAsync(int agencyId, int id)
         {
-            var data = await _supplierRepository.GetById(agencyId, id);
+            var data = await _supplierRepository.GetByIdAsync(agencyId, id);
 
             return _mapper.Map<TModel>(data);
         }
 
-        public async Task<TModel> Create(int agencyId, TModel model)
+        public async Task<TModel> CreateAsync(int agencyId, TModel model)
         {
             var entity = _mapper.Map<TEntity>(model);
             entity.AgencyId = agencyId;
 
-            var newModel = await _supplierRepository.Add(entity);
+            var newModel = await _supplierRepository.AddAsync(entity);
 
             return _mapper.Map<TModel>(newModel);
         }
 
-        public async Task<TModel> Update(int agencyId, int id, TModel model)
+        public async Task<TModel> UpdateAsync(int agencyId, int id, TModel model)
         {
-            var entity = await _supplierRepository.GetById(agencyId, id);
+            var entity = await _supplierRepository.GetByIdAsync(agencyId, id);
             
             if (entity == null)
             {
@@ -72,14 +72,14 @@ namespace Travely.SupplierManager.Service
             }
             
             _mapper.Map<TModel, TEntity>(model, entity);
-            var updatedEntity = await _supplierRepository.Update(entity);
+            var updatedEntity = await _supplierRepository.UpdateAsync(entity);
             return _mapper.Map<TModel>(updatedEntity);
         }
 
-        public async Task Remove(int agencyId, int id)
+        public async Task RemoveAsync(int agencyId, int id)
         {
-            var entity = await _supplierRepository.GetById(agencyId, id);
-            await _supplierRepository.Remove(entity);
+            var entity = await _supplierRepository.GetByIdAsync(agencyId, id);
+            await _supplierRepository.RemoveAsync(entity);
         }
     }
 }

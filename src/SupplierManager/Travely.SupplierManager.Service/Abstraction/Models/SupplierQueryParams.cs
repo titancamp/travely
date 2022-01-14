@@ -14,7 +14,7 @@ namespace Travely.SupplierManager.API.Models
             set => _size = (value > MaxPageSize) ? MaxPageSize : value;
         }
         
-        public string OrderBy { get; set; }
-        public string Search { get; set; }
+        // public string OrderBy { get; set; }
+        // public string Search { get; set; }
     }
 }

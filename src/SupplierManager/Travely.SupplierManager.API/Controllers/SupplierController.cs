@@ -6,7 +6,6 @@ using Travely.Common.Api.Controllers;
 using Travely.SupplierManager.API.Models;
 using Travely.SupplierManager.API.Responses;
 using Travely.SupplierManager.Service;
-using Travely.SupplierManager.Service.Models;
 
 namespace Travely.SupplierManager.API.Controllers
 {
@@ -27,9 +26,9 @@ namespace Travely.SupplierManager.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] SupplierQueryParamsResponse parameters)
+        public IActionResult Get([FromQuery] SupplierQueryParamsResponse parameters)
         {
-            var data = await Service.Get(UserInfo.AgencyId, Mapper.Map<SupplierQueryParams>(parameters));
+            var data = Service.Get(UserInfo.AgencyId, Mapper.Map<SupplierQueryParams>(parameters));
 
             if (data == null)
             {
@@ -40,9 +39,9 @@ namespace Travely.SupplierManager.API.Controllers
         }
         
         [HttpGet("All")]
-        public async Task<IActionResult> GetAll()
+        public IActionResult GetAll()
         {
-            var data = await Service.GetAll(UserInfo.AgencyId);
+            var data = Service.GetAll(UserInfo.AgencyId);
             if (data == null || data.Count == 0)
             {
                 return NotFound();
@@ -54,7 +53,7 @@ namespace Travely.SupplierManager.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var data = await Service.Get(UserInfo.AgencyId, id);
+            var data = await Service.GetAsync(UserInfo.AgencyId, id);
 
             if (data == null)
             {
@@ -68,7 +67,7 @@ namespace Travely.SupplierManager.API.Controllers
         public async Task<IActionResult> Post([FromBody] TRequest request)
         {
             var model = Mapper.Map<T>(request);
-            var newModel = await Service.Create(UserInfo.AgencyId, model);
+            var newModel = await Service.CreateAsync(UserInfo.AgencyId, model);
 
             if (newModel == null)
             {
@@ -82,7 +81,7 @@ namespace Travely.SupplierManager.API.Controllers
         public async Task<IActionResult> Put(int id, [FromBody] TRequest request)
         {
             var model = Mapper.Map<T>(request);
-            var updatedModel = await Service.Update(UserInfo.AgencyId, id, model);
+            var updatedModel = await Service.UpdateAsync(UserInfo.AgencyId, id, model);
 
             if (updatedModel == null)
             {
@@ -95,7 +94,7 @@ namespace Travely.SupplierManager.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await Service.Remove(UserInfo.AgencyId, id);
+            await Service.RemoveAsync(UserInfo.AgencyId, id);
 
             return NoContent();
         }
