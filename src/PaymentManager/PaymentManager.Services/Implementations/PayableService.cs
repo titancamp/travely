@@ -82,7 +82,7 @@ namespace PaymentManager.Services
 
         public async Task UpdateSupplier(int agencyId, int id, PayableSupplierUpdate model)
         {
-            var entityQuery = await _repository.Find(m => m.AgencyId == agencyId && m.SupplierId == model.SupplierId);
+            var entityQuery = _repository.Find(m => m.AgencyId == agencyId && m.SupplierId == model.SupplierId);
             var payables = entityQuery.ToList();
 
             foreach (var payable in entityQuery)
@@ -95,7 +95,7 @@ namespace PaymentManager.Services
 
         public async Task UpdatePayablesTourStatus(int agencyId, int tourId, int tourStatus)
         {
-            var payables = await _repository.Find(m => m.AgencyId == agencyId && m.TourId == tourId);
+            var payables = _repository.Find(m => m.AgencyId == agencyId && m.TourId == tourId);
             var model = payables.ToList();
             foreach (var payable in model)
             {
@@ -118,13 +118,13 @@ namespace PaymentManager.Services
 
         public async Task Remove(int agencyId, int id)
         {
-            var entity = await _repository.GetById(agencyId, id);
-            await _repository.Remove(entity);
+            var entity = await _repository.GetByIdAsync(agencyId, id);
+            await _repository.UpdateAsync(entity);
         }
 
         public async Task<List<PayableRead>> Find(Expression<Func<PayableEntity, bool>> predicate)
         {
-            var payables = await _repository.Find(predicate);
+            var payables = _repository.Find(predicate);
 
             return _mapper.Map<List<PayableRead>>(payables);
         }

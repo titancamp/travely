@@ -30,7 +30,7 @@ namespace PaymentManager.Api.Services
 
                 var payableCreate = _mapper.Map<PayableCreate>(payable);
 
-                var payableRead = await _payableService.Create(payable.AgencyId, payableCreate);
+                var payableRead = await _payableService.CreateAsync(payable.AgencyId, payableCreate);
 
                 await responseStream.WriteAsync(new CreatePaymentResponse() { Id = payableRead.Id});
             }
@@ -61,7 +61,7 @@ namespace PaymentManager.Api.Services
         public override async Task GetPayablesByAgencyId(Agency request, IServerStreamWriter<PayableReadModel> responseStream, ServerCallContext context)
         {
             var response = _payableService.Get(request.AgencyId, new PaymentQueryParameters() { Index = request.Page, Size = request.Size});
-            var responseModel = _mapper.Map<List<PayableReadModel>>(response.Result.Items);
+            var responseModel = _mapper.Map<List<PayableReadModel>>(response.Items);
             foreach (var payable in responseModel)
             {
                 await responseStream.WriteAsync(payable);

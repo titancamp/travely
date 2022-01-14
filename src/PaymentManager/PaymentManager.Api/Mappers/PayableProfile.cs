@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using Travely.PaymentManager.Grpc;
 using PaymentStatus = PaymentManager.Shared.PaymentStatus;
+using PaymentType = PaymentManager.Shared.PaymentType;
 using TourStatus = PaymentManager.Shared.TourStatus;
 
 namespace PaymentManager.Api.Mappers
