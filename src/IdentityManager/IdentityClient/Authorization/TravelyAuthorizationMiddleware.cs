@@ -20,19 +20,19 @@ namespace Travely.IdentityClient.Authorization
         public async Task InvokeAsync(HttpContext context)
         {
             Claim permissionClaim = context.User?.Claims?.FirstOrDefault(x => x.Type == nameof(Permission));
-            // Իմանալ claim-ով permission-ը կարողնում են ուղարկել թե չէ հակառակ դեպքում բազայից կարդալ ստուգել
+            //If we can't get permission from claim from frontend, then get it from user details from db
             PermissionAttribute endpointPermissionAttribute = context.GetEndpoint()?.Metadata.GetMetadata<PermissionAttribute>();
             Permission endpointPermission;
             Permission userPermission;
 
             if (permissionClaim is null)
             {
-                await _next(context);
+                throw new UnauthorizedAccessException("Unauthorized");
             }
 
             if (endpointPermissionAttribute is null)
             {
-                // throw Exception
+                await _next(context);
             }
 
             userPermission = (Permission)Convert.ToInt32(permissionClaim.Value);
@@ -42,7 +42,7 @@ namespace Travely.IdentityClient.Authorization
 
             if (notSetPermission != default(Permission))
             {
-                // throw exception
+                throw new UnauthorizedAccessException("Unauthorized");
             }
             
             await _next(context);
