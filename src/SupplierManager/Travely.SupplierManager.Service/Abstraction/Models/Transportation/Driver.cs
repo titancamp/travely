@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TourEntities.Service.Transportation;
 
 namespace Travely.SupplierManager.Service.Models
 {

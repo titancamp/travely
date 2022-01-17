@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Travely.SupplierManager.Grpc.Client.Abstraction;
-using Travely.SupplierManager.Grpc.Client.Implementation;
 using Travely.SupplierManager.Repository;
 using Travely.SupplierManager.Repository.Entities;
 using Travely.SupplierManager.Service;
@@ -22,8 +20,6 @@ namespace Travely.SupplierManager.Extensions.DependencyInjection
             services.AddScoped<ISupplierService<Food>, SupplierService<Food, FoodEntity>>();
             services.AddScoped<ISupplierService<Guides>, SupplierService<Guides, GuidesEntity>>();
             services.AddScoped<ISupplierService<Transportation>, SupplierService<Transportation, TransportationEntity>>();
-            
-            services.AddScoped<ISupplierManagerClient, SupplierManagerClient>();
             
             return services;
         }

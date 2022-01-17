@@ -23,7 +23,6 @@
         <ProjectReference Include="..\..\Commons\Travely.Common.Swagger\Travely.Common.Swagger.csproj" />
         <ProjectReference Include="..\..\Shared\IdentityClient\Travely.Shared.IdentityClient.Authorization.csproj" />
         <ProjectReference Include="..\..\Shared\TourModels\TourModels.csproj" />
-        <ProjectReference Include="..\Travely.SupplierManager.Grpc\Travely.SupplierManager.Grpc.csproj" />
         <ProjectReference Include="..\Travely.SupplierManager.Service\Travely.SupplierManager.Service.csproj" />
     </ItemGroup>
 

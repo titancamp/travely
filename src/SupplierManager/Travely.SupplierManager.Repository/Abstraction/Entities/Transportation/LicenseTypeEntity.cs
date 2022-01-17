@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TourEntities.Service.Transportation;
 
 namespace Travely.SupplierManager.Repository.Entities
 {
@@ -7,6 +8,6 @@ namespace Travely.SupplierManager.Repository.Entities
         [Key]
         [Required]
         public int Id { get; set; }
-        public string Name { get; set; }
+        public LicenseType LicenseType { get; set; }
     }
 }

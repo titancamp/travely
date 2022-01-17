@@ -18,10 +18,6 @@ using Travely.ServiceManager.Grpc;
 using Travely.ServiceManager.Grpc.Client.Abstarction;
 using Travely.ServiceManager.Grpc.Client.Implementation;
 using Travely.ServiceManager.Grpc.Settings;
-using Travely.SupplierManager.Grpc;
-using Travely.SupplierManager.Grpc.Client.Abstraction;
-using Travely.SupplierManager.Grpc.Client.Implementation;
-using Travely.SupplierManager.Grpc.Settings;
 
 namespace TourManager.Api.Bootstrapper
 {
@@ -41,24 +37,14 @@ namespace TourManager.Api.Bootstrapper
 
             #endregion
 
-            #region SupplierManager
-
-            services.AddScoped<ISupplierManagerClient, SupplierManagerClient>();
-            services.Configure<GrpcSettings<SupplierProto.SupplierProtoClient>>(
-                configuration.GetSection("SupplierGrpcService"));
-            services
-                .AddScoped<IServiceSettingsProvider<SupplierProto.SupplierProtoClient>,
-                    SupplierManagerSettingsProvider>();
-
-            #endregion
             #region ServiceManager
 
-            services.AddScoped<ISupplierManagerClient, SupplierManagerClient>();
-            services.Configure<GrpcSettings<SupplierProto.SupplierProtoClient>>(
-                configuration.GetSection("SupplierGrpcService"));
+            services.AddScoped<IServiceManagerClient, ServiceManagerClient>();
+            services.Configure<GrpcSettings<ActivityProto.ActivityProtoClient>>(
+                configuration.GetSection("ServiceGrpcService"));
             services
-                .AddScoped<IServiceSettingsProvider<SupplierProto.SupplierProtoClient>,
-                    SupplierManagerSettingsProvider>();
+                .AddScoped<IServiceSettingsProvider<ActivityProto.ActivityProtoClient>,
+                    ServiceManagerSettingsProvider>();
 
             #endregion
 

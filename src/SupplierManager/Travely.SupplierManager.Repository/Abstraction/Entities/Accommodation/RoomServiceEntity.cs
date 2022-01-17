@@ -3,8 +3,6 @@
     public class RoomServiceEntity
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        
-        public RoomEntity RoomEntity { get; set; }
+        public RoomService Service { get; set; }
     }
 }

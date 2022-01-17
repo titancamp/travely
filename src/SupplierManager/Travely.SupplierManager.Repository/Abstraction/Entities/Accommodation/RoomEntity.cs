@@ -9,7 +9,7 @@ namespace Travely.SupplierManager.Repository.Entities
         [Key, Required]
         public int Id { get; set; }
         [Required]
-        public RoomTypeEntity Type { get; set; }
+        public RoomType Type { get; set; }
         [Range(0, 99)]
         public int Quantity { get; set; }
         [Column(TypeName = "decimal(20,2)")]

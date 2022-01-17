@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Travely.SupplierManager.Repository.Entities;
 
 namespace Travely.SupplierManager.Service.Models
 {

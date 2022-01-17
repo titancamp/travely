@@ -10,10 +10,8 @@ namespace Travely.SupplierManager.Repository.DbContexts
         {
             builder.Navigation(x => x.Rooms).AutoInclude();
             builder.Navigation(x => x.Location).AutoInclude();
-            builder.Navigation(x => x.Region).AutoInclude();
             builder.Navigation(x => x.Services).AutoInclude();
             builder.Navigation(x => x.Attachments).AutoInclude();
-            builder.Navigation(x => x.Type).AutoInclude();
         }
     }
 }

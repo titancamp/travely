@@ -10,7 +10,7 @@ namespace Travely.SupplierManager.Service.Models
         public string Image { get; set; }
         public string ContactEmail { get; set; }
         public string ContactNumber { get; set; }
-        public ICollection<Language> Languages { get; set; }
+        public List<Language> Languages { get; set; }
         // public int Experience { get; set; } // TODO TBD
         // public List<string> Skills { get; set; } // TODO TBD
     }

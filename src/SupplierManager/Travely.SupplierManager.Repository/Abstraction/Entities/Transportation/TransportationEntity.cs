@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using TourEntities.Service.Common.Location;
+using TourEntities.Service.Transportation;
 
 namespace Travely.SupplierManager.Repository.Entities
 {
@@ -12,7 +14,7 @@ namespace Travely.SupplierManager.Repository.Entities
         [Required]
         public int AgencyId { get; set; }
         [Required]
-        public TransportationTypeEntity Type { get; set; }
+        public TransportationType Type { get; set; }
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
@@ -23,7 +25,7 @@ namespace Travely.SupplierManager.Repository.Entities
         [EmailAddress]
         public string ContactEmail { get; set; }
         public LocationEntity Location { get; set; }
-        public RegionEntity Region { get; set; }
+        public TmRegion TmRegion { get; set; }
         [StringLength(50)]
         public string City { get; set; }
         [StringLength(150)]

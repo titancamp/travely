@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using TourEntities.Service.Accommodation;
+using TourEntities.Service.Common.Location;
 
 namespace Travely.SupplierManager.Repository.Entities
 {
@@ -12,7 +14,7 @@ namespace Travely.SupplierManager.Repository.Entities
         [Required]
         public int AgencyId { get; set; }
         [Required]
-        public AccommodationTypeEntity Type { get; set; }
+        public AccommodationType Type { get; set; }
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
@@ -20,7 +22,7 @@ namespace Travely.SupplierManager.Repository.Entities
         public TimeSpan CheckOutTime { get; set; }
         
         public LocationEntity Location { get; set; }
-        public RegionEntity Region { get; set; }
+        public TmRegion TmRegion { get; set; }
         [StringLength(50)]
         public string City { get; set; }
         [StringLength(150)]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TourEntities.Service.Common.Location;
 
 namespace Travely.SupplierManager.Repository.Entities
 {
@@ -18,7 +19,7 @@ namespace Travely.SupplierManager.Repository.Entities
         [StringLength(50)]
         public string Name { get; set; }
         public LocationEntity Location { get; set; }
-        public RegionEntity Region { get; set; }
+        public TmRegion TmRegion { get; set; }
         [StringLength(50)]
         public string City { get; set; }
         [StringLength(150)]

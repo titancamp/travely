@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using TourEntities.Service.Accommodation;
 using Travely.SupplierManager.Service.Models;
 
 namespace Travely.SupplierManager.API.Requests
@@ -34,7 +36,6 @@ namespace Travely.SupplierManager.API.Requests
         public string LastEditedBy { get; set; }
         public DateTime LastEditedAt { get; set; }
 
-        // “draft”,”ready”,”no price”
         public string Status { get; set; }
     }
 }

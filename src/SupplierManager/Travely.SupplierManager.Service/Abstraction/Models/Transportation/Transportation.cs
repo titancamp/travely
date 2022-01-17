@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using TourEntities.Service.Common.Location;
+using TourEntities.Service.Transportation;
 
 namespace Travely.SupplierManager.Service.Models
 {
@@ -13,7 +15,7 @@ namespace Travely.SupplierManager.Service.Models
         public string ContactNumber { get; set; }
         public string ContactEmail { get; set; }
         public Location Location { get; set; }
-        public Region Region { get; set; }
+        public TmRegion TmRegion { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
         public string Notes { get; set; }

@@ -10,8 +10,6 @@ namespace Travely.SupplierManager.API.Mappers
         {
             CreateMap<Location, LocationEntity>();
             CreateMap<LocationEntity, Location>();
-            CreateMap<Region, RegionEntity>();
-            CreateMap<RegionEntity, Region>();
             CreateMap<Attachment, AttachmentEntity>();
             CreateMap<AttachmentEntity, Attachment>();
         }

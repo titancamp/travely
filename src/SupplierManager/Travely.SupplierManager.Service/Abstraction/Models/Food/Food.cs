@@ -1,5 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System;
+using TourEntities.Service.Common.Location;
+using TourEntities.Service.Guide;
 
 namespace Travely.SupplierManager.Service.Models
 {
@@ -10,7 +12,7 @@ namespace Travely.SupplierManager.Service.Models
         public FoodType Type { get; set; }
         public string Name { get; set; }
         public Location Location { get; set; }
-        public Region Region { get; set; }
+        public TmRegion TmRegion { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
         public bool WorkingDays { get; set; }
@@ -28,6 +30,5 @@ namespace Travely.SupplierManager.Service.Models
         public DateTime SignDate { get; set; }
         public DateTime ExpiryDate { get; set; }
         public List<Attachment> Attachments { get; set; }
-        
     }
 }

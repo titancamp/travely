@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using TourEntities.Service.Accommodation;
+using TourEntities.Service.Common.Location;
 
 namespace Travely.SupplierManager.Service.Models
 {
@@ -13,7 +15,7 @@ namespace Travely.SupplierManager.Service.Models
         public TimeSpan CheckOutTime { get; set; }
         
         public Location Location { get; set; }
-        public Region Region { get; set; }
+        public TmRegion TmRegion { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
         
@@ -37,7 +39,6 @@ namespace Travely.SupplierManager.Service.Models
         public string LastEditedBy { get; set; }
         public DateTime LastEditedAt { get; set; }
 
-        // “draft”,”ready”,”no price”
         public string Status { get; set; }
     }
 }

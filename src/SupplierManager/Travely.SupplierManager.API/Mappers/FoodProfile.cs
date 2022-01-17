@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using TourEntities.Service.Guide;
 using Travely.SupplierManager.Repository.Entities;
 using Travely.SupplierManager.Service.Models;
 

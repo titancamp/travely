@@ -8,19 +8,6 @@ namespace Travely.SupplierManager.Repository.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AccommodationTypeEntity",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AccommodationTypeEntity", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ActivitiesEntity",
                 columns: table => new
                 {
@@ -54,19 +41,6 @@ namespace Travely.SupplierManager.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GuideTypeEntity",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GuideTypeEntity", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "LocationEntity",
                 columns: table => new
                 {
@@ -93,45 +67,6 @@ namespace Travely.SupplierManager.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RegionEntity",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RegionEntity", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoomTypeEntity",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoomTypeEntity", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TransportationTypeEntity",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TransportationTypeEntity", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AttributeEntity",
                 columns: table => new
                 {
@@ -152,38 +87,18 @@ namespace Travely.SupplierManager.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TagEntity",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    MenuEntityId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TagEntity", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TagEntity_MenuEntity_MenuEntityId",
-                        column: x => x.MenuEntityId,
-                        principalTable: "MenuEntity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AccommodationEntity",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AgencyId = table.Column<int>(type: "int", nullable: false),
-                    TypeId = table.Column<int>(type: "int", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CheckInTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     CheckOutTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     LocationId = table.Column<int>(type: "int", nullable: true),
-                    RegionId = table.Column<int>(type: "int", nullable: true),
+                    TmRegion = table.Column<int>(type: "int", nullable: false),
                     City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
@@ -203,21 +118,76 @@ namespace Travely.SupplierManager.Repository.Migrations
                 {
                     table.PrimaryKey("PK_AccommodationEntity", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AccommodationEntity_AccommodationTypeEntity_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "AccommodationTypeEntity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_AccommodationEntity_LocationEntity_LocationId",
                         column: x => x.LocationId,
                         principalTable: "LocationEntity",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GuidesEntity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AgencyId = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ContactPerson = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationId = table.Column<int>(type: "int", nullable: true),
+                    TmRegion = table.Column<int>(type: "int", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    Cost = table.Column<decimal>(type: "decimal(20,2)", nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    SignDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GuidesEntity", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AccommodationEntity_RegionEntity_RegionId",
-                        column: x => x.RegionId,
-                        principalTable: "RegionEntity",
+                        name: "FK_GuidesEntity_LocationEntity_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "LocationEntity",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TransportationEntity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AgencyId = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ContactPerson = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationId = table.Column<int>(type: "int", nullable: true),
+                    TmRegion = table.Column<int>(type: "int", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    SignDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastEditedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    LastEditedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TransportationEntity", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TransportationEntity_LocationEntity_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "LocationEntity",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -232,7 +202,7 @@ namespace Travely.SupplierManager.Repository.Migrations
                     TypeId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LocationId = table.Column<int>(type: "int", nullable: true),
-                    RegionId = table.Column<int>(type: "int", nullable: true),
+                    TmRegion = table.Column<int>(type: "int", nullable: false),
                     City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
                     WorkingDays = table.Column<bool>(type: "bit", nullable: false),
@@ -271,101 +241,24 @@ namespace Travely.SupplierManager.Repository.Migrations
                         principalTable: "MenuEntity",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FoodEntity_RegionEntity_RegionId",
-                        column: x => x.RegionId,
-                        principalTable: "RegionEntity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "GuidesEntity",
+                name: "TagEntity",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AgencyId = table.Column<int>(type: "int", nullable: false),
-                    TypeId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ContactPerson = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContactEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LocationId = table.Column<int>(type: "int", nullable: true),
-                    RegionId = table.Column<int>(type: "int", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    Cost = table.Column<decimal>(type: "decimal(20,2)", nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    SignDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    MenuEntityId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GuidesEntity", x => x.Id);
+                    table.PrimaryKey("PK_TagEntity", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GuidesEntity_GuideTypeEntity_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "GuideTypeEntity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_GuidesEntity_LocationEntity_LocationId",
-                        column: x => x.LocationId,
-                        principalTable: "LocationEntity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_GuidesEntity_RegionEntity_RegionId",
-                        column: x => x.RegionId,
-                        principalTable: "RegionEntity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TransportationEntity",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AgencyId = table.Column<int>(type: "int", nullable: false),
-                    TypeId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ContactPerson = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContactEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LocationId = table.Column<int>(type: "int", nullable: true),
-                    RegionId = table.Column<int>(type: "int", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    SignDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastEditedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    LastEditedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TransportationEntity", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TransportationEntity_LocationEntity_LocationId",
-                        column: x => x.LocationId,
-                        principalTable: "LocationEntity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TransportationEntity_RegionEntity_RegionId",
-                        column: x => x.RegionId,
-                        principalTable: "RegionEntity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TransportationEntity_TransportationTypeEntity_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "TransportationTypeEntity",
+                        name: "FK_TagEntity_MenuEntity_MenuEntityId",
+                        column: x => x.MenuEntityId,
+                        principalTable: "MenuEntity",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -376,7 +269,7 @@ namespace Travely.SupplierManager.Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Service = table.Column<int>(type: "int", nullable: false),
                     AccommodationEntityId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -396,7 +289,7 @@ namespace Travely.SupplierManager.Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TypeId = table.Column<int>(type: "int", nullable: true),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(20,2)", nullable: false),
                     NumberOfBeds = table.Column<int>(type: "int", nullable: false),
@@ -412,10 +305,49 @@ namespace Travely.SupplierManager.Repository.Migrations
                         principalTable: "AccommodationEntity",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CarEntity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Model = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Color = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    PlateNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    NumberOfSeats = table.Column<int>(type: "int", nullable: false),
+                    NumberOfCarSeats = table.Column<int>(type: "int", nullable: false),
+                    TransportationEntityId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CarEntity", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RoomEntity_RoomTypeEntity_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "RoomTypeEntity",
+                        name: "FK_CarEntity_TransportationEntity_TransportationEntityId",
+                        column: x => x.TransportationEntityId,
+                        principalTable: "TransportationEntity",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DriverEntity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TransportationEntityId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DriverEntity", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DriverEntity_TransportationEntity_TransportationEntityId",
+                        column: x => x.TransportationEntityId,
+                        principalTable: "TransportationEntity",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -475,57 +407,12 @@ namespace Travely.SupplierManager.Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CarEntity",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Model = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Color = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    PlateNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    NumberOfSeats = table.Column<int>(type: "int", nullable: false),
-                    NumberOfCarSeats = table.Column<int>(type: "int", nullable: false),
-                    TransportationEntityId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CarEntity", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CarEntity_TransportationEntity_TransportationEntityId",
-                        column: x => x.TransportationEntityId,
-                        principalTable: "TransportationEntity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DriverEntity",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TransportationEntityId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DriverEntity", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DriverEntity_TransportationEntity_TransportationEntityId",
-                        column: x => x.TransportationEntityId,
-                        principalTable: "TransportationEntity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RoomServiceEntity",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Service = table.Column<int>(type: "int", nullable: false),
                     RoomEntityId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -535,6 +422,26 @@ namespace Travely.SupplierManager.Repository.Migrations
                         name: "FK_RoomServiceEntity_RoomEntity_RoomEntityId",
                         column: x => x.RoomEntityId,
                         principalTable: "RoomEntity",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LicenseTypeEntity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LicenseType = table.Column<int>(type: "int", nullable: false),
+                    DriverEntityId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LicenseTypeEntity", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LicenseTypeEntity_DriverEntity_DriverEntityId",
+                        column: x => x.DriverEntityId,
+                        principalTable: "DriverEntity",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -564,26 +471,6 @@ namespace Travely.SupplierManager.Repository.Migrations
                         name: "FK_GuideEntity_GuidesEntity_GuidesEntityId",
                         column: x => x.GuidesEntityId,
                         principalTable: "GuidesEntity",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "LicenseTypeEntity",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DriverEntityId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LicenseTypeEntity", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_LicenseTypeEntity_DriverEntity_DriverEntityId",
-                        column: x => x.DriverEntityId,
-                        principalTable: "DriverEntity",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -619,16 +506,6 @@ namespace Travely.SupplierManager.Repository.Migrations
                 name: "IX_AccommodationEntity_LocationId",
                 table: "AccommodationEntity",
                 column: "LocationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AccommodationEntity_RegionId",
-                table: "AccommodationEntity",
-                column: "RegionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AccommodationEntity_TypeId",
-                table: "AccommodationEntity",
-                column: "TypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AccommodationServiceEntity_AccommodationEntityId",
@@ -691,11 +568,6 @@ namespace Travely.SupplierManager.Repository.Migrations
                 column: "MenuId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FoodEntity_RegionId",
-                table: "FoodEntity",
-                column: "RegionId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_FoodEntity_TypeId",
                 table: "FoodEntity",
                 column: "TypeId");
@@ -714,16 +586,6 @@ namespace Travely.SupplierManager.Repository.Migrations
                 name: "IX_GuidesEntity_LocationId",
                 table: "GuidesEntity",
                 column: "LocationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GuidesEntity_RegionId",
-                table: "GuidesEntity",
-                column: "RegionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GuidesEntity_TypeId",
-                table: "GuidesEntity",
-                column: "TypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LanguageEntity_DriverEntityId",
@@ -746,11 +608,6 @@ namespace Travely.SupplierManager.Repository.Migrations
                 column: "AccommodationEntityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RoomEntity_TypeId",
-                table: "RoomEntity",
-                column: "TypeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_RoomServiceEntity_RoomEntityId",
                 table: "RoomServiceEntity",
                 column: "RoomEntityId");
@@ -764,16 +621,6 @@ namespace Travely.SupplierManager.Repository.Migrations
                 name: "IX_TransportationEntity_LocationId",
                 table: "TransportationEntity",
                 column: "LocationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TransportationEntity_RegionId",
-                table: "TransportationEntity",
-                column: "RegionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TransportationEntity_TypeId",
-                table: "TransportationEntity",
-                column: "TypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -812,9 +659,6 @@ namespace Travely.SupplierManager.Repository.Migrations
                 name: "AttachmentEntity");
 
             migrationBuilder.DropTable(
-                name: "RoomTypeEntity");
-
-            migrationBuilder.DropTable(
                 name: "AccommodationEntity");
 
             migrationBuilder.DropTable(
@@ -830,25 +674,13 @@ namespace Travely.SupplierManager.Repository.Migrations
                 name: "TransportationEntity");
 
             migrationBuilder.DropTable(
-                name: "AccommodationTypeEntity");
-
-            migrationBuilder.DropTable(
                 name: "FoodTypeEntity");
 
             migrationBuilder.DropTable(
                 name: "MenuEntity");
 
             migrationBuilder.DropTable(
-                name: "GuideTypeEntity");
-
-            migrationBuilder.DropTable(
                 name: "LocationEntity");
-
-            migrationBuilder.DropTable(
-                name: "RegionEntity");
-
-            migrationBuilder.DropTable(
-                name: "TransportationTypeEntity");
         }
     }
 }

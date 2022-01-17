@@ -9,9 +9,6 @@ namespace Travely.SupplierManager.Repository.DbContexts
         public void Configure(EntityTypeBuilder<RoomEntity> builder)
         {
             builder.HasOne(p => p.AccommodationEntity).WithMany(b => b.Rooms);
-            
-            builder.Navigation(x => x.Services).AutoInclude();
-            builder.Navigation(x => x.Type).AutoInclude();
         }
     }
 }

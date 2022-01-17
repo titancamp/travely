@@ -13,7 +13,6 @@ namespace Travely.SupplierManager.Repository.DbContexts
         {
             builder.ApplyConfiguration(new AccommodationConfiguration());
             builder.ApplyConfiguration(new RoomConfiguration());
-            builder.ApplyConfiguration(new RoomServiceConfiguration());
             builder.ApplyConfiguration(new ActivitiesConfiguration());
             builder.ApplyConfiguration(new FoodConfiguration());
             builder.ApplyConfiguration(new MenuConfiguration());
