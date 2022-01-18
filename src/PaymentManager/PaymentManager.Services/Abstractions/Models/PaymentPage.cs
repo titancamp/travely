@@ -9,7 +9,12 @@ using System.Threading.Tasks;
 
 namespace PaymentManager.Services.Models
 {
-    public class ReceivablePage : PaymentPage<ReceivableRead>
+    public class PaymentPage<TModel>
     {
+        public int TotalCount { get; set; }
+        public int CurrentPage { get; set; }
+        public int PageSize { get; set; }
+        public int TotalPages { get; set; }
+        public List<TModel> Items { get; set; }
     }
 }

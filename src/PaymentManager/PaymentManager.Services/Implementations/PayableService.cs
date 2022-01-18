@@ -7,8 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PaymentManager.Extensions.DependencyInjection.Extensions;
+using PaymentManager.Repositories.Filters;
+using PaymentManager.Repositories.Models;
 using PaymentManager.Shared;
-using PaymentManager.Services.Helpers;
 
 namespace PaymentManager.Services
 {
@@ -18,29 +20,18 @@ namespace PaymentManager.Services
 
         private readonly IPaymentRepository<PayableEntity> _repository;
 
-        private readonly ISortHelper<PayableEntity> _sortHelper;
-
-        private readonly ISearchHelper<PayableEntity> _searchHelper;
         public PayableService(IMapper mapper,
-                              IPaymentRepository<PayableEntity> repository,
-                              ISortHelper<PayableEntity> sortHelper,
-                              ISearchHelper<PayableEntity> searchHelper)
+                              IPaymentRepository<PayableEntity> repository)
         {
             _mapper = mapper;
             _repository = repository;
-            _sortHelper = sortHelper;
-            _searchHelper = searchHelper;
         }
 
-        public PayablePage Get(int agencyId, PaymentQueryParameters parameters)
+        public PayablePage Get(int agencyId, PaymentQueryParameters parameters, PayableFilter filter)
         {
-            var query = _repository.GetAll(agencyId, false);
+            var query = _repository.GetAll(agencyId, false, parameters, filter);
 
-            query = _sortHelper.ApplySort(query, parameters.OrderBy);
-
-            query = _searchHelper.ApplySearch(query, parameters.Search);
-
-            return PayablePage.GetPayablePage(query, _mapper, parameters.Index, parameters.Size);
+            return query.GetPayablePage(_mapper, parameters.Index, parameters.Size);
         }
 
         public async Task<PayableRead> GetAsync(int agencyId, int id)

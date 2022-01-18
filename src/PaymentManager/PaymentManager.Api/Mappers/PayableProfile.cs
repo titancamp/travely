@@ -5,6 +5,8 @@ using PaymentManager.Services.Models;
 using PaymentManager.Shared;
 using System;
 using System.Linq;
+using PaymentManager.Repositories.Filters;
+using PaymentManager.Repositories.Models;
 
 namespace PaymentManager.Api.Mappers
 {
@@ -69,6 +71,7 @@ namespace PaymentManager.Api.Mappers
             CreateMap<PayableItemUpdateDto, PayableItem>();
 
             CreateMap<PaymentQueryParametersDto, PaymentQueryParameters>();
+            CreateMap<PayableFilterDto, PayableFilter>();
             CreateMap<PayablePage, PayablePageDto>();
         }
     }

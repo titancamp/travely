@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PaymentManager.Services.Models
+namespace PaymentManager.Repositories.Models
 {
     public class PaymentQueryParameters
     {
-        const int maxSize = 50;
+        const int MaxSize = 50;
         public int Index { get; set; } = 1;
         private int _size = 10;
         public int Size
@@ -19,7 +19,7 @@ namespace PaymentManager.Services.Models
             }
             set
             {
-                _size = (value > maxSize) ? maxSize : value;
+                _size = (value > MaxSize) ? MaxSize : value;
             }
         }
         public string OrderBy { get; set; } = "CreatedAt";

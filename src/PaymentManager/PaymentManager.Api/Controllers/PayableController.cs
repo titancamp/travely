@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.Policy;
 using System.Text.Json;
@@ -9,6 +10,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PaymentManager.Api.Dtos;
+using PaymentManager.Repositories.Filters;
+using PaymentManager.Repositories.Models;
 using PaymentManager.Services;
 using PaymentManager.Services.Models;
 using PaymentManager.Shared;
@@ -18,7 +21,7 @@ using Travely.Shared.IdentityClient.Authorization.Common;
 namespace PaymentManager.Api.Controllers
 {
     [ApiVersion("1.0")]
-    [Authorize(Roles = UserRoles.User)]
+    //[Authorize(Roles = UserRoles.User)]
     public class PayableController : TravelyControllerBase
     {
         private readonly IPayableService _service;
@@ -32,9 +35,9 @@ namespace PaymentManager.Api.Controllers
 
         // GET: api/v1/payable
         [HttpGet]
-        public IActionResult Get([FromQuery] PaymentQueryParametersDto parameters)
+        public IActionResult Get([FromQuery] PaymentQueryParametersDto parameters, [FromQuery] PayableFilterDto filter)
         {
-            var data = _service.Get(UserInfo.AgencyId, _mapper.Map<PaymentQueryParameters>(parameters));
+            var data = _service.Get(UserInfo.AgencyId, _mapper.Map<PaymentQueryParameters>(parameters), _mapper.Map<PayableFilter>(filter));
 
             if (data == null)
                 return NotFound();

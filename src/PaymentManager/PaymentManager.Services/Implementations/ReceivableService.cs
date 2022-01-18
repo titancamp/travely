@@ -7,8 +7,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PaymentManager.Extensions.DependencyInjection.Extensions;
+using PaymentManager.Repositories.Filters;
+using PaymentManager.Repositories.Models;
 using PaymentManager.Shared;
-using PaymentManager.Services.Helpers;
 
 namespace PaymentManager.Services
 {
@@ -18,29 +20,19 @@ namespace PaymentManager.Services
 
         private readonly IPaymentRepository<ReceivableEntity> _repository;
 
-        private readonly ISortHelper<ReceivableEntity> _sortHelper;
 
-        private readonly ISearchHelper<ReceivableEntity> _searchHelper;
         public ReceivableService(IMapper mapper,
-                                 IPaymentRepository<ReceivableEntity> repository,
-                                 ISortHelper<ReceivableEntity> sortHelper,
-                                 ISearchHelper<ReceivableEntity> searchHelper)
+                                 IPaymentRepository<ReceivableEntity> repository)
         {
             _mapper = mapper;
             _repository = repository;
-            _sortHelper = sortHelper;
-            _searchHelper = searchHelper;
         }
 
-        public ReceivablePage Get(int agencyId, PaymentQueryParameters parameters)
+        public ReceivablePage Get(int agencyId, PaymentQueryParameters parameters, ReceivableFilter filter)
         {
-            var query = _repository.GetAll(agencyId, false);
+            var query = _repository.GetAll(agencyId, false, parameters, filter);
 
-            query = _sortHelper.ApplySort(query, parameters.OrderBy);
-
-            query = _searchHelper.ApplySearch(query, parameters.Search);
-
-            return ReceivablePage.GetReceivablePage(query, _mapper, parameters.Index, parameters.Size);
+            return query.GetReceivablePage(_mapper, parameters.Index, parameters.Size);
         }
 
         public async Task<ReceivableRead> GetAsync(int agencyId, int id)

@@ -20,7 +20,6 @@ using PaymentManager.Services.Models;
 using Travely.Common.ServiceDiscovery;
 using Travely.Shared.IdentityClient.Authorization.Config;
 using PaymentManager.Repositories.Entities;
-using PaymentManager.Services.Helpers;
 using Travely.Common.Extensions;
 
 namespace PaymentManager.Api

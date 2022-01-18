@@ -9,6 +9,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using PaymentManager.Repositories.Extensions;
+using PaymentManager.Repositories.Filters;
+using PaymentManager.Repositories.Models;
 
 namespace PaymentManager.Repositories
 {
@@ -31,11 +34,17 @@ namespace PaymentManager.Repositories
             return query.FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public IQueryable<PayableEntity> GetAll(int agencyId, bool includeItems)
+        public IQueryable<PayableEntity> GetAll(int agencyId, bool includeItems, PaymentQueryParameters parameters, IFilter<PayableEntity> filter)
         {
             var query = _context.Payables
                 .Where(e => e.AgencyId == agencyId);
 
+            query = query.Sort(parameters.OrderBy);
+
+            query = query.Search(parameters.Search);
+
+            query = query.Filter(filter);
+            
             if (includeItems)
             { 
                 query = query.Include(e => e.PayableItems);

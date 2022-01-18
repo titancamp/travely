@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PaymentManager.Api.Dtos;
+using PaymentManager.Repositories.Filters;
+using PaymentManager.Repositories.Models;
 using PaymentManager.Services;
 using PaymentManager.Services.Models;
 using PaymentManager.Shared;
@@ -18,7 +20,7 @@ using Travely.Shared.IdentityClient.Authorization.Common;
 namespace PaymentManager.Api.Controllers
 {
     [ApiVersion("1.0")]
-    [Authorize(Roles = UserRoles.User)]
+    //[Authorize(Roles = UserRoles.User)]
     public class ReceivableController : TravelyControllerBase
     {
         private readonly IReceivableService _service;
@@ -32,9 +34,9 @@ namespace PaymentManager.Api.Controllers
 
         // GET: api/v1/receivable
         [HttpGet]
-        public IActionResult Get([FromQuery] PaymentQueryParametersDto parameters)
+        public IActionResult Get([FromQuery] PaymentQueryParametersDto parameters, [FromQuery] ReceivableFilterDto filter)
         {
-            var data = _service.Get(UserInfo.AgencyId, _mapper.Map<PaymentQueryParameters>(parameters));
+            var data = _service.Get(UserInfo.AgencyId, _mapper.Map<PaymentQueryParameters>(parameters), _mapper.Map<ReceivableFilter>(filter));
 
             if (data == null)
                 return NotFound();
