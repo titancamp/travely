@@ -21,7 +21,7 @@ using Travely.Shared.IdentityClient.Authorization.Common;
 namespace PaymentManager.Api.Controllers
 {
     [ApiVersion("1.0")]
-    //[Authorize(Roles = UserRoles.User)]
+    [Authorize(Roles = UserRoles.User)]
     public class PayableController : TravelyControllerBase
     {
         private readonly IPayableService _service;

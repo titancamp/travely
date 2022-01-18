@@ -8,7 +8,6 @@ namespace PaymentManager.Api.Dtos
     {
         public List<int> TourIds { get; set; }
         public List<string> PartnerNames { get; set; }
-        //public List<string> InvoiceIds { get; set; }
         public PaymentStatus? Status { get; set; }
         public RangeType<decimal> TotalAmount { get; set; }
         public RangeType<decimal> PaidAmount { get; set; }
