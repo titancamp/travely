@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using TourEntities.Service.Transportation;
 using Travely.SupplierManager.Repository.Entities;
 using Travely.SupplierManager.Service.Models;
@@ -13,14 +14,13 @@ namespace Travely.SupplierManager.API.Mappers
         {
             CreateMap<Transportation, TransportationEntity>();
             CreateMap<TransportationEntity, Transportation>();
-            CreateMap<Driver, DriverEntity>();
-            CreateMap<DriverEntity, Driver>();
+            CreateMap<Driver, DriverEntity>().ForMember(dst => dst.LicenseType, opt => opt.MapFrom(src => src.LicenseType.Select(x => new LicenseTypeEntity{ LicenseType = x})));
+            CreateMap<DriverEntity, Driver>().ForMember(dst => dst.LicenseType, opt => opt.MapFrom(src => src.LicenseType.Select(x => x.LicenseType)));
             CreateMap<Car, CarEntity>();
             CreateMap<CarEntity, Car>();
-            CreateMap<LicenseType, LicenseTypeEntity>();
-            CreateMap<LicenseTypeEntity, LicenseType>();
-            CreateMap<Language, LanguageEntity>();
-            CreateMap<LanguageEntity, Language>();
+            
+            CreateMap<Language, LanguageEntity<DriverEntity>>();
+            CreateMap<LanguageEntity<DriverEntity>, Language>();
         }
     }
 }

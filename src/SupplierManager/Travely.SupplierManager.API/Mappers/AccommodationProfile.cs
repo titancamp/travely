@@ -1,6 +1,5 @@
+using System.Linq;
 using AutoMapper;
-using TourEntities.Service.Accommodation;
-using Travely.SupplierManager.API.Models;
 using Travely.SupplierManager.API.Requests;
 using Travely.SupplierManager.API.Responses;
 using Travely.SupplierManager.Repository.Entities;
@@ -13,23 +12,14 @@ namespace Travely.SupplierManager.API.Mappers
     {
         public AccommodationProfile()
         {
-            CreateMap<Accommodation, AccommodationEntity>();
+            CreateMap<Accommodation, AccommodationEntity>().ForMember(dst => dst.Services, opt => opt.MapFrom(src => src.Services.Select(x => new AccommodationServiceEntity{ Service = x})));
+            CreateMap<AccommodationEntity, Accommodation>().ForMember(dst => dst.Services, opt => opt.MapFrom(src => src.Services.Select(x => x.Service)));
+            
+            CreateMap<Room, RoomEntity>().ForMember(dst => dst.Services, opt => opt.MapFrom(src => src.Services.Select(x => new RoomServiceEntity{ Service = x})));
+            CreateMap<RoomEntity, Room>().ForMember(dst => dst.Services, opt => opt.MapFrom(src => src.Services.Select(x => x.Service)));
 
-            CreateMap<AccommodationService, AccommodationServiceEntity>();
-            CreateMap<AccommodationServiceEntity, AccommodationService>();
-            CreateMap<RoomService, RoomServiceEntity>();
-            CreateMap<RoomServiceEntity, RoomService>();
-            
-            CreateMap<Room, RoomEntity>();
-            CreateMap<RoomEntity, Room>();
-            
-            CreateMap<AccommodationEntity, Accommodation>();
-            
             CreateMap<Accommodation, AccommodationResponse>();
             CreateMap<AccommodationRequest, Accommodation>();
-
-            CreateMap<SupplierQueryParamsResponse, SupplierQueryParams>();
-            CreateMap(typeof(SupplierPage<>), typeof(SupplierPageResponse<>));
         }
     }
 }

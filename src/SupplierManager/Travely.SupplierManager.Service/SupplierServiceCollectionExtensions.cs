@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Travely.SupplierManager.Repository;
 using Travely.SupplierManager.Repository.Entities;
+using Travely.SupplierManager.Repository.Filters;
 using Travely.SupplierManager.Service;
-using Travely.SupplierManager.Service.Helpers;
 using Travely.SupplierManager.Service.Models;
 
 namespace Travely.SupplierManager.Extensions.DependencyInjection
@@ -12,14 +11,11 @@ namespace Travely.SupplierManager.Extensions.DependencyInjection
         public static IServiceCollection AddSupplierServices(this IServiceCollection services)
         {
             services.AddSupplierRepositories();
-            services.AddScoped<ISupplierService<Accommodation>, SupplierService<Accommodation, AccommodationEntity>>();
-            // services.AddSingleton<ISearchHelper<AccommodationEntity>, AccommodationSearchHelper>();
-            // services.AddSingleton<ISortHelper<AccommodationEntity>, SortHelper<AccommodationEntity>>();
-            
-            services.AddScoped<ISupplierService<Activities>, SupplierService<Activities, ActivitiesEntity>>();
-            services.AddScoped<ISupplierService<Food>, SupplierService<Food, FoodEntity>>();
-            services.AddScoped<ISupplierService<Guides>, SupplierService<Guides, GuidesEntity>>();
-            services.AddScoped<ISupplierService<Transportation>, SupplierService<Transportation, TransportationEntity>>();
+            services.AddScoped<ISupplierService<Accommodation, AccommodationFilter>, SupplierService<Accommodation, AccommodationEntity, AccommodationFilter>>();
+            services.AddScoped<ISupplierService<Activities, ActivitiesFilter>, SupplierService<Activities, ActivitiesEntity, ActivitiesFilter>>();
+            services.AddScoped<ISupplierService<Food, FoodFilter>, SupplierService<Food, FoodEntity, FoodFilter>>();
+            services.AddScoped<ISupplierService<Guides, GuidesFilter>, SupplierService<Guides, GuidesEntity, GuidesFilter>>();
+            services.AddScoped<ISupplierService<Transportation, TransportationFilter>, SupplierService<Transportation, TransportationEntity, TransportationFilter>>();
             
             return services;
         }

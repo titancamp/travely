@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Travely.SupplierManager.Repository.DbContexts;
 
 namespace Travely.SupplierManager.Repository.Migrations
 {
     [DbContext(typeof(SupplierDbContext))]
-    partial class SupplierDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220119203554_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

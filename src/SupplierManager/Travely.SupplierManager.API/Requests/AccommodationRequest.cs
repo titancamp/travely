@@ -2,24 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using TourEntities.Service.Accommodation;
+using TourEntities.Service.Common.Location;
 using Travely.SupplierManager.Service.Models;
+using Location = Travely.SupplierManager.Service.Models.Location;
 
 namespace Travely.SupplierManager.API.Requests
 {
     public class AccommodationRequest
     {
-        public int Type { get; set; }
+        public AccommodationType Type { get; set; }
         public string Name { get; set; }
         public TimeSpan CheckInTime { get; set; }
         public TimeSpan CheckOutTime { get; set; }
         public Location Location { get; set; }
-        public Region Region { get; set; }
+        public TmRegion TmRegion { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
-        public ICollection<AccommodationService> Services { get; set; }
+        public List<AccommodationService> Services { get; set; }
+        public decimal Cost { get; set; }
         public string Notes { get; set; }
 
-        public ICollection<Room> Rooms { get; set; }
+        public List<Room> Rooms { get; set; }
 
         public string ContactPerson { get; set; }
         public string ContactNumber { get; set; }
@@ -27,7 +30,7 @@ namespace Travely.SupplierManager.API.Requests
 
         public DateTime SignDate { get; set; }
         public DateTime ExpiryDate { get; set; }
-        public ICollection<Attachment> Attachments { get; set; }
+        public List<Attachment> Attachments { get; set; }
         
         public bool AllInclusive { get; set; }
         

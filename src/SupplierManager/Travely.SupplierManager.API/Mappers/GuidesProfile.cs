@@ -12,7 +12,7 @@ namespace Travely.SupplierManager.API.Mappers
             CreateMap<GuidesEntity, Guides>();
             CreateMap<Guide, GuideEntity>();
             CreateMap<GuideEntity, Guide>();
-            CreateMap<string, AttachmentEntity>();
+            //CreateMap<string, AttachmentEntity>();
         }
     }
 }

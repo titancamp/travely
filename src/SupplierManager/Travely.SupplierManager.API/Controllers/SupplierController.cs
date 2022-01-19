@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Travely.Common.Api.Controllers;
+using Travely.Shared.IdentityClient.Authorization.Common;
 using Travely.SupplierManager.API.Models;
 using Travely.SupplierManager.API.Responses;
 using Travely.SupplierManager.Service;
@@ -11,24 +13,25 @@ namespace Travely.SupplierManager.API.Controllers
 {
     [ApiVersion("1.0")]
     // [Authorize(Roles = UserRoles.User)]
-    public class SupplierController<T, TRequest, TResponse> : TravelyControllerBase
+    public class SupplierController<T, TRequest, TResponse, TFilter> : TravelyControllerBase
         where T : class
         where TRequest : class
         where TResponse : class
+        where TFilter : class
     {
         protected readonly IMapper Mapper;
-        protected readonly ISupplierService<T> Service;
+        protected readonly ISupplierService<T, TFilter> Service;
 
-        public SupplierController(ISupplierService<T> service, IMapper mapper)
+        public SupplierController(ISupplierService<T, TFilter> service, IMapper mapper)
         {
             Service = service;
             Mapper = mapper;
         }
 
         [HttpGet]
-        public IActionResult Get([FromQuery] SupplierQueryParamsResponse parameters)
+        public IActionResult Get([FromQuery] SupplierQueryParamsResponse parameters, [FromQuery] TFilter filters)
         {
-            var data = Service.Get(UserInfo.AgencyId, Mapper.Map<SupplierQueryParams>(parameters));
+            var data = Service.Get(UserInfo.AgencyId, Mapper.Map<SupplierQueryParams>(parameters), filters);
 
             if (data == null)
             {
@@ -36,18 +39,6 @@ namespace Travely.SupplierManager.API.Controllers
             }
 
             return Ok(Mapper.Map<SupplierPageResponse<TResponse>>(data));
-        }
-        
-        [HttpGet("All")]
-        public IActionResult GetAll()
-        {
-            var data = Service.GetAll(UserInfo.AgencyId);
-            if (data == null || data.Count == 0)
-            {
-                return NotFound();
-            }
-
-            return Ok(Mapper.Map<List<TResponse>>(data));
         }
 
         [HttpGet("{id}")]
