@@ -20,6 +20,8 @@ namespace Travely.SupplierManager.API.Mappers
 
             CreateMap<Accommodation, AccommodationResponse>();
             CreateMap<AccommodationRequest, Accommodation>();
+            
+            CreateMap<Attachment, AttachmentEntity<AccommodationEntity>>().ReverseMap();
         }
     }
 }

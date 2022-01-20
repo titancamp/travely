@@ -29,6 +29,6 @@ namespace Travely.SupplierManager.Repository.Entities
         public DateTime SignDate { get; set; }
         public DateTime ExpiryDate { get; set; }
         [MaxLength(5)]
-        public ICollection<AttachmentEntity> Attachments { get; set; }
+        public ICollection<AttachmentEntity<ActivitiesEntity>> Attachments { get; set; }
     }
 }

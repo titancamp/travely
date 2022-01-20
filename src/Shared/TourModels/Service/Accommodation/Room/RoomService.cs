@@ -1,10 +1,22 @@
-using System;
-
-namespace TourEntities.Service.Accommodation.Room
+﻿namespace TourEntities.Service.Accommodation.Room
 {
-    public class RoomService
+    public enum RoomService
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        Breakfast,
+        FreeWifi,
+        RoomService,
+        HearingAccessible,
+        AccessibleRoom,
+        PetFriendly,
+        Parking,
+        Fitness,
+        Massage,
+        Smoking,
+        AirConditioning,
+        Heating,
+        PrivateBathroom,
+        HairDryer,
+        TV,
+        CoffeeMachine
     }
 }

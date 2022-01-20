@@ -167,49 +167,124 @@ namespace Travely.SupplierManager.Repository.Migrations
                     b.ToTable("ActivitiesEntity");
                 });
 
-            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity", b =>
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity<Travely.SupplierManager.Repository.Entities.AccommodationEntity>", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("AccommodationEntityId")
+                    b.Property<string>("Name")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ActivitiesEntityId")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.Property<int?>("FoodEntityId")
-                        .HasColumnType("int");
+                    b.HasIndex("UserId");
 
-                    b.Property<int?>("GuidesEntityId")
-                        .HasColumnType("int");
+                    b.ToTable("AttachmentEntity<AccommodationEntity>");
+                });
 
-                    b.Property<int?>("MenuEntityId")
-                        .HasColumnType("int");
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity<Travely.SupplierManager.Repository.Entities.ActivitiesEntity>", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
-                    b.Property<int?>("TransportationEntityId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccommodationEntityId");
+                    b.HasIndex("UserId");
 
-                    b.HasIndex("ActivitiesEntityId");
+                    b.ToTable("AttachmentEntity<ActivitiesEntity>");
+                });
 
-                    b.HasIndex("FoodEntityId");
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity<Travely.SupplierManager.Repository.Entities.FoodEntity>", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("GuidesEntityId");
+                    b.Property<string>("Name")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
-                    b.HasIndex("MenuEntityId");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("TransportationEntityId");
+                    b.HasKey("Id");
 
-                    b.ToTable("AttachmentEntity");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AttachmentEntity<FoodEntity>");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity<Travely.SupplierManager.Repository.Entities.GuidesEntity>", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AttachmentEntity<GuidesEntity>");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity<Travely.SupplierManager.Repository.Entities.MenuEntity>", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AttachmentEntity<MenuEntity>");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity<Travely.SupplierManager.Repository.Entities.TransportationEntity>", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AttachmentEntity<TransportationEntity>");
                 });
 
             modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttributeEntity", b =>
@@ -360,7 +435,7 @@ namespace Travely.SupplierManager.Repository.Migrations
                     b.Property<int>("TmRegion")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TypeId")
+                    b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.Property<bool>("Weekends")
@@ -375,24 +450,7 @@ namespace Travely.SupplierManager.Repository.Migrations
 
                     b.HasIndex("MenuId");
 
-                    b.HasIndex("TypeId");
-
                     b.ToTable("FoodEntity");
-                });
-
-            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.FoodTypeEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FoodTypeEntity");
                 });
 
             modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.GuideEntity", b =>
@@ -411,7 +469,7 @@ namespace Travely.SupplierManager.Repository.Migrations
                     b.Property<int?>("GuidesEntityId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("ImageId")
+                    b.Property<Guid>("Image")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -421,8 +479,6 @@ namespace Travely.SupplierManager.Repository.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("GuidesEntityId");
-
-                    b.HasIndex("ImageId");
 
                     b.ToTable("GuideEntity");
                 });
@@ -743,31 +799,58 @@ namespace Travely.SupplierManager.Repository.Migrations
                     b.Navigation("Accommodation");
                 });
 
-            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity", b =>
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity<Travely.SupplierManager.Repository.Entities.AccommodationEntity>", b =>
                 {
-                    b.HasOne("Travely.SupplierManager.Repository.Entities.AccommodationEntity", null)
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.AccommodationEntity", "User")
                         .WithMany("Attachments")
-                        .HasForeignKey("AccommodationEntityId");
+                        .HasForeignKey("UserId");
 
-                    b.HasOne("Travely.SupplierManager.Repository.Entities.ActivitiesEntity", null)
-                        .WithMany("Attachments")
-                        .HasForeignKey("ActivitiesEntityId");
+                    b.Navigation("User");
+                });
 
-                    b.HasOne("Travely.SupplierManager.Repository.Entities.FoodEntity", null)
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity<Travely.SupplierManager.Repository.Entities.ActivitiesEntity>", b =>
+                {
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.ActivitiesEntity", "User")
                         .WithMany("Attachments")
-                        .HasForeignKey("FoodEntityId");
+                        .HasForeignKey("UserId");
 
-                    b.HasOne("Travely.SupplierManager.Repository.Entities.GuidesEntity", null)
-                        .WithMany("Attachments")
-                        .HasForeignKey("GuidesEntityId");
+                    b.Navigation("User");
+                });
 
-                    b.HasOne("Travely.SupplierManager.Repository.Entities.MenuEntity", null)
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity<Travely.SupplierManager.Repository.Entities.FoodEntity>", b =>
+                {
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.FoodEntity", "User")
                         .WithMany("Attachments")
-                        .HasForeignKey("MenuEntityId");
+                        .HasForeignKey("UserId");
 
-                    b.HasOne("Travely.SupplierManager.Repository.Entities.TransportationEntity", null)
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity<Travely.SupplierManager.Repository.Entities.GuidesEntity>", b =>
+                {
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.GuidesEntity", "User")
                         .WithMany("Attachments")
-                        .HasForeignKey("TransportationEntityId");
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity<Travely.SupplierManager.Repository.Entities.MenuEntity>", b =>
+                {
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.MenuEntity", "User")
+                        .WithMany("Attachments")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttachmentEntity<Travely.SupplierManager.Repository.Entities.TransportationEntity>", b =>
+                {
+                    b.HasOne("Travely.SupplierManager.Repository.Entities.TransportationEntity", "User")
+                        .WithMany("Attachments")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.AttributeEntity", b =>
@@ -801,15 +884,9 @@ namespace Travely.SupplierManager.Repository.Migrations
                         .WithMany()
                         .HasForeignKey("MenuId");
 
-                    b.HasOne("Travely.SupplierManager.Repository.Entities.FoodTypeEntity", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeId");
-
                     b.Navigation("Location");
 
                     b.Navigation("Menu");
-
-                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.GuideEntity", b =>
@@ -817,12 +894,6 @@ namespace Travely.SupplierManager.Repository.Migrations
                     b.HasOne("Travely.SupplierManager.Repository.Entities.GuidesEntity", null)
                         .WithMany("Guide")
                         .HasForeignKey("GuidesEntityId");
-
-                    b.HasOne("Travely.SupplierManager.Repository.Entities.AttachmentEntity", "Image")
-                        .WithMany()
-                        .HasForeignKey("ImageId");
-
-                    b.Navigation("Image");
                 });
 
             modelBuilder.Entity("Travely.SupplierManager.Repository.Entities.GuidesEntity", b =>

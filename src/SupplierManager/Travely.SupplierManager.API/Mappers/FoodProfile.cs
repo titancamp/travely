@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using TourEntities.Service.Guide;
 using Travely.SupplierManager.Repository.Entities;
 using Travely.SupplierManager.Service.Models;
 
@@ -9,15 +8,13 @@ namespace Travely.SupplierManager.API.Mappers
     {
         public FoodProfile()
         {
-            CreateMap<Food, FoodEntity>();
-            CreateMap<FoodEntity, Food>();
-            CreateMap<FoodTypeEntity, FoodType>();
-            CreateMap<FoodType, FoodTypeEntity>();
+            CreateMap<Food, FoodEntity>().ReverseMap();
             
-            CreateMap<Menu, MenuEntity>();
-            CreateMap<MenuEntity, Menu>();
-            CreateMap<Tag, TagEntity>();
-            CreateMap<TagEntity, Tag>();
+            CreateMap<Menu, MenuEntity>().ReverseMap();
+            CreateMap<Tag, TagEntity>().ReverseMap();
+            
+            CreateMap<Attachment, AttachmentEntity<FoodEntity>>().ReverseMap();
+            CreateMap<Attachment, AttachmentEntity<MenuEntity>>().ReverseMap();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TourEntities.Service.Common.Location;
+using TourEntities.Service.Guide;
 
 namespace Travely.SupplierManager.Repository.Entities
 {
@@ -14,7 +15,7 @@ namespace Travely.SupplierManager.Repository.Entities
         [Required]
         public int AgencyId { get; set; }
         [Required]
-        public FoodTypeEntity Type { get; set; }
+        public FoodType Type { get; set; }
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
@@ -44,6 +45,6 @@ namespace Travely.SupplierManager.Repository.Entities
         public DateTime SignDate { get; set; }
         public DateTime ExpiryDate { get; set; }
         [MaxLength(10)]
-        public ICollection<AttachmentEntity> Attachments { get; set; }
+        public ICollection<AttachmentEntity<FoodEntity>> Attachments { get; set; }
     }
 }

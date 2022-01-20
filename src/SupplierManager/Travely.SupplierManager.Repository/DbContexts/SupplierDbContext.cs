@@ -17,6 +17,7 @@ namespace Travely.SupplierManager.Repository.DbContexts
             builder.ApplyConfiguration(new FoodConfiguration());
             builder.ApplyConfiguration(new MenuConfiguration());
             builder.ApplyConfiguration(new GuidesConfiguration());
+            builder.ApplyConfiguration(new GuideConfiguration());
             builder.ApplyConfiguration(new TransportationConfiguration());
             builder.ApplyConfiguration(new DriverConfiguration());
         }

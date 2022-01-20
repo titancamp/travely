@@ -47,7 +47,7 @@ namespace Travely.SupplierManager.Repository.Entities
 
         public DateTime SignDate { get; set; }
         public DateTime ExpiryDate { get; set; }
-        public ICollection<AttachmentEntity> Attachments { get; set; }
+        public ICollection<AttachmentEntity<AccommodationEntity>> Attachments { get; set; }
         
         public bool AllInclusive { get; set; }
         

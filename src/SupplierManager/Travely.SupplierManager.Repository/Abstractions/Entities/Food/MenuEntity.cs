@@ -9,7 +9,7 @@ namespace Travely.SupplierManager.Repository.Entities
         [Key]
         [Required]
         public int Id { get; set; }
-        public ICollection<AttachmentEntity> Attachments { get; set; }
+        public ICollection<AttachmentEntity<MenuEntity>> Attachments { get; set; }
         public ICollection<TagEntity> Tags { get; set; }
     }
 }

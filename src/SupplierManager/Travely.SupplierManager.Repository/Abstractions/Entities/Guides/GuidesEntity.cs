@@ -38,6 +38,6 @@ namespace Travely.SupplierManager.Repository.Entities
         public ICollection<GuideEntity> Guide { get; set; }
         public DateTime SignDate { get; set; }
         public DateTime ExpiryDate { get; set; }
-        public ICollection<AttachmentEntity> Attachments { get; set; }
+        public ICollection<AttachmentEntity<GuidesEntity>> Attachments { get; set; }
     }
 }

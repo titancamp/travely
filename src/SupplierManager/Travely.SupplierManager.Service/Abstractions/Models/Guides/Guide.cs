@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Travely.SupplierManager.Service.Models
 {
@@ -7,7 +8,7 @@ namespace Travely.SupplierManager.Service.Models
         public int Id { get; set; }
         
         public string Name { get; set; }
-        public string Image { get; set; }
+        public Guid Image { get; set; }
         public string ContactEmail { get; set; }
         public string ContactNumber { get; set; }
         public List<Language> Languages { get; set; }

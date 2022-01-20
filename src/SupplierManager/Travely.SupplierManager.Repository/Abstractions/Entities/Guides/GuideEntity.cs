@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Travely.SupplierManager.Repository.Entities
@@ -10,7 +11,7 @@ namespace Travely.SupplierManager.Repository.Entities
         public int Id { get; set; }
         [StringLength(50)]
         public string Name { get; set; }
-        public AttachmentEntity Image { get; set; }
+        public Guid Image { get; set; }
         [EmailAddress]
         public string ContactEmail { get; set; }
         [Phone]

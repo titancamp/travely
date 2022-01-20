@@ -1,12 +1,13 @@
 ﻿using System.Linq;
 using TourEntities.Service.Common.Location;
+using TourEntities.Service.Guide;
 using Travely.SupplierManager.Repository.Entities;
 
 namespace Travely.SupplierManager.Repository.Filters
 {
     public class FoodFilter : Filter<FoodEntity>
     {
-        public FoodTypeEntity Type { get; set; }
+        public FoodType? Type { get; set; }
         public TmRegion? TmRegion { get; set; }
         public string City { get; set; }
         public decimal? PriceFrom { get; set; }

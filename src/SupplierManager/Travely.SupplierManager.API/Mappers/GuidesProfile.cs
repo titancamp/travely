@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using Travely.SupplierManager.Repository.Entities;
 using Travely.SupplierManager.Service.Models;
 
@@ -8,11 +9,10 @@ namespace Travely.SupplierManager.API.Mappers
     {
         public GuidesProfile() 
         {
-            CreateMap<Guides, GuidesEntity>();
-            CreateMap<GuidesEntity, Guides>();
-            CreateMap<Guide, GuideEntity>();
-            CreateMap<GuideEntity, Guide>();
-            //CreateMap<string, AttachmentEntity>();
+            CreateMap<Guides, GuidesEntity>().ReverseMap();
+            CreateMap<Guide, GuideEntity>().ReverseMap();
+            CreateMap<Language, LanguageEntity<GuideEntity>>().ReverseMap();
+            CreateMap<Attachment, AttachmentEntity<GuidesEntity>>().ReverseMap();
         }
     }
 }
