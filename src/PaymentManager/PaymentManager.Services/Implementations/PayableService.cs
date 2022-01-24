@@ -80,7 +80,7 @@ namespace PaymentManager.Services
             return _mapper.Map<PayableRead>(updatedEntity);
         }
 
-        public async Task UpdateSupplier(int agencyId, int id, PayableSupplierUpdate model)
+        public async Task UpdateSupplier(int agencyId, PayableSupplierUpdate model)
         {
             var entityQuery = _repository.Find(m => m.AgencyId == agencyId && m.SupplierId == model.SupplierId);
             var payables = entityQuery.ToList();
@@ -96,13 +96,13 @@ namespace PaymentManager.Services
             }
         }
 
-        public async Task UpdatePayablesTourStatus(int agencyId, int tourId, int tourStatus)
+        public async Task UpdatePayablesTourStatus(int agencyId, int tourId, TourStatus tourStatus)
         {
             var payables = _repository.Find(m => m.AgencyId == agencyId && m.TourId == tourId);
             var model = payables.ToList();
             foreach (var payable in model)
             {
-                payable.TourStatus = (TourStatus)tourStatus;
+                payable.TourStatus = tourStatus;
             }
 
             foreach (var payable in payables)

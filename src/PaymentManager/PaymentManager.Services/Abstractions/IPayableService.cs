@@ -17,8 +17,8 @@ namespace PaymentManager.Services
         Task<PayableRead> CreateAsync(int agencyId, PayableCreate model);
         Task CreateRangeAsync(int agencyId, List<PayableCreate> models);
         Task<PayableRead> UpdateAsync(int agencyId, int id, PayableUpdate model);
-        Task UpdateSupplier(int agencyId, int id, PayableSupplierUpdate model);
-        Task UpdatePayablesTourStatus(int agencyId, int tourId, int tourStatus);
+        Task UpdateSupplier(int agencyId, PayableSupplierUpdate model);
+        Task UpdatePayablesTourStatus(int agencyId, int tourId, TourStatus tourStatus);
         Task DeleteSupplierFromPayable(int agencyId, int tourId, int supplierId);
 
         Task<List<PayableRead>> Find(Expression<Func<PayableEntity, bool>> predicate);

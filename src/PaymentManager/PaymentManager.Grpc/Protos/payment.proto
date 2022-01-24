@@ -62,7 +62,7 @@ message PayableCreateModel{
 message UpdateTourStatusModel{
 	int32 AgencyId = 1;
 	int32 TourId = 2;
-	int32 TourStatus = 3;
+	TourStatus TourStatus = 3;
 }
 
 message PayableItems{
@@ -75,9 +75,8 @@ message PayableItems{
 
 message SupplierUpdate{
 	int32 AgencyId = 1;
-	int32 PayableId = 2;
-	int32 SupplierId = 3;
-	string SupplierName = 4;
+	int32 SupplierId = 2;
+	string SupplierName = 3;
 }
 
 message DeleteSupplierModel{

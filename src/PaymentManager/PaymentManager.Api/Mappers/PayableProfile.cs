@@ -18,7 +18,7 @@ namespace PaymentManager.Api.Mappers
         {
             CreateMap<PayableRead, PayableReadDto>();
             CreateMap<PayableRead, PayableReadDetailedDto>();
-            CreateMap<PayableEntity, PayableRead>().ReverseMap();
+            CreateMap<PayableEntity, PayableRead>();
             CreateMap<PayableItem, PayableItemReadDto>();
 
             CreateMap<PayableCreate, PayableEntity>();
@@ -78,6 +78,7 @@ namespace PaymentManager.Api.Mappers
             CreateMap<PayableCreateModel, PayableCreate>();
             CreateMap<PayableRead, PayableReadModel>();
             CreateMap<PayablesByTourId, PayablesByTourIdModel>();
+            CreateMap<Travely.PaymentManager.Grpc.TourStatus, TourStatus>();
         }
     }
 }

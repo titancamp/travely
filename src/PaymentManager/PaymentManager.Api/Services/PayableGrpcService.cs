@@ -5,9 +5,11 @@ using PaymentManager.Services.Models;
 using PaymentManager.Shared;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Travely.PaymentManager.Grpc;
+using TourStatus = PaymentManager.Shared.TourStatus;
 
 namespace PaymentManager.Api.Services
 {
@@ -40,7 +42,7 @@ namespace PaymentManager.Api.Services
         {
             var updateModel = _mapper.Map<PayableSupplierUpdate>(request);
 
-            await _payableService.UpdateSupplier(request.AgencyId, request.PayableId, updateModel);
+            await _payableService.UpdateSupplier(request.AgencyId, updateModel);
 
             return new PayableResponse();
         }
@@ -76,12 +78,15 @@ namespace PaymentManager.Api.Services
                 throw new Exception(); //TODO need to clarify how we manage exceptions.
             }
 
-            return _mapper.Map<PayableReadModel>(response[0]);
+            var payable = response.FirstOrDefault();
+
+            return _mapper.Map<PayableReadModel>(payable);
         }
 
         public override async Task<PayableResponse> UpdateTourStatus(UpdateTourStatusModel request, ServerCallContext context)
         {
-            await _payableService.UpdatePayablesTourStatus(request.AgencyId, request.TourId, request.TourStatus);
+            var tourStatus = _mapper.Map<TourStatus>(request.TourStatus);
+            await _payableService.UpdatePayablesTourStatus(request.AgencyId, request.TourId, tourStatus);
 
             return new PayableResponse();
         }
