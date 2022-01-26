@@ -1,15 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Travely.Common;
 using Travely.Common.Api.Controllers;
 using Travely.ReportingManager.Grpc.Client.Abstraction;
 using Travely.ReportingManager.Grpc.Models;
+using Travely.Shared.IdentityClient.Authorization.Common;
 
 namespace TourManager.Api.Controllers
 {
     [ApiVersion("1.0")]
-    // [Authorize(Roles = UserRoles.User)]
+    //[Authorize(Roles = UserRoles.User)]
     public class ToDoController : TravelyControllerBase
     {
         private readonly IReportingManagerClient _service;

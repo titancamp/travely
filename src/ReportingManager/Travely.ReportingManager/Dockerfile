@@ -8,9 +8,15 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["src/ReportingManager/Travely.ReportingManager/Travely.ReportingManager.csproj", "src/ReportingManager/Travely.ReportingManager/"]
-COPY ["src/Commons/Travely.Services.Common/Travely.Services.Common.csproj", "src/Commons/Travely.Services.Common/"]
+COPY ["src/Commons/Travely.Common.Swagger/Travely.Common.Swagger.csproj", "src/Commons/Travely.Common.Swagger/"]
+COPY ["src/Commons/Travely.Common/Travely.Common.csproj", "src/Commons/Travely.Common/"]
+COPY ["src/Commons/Travely.Common.ServiceDiscovery/Travely.Common.ServiceDiscovery.csproj", "src/Commons/Travely.Common.ServiceDiscovery/"]
 COPY ["src/ReportingManager/Travely.ReportingManager.Services/Travely.ReportingManager.Services.csproj", "src/ReportingManager/Travely.ReportingManager.Services/"]
 COPY ["src/ReportingManager/Travely.ReportingManager.Data/Travely.ReportingManager.Data.csproj", "src/ReportingManager/Travely.ReportingManager.Data/"]
+COPY ["src/ReportingManager/Travely.ReportingManager.Grpc/Travely.ReportingManager.Grpc.csproj", "src/ReportingManager/Travely.ReportingManager.Grpc/"]
+COPY ["src/Commons/Travely.Common.Grpc/Travely.Common.Grpc.csproj", "src/Commons/Travely.Common.Grpc/"]
+COPY ["src/Commons/Travely.Common.Api/Travely.Common.Api.csproj", "src/Commons/Travely.Common.Api/"]
+COPY ["src/Shared/IdentityClient/Travely.Shared.IdentityClient.Authorization.csproj", "src/Shared/IdentityClient/"]
 RUN dotnet restore "src/ReportingManager/Travely.ReportingManager/Travely.ReportingManager.csproj"
 COPY . .
 WORKDIR "/src/src/ReportingManager/Travely.ReportingManager"
