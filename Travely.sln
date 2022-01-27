@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.1.31911.260
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TourManager", "TourManager", "{90D98036-508B-4ED9-A502-0D0340502EC4}"
 EndProject
@@ -136,7 +136,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentManager.Repositories
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentManager.Services", "src\PaymentManager\PaymentManager.Services\PaymentManager.Services.csproj", "{A4A8548B-36A3-48DB-8D46-A76495445B0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentManager.Shared", "src\PaymentManager\PaymentManager.Shared\PaymentManager.Shared.csproj", "{85C4D842-14D6-4572-977E-93C0A2A323C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentManager.Shared", "src\PaymentManager\PaymentManager.Shared\PaymentManager.Shared.csproj", "{85C4D842-14D6-4572-977E-93C0A2A323C2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReportingManager", "ReportingManager", "{79ECA7B6-8B1A-45C5-BC5E-81169B2D87EA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ReportingManager", "src\ReportingManager\Travely.ReportingManager\Travely.ReportingManager.csproj", "{B896C95B-7B14-45E9-8F77-DD533A4EC4C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ReportingManager.Data", "src\ReportingManager\Travely.ReportingManager.Data\Travely.ReportingManager.Data.csproj", "{3134762C-870B-40C7-B247-44F4756AD038}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ReportingManager.Grpc", "src\ReportingManager\Travely.ReportingManager.Grpc\Travely.ReportingManager.Grpc.csproj", "{562B08FC-696E-42D6-8C55-C9D0402A6A50}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ReportingManager.Services", "src\ReportingManager\Travely.ReportingManager.Services\Travely.ReportingManager.Services.csproj", "{71339391-8016-45CF-AEEF-C07E39CB51DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -336,6 +346,22 @@ Global
 		{85C4D842-14D6-4572-977E-93C0A2A323C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85C4D842-14D6-4572-977E-93C0A2A323C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85C4D842-14D6-4572-977E-93C0A2A323C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B896C95B-7B14-45E9-8F77-DD533A4EC4C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B896C95B-7B14-45E9-8F77-DD533A4EC4C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B896C95B-7B14-45E9-8F77-DD533A4EC4C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B896C95B-7B14-45E9-8F77-DD533A4EC4C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3134762C-870B-40C7-B247-44F4756AD038}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3134762C-870B-40C7-B247-44F4756AD038}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3134762C-870B-40C7-B247-44F4756AD038}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3134762C-870B-40C7-B247-44F4756AD038}.Release|Any CPU.Build.0 = Release|Any CPU
+		{562B08FC-696E-42D6-8C55-C9D0402A6A50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{562B08FC-696E-42D6-8C55-C9D0402A6A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{562B08FC-696E-42D6-8C55-C9D0402A6A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{562B08FC-696E-42D6-8C55-C9D0402A6A50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71339391-8016-45CF-AEEF-C07E39CB51DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71339391-8016-45CF-AEEF-C07E39CB51DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71339391-8016-45CF-AEEF-C07E39CB51DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71339391-8016-45CF-AEEF-C07E39CB51DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -394,6 +420,10 @@ Global
 		{14272C98-2561-4053-BD5B-99C26759395B} = {B6E5354B-C77A-4C2E-99A1-1602AF2D918A}
 		{A4A8548B-36A3-48DB-8D46-A76495445B0D} = {B6E5354B-C77A-4C2E-99A1-1602AF2D918A}
 		{85C4D842-14D6-4572-977E-93C0A2A323C2} = {B6E5354B-C77A-4C2E-99A1-1602AF2D918A}
+		{B896C95B-7B14-45E9-8F77-DD533A4EC4C8} = {79ECA7B6-8B1A-45C5-BC5E-81169B2D87EA}
+		{3134762C-870B-40C7-B247-44F4756AD038} = {79ECA7B6-8B1A-45C5-BC5E-81169B2D87EA}
+		{562B08FC-696E-42D6-8C55-C9D0402A6A50} = {79ECA7B6-8B1A-45C5-BC5E-81169B2D87EA}
+		{71339391-8016-45CF-AEEF-C07E39CB51DF} = {79ECA7B6-8B1A-45C5-BC5E-81169B2D87EA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}
