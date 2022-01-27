@@ -181,6 +181,25 @@ services:
     volumes:
       - ~/.aspnet/https:/https:ro
 
+  paymentmanager.api:
+    image: titancamp/paymentmanagerapi
+    build:
+      context: .
+      dockerfile: src/PaymentManager/PaymentManager.Api/Dockerfile
+    ports:
+        - "8800:80"
+        - "8801:443"
+    depends_on:
+        - sql-server-db
+    environment:
+       - ServiceDiscoveryConfiguration__serviceName=travely-paymentmanager
+       - ServiceDiscoveryConfiguration__serviceId=travely-paymentmanager-1
+       - ServiceDiscoveryConfiguration__serviceAddress=http://paymentmanager.api
+       - ConsulClientConfiguration__address=http://consul:8500
+    env_file:
+       - .env
+    volumes:
+      - ~/.aspnet/https:/https:ro
      
   travely.reportingmanager:
     image: titancamp/travelyreportingmanager
