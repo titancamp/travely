@@ -5,7 +5,7 @@ namespace TourEntities.Service.Accommodation.Room
 {
     public partial class Room
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Type { get; set; }
         public int Quantity { get; set; }
         public int NumberOfBeds { get; set; }

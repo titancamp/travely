@@ -6,9 +6,10 @@ namespace TourEntities.Service.Food
 {
     public partial class Food
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
+        public int AgencyId { get; set; }
         public string Region { get; set; }
         public string City { get; set; }
         public string Address { get; set; }

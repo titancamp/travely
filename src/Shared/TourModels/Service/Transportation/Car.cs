@@ -5,7 +5,7 @@ namespace TourEntities.Service.Transportation
 {
     public class Car
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Color { get; set; }
         public string PlateNumber { get; set; }

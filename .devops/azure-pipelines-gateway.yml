@@ -40,8 +40,8 @@ stages:
     containerEnv:
     - name: TravelyIdentityConfig__Authority
       value: http://identity-manager-app
-    - name: n1
-      value: v1
+    - name: ASPNETCORE_ENVIRONMENT
+      value: $(Build.SourceBranchName)
     - name: n2
       value: v2
     - name: n3
