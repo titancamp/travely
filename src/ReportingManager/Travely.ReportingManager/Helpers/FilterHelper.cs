@@ -35,7 +35,7 @@ namespace Travely.ReportingManager.Helpers
                         return Expression.Lambda<Func<T, bool>>(Expression.Equal(_dictionary[filter.FieldName].Body, Expression.Constant(filter.Value)), _dictionary[filter.FieldName].Parameters);
                     case FilteringOperationType.Contains:
                         {
-                            var method = typeof(string).GetMethod("Contains", new Type[] { typeof(string) });
+                            var method = typeof(string).GetMethod(nameof(string.Contains), new Type[] { typeof(string) });
                             return Expression.Lambda<Func<T, bool>>(Expression.Call(_dictionary[filter.FieldName].Body, method, Expression.Constant(filter.Value)), _dictionary[filter.FieldName].Parameters);
                         }
                 }

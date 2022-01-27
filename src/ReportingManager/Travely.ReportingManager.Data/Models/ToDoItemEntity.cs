@@ -1,5 +1,4 @@
 ﻿using System;
-using Travely.ReportingManager.Data.Enums;
 
 namespace Travely.ReportingManager.Data.Models
 {
