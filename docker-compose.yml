@@ -200,3 +200,23 @@ services:
        - .env
     volumes:
       - ~/.aspnet/https:/https:ro
+     
+  travely.reportingmanager:
+    image: titancamp/travelyreportingmanager
+    build:
+      context: .
+      dockerfile: src/ReportingManager/Travely.ReportingManager/Dockerfile
+    ports:
+        - "8900:80"
+        - "8901:443"
+    depends_on:
+        - sql-server-db
+    environment:
+       - ServiceDiscoveryConfiguration__serviceName=travely-reportingmanager
+       - ServiceDiscoveryConfiguration__serviceId=travely-reportingmanager-1
+       - ServiceDiscoveryConfiguration__serviceAddress=http://travely.reportingmanager
+       - ConsulClientConfiguration__address=http://consul:8500
+    env_file:
+      - .env
+    volumes:
+      - ~/.aspnet/https:/https:ro

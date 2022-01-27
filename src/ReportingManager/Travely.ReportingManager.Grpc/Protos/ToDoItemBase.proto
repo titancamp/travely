@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "Travely.ReportingManager.Protos";
+
+message OrderingModel{
+	string FieldName = 1;
+	bool IsDescending = 2;
+}
+message FilteringModel{
+	string FieldName = 1;
+	string Value = 2;
+	FilteringOperationType Type = 3;
+}
+message PagingModel{
+	int32 From = 1;
+	int32 Count = 2;
+}
+enum FilteringOperationType{
+	NOT_USE = 0;
+	EQUALS = 1;
+	CONTAINS = 2;
+}
