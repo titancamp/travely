@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Travely.SupplierManager.Repository.Entities;
+using TourEntities.Service.Accommodation.Room;
 
 namespace Travely.SupplierManager.Service.Models
 {
@@ -11,6 +11,6 @@ namespace Travely.SupplierManager.Service.Models
         public decimal Price { get; set; }
         public int NumberOfBeds { get; set; }
         public int AdditionalBeds { get; set; }
-        public List<RoomService> Services { get; set; }
+        public List<RoomServiceModel> Services { get; set; }
     }
 }

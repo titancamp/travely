@@ -11,13 +11,8 @@ namespace Travely.SupplierManager.Repository
     {
         Task<TEntity> GetByIdAsync(int agencyId, int id);
         IQueryable<TEntity> GetAll(int agencyId, Filter<TEntity> filter);
-        Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate);
-        Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
         Task<TEntity> AddAsync(TEntity entity);
-        Task AddRangeAsync(List<TEntity> entities);
         public Task<TEntity> UpdateAsync(TEntity entity);
-        public Task UpdateRangeAsync(List<TEntity> entities);
         Task RemoveAsync(TEntity entity);
-        Task RemoveRangeAsync(List<TEntity> entities);
     }
 }

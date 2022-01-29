@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Travely.SupplierManager.Repository.Entities;
 using Travely.SupplierManager.Repository.Filters;
 using Travely.SupplierManager.Service;
 using Travely.SupplierManager.Service.Models;

@@ -1,4 +1,3 @@
-using System.Linq;
 using AutoMapper;
 using Travely.SupplierManager.API.Requests;
 using Travely.SupplierManager.API.Responses;
@@ -12,16 +11,17 @@ namespace Travely.SupplierManager.API.Mappers
     {
         public AccommodationProfile()
         {
-            CreateMap<Accommodation, AccommodationEntity>().ForMember(dst => dst.Services, opt => opt.MapFrom(src => src.Services.Select(x => new AccommodationServiceEntity{ Service = x})));
-            CreateMap<AccommodationEntity, Accommodation>().ForMember(dst => dst.Services, opt => opt.MapFrom(src => src.Services.Select(x => x.Service)));
-            
-            CreateMap<Room, RoomEntity>().ForMember(dst => dst.Services, opt => opt.MapFrom(src => src.Services.Select(x => new RoomServiceEntity{ Service = x})));
-            CreateMap<RoomEntity, Room>().ForMember(dst => dst.Services, opt => opt.MapFrom(src => src.Services.Select(x => x.Service)));
-
+            CreateMap<Accommodation, AccommodationEntity>()
+                .ForMember(dst => dst.Id, opt => opt.Ignore())
+                .ReverseMap();
+            CreateMap<AccommodationServiceModel, AccommodationServiceEntity>().ReverseMap();
+            CreateMap<Room, RoomEntity>().ReverseMap();
+            CreateMap<RoomServiceModel, RoomServiceEntity>().ReverseMap();
             CreateMap<Accommodation, AccommodationResponse>();
             CreateMap<AccommodationRequest, Accommodation>();
-            
-            CreateMap<Attachment, AttachmentEntity<AccommodationEntity>>().ReverseMap();
+            CreateMap<Attachment, AttachmentEntity<AccommodationEntity>>()
+                .ForMember(dst => dst.Id, opt => opt.Ignore())
+                .ReverseMap();
         }
     }
 }

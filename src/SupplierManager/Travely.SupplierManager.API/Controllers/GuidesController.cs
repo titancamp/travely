@@ -5,9 +5,9 @@ using Travely.SupplierManager.Service.Models;
 
 namespace Travely.SupplierManager.API.Controllers
 {
-    public class GuidesController : SupplierController<Guides, Guides, Guides, GuidesFilter>
+    public class GuidesController : SupplierController<GuidesModel, GuidesModel, GuidesModel, GuidesFilter>
     {
-        public GuidesController(ISupplierService<Guides, GuidesFilter> service, IMapper mapper)
+        public GuidesController(ISupplierService<GuidesModel, GuidesFilter> service, IMapper mapper)
             : base(service, mapper)
         {
         }

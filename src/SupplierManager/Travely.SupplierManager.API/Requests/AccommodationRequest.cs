@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using TourEntities.Service.Accommodation;
 using TourEntities.Service.Common.Location;
 using Travely.SupplierManager.Service.Models;
@@ -10,6 +9,7 @@ namespace Travely.SupplierManager.API.Requests
 {
     public class AccommodationRequest
     {
+        public bool IsDeleted { get; set; } = false;
         public AccommodationType Type { get; set; }
         public string Name { get; set; }
         public TimeSpan CheckInTime { get; set; }
@@ -18,7 +18,7 @@ namespace Travely.SupplierManager.API.Requests
         public TmRegion TmRegion { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
-        public List<AccommodationService> Services { get; set; }
+        public List<AccommodationServiceModel> Services { get; set; }
         public decimal Cost { get; set; }
         public string Notes { get; set; }
 
@@ -39,6 +39,6 @@ namespace Travely.SupplierManager.API.Requests
         public string LastEditedBy { get; set; }
         public DateTime LastEditedAt { get; set; }
 
-        public string Status { get; set; }
+        public AccommodationStatus Status { get; set; }
     }
 }

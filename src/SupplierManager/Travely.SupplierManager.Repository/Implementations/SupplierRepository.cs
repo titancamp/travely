@@ -24,8 +24,7 @@ namespace Travely.SupplierManager.Repository
 
         public Task<TEntity> GetByIdAsync(int agencyId, int id)
         {
-            var query = DbSet.AsQueryable()
-                .AsNoTracking();
+            var query = DbSet.Where(e => e.AgencyId == agencyId);
             
             return query.FirstOrDefaultAsync(supplier => supplier.Id == id);
         }
@@ -41,24 +40,6 @@ namespace Travely.SupplierManager.Repository
             return query;
         }
 
-        public Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
-        {
-            var query = DbSet
-                .AsNoTracking()
-                .Where(predicate);
-
-            return query.ToListAsync();
-        }
-
-        public Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
-        {
-            var entity = DbSet
-                .AsNoTracking()
-                .SingleOrDefaultAsync(predicate);
-            
-            return entity;
-        }
-
         public async Task<TEntity> AddAsync(TEntity entity)
         {
             var entityEntry = DbSet.Add(entity);
@@ -67,14 +48,7 @@ namespace Travely.SupplierManager.Repository
             return entityEntry.Entity;
         }
 
-        public Task AddRangeAsync(List<TEntity> entities)
-        {
-            DbSet.AddRange(entities);
-
-            return DbContext.SaveChangesAsync();
-        }
-
-        public async Task<TEntity> UpdateAsync(TEntity entity)
+        public virtual async Task<TEntity> UpdateAsync(TEntity entity)
         {
             var entityEntry = DbSet.Update(entity);
             await DbContext.SaveChangesAsync();
@@ -82,23 +56,9 @@ namespace Travely.SupplierManager.Repository
             return entityEntry.Entity;
         }
 
-        public Task UpdateRangeAsync(List<TEntity> entities)
-        {
-            DbSet.UpdateRange(entities);
-
-            return DbContext.SaveChangesAsync();
-        }
-
         public Task RemoveAsync(TEntity entity)
         {
             DbSet.Remove(entity);
-
-            return DbContext.SaveChangesAsync();
-        }
-
-        public Task RemoveRangeAsync(List<TEntity> entities)
-        {
-            DbSet.RemoveRange(entities);
 
             return DbContext.SaveChangesAsync();
         }

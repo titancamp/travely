@@ -10,7 +10,8 @@ namespace Travely.SupplierManager.API.Mappers
     {
         public CommonProfile()
         {
-            CreateMap<Location, LocationEntity>().ReverseMap();
+            CreateMap<Location, LocationEntity>()
+                .ReverseMap();
             CreateMap<SupplierQueryParamsResponse, SupplierQueryParams>();
             CreateMap(typeof(SupplierPage<>), typeof(SupplierPageResponse<>));
         }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TourEntities.Service.Transportation;
 
 namespace Travely.SupplierManager.Service.Models
 {
@@ -8,7 +7,7 @@ namespace Travely.SupplierManager.Service.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string ContactNumber { get; set; }
-        public List<LicenseType> LicenseType { get; set; }
+        public List<LicenseTypeModel> LicenseTypes { get; set; }
         public List<Language> Languages { get; set; }
     }
 }

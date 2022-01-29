@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Travely.SupplierManager.API.Models;
@@ -50,14 +49,10 @@ namespace Travely.SupplierManager.Service
 
         public async Task<TModel> UpdateAsync(int agencyId, int id, TModel model)
         {
-            var entity = await _supplierRepository.GetByIdAsync(agencyId, id);
+            var entity = _mapper.Map<TEntity>(model);
+            entity.Id = id;
+            entity.AgencyId = agencyId;
             
-            if (entity == null)
-            {
-                return _mapper.Map<TModel>(entity);
-            }
-            
-            _mapper.Map<TModel, TEntity>(model, entity);
             var updatedEntity = await _supplierRepository.UpdateAsync(entity);
             return _mapper.Map<TModel>(updatedEntity);
         }

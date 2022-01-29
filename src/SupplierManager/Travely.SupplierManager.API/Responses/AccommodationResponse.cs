@@ -11,6 +11,7 @@ namespace Travely.SupplierManager.API.Responses
     {
         public int Id { get; set; }
         public int AgencyId { get; set; }
+        public bool IsDeleted { get; set; }
         public AccommodationType Type { get; set; }
         public string Name { get; set; }
         public TimeSpan CheckInTime { get; set; }
@@ -19,7 +20,7 @@ namespace Travely.SupplierManager.API.Responses
         public TmRegion TmRegion { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
-        public List<AccommodationService> Services { get; set; }
+        public List<AccommodationServiceModel> Services { get; set; }
         public decimal Cost { get; set; }
         public string Notes { get; set; }
 
@@ -40,6 +41,6 @@ namespace Travely.SupplierManager.API.Responses
         public string LastEditedBy { get; set; }
         public DateTime LastEditedAt { get; set; }
 
-        public string Status { get; set; }
+        public AccommodationStatus Status { get; set; }
     }
 }

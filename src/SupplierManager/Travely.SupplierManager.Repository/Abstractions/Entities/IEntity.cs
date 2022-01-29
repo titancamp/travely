@@ -4,5 +4,6 @@ namespace Travely.SupplierManager.Repository.Entities
     {
         public int Id { get; set; }
         public int AgencyId { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

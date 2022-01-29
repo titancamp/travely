@@ -5,10 +5,11 @@ using TourEntities.Service.Guide;
 
 namespace Travely.SupplierManager.Service.Models
 {
-    public class Guides
+    public class GuidesModel
     {
         public int Id { get; set; }
         public int AgencyId { get; set; }
+        public bool IsDeleted { get; set; }
         public GuideType Type { get; set; }
         public string Name { get; set; }
         
@@ -24,7 +25,7 @@ namespace Travely.SupplierManager.Service.Models
         public decimal Cost { get; set; }
         public string Notes { get; set; }
         
-        public List<Guide> Guide { get; set; }
+        public List<Guide> Guides { get; set; }
         
         public DateTime SignDate { get; set; }
         public DateTime ExpiryDate { get; set; }

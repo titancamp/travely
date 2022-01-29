@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Travely.SupplierManager.Repository.Entities;
 using Travely.SupplierManager.Service.Models;
 
@@ -9,10 +8,10 @@ namespace Travely.SupplierManager.API.Mappers
     {
         public ActivitiesProfile()
         {
-            
-            CreateMap<Activities, ActivitiesEntity>().ForMember(dst => dst.Attributes, opt => opt.MapFrom(src => src.Attributes.Select(x => new AttributeEntity{ Name = x })));
-            CreateMap<ActivitiesEntity, Activities>().ForMember(dst => dst.Attributes, opt => opt.MapFrom(src => src.Attributes.Select(x => x.Name)));
-            
+            CreateMap<Activities, ActivitiesEntity>()
+                .ForMember(dst => dst.Id, opt => opt.Ignore())
+                .ReverseMap();
+            CreateMap<Attribute, AttributeEntity>().ReverseMap();
             CreateMap<Attachment, AttachmentEntity<ActivitiesEntity>>().ReverseMap();
         }
     }

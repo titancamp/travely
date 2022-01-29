@@ -9,6 +9,7 @@ namespace Travely.SupplierManager.Service.Models
     {
         public int Id { get; set; }
         public int AgencyId { get; set; }
+        public bool IsDeleted { get; set; }
         public TransportationType Type { get; set; }
         public string Name { get; set; }
         public string ContactPerson { get; set; }

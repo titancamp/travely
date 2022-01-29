@@ -4,17 +4,15 @@ using Travely.SupplierManager.Repository.Entities;
 
 namespace Travely.SupplierManager.Repository.DbContexts
 {
-    public class MenuConfiguration : IEntityTypeConfiguration<MenuEntity>
+    public class AttributeConfiguration : IEntityTypeConfiguration<AttributeEntity>
     {
-        public void Configure(EntityTypeBuilder<MenuEntity> builder)
+        public void Configure(EntityTypeBuilder<AttributeEntity> builder)
         {
-            builder.ToTable("MenuEntity");
+            builder.ToTable("AttributeEntity");
             builder.HasKey(p => p.Id);
             builder.Property(e => e.Id).IsRequired();
-            
-            builder.Navigation(x => x.Tags).AutoInclude();
-            builder.Navigation(x => x.Attachments).AutoInclude();
+            builder.ToTable("AttributeEntity");
+            builder.Property(e => e.Name).HasMaxLength(30);
         }
     }
 }
-

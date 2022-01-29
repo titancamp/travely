@@ -8,11 +8,11 @@ namespace Travely.SupplierManager.API.Mappers
     {
         public FoodProfile()
         {
-            CreateMap<Food, FoodEntity>().ReverseMap();
-            
+            CreateMap<Food, FoodEntity>()
+                .ForMember(dst => dst.Id, opt => opt.Ignore())
+                .ReverseMap();
             CreateMap<Menu, MenuEntity>().ReverseMap();
             CreateMap<Tag, TagEntity>().ReverseMap();
-            
             CreateMap<Attachment, AttachmentEntity<FoodEntity>>().ReverseMap();
             CreateMap<Attachment, AttachmentEntity<MenuEntity>>().ReverseMap();
         }

@@ -8,7 +8,12 @@ namespace Travely.SupplierManager.Repository.DbContexts
     {
         public void Configure(EntityTypeBuilder<RoomEntity> builder)
         {
-            builder.HasOne(p => p.AccommodationEntity).WithMany(b => b.Rooms);
+            builder.ToTable("RoomEntity");
+            builder.HasKey(p => p.Id);
+            builder.Property(e => e.Id).IsRequired();
+            builder.Property(e => e.Price).HasColumnType("decimal(20, 2)");
+            builder.HasOne(d => d.Accommodation)
+                .WithMany(p => p.Rooms);
             
             builder.Navigation(x => x.Services).AutoInclude();
         }
