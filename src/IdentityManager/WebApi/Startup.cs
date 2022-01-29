@@ -10,6 +10,7 @@ using Travely.Common.Swagger;
 using Travely.IdentityManager.Repository.EntityFramework;
 using Travely.IdentityManager.Repository.Extensions;
 using Travely.IdentityManager.WebApi.Extensions;
+using Travely.IdentityClient.Extensions;
 
 namespace Travely.IdentityManager.WebApi
 {
@@ -59,10 +60,11 @@ namespace Travely.IdentityManager.WebApi
                 // UseSwaggerUI needs only when running microservice without gateway
                 //app.UseSwaggerUI("IdentityManager.WebApi v1");
             }
-
+          
+            app.UseRouting();
             app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseIdentityServer();
-            app.UseRouting();
+            app.UseTravelyAuthorization();
             app.UseAuthorization();
 
             app.UseAuthentication();

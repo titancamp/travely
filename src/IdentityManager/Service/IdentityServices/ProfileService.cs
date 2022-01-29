@@ -16,13 +16,11 @@ namespace IdentityManager.DataService.IdentityServices
 {
     public class ProfileService : IProfileService
     {
-        private readonly IUserRepository _userRepo;
-        private readonly IEmployeeRepository _employeeRepository;
+        private readonly IUserRepository _userRepository;
 
-        public ProfileService(IUserRepository rep, IEmployeeRepository employeeRepository)
+        public ProfileService(IUserRepository rep)
         {
-            _userRepo = rep;
-            _employeeRepository = employeeRepository;
+            _userRepository = rep;
         }
 
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
@@ -31,16 +29,16 @@ namespace IdentityManager.DataService.IdentityServices
             {
                 var subjectId = context.Subject.GetSubjectId();
                 var userId = Convert.ToInt32(subjectId);
-                var userData = await _employeeRepository.GetAll().Where(x=>x.UserId == userId).Select(x=>new
+                var userData = await _userRepository.GetAll().Where(x=>x.Id == userId).Select(x=>new
                 {
-                    x.UserId,
-                    x.User.Role,
+                    x.Id,
+                    x.Role,
                     x.AgencyId
                 }).FirstOrDefaultAsync();
 
                 var claims = new List<Claim>
                 {
-                    new Claim(JwtClaimTypes.Subject, userData.UserId.ToString()),
+                    new Claim(JwtClaimTypes.Subject, userData.Id.ToString()),
                     new Claim(JwtClaimTypes.Role, userData.Role.ToString()),
                     new Claim("AgencyId", userData.AgencyId.ToString())
                 };
@@ -56,7 +54,7 @@ namespace IdentityManager.DataService.IdentityServices
 
         public async Task IsActiveAsync(IsActiveContext context)
         {
-            var user = await _userRepo.GetAll().Where(x => x.Id == Convert.ToInt32(context.Subject.GetSubjectId())).FirstOrDefaultAsync();
+            var user = await _userRepository.GetAll().Where(x => x.Id == Convert.ToInt32(context.Subject.GetSubjectId())).FirstOrDefaultAsync();
 
             context.IsActive = (user != null && user.Status == Status.Active); // && user.Active;
             return;

@@ -23,7 +23,6 @@ namespace Travely.IdentityManager.Repository.Extensions
         public static void AddRepositoryServices(this IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IAgencyRepository, AgencyRepository>();
             services.AddScoped<IPersistGrantRepository, PersistGrantRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
