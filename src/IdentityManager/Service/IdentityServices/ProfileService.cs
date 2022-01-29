@@ -32,14 +32,14 @@ namespace IdentityManager.DataService.IdentityServices
                 var userData = await _userRepository.GetAll().Where(x=>x.Id == userId).Select(x=>new
                 {
                     x.Id,
-                    x.Role,
+                    x.Permissions,
                     x.AgencyId
                 }).FirstOrDefaultAsync();
 
                 var claims = new List<Claim>
                 {
                     new Claim(JwtClaimTypes.Subject, userData.Id.ToString()),
-                    new Claim(JwtClaimTypes.Role, userData.Role.ToString()),
+                    new Claim("Permission", ((Int32)userData.Permissions).ToString()),
                     new Claim("AgencyId", userData.AgencyId.ToString())
                 };
 

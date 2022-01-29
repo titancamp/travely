@@ -38,7 +38,7 @@ namespace IdentityManager.DataService.Extensions
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("admin", policy => policy.RequireClaim("Admin"));
+                options.AddPolicy("Permission", policy => policy.RequireClaim("Permission"));
             })
             .AddAuthentication(options =>
             {

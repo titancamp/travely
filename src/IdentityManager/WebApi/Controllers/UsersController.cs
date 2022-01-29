@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Travely.Common.Entities;
+using Travely.IdentityClient.Authorization;
+using Travely.IdentityClient.Extensions;
 using Travely.IdentityManager.Service.Abstractions;
 using Travely.IdentityManager.Service.Abstractions.Models.Request;
 using Travely.IdentityManager.Service.Abstractions.Models.Response;
@@ -28,7 +31,8 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
+        [Authorize]
+        [Permission(Permission.Admin)]
         [HttpGet("{id}")]
         public async Task<ActionResult<UserResponseModel>> GetUserByIdAsync([FromRoute]int id, CancellationToken cancellationToken = default)
         {
@@ -63,7 +67,8 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// Get all users
         /// </summary>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
+        [Authorize]
+        [Permission(Permission.Admin)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserResponseModel>>> GetUsersAsync(CancellationToken cancellationToken = default)
         {
@@ -76,7 +81,8 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="userResponseModel"></param>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
+        [Authorize]
+        [Permission(Permission.Admin)]
         [HttpPost]
         public async Task<ActionResult<UserResponseModel>> CreateUserAsync([FromBody] UserRequestModel userResponseModel, CancellationToken cancellationToken = default)
         {
@@ -96,7 +102,8 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <param name="id"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
+        [Authorize]
+        [Permission(Permission.Admin)]
         [HttpPut("{id}")]
         public async Task<ActionResult<UserResponseModel>> EditUserAsync([FromRoute]int id, [FromBody] UpdateUserRequestModel userRequestModel, CancellationToken cancellationToken = default)
         {
@@ -117,7 +124,8 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Authorize(Roles = "Admin")]
+        [Authorize]
+        [Permission(Permission.Admin)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserAsync([FromRoute] int id, CancellationToken cancellationToken)
         {

@@ -9,7 +9,7 @@ namespace Travely.IdentityManager.Service.Abstractions.Models.Request
         public string AgencyName { get; set; }
 
         [Required]
-        [StringLength(50, MinimumLength = 100)]
+        [StringLength(50, MinimumLength = 5)]
         public string UserName { get; set; }
 
         [Required]

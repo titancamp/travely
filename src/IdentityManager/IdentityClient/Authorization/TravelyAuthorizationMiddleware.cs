@@ -3,8 +3,9 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Travely.IdentityClient.Authorization.Entities;
-using Travely.IdentityClient.Extensions;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using Travely.Common.Entities;
 
 namespace Travely.IdentityClient.Authorization
 {
@@ -19,30 +20,25 @@ namespace Travely.IdentityClient.Authorization
         
         public async Task InvokeAsync(HttpContext context)
         {
-            Claim permissionClaim = context.User?.Claims?.FirstOrDefault(x => x.Type == nameof(Permission));
-            //If we can't get permission from claim from frontend, then get it from user details from db
-            PermissionAttribute endpointPermissionAttribute = context.GetEndpoint()?.Metadata.GetMetadata<PermissionAttribute>();
-            Permission endpointPermission;
-            Permission userPermission;
+            PermissionAttribute? endpointPermissionAttribute = context.GetEndpoint()?.Metadata.GetMetadata<PermissionAttribute>();
 
-            if (permissionClaim is null)
+            if (endpointPermissionAttribute != null)
             {
-                throw new UnauthorizedAccessException("Unauthorized");
-            }
+                Claim? permissionClaim = context.User?.Claims?.FirstOrDefault(x => x.Type == nameof(Permission));
 
-            if (endpointPermissionAttribute is null)
-            {
-                await _next(context);
-            }
+                if (permissionClaim is null)
+                {
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return;
+                }
+            
+                Permission userPermission = (Permission)Convert.ToInt32(permissionClaim.Value);;
 
-            userPermission = (Permission)Convert.ToInt32(permissionClaim.Value);
-            endpointPermission = endpointPermissionAttribute.Permission;
-
-            var notSetPermission = endpointPermission.GetFlags().FirstOrDefault(flag => !userPermission.HasFlag(flag));
-
-            if (notSetPermission != default(Permission))
-            {
-                throw new UnauthorizedAccessException("Unauthorized");
+                if (userPermission != Permission.Admin && (userPermission | endpointPermissionAttribute.Permission) != endpointPermissionAttribute.Permission)
+                {
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return;
+                }
             }
             
             await _next(context);

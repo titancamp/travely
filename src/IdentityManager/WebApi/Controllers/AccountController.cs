@@ -31,7 +31,6 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <returns></returns>
         [HttpPost("register")]
         [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(List<ValidationErrorModel>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequestModel model, CancellationToken ct = default)
@@ -64,7 +63,6 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// <returns></returns>
         [HttpPost("password/forget")]
         [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
         public async Task<ActionResult<ResultViewModel>> ForgetPassword(ForgotPasswordViewModel forgotPasswordViewModel, CancellationToken cancellationToken = default)
         {
             if (!ModelState.IsValid)

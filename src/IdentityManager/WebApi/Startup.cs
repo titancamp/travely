@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 
 using IdentityManager.DataService.Extensions;
 using TourManager.Api.Bootstrapper;
+using Travely.IdentityClient.Config;
 using Travely.IdentityManager.Repository.EntityFramework;
 using Travely.IdentityManager.Repository.Extensions;
 using Travely.IdentityManager.WebApi.Extensions;
@@ -72,10 +73,8 @@ namespace Travely.IdentityManager.WebApi
             app.UseRouting();
             app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseIdentityServer();
+            
             app.UseTravelyAuthorization();
-            app.UseAuthorization();
-
-            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

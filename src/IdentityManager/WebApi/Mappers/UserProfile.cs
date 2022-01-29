@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using System;
+using Travely.Common.Entities;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
 using Travely.IdentityManager.Service.Abstractions.Models.Request;
 using Travely.IdentityManager.Service.Abstractions.Models.Response;
@@ -16,14 +17,14 @@ namespace Travely.IdentityManager.WebApi.Mappers
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 //.AfterMap((src, dest) => dest.Password = Guid.NewGuid().ToString())
                 .AfterMap((src, dest) => dest.Status = Status.Inactive)
-                .AfterMap((src, dest) => dest.Role = Role.User)
+                .AfterMap((src, dest) => dest.Permissions = src.Permission)
                 .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow);
 
             CreateMap<UpdateUserRequestModel, User>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
                 //.AfterMap((src, dest) => dest.Password = Guid.NewGuid().ToString())
                 .AfterMap((src, dest) => dest.Status = Status.Inactive)
-                .AfterMap((src, dest) => dest.Role = Role.User)
+                .AfterMap((src, dest) => dest.Permissions = src.Permission)
                 .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow);
 
             CreateMap<RegisterRequestModel, User>()
@@ -32,7 +33,7 @@ namespace Travely.IdentityManager.WebApi.Mappers
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .AfterMap((src, dest) => dest.Password = passwordHasher.HashPassword(dest, dest.Password))
                 .AfterMap((src, dest) => dest.Status = Status.Active)
-                .AfterMap((src, dest) => dest.Role = Role.Admin)
+                .AfterMap((src, dest) => dest.Permissions = Permission.Admin)
                 .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow);
 
             CreateMap<RegisterRequestModel, Agency>()
@@ -42,7 +43,7 @@ namespace Travely.IdentityManager.WebApi.Mappers
             CreateMap<User, UserResponseModel>()
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
-                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role))
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Permissions))
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
                 ;
         }
