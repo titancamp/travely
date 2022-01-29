@@ -9,7 +9,30 @@ namespace Travely.ReportingManager.Services.Extensions
 {
     public static class ExpressionHelper
     {
-        public static Func<IQueryable<TSource>, IOrderedQueryable<TSource>> BuildOrderingFunc<TSource>(ICollection<OrderingModel> orderings)
+        public static IQueryable<T> BuildFilters<T>(this IQueryable<T> query, ICollection<FilteringModel> filters)
+        {
+            if (filters?.Count == 0)
+                return query;
+
+            var filterExpression = BuildFilter<T>(filters);
+            return query.Where(filterExpression);
+        }
+        public static IQueryable<T> BuildOrderings<T>(this IQueryable<T> query, ICollection<OrderingModel> orderings)
+        {
+            if (orderings?.Count == 0)
+                return query;
+
+            var builder = BuildOrderingFunc<T>(orderings);
+            return builder.Invoke(query);
+        }
+        public static IQueryable<T> BuildPaging<T>(this IQueryable<T> query, PagingModel pagingingBaseModel)
+        {
+            if (pagingingBaseModel == null)
+                return query;
+
+            return query.Skip(pagingingBaseModel.From).Take(pagingingBaseModel.Count);
+        }
+        private static Func<IQueryable<TSource>, IOrderedQueryable<TSource>> BuildOrderingFunc<TSource>(ICollection<OrderingModel> orderings)
         {
             Expression result = Expression.Empty();
 
@@ -22,20 +45,20 @@ namespace Travely.ReportingManager.Services.Extensions
             int currentIndex = 1;
             foreach (var ordering in orderings)
             {
-                PropertyInfo propertyInfo = typeProperties.FirstOrDefault(x => x.Name == ordering.FieldName);
+                PropertyInfo propertyInfo = typeProperties.FirstOrDefault(x => x.Name.Equals(ordering.FieldName, StringComparison.InvariantCultureIgnoreCase));
                 MemberExpression memberExpression = Expression.PropertyOrField(localParameterExpression, ordering.FieldName);
                 LambdaExpression lambdaExpression = Expression.Lambda(memberExpression, localParameterExpression);
 
                 Expression left;
-                string methodName = "OrderBy";
+                string methodName = nameof(Queryable.OrderBy);
                 if (currentIndex == 1)
                 {
-                    methodName = ordering.IsDescending ? "OrderByDescending" : "OrderBy";
+                    methodName = ordering.IsDescending ? nameof(Queryable.OrderByDescending) : nameof(Queryable.OrderBy);
                     left = sourceParameterExpression;
                 }
                 else
                 {
-                    methodName = ordering.IsDescending ? "ThenByDescending" : "ThenBy";
+                    methodName = ordering.IsDescending ? nameof(Queryable.ThenByDescending) : nameof(Queryable.ThenBy);
                     left = result;
                 }
                 result = Expression.Call(typeof(Queryable),
@@ -50,7 +73,7 @@ namespace Travely.ReportingManager.Services.Extensions
             var lambda = Expression.Lambda<Func<IQueryable<TSource>, IOrderedQueryable<TSource>>>(result, sourceParameterExpression);
             return lambda.Compile();
         }
-        public static Expression<Func<T, bool>> BuildFilter<T>(ICollection<FilteringModel> filters)
+        private static Expression<Func<T, bool>> BuildFilter<T>(ICollection<FilteringModel> filters)
         {
             if (filters.Count == 0)
             {
@@ -66,7 +89,7 @@ namespace Travely.ReportingManager.Services.Extensions
             var parameterExpression = Expression.Parameter(type, "x");
             foreach (var filter in filters)
             {
-                var propertyInfo = typeProperties.FirstOrDefault(f => f.Name == filter.FieldName);
+                var propertyInfo = typeProperties.FirstOrDefault(f => f.Name.Equals(filter.FieldName, StringComparison.InvariantCultureIgnoreCase));
                 if (propertyInfo != null)
                 {
                     var memberExpression = Expression.Property(parameterExpression, propertyInfo.Name);
@@ -75,17 +98,15 @@ namespace Travely.ReportingManager.Services.Extensions
                     switch (filter.Type)
                     {
                         case FilteringOperationType.Equals:
-
                             MethodInfo equalsMethodInfo = FindOptimalEqualsMethod(propertyInfo.PropertyType);
                             var equalsCallExpression = Expression.Call(instance: memberExpression, method: equalsMethodInfo, arguments: filterValueExpression);
                             finalFilter = Expression.Or(finalFilter, equalsCallExpression);
-
                             break;
                         case FilteringOperationType.Contains:
                             if (!IsString(propertyInfo))
                                 break;
 
-                            var stringContainsMethod = typeOfString.GetMethod("Contains", new Type[] { typeOfString });
+                            var stringContainsMethod = typeOfString.GetMethod(nameof(string.Contains), new Type[] { typeOfString });
                             var containsCallExpression = Expression.Call(instance: memberExpression, method: stringContainsMethod, arguments: filterValueExpression);
 
                             finalFilter = Expression.Or(finalFilter, containsCallExpression);
@@ -99,9 +120,6 @@ namespace Travely.ReportingManager.Services.Extensions
 
             return Expression.Lambda<Func<T, bool>>(finalFilter, parameterExpression);
         }
-
-
-
         private static bool IsInteger(PropertyInfo pInfo)
         {
             return pInfo.PropertyType == typeof(int);

@@ -8,6 +8,7 @@ using Travely.Common;
 using Travely.ReportingManager.Data;
 using Travely.ReportingManager.Data.Models;
 using Travely.ReportingManager.Services.Abstractions;
+using Travely.ReportingManager.Services.Extensions;
 using Travely.ReportingManager.Services.Models.Commands;
 using Travely.ReportingManager.Services.Models.Responses;
 
@@ -58,9 +59,9 @@ namespace Travely.ReportingManager.Services.Implementations
         {
             var toDoItemsQuery =  _dbContext.ToDoItems.Where(i=>i.UserId==userId).AsQueryable();
 
-            toDoItemsQuery = BuildFilters(toDoItemsQuery, query.Filters);
-            toDoItemsQuery = BuildOrderings(toDoItemsQuery, query.Orderings);
-            toDoItemsQuery = BuildPaging(toDoItemsQuery, query.Paging);
+            toDoItemsQuery = toDoItemsQuery.BuildFilters(query.Filters);
+            toDoItemsQuery = toDoItemsQuery.BuildOrderings(query.Orderings);
+            toDoItemsQuery = toDoItemsQuery.BuildPaging(query.Paging);
 
             var toDoItems = await toDoItemsQuery.AsNoTracking().ToListAsync();
 
