@@ -76,6 +76,17 @@
           "Url": "http://travely.reportingmanager/swagger/v1/swagger.json"
         }
       ]
+    },
+    {
+      "Key": "paymentmanager",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "PaymentManager",
+          "Version": "v1",
+          "Url": "http://paymentmanager.api/swagger/v1/swagger.json"
+        }
+      ]
     }
   ]
 }

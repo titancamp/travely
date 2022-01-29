@@ -5,6 +5,7 @@
     <UserSecretsId>71cc1f8c-129f-402f-8071-4b85acda9d18</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Commons\Travely.Common.Api\Travely.Common.Api.csproj" />
     <ProjectReference Include="..\..\Commons\Travely.Common.ServiceDiscovery\Travely.Common.ServiceDiscovery.csproj" />
+    <ProjectReference Include="..\..\Commons\Travely.Common.Swagger\Travely.Common.Swagger.csproj" />
     <ProjectReference Include="..\PaymentManager.Services\PaymentManager.Services.csproj" />
     <ProjectReference Include="..\PaymentManager.Shared\PaymentManager.Shared.csproj" />
   </ItemGroup>
@@ -31,4 +33,9 @@
     <_ContentIncludedByDefault Remove="MockData\ReceivableMockData.json" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+  
 </Project>

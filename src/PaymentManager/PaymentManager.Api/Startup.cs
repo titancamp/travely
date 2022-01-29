@@ -1,26 +1,18 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PaymentManager.Extensions.DependencyInjection;
-using PaymentManager.Repositories;
 using PaymentManager.Repositories.DbContexts;
-using PaymentManager.Services;
-using PaymentManager.Services.Models;
 using Travely.Common.ServiceDiscovery;
 using Travely.Shared.IdentityClient.Authorization.Config;
-using PaymentManager.Repositories.Entities;
 using Travely.Common.Extensions;
+using Travely.Common.Swagger;
 
 namespace PaymentManager.Api
 {
@@ -48,11 +40,9 @@ namespace PaymentManager.Api
                 config.DefaultApiVersion = new ApiVersion(1, 0);
                 config.AssumeDefaultVersionWhenUnspecified = true;
             });
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PaymentManager.Api", Version = "v1" });
-            });
+            
             services.AddConsul(Configuration, Environment);
+            services.AddSwagger("PaymentManager API");
             services.AddTravelyAuthentication(Configuration, Environment);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
@@ -66,7 +56,6 @@ namespace PaymentManager.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PaymentManager.Api v1"));
             }
 
             app.UseHttpsRedirection();

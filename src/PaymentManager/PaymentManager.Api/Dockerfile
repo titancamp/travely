@@ -8,6 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["src/PaymentManager/PaymentManager.Api/PaymentManager.Api.csproj", "src/PaymentManager/PaymentManager.Api/"]
+COPY ["src/Commons/Travely.Common.Swagger/Travely.Common.Swagger.csproj", "src/Commons/Travely.Common.Swagger/"]
 COPY ["src/PaymentManager/PaymentManager.Services/PaymentManager.Services.csproj", "src/PaymentManager/PaymentManager.Services/"]
 COPY ["src/PaymentManager/PaymentManager.Repositories/PaymentManager.Repositories.csproj", "src/PaymentManager/PaymentManager.Repositories/"]
 COPY ["src/PaymentManager/PaymentManager.Shared/PaymentManager.Shared.csproj", "src/PaymentManager/PaymentManager.Shared/"]
