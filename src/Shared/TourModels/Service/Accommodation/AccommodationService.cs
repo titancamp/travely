@@ -1,0 +1,37 @@
+﻿namespace TourEntities.Service.Accommodation
+{
+    public enum AccommodationService
+    {
+        Parking,
+        FreeWifi,
+        RoomService,
+        GuestReception24Hour,
+        ComplimentaryToiletries,
+        HealthyBreakfast,
+        AmpleWallOutlets,
+        HairStylingTools,
+        FlexibleCheckout,
+        Pool,
+        MiniFridge,
+        ComplimentaryElectronicsChargers,
+        ClothingIron,
+        BusinessFacilities,
+        TransportationInformation,
+        FreeBreakfast,
+        LaundryServices,
+        SpaAndWellnessAmenities,
+        ExerciseFacilitiesAndAccessories,
+        DailyNewspaper,
+        Entertainment,
+        ComplimentaryLuggageStorage,
+        CribsAndCotsForChildren,
+        CustomOffers,
+        CuratedExperiences,
+        FancyBathrobes,
+        KidFriendlyRoomsAndProducts,
+        PremiumBedding,
+        StainRemoverWipes,
+        PetFriendlyRooms,
+        ChampagneBar
+    }
+}

@@ -37,6 +37,18 @@
       "SwaggerKey": "servicemanager"
     },
     {
+      "ServiceName": "travely-suppliermanager-service",
+      "DownstreamPathTemplate": "/api/v{version}/Supplier{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/v{version}/Supplier{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowScopes": []
+      },
+      "SwaggerKey": "suppliermanager"
+    },
+    {
       "ServiceName": "travely-schedulermanager-api",
       "DownstreamPathTemplate": "/notification{everything}",
       "DownstreamScheme": "ws",
