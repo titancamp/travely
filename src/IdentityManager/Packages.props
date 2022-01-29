@@ -13,6 +13,8 @@
     <PackageReference Update="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.4" />
     <PackageReference Update="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
     <PackageReference Update="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.13" />
+    <PackageReference Update="Grpc.AspNetCore.Server" Version="2.35.0" />
+		<PackageReference Update="Grpc.Core" Version="2.35.0" />
 
     <PackageReference Update="Swashbuckle.AspNetCore" Version="6.2.3" />
 
@@ -34,7 +36,5 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    
-    
   </ItemGroup>
 </Project>

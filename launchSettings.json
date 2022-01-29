@@ -14,7 +14,8 @@
         "travely.propertymanager.api": "StartDebugging",
         "travely.schedulermanager.api": "StartDebugging",
         "travely.servicemanager.service": "StartDebugging",
-        "consul": "StartWithoutDebugging"
+        "consul": "StartWithoutDebugging",
+        "travely.reportingmanager": "StartDebugging"
       }
     }
   }

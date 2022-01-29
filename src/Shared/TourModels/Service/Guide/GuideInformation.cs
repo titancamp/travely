@@ -5,7 +5,7 @@ namespace TourEntities.Service.Guide
 {
     public class GuideInformation
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public int GuideAgencyId { get; set; }
         public string Image { get; set; }

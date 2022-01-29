@@ -1,13 +1,25 @@
 trigger:
-  - devops
+  branches:
+    include:
+    - develop
+  paths:
+    include:
+    - src/ClientManager
 
 variables:
-  project: client-manager
-  imageTag: $(Build.BuildId)
-  containerRepository: travely/$(project)
-  containerRegistry: registry-travely-am
-  containerRegistryHost: registry.travely.am
-  gitBranch: $(Build.SourceBranchName)
+- group: travely
+- name: project
+  value: client-manager
+- name: imageTag
+  value: $(Build.BuildId)
+- name: containerRepository
+  value: travely/$(project)
+- name: containerRegistry
+  value: registry-travely-am
+- name: containerRegistryHost
+  value: registry.travely.am
+- name: gitBranch
+  value: $(Build.SourceBranchName)
 
 stages:
 # Build stage
@@ -24,8 +36,8 @@ stages:
     containerRepository: $(containerRegistryHost)/$(containerRepository)
     containerRegistry: $(containerRegistry)
     containerRegistryPassword: $(registry_travely_am_password)
-    containerPort: 5000
-    env:
+    containerPort: 80
+    containerEnv:
     - name: ConnectionStrings__TouristDB
       value: Server=mssql;Database=TouristDB;User=sa;Password=$(mssql_sa_password)
     - name: n1

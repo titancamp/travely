@@ -76,6 +76,17 @@
           "Url": "http://fileservice/swagger/v1/swagger.json"
         }
       ]
+    },
+    {
+      "Key": "reportingmanager",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "ReportingManager",
+          "Version": "v1",
+          "Url": "http://travely.reportingmanager/swagger/v1/swagger.json"
+        }
+      ]
     }
   ]
 }

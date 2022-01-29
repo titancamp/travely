@@ -29,7 +29,7 @@ namespace Travely.IdentityManager.WebApi.Extensions
             userContext.Role = claims.First(p => p.Type.Contains("role")).Value.ToEnum<Role>();
             userContext.UserId = int.Parse(claims.First(p => p.Type == "sub").Value);
             userContext.AgencyId = int.Parse(claims.First(p => p.Type == "AgencyId").Value);
-
+            userContext.Permissions = int.Parse(claims.First(p => p.Type == "permissions").Value);
             return userContext;
         }
 

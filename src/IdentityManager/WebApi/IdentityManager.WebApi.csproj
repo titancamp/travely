@@ -17,6 +17,8 @@
     <ProjectReference Include="..\..\Commons\Travely.Common.ServiceDiscovery\Travely.Common.ServiceDiscovery.csproj" />
     <ProjectReference Include="..\..\Commons\Travely.Common.Swagger\Travely.Common.Swagger.csproj" />
     <ProjectReference Include="..\..\Commons\Travely.Common\Travely.Common.csproj" />
+
+    <ProjectReference Include="..\IdentityClient\Travely.IdentityClient.csproj" />
     <ProjectReference Include="..\Repository.EntityFramework\IdentityManager.Repository.EntityFramework.csproj" />
     <ProjectReference Include="..\Service.Abstractions\IdentityManager.Service.Abstractions.csproj" />
     <ProjectReference Include="..\Service\IdentityManager.Service.csproj" />

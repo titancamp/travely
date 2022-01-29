@@ -37,6 +37,9 @@ namespace Travely.IdentityManager.Repository.EntityFramework.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LogoFile")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -45,9 +48,6 @@ namespace Travely.IdentityManager.Repository.EntityFramework.Migrations
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
@@ -63,68 +63,7 @@ namespace Travely.IdentityManager.Repository.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId")
-                        .IsUnique();
-
                     b.ToTable("Agency");
-                });
-
-            modelBuilder.Entity("Travely.IdentityManager.Repository.Abstractions.Entities.Employee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AgencyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CreatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("FirstName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("JobTitle")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("LastName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UpdatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AgencyId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Employee");
                 });
 
             modelBuilder.Entity("Travely.IdentityManager.Repository.Abstractions.Entities.PersistedGrant", b =>
@@ -170,11 +109,19 @@ namespace Travely.IdentityManager.Repository.EntityFramework.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AgencyId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
@@ -184,6 +131,12 @@ namespace Travely.IdentityManager.Repository.EntityFramework.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Permissions")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Role")
@@ -205,54 +158,28 @@ namespace Travely.IdentityManager.Repository.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AgencyId");
+
                     b.HasIndex("UserName")
                         .IsUnique();
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Travely.IdentityManager.Repository.Abstractions.Entities.Agency", b =>
-                {
-                    b.HasOne("Travely.IdentityManager.Repository.Abstractions.Entities.User", "Owner")
-                        .WithOne("Agency")
-                        .HasForeignKey("Travely.IdentityManager.Repository.Abstractions.Entities.Agency", "OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("Travely.IdentityManager.Repository.Abstractions.Entities.Employee", b =>
+            modelBuilder.Entity("Travely.IdentityManager.Repository.Abstractions.Entities.User", b =>
                 {
                     b.HasOne("Travely.IdentityManager.Repository.Abstractions.Entities.Agency", "Agency")
-                        .WithMany("Employees")
+                        .WithMany("Users")
                         .HasForeignKey("AgencyId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("Travely.IdentityManager.Repository.Abstractions.Entities.User", "User")
-                        .WithOne("Employee")
-                        .HasForeignKey("Travely.IdentityManager.Repository.Abstractions.Entities.Employee", "UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("Agency");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Travely.IdentityManager.Repository.Abstractions.Entities.Agency", b =>
                 {
-                    b.Navigation("Employees");
-                });
-
-            modelBuilder.Entity("Travely.IdentityManager.Repository.Abstractions.Entities.User", b =>
-                {
-                    b.Navigation("Agency")
-                        .IsRequired();
-
-                    b.Navigation("Employee")
-                        .IsRequired();
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }
