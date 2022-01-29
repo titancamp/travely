@@ -1,13 +1,12 @@
-﻿using System.Configuration;
-using System.Security.Claims;
-
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Configuration;
+using System.Security.Claims;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace Travely.Shared.IdentityClient.Authorization.Config
 {
     public static class ConfigServicesIdentityService
     {
@@ -15,13 +14,14 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             string authority = configuration.GetSection("TravelyIdentityConfig").GetValue<string>("Authority");
             string audience = configuration.GetSection("TravelyIdentityConfig").GetValue<string>("Audience");
-            if (string.IsNullOrWhiteSpace(audience)|| string.IsNullOrWhiteSpace(audience))
+            if (string.IsNullOrWhiteSpace(authority) || string.IsNullOrWhiteSpace(audience))
             {
                 throw new ConfigurationErrorsException("Please check the Authority and Audience values in TravelyIdentityConfig section in configuration file");
             }
 
             services
-                .AddAuthentication(options => {
+                .AddAuthentication(options =>
+                {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })

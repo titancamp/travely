@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using System;
+using Travely.ServiceManager.Grpc;
 using DbModels = Travely.ServiceManager.Abstraction.Models.Db;
 
 namespace Travely.ServiceManager.Service.Mappers
@@ -24,7 +24,5 @@ namespace Travely.ServiceManager.Service.Mappers
             CreateMap<DbModels.ActivityType, ActivityType>()
                 .ForMember(dest => dest.ActivityName, opt => opt.MapFrom(src => src.Name));
         }
-
-
     }
 }

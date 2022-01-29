@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Threading.Tasks;
+using Travely.Shared.IdentityClient.Authorization.Extensions;
 
 namespace Travely.SchedulerManager.Notifier.Hubs
 {

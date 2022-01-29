@@ -10,30 +10,30 @@
 
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-    <PackageReference Include="FluentValidation" Version="9.5.3" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.41.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Commons\Travely.Common.Api\Travely.Common.Api.csproj" />
+    <ProjectReference Include="..\..\Commons\Travely.Common.ServiceDiscovery\Travely.Common.ServiceDiscovery.csproj" />
+    <ProjectReference Include="..\..\Commons\Travely.Common.Swagger\Travely.Common.Swagger.csproj" />
     <ProjectReference Include="..\..\Commons\Travely.Common\Travely.Common.csproj" />
-    <ProjectReference Include="..\..\Commons\Travely.Services.Common\Travely.Services.Common.csproj" />
+    <ProjectReference Include="..\Travely.PropertyManager.Grpc\Travely.PropertyManager.Grpc.csproj" />
     <ProjectReference Include="..\Travely.PropertyManager.Service\Travely.PropertyManager.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Protobuf Include="..\..\..\proto\base.proto" GrpcServices="Server">
-      <Link>Protos\base.proto</Link>
-    </Protobuf>
-    <Protobuf Include="..\..\..\proto\properties.proto" GrpcServices="Server">
-      <Link>Protos\properties.proto</Link>
-    </Protobuf>
-  </ItemGroup>
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
 
 </Project>

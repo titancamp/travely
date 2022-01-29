@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Travely.ServiceManager.Abstraction.Interfaces.UnitOfWorks;
+using Travely.ServiceManager.Grpc;
 using ServiceManagerDb = Travely.ServiceManager.Abstraction.Models.Db;
 
 namespace Travely.ServiceManager.Service.Managers

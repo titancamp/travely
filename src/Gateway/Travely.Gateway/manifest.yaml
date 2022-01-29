@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: travely-gateway
+  labels:
+    app: travely-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: travely-gateway
+  template:
+    metadata:
+      labels:
+        app: travely-gateway
+    spec:
+      containers:
+      - name: travely-gateway
+        image: titancamp/travelygateway:latest
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: travely-gateway-service
+  namespace: dev
+  labels:
+    app: travely-gateway
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+  selector:
+    app: travely-gateway
+  type: NodePort

@@ -1,12 +1,12 @@
+using IdentityManager.DataService.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-
-using IdentityManager.DataService.Extensions;
-using TourManager.Api.Bootstrapper;
+using Travely.Common.Extensions;
+using Travely.Common.ServiceDiscovery;
+using Travely.Common.Swagger;
 using Travely.IdentityManager.Repository.EntityFramework;
 using Travely.IdentityManager.Repository.Extensions;
 using Travely.IdentityManager.WebApi.Extensions;
@@ -43,19 +43,10 @@ namespace Travely.IdentityManager.WebApi
             services.AddRepositoryServices();
 
             services.AddControllers().AddNewtonsoftJson();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IdentityManager.WebApi", Version = "v1" });
 
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Description = "JWT Authorization header using the Bearer scheme ",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
-                });
-            });
+            services.AddSwagger("IdentityManager.WebApi");
+
+            services.AddConsul(Configuration, Environment);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,9 +57,10 @@ namespace Travely.IdentityManager.WebApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IdentityManager.WebApi v1"));
-                
+                // UseSwaggerUI needs only when running microservice without gateway
+                //app.UseSwaggerUI("IdentityManager.WebApi v1");
             }
+          
             app.UseRouting();
             app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseIdentityServer();

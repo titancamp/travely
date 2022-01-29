@@ -11,25 +11,30 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\..\..\proto\activity.proto" GrpcServices="Server" Link="Protos\activity.proto" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.41.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\Commons\Travely.Common.Api\Travely.Common.Api.csproj" />
+    <ProjectReference Include="..\..\Commons\Travely.Common.Grpc\Travely.Common.Grpc.csproj" />
+    <ProjectReference Include="..\..\Commons\Travely.Common.ServiceDiscovery\Travely.Common.ServiceDiscovery.csproj" />
+    <ProjectReference Include="..\..\Commons\Travely.Common.Swagger\Travely.Common.Swagger.csproj" />
     <ProjectReference Include="..\..\Commons\Travely.Common\Travely.Common.csproj" />
     <ProjectReference Include="..\Travely.ServiceManager.Abstraction\Travely.ServiceManager.Abstraction.csproj" />
     <ProjectReference Include="..\Travely.ServiceManager.DAL\Travely.ServiceManager.DAL.csproj" />
+    <ProjectReference Include="..\Travely.ServiceManager.Grpc\Travely.ServiceManager.Grpc.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mappers\" />
-  </ItemGroup>
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
 
 </Project>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Travely.IdentityManager.Repository.Abstractions.Entities;
+﻿using Travely.IdentityManager.Repository.Abstractions.Entities;
 
 namespace Travely.IdentityManager.Service.Abstractions.Models
 {

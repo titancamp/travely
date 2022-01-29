@@ -15,6 +15,27 @@ services:
    image: "redis:alpine"
    ports:
     - "6379:6379"
+
+  consul:
+    image: consul:latest
+    command: consul agent -dev -ui -log-level=warn -client=0.0.0.0
+    container_name: consul
+    hostname: consul
+    ports:
+     - "8500"
+
+  travely.gateway:
+    image: titancamp/travelygateway
+    build:
+      context: .
+      dockerfile: src/Gateway/Travely.Gateway/Dockerfile
+    ports:
+        - "8000:80"
+        - "8001:443"
+    env_file:
+       - .env
+    volumes:
+      - ~/.aspnet/https:/https:ro
   
   tourmanager.api:
     image: titancamp/tourmanagerapi
@@ -22,14 +43,17 @@ services:
       context: .
       dockerfile: src/TourManager/TourManager.Api/Dockerfile
     ports:
-        - "8000:80"
-        - "8001:443"
+        - "8700:80"
+        - "8701:443"
     depends_on:
         - sql-server-db
     environment:
-        - ASPNETCORE_URLS=https://+:443;http://+:80
-        - ASPNETCORE_Kestrel__Certificates__Default__Password=admin
-        - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+       - ServiceDiscoveryConfiguration__serviceName=travely-tourmanager
+       - ServiceDiscoveryConfiguration__serviceId=travely-tourmanager-1
+       - ServiceDiscoveryConfiguration__serviceAddress=http://tourmanager.api
+       - ConsulClientConfiguration__address=http://consul:8500
+    env_file:
+       - .env
     volumes:
       - ~/.aspnet/https:/https:ro
 
@@ -44,9 +68,12 @@ services:
     depends_on:
         - sql-server-db
     environment:
-        - ASPNETCORE_URLS=https://+:443;http://+:80
-        - ASPNETCORE_Kestrel__Certificates__Default__Password=admin
-        - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+       - ServiceDiscoveryConfiguration__serviceName=travely-servicemanager-service
+       - ServiceDiscoveryConfiguration__serviceId=travely-servicemanager-service-1
+       - ServiceDiscoveryConfiguration__serviceAddress=http://travely.servicemanager.service
+       - ConsulClientConfiguration__address=http://consul:8500
+    env_file:
+       - .env
     volumes:
       - ~/.aspnet/https:/https:ro
 
@@ -61,9 +88,12 @@ services:
     depends_on:
         - sql-server-db
     environment:
-        - ASPNETCORE_URLS=https://+:443;http://+:80
-        - ASPNETCORE_Kestrel__Certificates__Default__Password=admin
-        - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+       - ServiceDiscoveryConfiguration__serviceName=travely-schedulermanager-api
+       - ServiceDiscoveryConfiguration__serviceId=travely-schedulermanager-api-1
+       - ServiceDiscoveryConfiguration__serviceAddress=http://travely.schedulermanager.api
+       - ConsulClientConfiguration__address=http://consul:8500
+    env_file:
+       - .env
     volumes:
       - ~/.aspnet/https:/https:ro
 
@@ -78,9 +108,12 @@ services:
     depends_on:
         - sql-server-db
     environment:
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=admin
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+       - ServiceDiscoveryConfiguration__serviceName=travely-propertymanager-api
+       - ServiceDiscoveryConfiguration__serviceId=travely-propertymanager-api-1
+       - ServiceDiscoveryConfiguration__serviceAddress=http://travely.propertymanager.api
+       - ConsulClientConfiguration__address=http://consul:8500
+    env_file:
+       - .env
     volumes:
       - ~/.aspnet/https:/https:ro
 
@@ -96,15 +129,19 @@ services:
     depends_on:
         - sql-server-db
     environment:
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=admin
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+       - ServiceDiscoveryConfiguration__serviceName=fileservice
+       - ServiceDiscoveryConfiguration__serviceId=fileservice-1
+       - ServiceDiscoveryConfiguration__serviceAddress=http://fileservice
+       - ConsulClientConfiguration__address=http://consul:8500
+    env_file:
+       - .env
     volumes:
       - ~/.aspnet/https:/https:ro
 
 
   travely.clientmanager.service:
     image: titancamp/travelyclientmanagerservice
+    hostname: travely.clientmanager.service
     build:
       context: .
       dockerfile: src/ClientManager/Travely.ClientManager.Service/Dockerfile
@@ -114,9 +151,12 @@ services:
     depends_on:
         - sql-server-db
     environment:
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=admin
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+       - ServiceDiscoveryConfiguration__serviceName=travely-clientmanager-service
+       - ServiceDiscoveryConfiguration__serviceId=travely-clientmanager-service-1
+       - ServiceDiscoveryConfiguration__serviceAddress=http://travely.clientmanager.service
+       - ConsulClientConfiguration__address=http://consul:8500
+    env_file:
+       - .env
     volumes:
       - ~/.aspnet/https:/https:ro
 
@@ -132,9 +172,51 @@ services:
     depends_on:
       - sql-server-db
     environment:
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=admin
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+       - ServiceDiscoveryConfiguration__serviceName=travely-identity-webapi
+       - ServiceDiscoveryConfiguration__serviceId=travely-identity-webapi-1
+       - ServiceDiscoveryConfiguration__serviceAddress=http://travely.identity.webapi
+       - ConsulClientConfiguration__address=http://consul:8500
+    env_file:
+       - .env
     volumes:
       - ~/.aspnet/https:/https:ro
 
+  paymentmanager.api:
+    image: titancamp/paymentmanagerapi
+    build:
+      context: .
+      dockerfile: src/PaymentManager/PaymentManager.Api/Dockerfile
+    ports:
+        - "8800:80"
+        - "8801:443"
+    depends_on:
+        - sql-server-db
+    environment:
+       - ServiceDiscoveryConfiguration__serviceName=travely-paymentmanager
+       - ServiceDiscoveryConfiguration__serviceId=travely-paymentmanager-1
+       - ServiceDiscoveryConfiguration__serviceAddress=http://paymentmanager.api
+       - ConsulClientConfiguration__address=http://consul:8500
+    env_file:
+       - .env
+    volumes:
+      - ~/.aspnet/https:/https:ro
+     
+  travely.reportingmanager:
+    image: titancamp/travelyreportingmanager
+    build:
+      context: .
+      dockerfile: src/ReportingManager/Travely.ReportingManager/Dockerfile
+    ports:
+        - "8900:80"
+        - "8901:443"
+    depends_on:
+        - sql-server-db
+    environment:
+       - ServiceDiscoveryConfiguration__serviceName=travely-reportingmanager
+       - ServiceDiscoveryConfiguration__serviceId=travely-reportingmanager-1
+       - ServiceDiscoveryConfiguration__serviceAddress=http://travely.reportingmanager
+       - ConsulClientConfiguration__address=http://consul:8500
+    env_file:
+      - .env
+    volumes:
+      - ~/.aspnet/https:/https:ro

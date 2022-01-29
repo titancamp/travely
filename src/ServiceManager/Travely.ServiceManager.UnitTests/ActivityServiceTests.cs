@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
+using Travely.ServiceManager.Grpc;
 using Travely.ServiceManager.Service;
 using Xunit;
 
