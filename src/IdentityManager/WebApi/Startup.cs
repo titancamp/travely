@@ -60,12 +60,11 @@ namespace Travely.IdentityManager.WebApi
                 // UseSwaggerUI needs only when running microservice without gateway
                 //app.UseSwaggerUI("IdentityManager.WebApi v1");
             }
-          
-            app.UseRouting();
+
             app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseIdentityServer();
-            
             app.UseTravelyAuthorization();
+            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
