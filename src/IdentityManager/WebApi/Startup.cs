@@ -4,15 +4,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-
-using IdentityManager.DataService.Extensions;
-using TourManager.Api.Bootstrapper;
+using Travely.Common.Extensions;
+using Travely.Common.ServiceDiscovery;
+using Travely.Common.Swagger;
 using Travely.IdentityClient.Config;
 using Travely.IdentityManager.Repository.EntityFramework;
 using Travely.IdentityManager.Repository.Extensions;
 using Travely.IdentityManager.WebApi.Extensions;
-using Travely.IdentityClient.Extensions;
 
 namespace Travely.IdentityManager.WebApi
 {
