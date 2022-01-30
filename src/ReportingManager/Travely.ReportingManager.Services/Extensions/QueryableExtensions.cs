@@ -7,9 +7,9 @@ using Travely.Common;
 
 namespace Travely.ReportingManager.Services.Extensions
 {
-    public static class ExpressionHelper
+    public static class QueryableExtensions
     {
-        public static IQueryable<T> BuildFilters<T>(this IQueryable<T> query, ICollection<FilteringModel> filters)
+        public static IQueryable<T> FilterBy<T>(this IQueryable<T> query, ICollection<FilteringModel> filters)
         {
             if (filters?.Count == 0)
                 return query;
@@ -17,7 +17,7 @@ namespace Travely.ReportingManager.Services.Extensions
             var filterExpression = BuildFilter<T>(filters);
             return query.Where(filterExpression);
         }
-        public static IQueryable<T> BuildOrderings<T>(this IQueryable<T> query, ICollection<OrderingModel> orderings)
+        public static IQueryable<T> OrderBy<T>(this IQueryable<T> query, ICollection<OrderingModel> orderings)
         {
             if (orderings?.Count == 0)
                 return query;
@@ -25,7 +25,7 @@ namespace Travely.ReportingManager.Services.Extensions
             var builder = BuildOrderingFunc<T>(orderings);
             return builder.Invoke(query);
         }
-        public static IQueryable<T> BuildPaging<T>(this IQueryable<T> query, PagingModel pagingingBaseModel)
+        public static IQueryable<T> Paginate<T>(this IQueryable<T> query, PagingModel pagingingBaseModel)
         {
             if (pagingingBaseModel == null)
                 return query;

@@ -59,9 +59,9 @@ namespace Travely.ReportingManager.Services.Implementations
         {
             var toDoItemsQuery =  _dbContext.ToDoItems.Where(i=>i.UserId==userId).AsQueryable();
 
-            toDoItemsQuery = toDoItemsQuery.BuildFilters(query.Filters);
-            toDoItemsQuery = toDoItemsQuery.BuildOrderings(query.Orderings);
-            toDoItemsQuery = toDoItemsQuery.BuildPaging(query.Paging);
+            toDoItemsQuery = toDoItemsQuery.FilterBy(query.Filters);
+            toDoItemsQuery = toDoItemsQuery.OrderBy(query.Orderings);
+            toDoItemsQuery = toDoItemsQuery.Paginate(query.Paging);
 
             var toDoItems = await toDoItemsQuery.AsNoTracking().ToListAsync();
 
