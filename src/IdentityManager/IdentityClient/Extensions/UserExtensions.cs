@@ -19,7 +19,7 @@ namespace Travely.IdentityClient.Extensions
                 userContext = new UserContextModel();
                 userContext.UserId = int.Parse(claims.First(p => p.Type == "sub").Value);
                 userContext.AgencyId = int.Parse(claims.First(p => p.Type == "AgencyId").Value);
-                userContext.Permissions = (Permission) int.Parse(claims.First(p => p.Type == "permissions").Value);
+                userContext.Permissions = (Permission) int.Parse(claims.First(p => p.Type ==  nameof(Permission)).Value);
             }
             return userContext;
         }
