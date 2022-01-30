@@ -11,7 +11,7 @@ using Travely.Shared.IdentityClient.Authorization.Common;
 namespace TourManager.Api.Controllers
 {
     [ApiVersion("1.0")]
-    //[Authorize(Roles = UserRoles.User)]
+    [Authorize(Roles = UserRoles.User)]
     public class ToDoController : TravelyControllerBase
     {
         private readonly IReportingManagerClient _service;
