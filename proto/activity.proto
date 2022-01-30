@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/wrappers.proto";
 
-option csharp_namespace = "Travely.ServiceManager.Service";
+option csharp_namespace = "Travely.ServiceManager.Grpc";
 
 package activity;
 

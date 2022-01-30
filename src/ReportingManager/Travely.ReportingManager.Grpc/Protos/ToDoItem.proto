@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+option csharp_namespace = "Travely.ReportingManager.Protos";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+import "ToDoItemBase.proto";
+
+
+service ToDoItemProtoService {
+  
+rpc CreateToDoItem (CreateToDoItemRequest) returns (CreateToDoItemResponse);
+rpc UpdateToDoItem (UpdateToDoItemRequest) returns (UpdateToDoItemResponse);
+rpc DeleteToDoItem (DeleteToDoItemRequest) returns (DeleteToDoItemResponse);
+rpc GetToDoItem (GetToDoItemByIdRequest) returns (GetToDoItemByIdResponse);
+rpc GetAllUserToDoItems (GetUserToDoItemsRequest) returns (stream GetUserToDoItemsResponse);
+
+}
+
+message CreateToDoItemRequest{
+	string name = 1;
+    google.protobuf.Int32Value tourId=2 ;
+	google.protobuf.Timestamp deadline = 3;
+	google.protobuf.Timestamp reminder = 4;
+	string description = 5;
+    int32 status =6;
+    int32 priority =7;
+    int64 userId =8;
+}
+message CreateToDoItemResponse {
+	int32 id = 1;
+}
+message UpdateToDoItemRequest{
+	int32 id = 1;
+	string name = 2;
+    google.protobuf.Int32Value tourId=3 ;
+	google.protobuf.Timestamp deadline = 4;
+	google.protobuf.Timestamp reminder = 5;
+	string description = 6;
+    int32 status =7;
+    int32 priority =8;
+    int64 userId =9;
+}
+message UpdateToDoItemResponse {
+	int32 id = 1;
+}
+message DeleteToDoItemRequest {
+	int32 id = 1;
+}
+message DeleteToDoItemResponse {
+}
+message GetToDoItemByIdRequest {
+	int32 id = 1;
+}
+message GetToDoItemByIdResponse {
+	int32 id = 1;
+	string name = 2;
+    google.protobuf.Int32Value tourId=3 ;
+	google.protobuf.Timestamp deadline = 4;
+	google.protobuf.Timestamp reminder = 5;
+	string description = 6;
+    int32 status =7;
+    int32 priority =8;
+    int64 userId =9;
+}
+message GetUserToDoItemsRequest{
+	int64 userId=1;
+	repeated FilteringModel Filters = 2;
+	repeated OrderingModel Orderings = 3;
+	PagingModel Paging = 4;
+
+}
+message GetUserToDoItemsResponse{
+	int32 id = 1;
+	string name = 2;
+    google.protobuf.Int32Value tourId=3 ;
+	google.protobuf.Timestamp deadline = 4;
+	google.protobuf.Timestamp reminder = 5;
+	string description = 6;
+    int32 status =7;
+    int32 priority =8;
+    int64 userId =9;
+}
+
+
+
+
+
+

@@ -5,6 +5,7 @@ using AutoMapper;
 using Moq;
 using Travely.ServiceManager.Abstraction.Interfaces.Repositories;
 using Travely.ServiceManager.Abstraction.Interfaces.UnitOfWorks;
+using Travely.ServiceManager.Grpc;
 using Travely.ServiceManager.Service;
 using Travely.ServiceManager.Service.Managers;
 using Travely.ServiceManager.Service.Mappers;

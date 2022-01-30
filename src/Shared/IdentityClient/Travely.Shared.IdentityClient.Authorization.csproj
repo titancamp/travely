@@ -6,16 +6,11 @@
 
   <ItemGroup>
 	<FrameworkReference Include="Microsoft.AspNetCore.App" Version="5.0.0" />
-	
-	<PackageReference Include="Grpc.Core" Version="2.35.0" />
+	<PackageReference Include="Grpc.Core" Version="2.42.0" />
 
-	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.3" />
+	<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.4" />
 
 	<PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

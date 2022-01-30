@@ -2,7 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
+using Travely.ClientManager.Grpc.Mapper;
 using Travely.ClientManager.Repository;
+using Travely.ClientManager.Service.Mappers;
 
 namespace Travely.ClientManager.Service.Extensions.ServiceCollectionExtensions
 {
@@ -16,7 +19,14 @@ namespace Travely.ClientManager.Service.Extensions.ServiceCollectionExtensions
 
         public static void ConfigureAutoMapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(Startup));
+            var mappingProfiles = new[]
+            {
+                typeof(ClientProfile),
+                typeof(PreferenceProfile),
+                typeof(ClientManagerClientProfile)
+            };
+
+            services.AddAutoMapper(mappingProfiles);
         }
     }
 }

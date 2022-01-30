@@ -6,12 +6,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Travely.ClientManager.Abstraction.Abstraction.Repository;
 using Travely.ClientManager.Abstraction.Entity;
-using Travely.ClientManager.Service.Protos;
-using Travely.Services.Common.CustomExceptions;
+using Travely.ClientManager.Grpc;
+using Travely.Common.CustomExceptions;
 
 namespace Travely.ClientManager.Service.Services
 {
-	public class ClientService : ClientProtoService.ClientProtoServiceBase
+    public class ClientService : ClientProtoService.ClientProtoServiceBase
 	{
 		private readonly ITouristRepository _touristRepository;
 

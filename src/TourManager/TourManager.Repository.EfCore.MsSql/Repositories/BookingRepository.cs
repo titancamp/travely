@@ -12,7 +12,7 @@ namespace TourManager.Repository.EfCore.MsSql.Repositories
     /// <summary>
     /// The booking entity's repository
     /// </summary>
-    public class BookingRepository : BaseRepository<BookingEntity>, IBookingRepository
+    public class BookingRepository : BaseRepository<TourDbContext, BookingEntity>, IBookingRepository
     {
         /// <summary>
         /// Create new instance of booking repository

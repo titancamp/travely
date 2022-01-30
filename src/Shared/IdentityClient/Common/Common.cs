@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace Travely.IdentityClient.Authorization
+namespace Travely.Shared.IdentityClient.Authorization.Common
 {
     public static class UserRoles
     {

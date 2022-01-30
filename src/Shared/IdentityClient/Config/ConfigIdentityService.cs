@@ -1,4 +1,6 @@
-﻿namespace Microsoft.AspNetCore.Builder
+﻿using Microsoft.AspNetCore.Builder;
+
+namespace Travely.Shared.IdentityClient.Authorization.Config
 {
     public static class ConfigIdentityService
     {

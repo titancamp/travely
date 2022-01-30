@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
+using System.Linq;
 using System.Threading.Tasks;
 using TourManager.Repository.Abstraction;
 using TourManager.Repository.Entities;
 using TourManager.Repository.Models;
 using TourManager.Service.Abstraction;
 using TourManager.Service.Model;
+using Travely.ClientManager.Grpc.Client.Abstraction;
 
 namespace TourManager.Service.Implementation
 {
@@ -26,6 +27,8 @@ namespace TourManager.Service.Implementation
         /// </summary>
         private readonly ITourRepository tourRepository;
 
+        private readonly IRepository<TourClientEntity> _tourClientRepository;
+
         /// <summary>
         /// The booking service
         /// </summary>
@@ -34,7 +37,7 @@ namespace TourManager.Service.Implementation
         /// <summary>
         /// The client service
         /// </summary>
-        private readonly IClientService clientService;
+        private readonly IClientManagerServiceClient clientService;
 
         /// <summary>
         ///  Create new instance of tour service
@@ -46,12 +49,14 @@ namespace TourManager.Service.Implementation
         public TourService(IMapper mapper,
             ITourRepository tourRepository,
             IBookingService bookingService,
-            IClientService clientService)
+            IClientManagerServiceClient clientService,
+            IRepository<TourClientEntity> tourClientRepository)
         {
             this.mapper = mapper;
             this.tourRepository = tourRepository;
             this.bookingService = bookingService;
             this.clientService = clientService;
+            _tourClientRepository = tourClientRepository;
         }
 
         /// <summary>
@@ -112,7 +117,13 @@ namespace TourManager.Service.Implementation
                 client.Id = 0;
             }
 
-            await clientService.CreateClients(agencyId, newTour.Id, tour.Clients);
+
+            var clients = await clientService.CreateClients(agencyId, tour.Clients);
+            await _tourClientRepository.AddRange(clients.Select(s => new TourClientEntity
+            {
+                ClientId = s.Id,
+                TourId = newTour.Id
+            }).ToList());
 
             await this.bookingService.CreateBookings(newTour.Id, tour.Bookings);
 
@@ -129,7 +140,7 @@ namespace TourManager.Service.Implementation
             // update clients
             foreach (var client in tour.Clients)
             {
-                this.clientService.UpdateClient(client);
+                this.clientService.EditClientAsync(client);
             }
 
             // update bookings

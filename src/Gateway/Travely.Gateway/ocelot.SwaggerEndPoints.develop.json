@@ -1,0 +1,81 @@
+{
+  "SwaggerEndPoints": [
+    {
+      "Key": "tourmanager",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "TourManager API",
+          "Version": "v1",
+          "Url": "http://tour-manager-app/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "servicemanager",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "ServiceManager API",
+          "Version": "v1",
+          "Url": "http://service-manager-app/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "propertymanager",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "PropertyManager API",
+          "Version": "v1",
+          "Url": "http://property-manager-app/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "clientmanager",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "ClientManager API",
+          "Version": "v1",
+          "Url": "http://client-manager-app/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "idnetitymanager",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "IdentityManager API",
+          "Version": "v1",
+          "Url": "http://identity-manager-app/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "fileservice",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "FileService",
+          "Version": "v1",
+          "Url": "http://fileservice-manager-app/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "reportingmanager",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "ReportingManager",
+          "Version": "v1",
+          "Url": "http://reporting-manager-app/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}
