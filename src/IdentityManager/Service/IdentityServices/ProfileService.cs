@@ -32,7 +32,7 @@ namespace IdentityManager.DataService.IdentityServices
                 var userData = await _userRepository.GetAll().Where(x=>x.Id == userId).Select(x=>new
                 {
                     x.Id,
-                    x.Permissions,
+                    Permissions = x.Permissions,
                     x.AgencyId
                 }).FirstOrDefaultAsync();
 

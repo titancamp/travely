@@ -9,6 +9,7 @@ using IdentityManager.Service.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
+using Travely.Common.Entities;
 using Travely.IdentityManager.Repository.Abstractions;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
 using Travely.IdentityManager.Service.Abstractions;
@@ -93,9 +94,11 @@ namespace Travely.IdentityManager.Service.Identity
         /// Get all users
         /// </summary>
         /// <returns></returns>
-        public Task<List<UserResponseModel>> GetUsersAsync(int agencyId, CancellationToken ct = default)
+        public Task<List<UserResponseModel>> GetUsersAsync(int agencyId, bool includeDeleted = false, CancellationToken ct = default)
         {
-            return _mapper.ProjectTo<UserResponseModel>(_userRepository.GetAll().Where(x => x.AgencyId == agencyId)).ToListAsync(cancellationToken: ct);
+            return _mapper.ProjectTo<UserResponseModel>(_userRepository.GetAll()
+                .Where(x => x.AgencyId == agencyId && (includeDeleted || x.Status != Status.Deleted)))
+                .ToListAsync(cancellationToken: ct);
         }
 
         /// <summary>
@@ -127,9 +130,9 @@ namespace Travely.IdentityManager.Service.Identity
                 throw new IdentityException("This email already registered.");
             }
             user = _mapper.Map<User>(userRequestModel);
-            user.Password = _passHasher.HashPassword(user, userRequestModel.Password);
+            user.Password = string.Empty;
             user.Agency = agency;
-            user.Status = Status.Active;
+            user.Status = Status.Inactive;
             
             _userRepository.Add(user);
 
@@ -144,7 +147,7 @@ namespace Travely.IdentityManager.Service.Identity
         /// <param name="userRequestModel"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<UserResponseModel> UpdateUserAsync(UpdateUserRequestModel userRequestModel, int agencyId, CancellationToken ct = default)
+        public async Task<UserResponseModel> UpdateUserAsync(UserRequestModel userRequestModel, int agencyId, CancellationToken ct = default)
         {
             User user = await _userRepository.GetAll()
                 .Where(x => x.Id == userRequestModel.Id && x.AgencyId == agencyId)
@@ -165,15 +168,21 @@ namespace Travely.IdentityManager.Service.Identity
         }
 
         /// <summary>
-        /// DeleteUser
+        /// Change user status
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="agencyId"></param>
+        /// <param name="status"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task DeleteUserAsync(int id, int agencyId, CancellationToken ct = default)
+        public async Task ChangeUserStatusAsync(int id, int agencyId, Status status, CancellationToken ct = default)
         {
+            if (status == Status.Inactive)
+            {
+                throw new InvalidOperationException();
+            }
             var user = await _userRepository.GetAll()
-                .Where(x => x.Id == id && x.AgencyId == agencyId)
+                .Where(x => x.Id == id && x.AgencyId == agencyId && x.Permissions != Permission.Admin && x.Status != Status.Inactive)
                 .FirstOrDefaultAsync(ct);
 
             if (user == null)
@@ -181,7 +190,8 @@ namespace Travely.IdentityManager.Service.Identity
                 throw new UserNotFoundException();
             }
 
-            _userRepository.Remove(user);
+            user.Status = status;
+            _userRepository.Update(user);
             await _unitOfWork.SaveChangesAsync(ct);
         }
 
@@ -212,5 +222,28 @@ namespace Travely.IdentityManager.Service.Identity
             await _unitOfWork.SaveChangesAsync(ct);
             return data;
         }
+
+        ///  <summary>
+        ///  Set user password
+        ///  </summary>
+        ///  <param name="eMail"></param>
+        ///  <param name="password"></param>
+        ///  <param name="agencyId"></param>
+        ///  <returns></returns>
+        public async Task SetPasswordAsync(string eMail, string password, int agencyId, CancellationToken ct = default)
+        {
+            var user = await _userRepository.GetAll()
+                .Where(x => x.Email == eMail && x.AgencyId == agencyId && x.Status == Status.Inactive)
+                .FirstOrDefaultAsync(ct);
+
+            if (user == null)
+            {
+                throw new UserNotFoundException();
+            }
+
+            user.Status = Status.Active;
+            user.Password = _passHasher.HashPassword(user, password);
+            _userRepository.Update(user);
+            await _unitOfWork.SaveChangesAsync(ct);        }
     }
 }
