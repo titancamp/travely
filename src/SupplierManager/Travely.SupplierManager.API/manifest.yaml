@@ -1,0 +1,64 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: suppliermanager-api
+  labels:
+    app: suppliermanager-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: suppliermanager-api
+  template:
+    metadata:
+      labels:
+        app: suppliermanager-api
+    spec:
+      containers:
+      - name: suppliermanager-api
+        image: titancamp/suppliermanager:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: "mssql_hostname"
+          valueFrom:
+            secretKeyRef:
+              name: dbconnection
+              key: hostname
+        - name: "mssql_password"
+          valueFrom:
+            secretKeyRef:
+              name: dbconnection
+              key: password
+        - name: "mssql_username"
+          valueFrom:
+            secretKeyRef:
+              name: dbconnection
+              key: username
+        - name: "mssql_port"
+          valueFrom:
+            secretKeyRef:
+              name: dbconnection
+              key: port
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: suppliermanager-api-service
+  namespace: dev
+  labels:
+    app: suppliermanager-api
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+  selector:
+    app: suppliermanager-api
+  type: NodePort

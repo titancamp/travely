@@ -37,10 +37,58 @@
       "SwaggerKey": "servicemanager"
     },
     {
-      "ServiceName": "travely-suppliermanager-service",
-      "DownstreamPathTemplate": "/api/v{version}/Supplier{everything}",
+      "ServiceName": "travely-suppliermanager-api",
+      "DownstreamPathTemplate": "/api/v{version}/Accommodation{everything}",
       "DownstreamScheme": "http",
-      "UpstreamPathTemplate": "/api/v{version}/Supplier{everything}",
+      "UpstreamPathTemplate": "/api/v{version}/Accommodation{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowScopes": []
+      },
+      "SwaggerKey": "suppliermanager"
+    },
+    {
+      "ServiceName": "travely-suppliermanager-api",
+      "DownstreamPathTemplate": "/api/v{version}/Activities{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/v{version}/Activities{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowScopes": []
+      },
+      "SwaggerKey": "suppliermanager"
+    },
+    {
+      "ServiceName": "travely-suppliermanager-api",
+      "DownstreamPathTemplate": "/api/v{version}/Food{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/v{version}/Food{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowScopes": []
+      },
+      "SwaggerKey": "suppliermanager"
+    },
+    {
+      "ServiceName": "travely-suppliermanager-api",
+      "DownstreamPathTemplate": "/api/v{version}/Guides{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/v{version}/Guides{everything}",
+      "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowScopes": []
+      },
+      "SwaggerKey": "suppliermanager"
+    },
+    {
+      "ServiceName": "travely-suppliermanager-api",
+      "DownstreamPathTemplate": "/api/v{version}/Transportation{everything}",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/api/v{version}/Transportation{everything}",
       "UpstreamHttpMethod": [ "POST", "PUT", "GET", "DELETE", "OPTIONS" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",

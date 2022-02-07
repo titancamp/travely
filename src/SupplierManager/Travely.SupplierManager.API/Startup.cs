@@ -31,30 +31,22 @@ namespace Travely.SupplierManager.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
-            // services.AddGrpc();
 
-            services.AddDbContext<SupplierDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("SupplierDbContext")));
+            services.AddSqlServer<SupplierDbContext>(Configuration.GetConnectionString("SupplierDbContext"),
+                "Travely.SupplierManager.Repository");
             
             services.AddSupplierServices();
             services.ConfigureAutoMapper();
             
-
             services.AddApiVersioning(config =>
             {
                 config.DefaultApiVersion = new ApiVersion(1, 0);
                 config.AssumeDefaultVersionWhenUnspecified = true;
             });
             
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "SupplierManager.Api", Version = "v1"});
-            });
-            
             services.AddConsul(Configuration, Environment);
+            services.AddSwagger("SupplierManager API");
             services.AddTravelyAuthentication(Configuration, Environment);
-            // services.AddSwagger("SupplierManager API");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,7 +57,6 @@ namespace Travely.SupplierManager.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SupplierManager.API v1"));
             }
 
             app.UseHttpsRedirection();
