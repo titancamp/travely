@@ -5,4 +5,8 @@
     <RootNamespace>Travely.IdentityManager.Repository.Abstractions</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Commons\Travely.Common\Travely.Common.csproj" />
+  </ItemGroup>
+
 </Project>

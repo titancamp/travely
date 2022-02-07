@@ -1,5 +1,5 @@
-﻿using Travely.IdentityClient.Authorization.Entities;
-using System;
+﻿using System;
+using Travely.Common.Entities;
 
 namespace Travely.IdentityClient.Authorization
 {

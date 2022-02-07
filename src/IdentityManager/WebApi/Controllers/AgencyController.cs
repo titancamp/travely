@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 using System.Threading.Tasks;
+using Travely.Common.Entities;
+using Travely.IdentityClient.Authorization;
+using Travely.IdentityClient.Extensions;
 using Travely.IdentityManager.Service.Abstractions;
 using Travely.IdentityManager.Service.Abstractions.Models.Request;
 using Travely.IdentityManager.Service.Abstractions.Models.Response;
@@ -22,7 +25,8 @@ namespace Travely.IdentityManager.WebApi.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
+        [Permission(Permission.Admin)]
         public async Task<IActionResult> UpdateAccountAsync([FromBody] UpdateAgencyRequestModel agency, CancellationToken ct = default)
         {
             var agencyId = HttpContext.GetUserContext().AgencyId;

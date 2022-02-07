@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using Travely.Common.Entities;
 
 namespace Travely.IdentityManager.Repository.Abstractions.Entities
 {
@@ -11,8 +11,8 @@ namespace Travely.IdentityManager.Repository.Abstractions.Entities
         public string Email { get; set; }
         public string? PhoneNumber { get; set; }
         public string Password { get; set; }
-        public Role Role { get; set; }
-        public int Permissions { get; set; }
+        
+        public Permission Permissions { get; set; }
         public DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
         public DateTime? LastLogin { get; set; }

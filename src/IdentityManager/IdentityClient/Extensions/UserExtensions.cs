@@ -1,12 +1,28 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Linq;
-
+﻿using System.Linq;
+using Microsoft.AspNetCore.Http;
+using Travely.Common.Entities;
 using Travely.IdentityClient.Authorization.Data;
+using Travely.IdentityClient.Common;
+using Travely.IdentityClient.Extensions;
 
-namespace Microsoft.AspNetCore.Http
+namespace Travely.IdentityClient.Extensions
 {
     public static class TravelyIdentityHttpContextExtensions
     {
+        public static UserContextModel GetUserContext(this HttpContext context)
+        {
+            var claims = context?.User?.Claims;
+            UserContextModel userContext = null;
+            
+            if (claims != null)
+            {
+                userContext = new UserContextModel();
+                userContext.UserId = int.Parse(claims.First(p => p.Type == "sub").Value);
+                userContext.AgencyId = int.Parse(claims.First(p => p.Type == "AgencyId").Value);
+                userContext.Permissions = (Permission) int.Parse(claims.First(p => p.Type ==  nameof(Permission)).Value);
+            }
+            return userContext;
+        }
         public static UserInfo GetTravelyUserInfo(this HttpContext httpContext)
         {
             return new UserInfo
@@ -30,7 +46,6 @@ namespace Microsoft.AspNetCore.Http
 
 namespace Grpc.Core
 {
-   
     public static class TravelyIdentityServerCallContextExtensions
     {
         public static UserInfo GetTravelyUserInfo(this ServerCallContext context) => context.GetHttpContext().GetTravelyUserInfo();

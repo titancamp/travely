@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Travely.Common.Extensions;
 using Travely.Common.ServiceDiscovery;
 using Travely.Common.Swagger;
+using Travely.IdentityClient.Config;
 using Travely.IdentityManager.Repository.EntityFramework;
 using Travely.IdentityManager.Repository.Extensions;
 using Travely.IdentityManager.WebApi.Extensions;
@@ -62,10 +63,8 @@ namespace Travely.IdentityManager.WebApi
 
             app.UseCors(c => c.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseIdentityServer();
+            app.UseTravelyAuthorization();
             app.UseRouting();
-            app.UseAuthorization();
-
-            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

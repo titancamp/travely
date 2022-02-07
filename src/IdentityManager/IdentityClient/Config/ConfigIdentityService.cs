@@ -1,14 +1,14 @@
-﻿namespace Microsoft.AspNetCore.Builder
+﻿using Microsoft.AspNetCore.Builder;
+using Travely.IdentityClient.Authorization;
+
+namespace Travely.IdentityClient.Config
 {
     public static class ConfigIdentityService
     {
-        public static IApplicationBuilder ConfigureTravelyAuthentication(this IApplicationBuilder app)
+        public static IApplicationBuilder UseTravelyAuthorization(this IApplicationBuilder builder)
         {
-            app
-                .UseAuthentication()
-                .UseAuthorization();
-
-            return app;
+            builder.UseAuthorization();
+            return builder.UseMiddleware<TravelyAuthorizationMiddleware>();
         }
     };
 }

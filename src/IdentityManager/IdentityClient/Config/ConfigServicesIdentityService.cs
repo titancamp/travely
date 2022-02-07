@@ -1,40 +1,32 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
+using System.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Extensions.DependencyInjection
+namespace Travely.IdentityClient.Config
 {
     public static class ConfigServicesIdentityService
     {
-        public static IServiceCollection IdentityApplicationBuilderExtensions(this IServiceCollection services, IHostEnvironment environment)
+        public static IServiceCollection ConfigureTravelyAuthorization(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
         {
-            services
-                .AddAuthorization(options =>
+            string authority = configuration.GetSection("TravelyIdentityConfig").GetValue<string>("Authority");
+            
+            if (string.IsNullOrWhiteSpace(authority))
+            {
+                throw new ConfigurationErrorsException("Please check the Authority and Audience values in TravelyIdentityConfig section in configuration file");
+            }
+            
+            services.AddAuthorization()
+                .AddAuthentication(options =>
                 {
-                    options.AddPolicy("admin", policy => policy.RequireClaim("Admin"));
-                })
-                .AddAuthentication(options => {
                     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(options =>
+                }).AddIdentityServerAuthentication("Bearer", options =>
                 {
-                    options.Authority = "https://localhost:5123";
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        //ValidateIssuerSigningKey = true,
-                        //ValidateAudience = true,
-                        //ValidateIssuer = true,
-                        RoleClaimType = "role",
-                        NameClaimType = "sub",
-                    };
-
-                    if (!environment.IsDevelopment())
-                    {
-                        options.RequireHttpsMetadata = true;
-                    }
-
-                    options.SaveToken = true;
+                    options.ApiName = authority;
+                    options.Authority = "api1";
                 });
 
             return services;

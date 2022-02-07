@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
+using Travely.Common.Entities;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
 using Travely.IdentityManager.Service.Abstractions;
 using Travely.IdentityManager.Service.Abstractions.Models;
@@ -20,17 +21,6 @@ namespace Travely.IdentityManager.WebApi.Extensions
             });
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
-        }
-
-        public static UserContextModel GetUserContext(this HttpContext context)
-        {
-            var claims = context?.User?.Claims;
-            UserContextModel userContext = new UserContextModel();
-            userContext.Role = claims.First(p => p.Type.Contains("role")).Value.ToEnum<Role>();
-            userContext.UserId = int.Parse(claims.First(p => p.Type == "sub").Value);
-            userContext.AgencyId = int.Parse(claims.First(p => p.Type == "AgencyId").Value);
-            userContext.Permissions = int.Parse(claims.First(p => p.Type == "permissions").Value);
-            return userContext;
         }
 
         public static T ToEnum<T>(this string value)

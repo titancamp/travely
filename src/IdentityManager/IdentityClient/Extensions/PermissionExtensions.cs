@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Travely.IdentityClient.Authorization.Entities;
+using Travely.Common.Entities;
 
 namespace Travely.IdentityClient.Extensions
 {

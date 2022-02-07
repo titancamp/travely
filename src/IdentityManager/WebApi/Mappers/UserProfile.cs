@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using System;
+using Travely.Common.Entities;
 using Travely.IdentityManager.Repository.Abstractions.Entities;
 using Travely.IdentityManager.Service.Abstractions.Models.Request;
 using Travely.IdentityManager.Service.Abstractions.Models.Response;
@@ -13,18 +14,9 @@ namespace Travely.IdentityManager.WebApi.Mappers
         {
             CreateMap<UserRequestModel, User>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
-                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
-                //.AfterMap((src, dest) => dest.Password = Guid.NewGuid().ToString())
-                .AfterMap((src, dest) => dest.Status = Status.Inactive)
-                .AfterMap((src, dest) => dest.Role = Role.User)
-                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow);
-
-            CreateMap<UpdateUserRequestModel, User>()
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
-                //.AfterMap((src, dest) => dest.Password = Guid.NewGuid().ToString())
-                .AfterMap((src, dest) => dest.Status = Status.Inactive)
-                .AfterMap((src, dest) => dest.Role = Role.User)
-                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow);
+                .AfterMap((src, dest) => dest.Permissions = src.Permission)
+                .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow)
+                .AfterMap((src, dest) => dest.Email = src.Email);
 
             CreateMap<RegisterRequestModel, User>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
@@ -32,7 +24,7 @@ namespace Travely.IdentityManager.WebApi.Mappers
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .AfterMap((src, dest) => dest.Password = passwordHasher.HashPassword(dest, dest.Password))
                 .AfterMap((src, dest) => dest.Status = Status.Active)
-                .AfterMap((src, dest) => dest.Role = Role.Admin)
+                .AfterMap((src, dest) => dest.Permissions = Permission.Admin)
                 .AfterMap((src, dest) => dest.CreatedDate = DateTime.UtcNow);
 
             CreateMap<RegisterRequestModel, Agency>()
@@ -42,8 +34,15 @@ namespace Travely.IdentityManager.WebApi.Mappers
             CreateMap<User, UserResponseModel>()
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
-                .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role))
+                .ForMember(dest => dest.Permission, opt => opt.MapFrom(src => src.Permissions))
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.CreatedDate, opt => opt.MapFrom(src => src.CreatedDate))
+                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
+                .ForMember(dest => dest.LastLogin, opt => opt.MapFrom(src => src.LastLogin))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
+                .ForMember(dest => dest.UpdatedDate, opt => opt.MapFrom(src => src.UpdatedDate))
+                .ForMember(dest => dest.UpdatedBy, opt => opt.MapFrom(src => src.UpdatedBy))
                 ;
         }
     }

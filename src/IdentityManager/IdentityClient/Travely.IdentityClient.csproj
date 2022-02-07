@@ -6,8 +6,14 @@
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" Version="5.0.0" />
-    <PackageReference Include="Grpc.AspNetCore.Server"/>
+    <PackageReference Include="Grpc.AspNetCore.Server" />
     <PackageReference Include="Grpc.Core" />
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="System.Configuration.ConfigurationManager"  />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Commons\Travely.Common\Travely.Common.csproj" />
   </ItemGroup>
 </Project>
