@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Travely.IdentityClient.Extensions;
 using Travely.IdentityManager.Service.Abstractions;
 using Travely.IdentityManager.Service.Abstractions.Models;
 using Travely.IdentityManager.Service.Abstractions.Models.Error;
@@ -77,17 +78,13 @@ namespace Travely.IdentityManager.WebApi.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost("password/reset")]
         public async Task<ActionResult<ResultViewModel>> ResetPassword([FromBody] ResetPasswordViewModel model, CancellationToken cancellationToken = default)
         {
-            if (ModelState.IsValid)
-            {
-                var result = await _authenticationService.ResetPasswordAsync(model, cancellationToken);
+            var userId = HttpContext.GetUserContext().UserId;
 
-                return result;
-            }
-
-            return BadRequest("Some properties are not valid");
+            return await _authenticationService.ResetPasswordAsync(model, userId, cancellationToken);
         }
     }
 }

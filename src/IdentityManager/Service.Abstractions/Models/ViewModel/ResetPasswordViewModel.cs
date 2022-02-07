@@ -13,17 +13,8 @@ namespace Travely.IdentityManager.Service.Abstractions.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("NewPassword", ErrorMessage = "Password mismatch")]
-        public string ConfirmPassword { get; set; }
-
         [Required]
         [StringLength(50, MinimumLength = 5)]
         public string NewPassword { get; set; }
-
-        [Required]
-        public string Token { get; set; }
-
     }
 }

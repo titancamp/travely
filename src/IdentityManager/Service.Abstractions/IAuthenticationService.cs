@@ -13,7 +13,7 @@ namespace Travely.IdentityManager.Service.Abstractions
         Task<ResultViewModel> RegisterUserAsync(RegisterRequestModel model, CancellationToken ct);
         Task<ResultViewModel> ConfirmEmailAsync(string email, string token, CancellationToken ct = default);
         Task<ResultViewModel> ForgetPasswordAsync(string email, CancellationToken ct = default);
-        Task<ResultViewModel> ResetPasswordAsync(ResetPasswordViewModel model, CancellationToken ct = default);
+        Task<ResultViewModel> ResetPasswordAsync(ResetPasswordViewModel model, int userId, CancellationToken ct = default);
         Task<UserResponseModel> GetUserById(int id, CancellationToken ct = default);
         Task<List<UserResponseModel>> GetUsersAsync(int agencyId, bool includeDeleted = false, CancellationToken ct = default);
         Task<AgencyResponseModel> GetAgencyByIdAsync(int id, CancellationToken ct = default);

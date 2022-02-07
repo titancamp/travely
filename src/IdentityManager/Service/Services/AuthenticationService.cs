@@ -59,9 +59,22 @@ namespace Travely.IdentityManager.Service.Identity
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public async Task<ResultViewModel> ResetPasswordAsync(ResetPasswordViewModel model, CancellationToken ct = default)
+        public async Task<ResultViewModel> ResetPasswordAsync(ResetPasswordViewModel model, int userId, CancellationToken ct = default)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetAll()
+                .Where(x => x.Email == model.Email && x.Status == Status.Active && x.Id == userId)
+                .FirstOrDefaultAsync(ct);
+
+            if (user == null || _passHasher.VerifyHashedPassword(user, user.Password, model.Password) == PasswordVerificationResult.Failed )
+            {
+                throw new UserNotFoundException();
+            }
+            
+            user.Password = _passHasher.HashPassword(user, model.NewPassword);
+            _userRepository.Update(user);
+            await _unitOfWork.SaveChangesAsync(ct);
+            
+            return new ResultViewModel(){IsSuccess = true};
         }
 
         public async Task<ResultViewModel> RegisterUserAsync(RegisterRequestModel model, CancellationToken ct = default)

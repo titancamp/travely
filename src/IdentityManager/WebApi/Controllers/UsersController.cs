@@ -30,9 +30,8 @@ namespace Travely.IdentityManager.WebApi.Controllers
         ///  <summary>
         ///  Set user password
         ///  </summary>
-        ///  <param name="eMail"></param>
-        ///  <param name="password"></param>
-        ///  <param name="agencyId"></param>
+        ///  <param name="setPasswordRequestModel"></param>
+        ///  <param name="cancellationToken"></param>
         ///  <returns></returns>
         /// [Authorize]   //eMail and agencyId will be taken from token
         [HttpPut("setpassword")]
