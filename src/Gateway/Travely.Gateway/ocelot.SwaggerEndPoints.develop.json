@@ -23,6 +23,17 @@
       ]
     },
     {
+      "Key": "suppliermanager",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "SupplierManager API",
+          "Version": "v1",
+          "Url": "http://supplier-manager-app/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
       "Key": "propertymanager",
       "TransformByOcelotConfig": false,
       "Config": [

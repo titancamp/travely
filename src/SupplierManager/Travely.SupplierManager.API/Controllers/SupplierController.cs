@@ -11,7 +11,7 @@ using Travely.SupplierManager.Service;
 namespace Travely.SupplierManager.API.Controllers
 {
     [ApiVersion("1.0")]
-    // [Authorize(Roles = UserRoles.User)]
+    [Authorize(Roles = UserRoles.User)]
     public class SupplierController<T, TRequest, TResponse, TFilter> : TravelyControllerBase
         where T : class
         where TRequest : class

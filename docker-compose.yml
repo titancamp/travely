@@ -220,3 +220,23 @@ services:
       - .env
     volumes:
       - ~/.aspnet/https:/https:ro
+        
+  suppliermanager.api:
+    image: titancamp/suppliermanagerapi
+    build:
+      context: .
+      dockerfile: src/SupplierManager/Travely.SupplierManager.Api/Dockerfile
+    ports:
+      - "9000:80"
+      - "9001:443"
+    depends_on:
+      - localhost
+    environment:
+      - ServiceDiscoveryConfiguration__serviceName=travely-suppliermanager
+      - ServiceDiscoveryConfiguration__serviceId=travely-suppliermanager-1
+      - ServiceDiscoveryConfiguration__serviceAddress=http://suppliermanager.api
+      - ConsulClientConfiguration__address=http://consul:8500
+    env_file:
+      - .env
+    volumes:
+      - ~/.aspnet/https:/https:ro
