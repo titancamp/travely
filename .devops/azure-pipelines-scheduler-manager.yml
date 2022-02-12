@@ -38,11 +38,11 @@ stages:
     containerRegistryPassword: $(registry_travely_am_password)
     containerPort: 80
     containerEnv:
-    - name: SeriLog__ConnectionStrings
+    - name: SeriLog__ConnectionString
       value: Server=mssql;Database=SchedulerDb;User=sa;Password=$(mssql_sa_password)
-    - name: RepositoryOptions__ConnectionStrings
+    - name: RepositoryOptions__ConnectionString
       value: Server=mssql;Database=SchedulerDb;User=sa;Password=$(mssql_sa_password)
-    - name: JobOptions__ConnectionStrings
+    - name: JobOptions__ConnectionString
       value: Server=mssql;Database=SchedulerDb;User=sa;Password=$(mssql_sa_password)
     - name: NotifierOptions__RedisConnectionString
       value: redis
