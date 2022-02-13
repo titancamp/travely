@@ -37,18 +37,19 @@ stages:
     containerRegistry: $(containerRegistry)
     dockerFile: src/FileServiceManager/FileService/Dockerfile
 # Deploy stage
-- template: templates/deploy.yml
-  parameters:
-    imageTag: $(imageTag)
-    containerRepository: $(containerRegistryHost)/$(containerRepository)
-    containerRegistry: $(containerRegistry)
-    containerRegistryPassword: $(registry_travely_am_password)
-    containerPort: 80
-    environment: dev.dev-travely-am
-    kubernetesServiceConnection: dev-dev-travely-am-1639235401610
-    kubernetesNamespace: dev-travely-am
-    helmMetadata:
-      releaseName: $(project)
-      chartRegistry: $(containerRegistryHost)
-      chartName: helm-charts/app
-      chartVersion: 0.1.2
+- ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+  - template: templates/deploy.yml
+    parameters:
+      imageTag: $(imageTag)
+      containerRepository: $(containerRegistryHost)/$(containerRepository)
+      containerRegistry: $(containerRegistry)
+      containerRegistryPassword: $(registry_travely_am_password)
+      containerPort: 80
+      environment: dev.dev-travely-am
+      kubernetesServiceConnection: dev-dev-travely-am-1639235401610
+      kubernetesNamespace: dev-travely-am
+      helmMetadata:
+        releaseName: $(project)
+        chartRegistry: $(containerRegistryHost)
+        chartName: helm-charts/app
+        chartVersion: 0.1.2
