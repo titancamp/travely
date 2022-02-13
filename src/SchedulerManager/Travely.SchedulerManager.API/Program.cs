@@ -12,6 +12,7 @@ namespace Travely.SchedulerManager.API
     {
         public static Task Main(string[] args)
         {
+            // test PR
             AppDomain.CurrentDomain.ProcessExit += (s, e) => Log.CloseAndFlush();
             return CreateHostBuilder(args).Build().RunAsync();
         }
