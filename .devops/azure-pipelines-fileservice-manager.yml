@@ -5,21 +5,28 @@ trigger:
   paths:
     include:
     - src/FileServiceManager
+pr:
+  branches:
+    include:
+    - develop
+  paths:
+    include:
+    - src/FileServiceManager
 
 variables:
-- group: travely
+- group: travely-dev
 - name: project
   value: fileservice-manager
+- name: gitBranch
+  value: $(Build.SourceBranchName)
 - name: imageTag
   value: $(Build.BuildId)
 - name: containerRepository
-  value: travely/$(project)
+  value: travely/$(project)/$(gitBranch)
 - name: containerRegistry
   value: registry-travely-am
 - name: containerRegistryHost
   value: registry.travely.am
-- name: gitBranch
-  value: $(Build.SourceBranchName)
 
 stages:
 # Build stage
@@ -37,25 +44,9 @@ stages:
     containerRegistry: $(containerRegistry)
     containerRegistryPassword: $(registry_travely_am_password)
     containerPort: 80
-    containerEnv:
-    - name: n0
-      value: v0
-    - name: n1
-      value: v1
-    - name: n2
-      value: v2
-    - name: n3
-      value: v3
-    - name: n4
-      value: v4
-    hostname: $(project).travely.am
-    path: /
-    cname: k8s.travely.am
     environment: dev.dev-travely-am
     kubernetesServiceConnection: dev-dev-travely-am-1639235401610
     kubernetesNamespace: dev-travely-am
-    ingress:
-      enabled: true
     helmMetadata:
       releaseName: $(project)
       chartRegistry: $(containerRegistryHost)

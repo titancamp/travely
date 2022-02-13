@@ -5,6 +5,13 @@ trigger:
   paths:
     include:
     - src/SchedulerManager
+pr:
+  branches:
+    include:
+    - develop
+  paths:
+    include:
+    - src/SchedulerManager
 
 variables:
 - group: travely-dev
