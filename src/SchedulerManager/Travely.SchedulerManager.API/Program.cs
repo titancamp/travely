@@ -5,7 +5,7 @@ using Serilog;
 using Serilog.Sinks.MSSqlServer;
 using System;
 using System.Threading.Tasks;
-
+//test comment
 namespace Travely.SchedulerManager.API
 {
     public class Program
