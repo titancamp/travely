@@ -16,7 +16,7 @@ using Travely.Common.Extensions;
 using Travely.Common.ServiceDiscovery;
 using Travely.Common.Swagger;
 using Travely.Shared.IdentityClient.Authorization.Config;
-
+// test comment
 namespace TourManager.Api
 {
     public class Startup
