@@ -75,6 +75,7 @@ namespace Travely.SchedulerManager.API
                 endpoints.MapGrpcService<EmailService>();
                 endpoints.MapGet("/", async context => await context.Response.WriteAsync("Service running"));
             });
+            // test comment
         }
     }
 }
