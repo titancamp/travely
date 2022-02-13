@@ -27,11 +27,13 @@ parameters:
     value: v5
 - name: hostname
   type: string
+  default: ''
 - name: path
   type: string
   default: /
 - name: cname
   type: string
+  default: ''
 - name: environment
   type: string
 - name: kubernetesServiceConnection
