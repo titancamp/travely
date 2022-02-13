@@ -49,14 +49,9 @@ stages:
         value: $(redis_password)@redis-headless:6379
       - name: n4
         value: v4
-      hostname: $(project).travely.am
-      path: /
-      cname: k8s.travely.am
       environment: dev.dev-travely-am
       kubernetesServiceConnection: dev-dev-travely-am-1639235401610
       kubernetesNamespace: dev-travely-am
-      ingress:
-        enabled: true
       helmMetadata:
         releaseName: $(project)
         chartRegistry: $(containerRegistryHost)
