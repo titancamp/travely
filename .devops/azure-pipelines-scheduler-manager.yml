@@ -7,19 +7,19 @@ trigger:
     - src/SchedulerManager
 
 variables:
-- group: travely
+- group: travely-dev
 - name: project
   value: scheduler-manager
+- name: gitBranch
+  value: $(Build.SourceBranchName)
 - name: imageTag
   value: $(Build.BuildId)
 - name: containerRepository
-  value: travely/$(project)
+  value: travely/$(project)/$(gitBranch)
 - name: containerRegistry
   value: registry-travely-am
 - name: containerRegistryHost
   value: registry.travely.am
-- name: gitBranch
-  value: $(Build.SourceBranchName)
 
 stages:
 # Build stage
@@ -46,7 +46,9 @@ stages:
       - name: JobOptions__ConnectionString
         value: Server=mssql;Database=SchedulerDb;User=sa;Password=$(mssql_sa_password)
       - name: NotifierOptions__RedisConnectionString
-        value: redis-headless
+        value: $(redis_password)@redis-headless:6379
+      - name: n4
+        value: v4
       hostname: $(project).travely.am
       path: /
       cname: k8s.travely.am
