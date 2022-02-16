@@ -17,6 +17,7 @@ using Travely.TourManager.BLL;
 using Travely.TourManager.Core;
 using Travely.TourManager.DAL;
 using Newtonsoft.Json;
+using Travely.TourManager.Core.DependencyInjection;
 
 namespace Travely.TourManager.API
 {
@@ -40,11 +41,7 @@ namespace Travely.TourManager.API
 
             services.AddMvc().AddNewtonsoftJson();
 
-            services.AddScoped<ITourTypeService, TourTypeService>();
-            services.AddScoped<ITourService, TourService>();
-            services.AddScoped<ITourStatusService, TourStatusService>();
-            services.AddScoped<ILanguageService, LanguageService>();
-            services.AddScoped<IGenderService, GenderService>();
+            services.AddTourServices();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

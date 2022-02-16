@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Travely.TourManager.DAL.Configurations;
+using System.Collections.Generic;
+using System.Text.Json;
 
 namespace Travely.TourManager.DAL
 {
@@ -22,7 +23,10 @@ namespace Travely.TourManager.DAL
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new EntityConfigurations());
+            builder.Entity<Group>().Property(x => x.Preferences)
+                .HasConversion(
+                x => JsonSerializer.Serialize(x, default),
+                x => JsonSerializer.Deserialize<IList<string>>(x, default));
         }
     }
 }
