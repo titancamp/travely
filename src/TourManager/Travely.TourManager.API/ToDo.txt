@@ -1,0 +1,16 @@
+﻿TO DO LIST: 
+
+[BUG]
+1. TourService -> GetToursAsync method -> When getting all the Tours, if there's a Group with multiple Language objects, 
+                  the GetToursAsync method returns on the first Language object. Similar issue with the Participants objects.  
+
+[FEATURE]        
+2. Filters -> Various filters need to be added i.e. find tour by Price range, find tour by Partner Name, etc. 
+
+[FEATURE]
+3. Calendar -> In the database, another table needs to be added which countais the TourID and the IDs of all the Suppliers
+                           which are associated with that specific tour. In addition to that, the CRUD needs to be added as well. 
+
+[FEATURE]
+4. User management integration -> When creating a new tour, a "Get user Id" is needed which is the value of "CreatedBy" 
+                                  in some tables in the database. 

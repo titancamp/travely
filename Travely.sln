@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32002.261
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TourManager", "TourManager", "{90D98036-508B-4ED9-A502-0D0340502EC4}"
 EndProject
@@ -149,11 +149,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.ReportingManager.Se
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SupplierManager", "SupplierManager", "{749EC133-AA8E-466F-AF1E-C8FF70121511}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.SupplierManager.API", "src\SupplierManager\Travely.SupplierManager.API\Travely.SupplierManager.API.csproj", "{74BC2370-071A-4967-AAFA-DA24C550A771}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SupplierManager.API", "src\SupplierManager\Travely.SupplierManager.API\Travely.SupplierManager.API.csproj", "{74BC2370-071A-4967-AAFA-DA24C550A771}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.SupplierManager.Repository", "src\SupplierManager\Travely.SupplierManager.Repository\Travely.SupplierManager.Repository.csproj", "{5911919C-F3AD-4138-A244-957B9F198FFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SupplierManager.Repository", "src\SupplierManager\Travely.SupplierManager.Repository\Travely.SupplierManager.Repository.csproj", "{5911919C-F3AD-4138-A244-957B9F198FFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Travely.SupplierManager.Service", "src\SupplierManager\Travely.SupplierManager.Service\Travely.SupplierManager.Service.csproj", "{D1DC7806-C8A7-4DFE-AD82-DA9C416BC427}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.SupplierManager.Service", "src\SupplierManager\Travely.SupplierManager.Service\Travely.SupplierManager.Service.csproj", "{D1DC7806-C8A7-4DFE-AD82-DA9C416BC427}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.TourManager.API", "src\TourManager\Travely.TourManager.API\Travely.TourManager.API.csproj", "{83D7DE4F-95B5-4457-A62A-03D8725F418F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.TourManager.BLL", "src\TourManager\Travely.TourManager.BLL\Travely.TourManager.BLL.csproj", "{B26EF3B3-C643-4D04-B811-32ECE9C0FB56}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.TourManager.Core", "src\TourManager\Travely.TourManager.Core\Travely.TourManager.Core.csproj", "{71493F11-2758-40F4-85C2-E229AB749A12}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.TourManager.DAL", "src\TourManager\Travely.TourManager.DAL\Travely.TourManager.DAL.csproj", "{382B9AEF-A388-4F7F-92C3-EFE92C979480}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Travely.IdentityClient", "src\IdentityManager\IdentityClient\Travely.IdentityClient.csproj", "{55907F7C-DB33-4E8F-8C1C-0674DF637ACE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -381,6 +391,26 @@ Global
 		{D1DC7806-C8A7-4DFE-AD82-DA9C416BC427}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1DC7806-C8A7-4DFE-AD82-DA9C416BC427}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1DC7806-C8A7-4DFE-AD82-DA9C416BC427}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83D7DE4F-95B5-4457-A62A-03D8725F418F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83D7DE4F-95B5-4457-A62A-03D8725F418F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83D7DE4F-95B5-4457-A62A-03D8725F418F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83D7DE4F-95B5-4457-A62A-03D8725F418F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B26EF3B3-C643-4D04-B811-32ECE9C0FB56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B26EF3B3-C643-4D04-B811-32ECE9C0FB56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B26EF3B3-C643-4D04-B811-32ECE9C0FB56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B26EF3B3-C643-4D04-B811-32ECE9C0FB56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71493F11-2758-40F4-85C2-E229AB749A12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71493F11-2758-40F4-85C2-E229AB749A12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71493F11-2758-40F4-85C2-E229AB749A12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71493F11-2758-40F4-85C2-E229AB749A12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{382B9AEF-A388-4F7F-92C3-EFE92C979480}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{382B9AEF-A388-4F7F-92C3-EFE92C979480}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{382B9AEF-A388-4F7F-92C3-EFE92C979480}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{382B9AEF-A388-4F7F-92C3-EFE92C979480}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55907F7C-DB33-4E8F-8C1C-0674DF637ACE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55907F7C-DB33-4E8F-8C1C-0674DF637ACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55907F7C-DB33-4E8F-8C1C-0674DF637ACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55907F7C-DB33-4E8F-8C1C-0674DF637ACE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -447,6 +477,11 @@ Global
 		{74BC2370-071A-4967-AAFA-DA24C550A771} = {749EC133-AA8E-466F-AF1E-C8FF70121511}
 		{5911919C-F3AD-4138-A244-957B9F198FFC} = {749EC133-AA8E-466F-AF1E-C8FF70121511}
 		{D1DC7806-C8A7-4DFE-AD82-DA9C416BC427} = {749EC133-AA8E-466F-AF1E-C8FF70121511}
+		{83D7DE4F-95B5-4457-A62A-03D8725F418F} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{B26EF3B3-C643-4D04-B811-32ECE9C0FB56} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{71493F11-2758-40F4-85C2-E229AB749A12} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{382B9AEF-A388-4F7F-92C3-EFE92C979480} = {90D98036-508B-4ED9-A502-0D0340502EC4}
+		{55907F7C-DB33-4E8F-8C1C-0674DF637ACE} = {F7F08459-EC41-43D9-80B8-D957AE658B01}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {415D9C51-FD40-480F-8A3F-95A1F0E5D750}
