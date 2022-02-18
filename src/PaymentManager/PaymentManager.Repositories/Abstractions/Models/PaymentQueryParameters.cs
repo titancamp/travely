@@ -8,7 +8,7 @@ namespace PaymentManager.Repositories.Models
 {
     public class PaymentQueryParameters
     {
-        const int MaxSize = 50;
+        const int MaxSize = 100;
         public int Index { get; set; } = 1;
         private int _size = 10;
         public int Size
